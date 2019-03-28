@@ -134,7 +134,7 @@ typedef struct
   __IO	uint32_t CHMUX7;
 } DMAControl;
 
-#define DMA_CNTR_BASE	    (( uint32_t) 0xe0042000)
+#define DMA_CNTR_BASE	    (( uint32_t) 0x40006000)
 
 #define	DMA		    ((DMAControl *) DMA_CNTR_BASE)
 
