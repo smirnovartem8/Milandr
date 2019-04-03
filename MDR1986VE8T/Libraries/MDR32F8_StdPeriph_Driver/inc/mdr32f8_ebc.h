@@ -82,7 +82,7 @@ uint32_t RGN_DIVOCLK;
 
 } EBC_RGN_InitTypeDef;
 
-#define 	RGN0      0
+#define 	RGN0      		0
 #define 	RGN1			1
 #define 	RGN2			2
 #define 	RGN3			3
@@ -91,30 +91,34 @@ uint32_t RGN_DIVOCLK;
 #define 	RGN6			6
 #define 	RGN7			7
 
-#define 	EBC_RGNx_EN			((uint32_t)0x00000001)
+#define EBC_WS_ACTIVE_0  ((uint32_t) (0x0 << EBC_WS_ACTIVE_pos)
 
-#define EBC_ECCMODE_PAR 			(uint32_t)(0x00 << EBC_ECCMODE_pos);
-#define EBC_ECCMODE_CON 			(uint32_t)(0x01 << EBC_ECCMODE_pos);
 
-#define EBC_RDYWAIT_NOWAIT 		(uint32_t)(0x00 << EBC_RDYWAIT_pos);
-#define EBC_RDYWAIT_WAIT 			(uint32_t)(0x01 << EBC_RDYWAIT_pos);
 
-#define EBC_MODE_32X 					(uint32_t)(0x00 << EBC_MODE_pos);
-#define EBC_MODE_16X 					(uint32_t)(0x01 << EBC_MODE_pos);
-#define EBC_MODE_8X 					(uint32_t)(0x02 << EBC_MODE_pos);
-#define EBC_MODE_64X 					(uint32_t)(0x03 << EBC_MODE_pos);
+#define EBC_RGNx_EN			    ((uint32_t)0x00000001)
 
-#define EBC_ROM_RAM 					(uint32_t)(0x00 << EBC_ROM_pos);
-#define EBC_ROM_ROM 					(uint32_t)(0x01 << EBC_ROM_pos);
+#define EBC_ECCMODE_PAR 		(uint32_t)(0x00);
+#define EBC_ECCMODE_CON 		(uint32_t)(0x01);
 
-#define EBC_CPOL_UP 					(uint32_t)(0x00 << EBC_CPOL_pos);
-#define EBC_CPOL_DOWN 				(uint32_t)(0x01 << EBC_CPOL_pos);
+#define EBC_RDYWAIT_NOWAIT 		(uint32_t)(0x00);
+#define EBC_RDYWAIT_WAIT 		(uint32_t)(0x01);
 
-#define EBC_USESEPAR_USER 		(uint32_t)(0x00 << EBC_USESEPAR_pos);
-#define EBC_USESEPAR_FORSOC 	(uint32_t)(0x01 << EBC_USESEPAR_pos);
+#define EBC_MODE_32X 			(uint32_t)(0x00);
+#define EBC_MODE_16X 			(uint32_t)(0x01);
+#define EBC_MODE_8X 			(uint32_t)(0x02);
+#define EBC_MODE_64X 			(uint32_t)(0x03);
 
-#define EBC_READ32_8_16 			(uint32_t)(0x00 << EBC_READ32_pos);
-#define EBC_READ32_32 				(uint32_t)(0x01 << EBC_READ32_pos);
+#define EBC_ROM_RAM 			(uint32_t)(0x00);
+#define EBC_ROM_ROM 			(uint32_t)(0x01);
+
+#define EBC_CPOL_UP 			(uint32_t)(0x00);
+#define EBC_CPOL_DOWN 			(uint32_t)(0x01);
+
+#define EBC_USESEPAR_USER 		(uint32_t)(0x00);
+#define EBC_USESEPAR_FORSOC 	(uint32_t)(0x01);
+
+#define EBC_READ32_8_16 		(uint32_t)(0x00);
+#define EBC_READ32_32 			(uint32_t)(0x01);
 
 
 /** @} */ /* End of group EBC_Exported_Types */

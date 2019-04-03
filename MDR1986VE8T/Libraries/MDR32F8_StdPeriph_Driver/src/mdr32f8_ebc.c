@@ -50,12 +50,12 @@ void EBC_RGNx_Init(uint32_t RGNx, const EBC_RGN_InitTypeDef* EBC_RGN_InitStruct)
 {
   uint32_t tmpreg_RGNx_CNTRL;
 
-	tmpreg_RGNx_CNTRL = (EBC_RGN_InitStruct->RGN_ECCEN 		<< EBC_ECCEN_pos)
+	tmpreg_RGNx_CNTRL =               (EBC_RGN_InitStruct->RGN_ECCEN 		<< EBC_ECCEN_pos)
 									| (EBC_RGN_InitStruct->RGN_ECCMODE 		<< EBC_ECCMODE_pos)
 									| (EBC_RGN_InitStruct->RGN_RDYWAIT 		<< EBC_RDYWAIT_pos)
-									| (EBC_RGN_InitStruct->RGN_MODE 	 		<< EBC_MODE_pos)
-									| (EBC_RGN_InitStruct->RGN_ROM 		 		<< EBC_ROM_pos)
-									| (EBC_RGN_InitStruct->RGN_CPOL 	 		<< EBC_CPOL_pos)
+									| (EBC_RGN_InitStruct->RGN_MODE 	 	<< EBC_MODE_pos)
+									| (EBC_RGN_InitStruct->RGN_ROM 		 	<< EBC_ROM_pos)
+									| (EBC_RGN_InitStruct->RGN_CPOL 	 	<< EBC_CPOL_pos)
 									| (EBC_RGN_InitStruct->RGN_WS_ACTIVE 	<< EBC_WS_ACTIVE_pos)
 									| (EBC_RGN_InitStruct->RGN_WS_SETUP 	<< EBC_WS_SETUP_pos)
 									| (EBC_RGN_InitStruct->RGN_WS_HOLD 		<< EBC_WS_HOLD_pos)
