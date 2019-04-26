@@ -1134,7 +1134,6 @@ void ETH_DMAPrepare(void)
 	DMA_CtrlDataInitTypeDef DMA_PriCtrlStr;
 	DMA_ChannelInitTypeDef DMA_InitStr;
 	
-  CLKCTRL_PER0_CLKcmd(CLKCTRL_PER0_CLK_MDR_DMA0_EN, ENABLE);
 	DMA_DeInit();
 	
 	DMA_StructInit(&DMA_InitStr);

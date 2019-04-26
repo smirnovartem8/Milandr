@@ -668,14 +668,20 @@ void CLKCTRL_CPU_PLLconfig (uint32_t PLLn, uint32_t CLKCTRL_CPU_PLLsource,
 		PLLPLD_def = PLL0CPURLD_BB;
       break;
 		case 1:
-//		reg = CLK_CNTR->PLL1_CLK;
+    temp = CLK_CNTR->PLL1_CLK;
+		temp &= PLL_SELclr;
+		temp |= (CLKCTRL_CPU_PLLsource<<PLL_SELoffset) | (CLKCTRL_PLLn_CLK_PLLn_Q) | (CLKCTRL_PLLn_CLK_PLLn_N<<PLL_MULoffset);
+		CLK_CNTR->PLL1_CLK=temp;
 		PLLON_def = PLL1CPUON_BB;
-		PLLPLD_def = PLL1CPUON_BB;
+		PLLPLD_def = PLL1CPURLD_BB;
       break;
     case 2:
-//		reg = CLK_CNTR->PLL2_CLK;
+    temp = CLK_CNTR->PLL2_CLK;
+		temp &= PLL_SELclr;
+		temp |= (CLKCTRL_CPU_PLLsource<<PLL_SELoffset) | (CLKCTRL_PLLn_CLK_PLLn_Q) | (CLKCTRL_PLLn_CLK_PLLn_N<<PLL_MULoffset);
+		CLK_CNTR->PLL2_CLK=temp;
 		PLLON_def = PLL2CPUON_BB;
-		PLLPLD_def = PLL2CPUON_BB;
+		PLLPLD_def = PLL2CPURLD_BB;
       break;
     default:
       break;
