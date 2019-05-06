@@ -88,7 +88,7 @@ void SystemCoreClockUpdate (void)
     if (sel_pll < 6)
       pll_source = _GenFreqsHz[sel_pll];
     else
-      pll_source = FERQ_FAULT_HZ;
+      pll_source = FREQ_FAULT_HZ;
     if (((regCLK >> 8) & 0x7F) == 0)
       pll_N = 2;
     else 
@@ -98,7 +98,7 @@ void SystemCoreClockUpdate (void)
     SystemCoreClock = ((pll_source * pll_N / (pll_Q + 1)) / (pll_DIV + 1));	    
   } 
   else
-	SystemCoreClock = FERQ_FAULT_HZ;
+	SystemCoreClock = FREQ_FAULT_HZ;
  
 }
 

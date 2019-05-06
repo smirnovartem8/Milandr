@@ -13,7 +13,7 @@
 #define HSE1_Value      	((uint32_t)25000000)
 #define LSI_Value       	((uint32_t)40000)
 #define LSE_Value       	((uint32_t)32768)
-#define FERQ_FAULT_HZ  0
+#define FREQ_FAULT_HZ  0
 /* DMA configuration parameters */
 /* Number of DMA channels to use */
 #define DMA_Channels_Number   32          /* This parameter is in range 1..32 */
