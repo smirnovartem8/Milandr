@@ -22,11 +22,11 @@
   <resetMask>0xFFFFFFFF</resetMask>
   <peripherals>
     <peripheral>
-      <name>MDR_CAN1</name>
+      <name>MDR_CLK</name>
       <version>1.0</version>
-      <description>CAN1 interfase controller registers</description>
-      <groupName>CAN</groupName>
-      <prependToName>MDR_CAN1_</prependToName>
+      <description>Clock controll registers</description>
+      <groupName>MDR_CLK</groupName>
+      <prependToName>MDR_CLK</prependToName>
       <baseAddress>0x40000000</baseAddress>
       <size>32</size>
       <access>read-write</access>
@@ -35,324 +35,472 @@
         <size>0x1000</size>
         <usage>registers</usage>
       </addressBlock>
-      <interrupt>
-        <name>CAN1_IRQ</name>
-        <value>0</value>
-      </interrupt>
       <registers>
-        <register>
-          <name>CONTROL</name>
-          <description>CAN Control Register</description>
+			<register>
+			<name>KEY</name>
+          <description>Key lock Register</description>
           <addressOffset>0x00000000</addressOffset>
           <size>32</size>
           <access>read-write</access>
           <resetValue>0x00000000</resetValue>
-          <resetMask>0x0000001F</resetMask>
+          <resetMask>0xFFFFFFFF</resetMask>
+        </register>
+			<register>
+          <name>MAX_CLK</name>
+          <description>MAX_CLK Register</description>
+          <addressOffset>0x00000004</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <resetMask>0x0000000F</resetMask>
           <fields>
             <field>
-              <name>CAN_EN</name>
+              <name>SELECT</name>
               <bitOffset>0</bitOffset>
+              <bitWidth>4</bitWidth>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+			<register>
+          <name>CPU_CLK</name>
+          <description>CPU clock Register</description>
+          <addressOffset>0x00000008</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <resetMask>0x7FFFFFF</resetMask>
+          <fields>
+            <field>
+              <name>DIV</name>
+              <bitOffset>0</bitOffset>
+              <bitWidth>16</bitWidth>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>EN_CHK_EVENT0</name>
+              <bitOffset>16</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
             </field>
             <field>
-              <name>ROM</name>
-              <bitOffset>1</bitOffset>
+              <name>EN_CHK_EVENT1</name>
+              <bitOffset>17</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
             </field>
             <field>
-              <name>STM</name>
-              <bitOffset>2</bitOffset>
+              <name>EN_CHK_EVENT2</name>
+              <bitOffset>18</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
             </field>
             <field>
-              <name>SAP</name>
-              <bitOffset>3</bitOffset>
+              <name>EN_CHK_EVENT3</name>
+              <bitOffset>19</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
             </field>
             <field>
-              <name>ROP</name>
-              <bitOffset>4</bitOffset>
+              <name>EN_CHK</name>
+              <bitOffset>20</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>CLR_CHK_SHIFT_REG0</name>
+              <bitOffset>21</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>CLR_CHK_SHIFT_REG1</name>
+              <bitOffset>22</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>CLR_CHK_EVENT0</name>
+              <bitOffset>23</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>CLR_CHK_EVENT1</name>
+              <bitOffset>24</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>CLR_CHK_EVENT2</name>
+              <bitOffset>25</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>CLR_CHK_EVENT3</name>
+              <bitOffset>26</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
             </field>
           </fields>
         </register>
-        <register>
-          <name>STATUS</name>
-          <description>CAN Status Register</description>
-          <addressOffset>0x00000004</addressOffset>
+			<register>
+          <name>PER0_CLK</name>
+          <description>Pherepherial clock Register</description>
+          <addressOffset>0x0000000C</addressOffset>
           <size>32</size>
           <access>read-write</access>
           <resetValue>0x00000000</resetValue>
-          <resetMask>0xFFFF1DFF</resetMask>
+          <resetMask>0x27A3E000</resetMask>
           <fields>
             <field>
-              <name>RX_READY</name>
-              <bitOffset>0</bitOffset>
+              <name>MDR_PORTA_EN</name>
+              <bitOffset>13</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
             </field>
             <field>
-              <name>TX_READY</name>
-              <bitOffset>1</bitOffset>
+              <name>MDR_PORTB_EN</name>
+              <bitOffset>14</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
             </field>
             <field>
-              <name>ERROR_OVER</name>
+              <name>MDR_PORTC_EN</name>
+              <bitOffset>15</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>MDR_PORTD_EN</name>
+              <bitOffset>16</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>MDR_PORTE_EN</name>
+              <bitOffset>17</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>MDR_SPW0_EN</name>
+              <bitOffset>21</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>MDR_TMR0_EN</name>
+              <bitOffset>23</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>MDR_TMR1_EN</name>
+              <bitOffset>24</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>MDR_TMR2_EN</name>
+              <bitOffset>25</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>MDR_TMR3_EN</name>
+              <bitOffset>26</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>MDR_CAN0_EN</name>
+              <bitOffset>29</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+			<register>
+          <name>PER1_CLK</name>
+          <addressOffset>0x00000010</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <resetMask>0x07A828C4</resetMask>
+          <fields>
+            <field>
+              <name>MDR_SSP0_EN</name>
               <bitOffset>2</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
             </field>
-            <field>
-              <name>BIT_ERR</name>
-              <bitOffset>3</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>BIT_STUFF_ERR</name>
-              <bitOffset>4</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>CRC_ERR</name>
-              <bitOffset>5</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>FRAME_ERR</name>
+			<field>
+              <name>MDR_UART0_EN</name>
               <bitOffset>6</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
             </field>
-            <field>
-              <name>ACK_ERR</name>
+			<field>
+              <name>MDR_UART1_EN</name>
               <bitOffset>7</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
             </field>
-            <field>
-              <name>IDLOWER</name>
-              <bitOffset>8</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>ERR_STATUS</name>
-              <bitOffset>9</bitOffset>
-              <bitWidth>2</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>RX_ERR_CNT8</name>
+			<field>
+              <name>MDR_ARCRX0_EN</name>
               <bitOffset>11</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
             </field>
-            <field>
-              <name>TX_ERR_CNT8</name>
-              <bitOffset>12</bitOffset>
+			<field>
+              <name>MDR_ARCTX0_EN</name>
+              <bitOffset>13</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
             </field>
+			<field>
+              <name>MDR_MIL0_EN</name>
+              <bitOffset>19</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>MDR_MIL1_EN</name>
+              <bitOffset>21</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>MDR_ADC0_EN</name>
+              <bitOffset>23</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>MDR_ADC1_EN</name>
+              <bitOffset>24</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>MDR_DAC0_EN</name>
+              <bitOffset>25</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>MDR_DAC1_EN</name>
+              <bitOffset>26</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+			<register>
+          <name>CPU_CHK0</name>
+          <addressOffset>0x00000014</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <resetMask>0xFFFFFFFF</resetMask>
+          <fields>
             <field>
-              <name>RX_ERR_CNT</name>
+              <name>PRES_REG2</name>
+              <bitOffset>0</bitOffset>
+              <bitWidth>16</bitWidth>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>PRES_REG0</name>
               <bitOffset>16</bitOffset>
+              <bitWidth>16</bitWidth>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+			<register>
+          <name>CPU_CHK1</name>
+          <addressOffset>0x00000018</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <resetMask>0xFFFFFFFF</resetMask>
+          <fields>
+            <field>
+              <name>PRES_REG1</name>
+              <bitOffset>0</bitOffset>
+              <bitWidth>16</bitWidth>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>PRES_RE3</name>
+              <bitOffset>16</bitOffset>
+              <bitWidth>16</bitWidth>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+			<register>
+          <name>CPU_CHK2</name>
+          <addressOffset>0x0000001C</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <resetMask>0xFFFFFFFF</resetMask>
+          <fields>
+            <field>
+              <name>BASE_REG0</name>
+              <bitOffset>0</bitOffset>
               <bitWidth>8</bitWidth>
               <access>read-write</access>
             </field>
             <field>
-              <name>TX_ERR_CNT</name>
+              <name>BASE_REG1</name>
+              <bitOffset>8</bitOffset>
+              <bitWidth>8</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>BASE_REG2</name>
+              <bitOffset>16</bitOffset>
+              <bitWidth>8</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>BASE_REG3</name>
               <bitOffset>24</bitOffset>
               <bitWidth>8</bitWidth>
               <access>read-write</access>
             </field>
           </fields>
         </register>
-        <register>
-          <name>BITTMNG</name>
-          <description>CAN Bittiming Register</description>
-          <addressOffset>0x00000008</addressOffset>
-          <size>32</size>
-          <access>read-write</access>
-          <resetValue>0x00000000</resetValue>
-          <resetMask>0x0FFFFFFF</resetMask>
-          <fields>
-            <field>
-              <name>BRP</name>
-              <bitOffset>0</bitOffset>
-              <bitWidth>16</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>PSEG</name>
-              <bitOffset>16</bitOffset>
-              <bitWidth>3</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>SEG1</name>
-              <bitOffset>19</bitOffset>
-              <bitWidth>3</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>SEG2</name>
-              <bitOffset>22</bitOffset>
-              <bitWidth>3</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>SJW</name>
-              <bitOffset>25</bitOffset>
-              <bitWidth>2</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>SB</name>
-              <bitOffset>27</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>INT_EN</name>
-          <description>CAN Interrupt enable Register</description>
-          <addressOffset>0x00000010</addressOffset>
-          <size>32</size>
-          <access>read-write</access>
-          <resetValue>0x00000000</resetValue>
-          <resetMask>0x0000001F</resetMask>
-          <fields>
-            <field>
-              <name>GLB_INT_EN</name>
-              <bitOffset>0</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>RX_INT_EN</name>
-              <bitOffset>1</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>TX_INT_EN</name>
-              <bitOffset>2</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>ERR_INT_EN</name>
-              <bitOffset>3</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>ERR_OVER_INT_EN</name>
-              <bitOffset>4</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>OVER</name>
-          <addressOffset>0x0000001C</addressOffset>
-          <size>32</size>
-          <access>read-write</access>
-          <resetValue>0x00000000</resetValue>
-          <resetMask>0x000000FF</resetMask>
-          <fields>
-            <field>
-              <name>ERROR_MAX</name>
-              <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
-              <access>read-write</access>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>RXID</name>
-          <description>CAN Receive ID Register</description>
+			<register> 
+          <name>CPU_STAT</name>
+          <description>Status Register clock system</description>
           <addressOffset>0x00000020</addressOffset>
           <size>32</size>
-          <access>read-write</access>
+          <access>read-only</access>
           <resetValue>0x00000000</resetValue>
-          <resetMask>0x1FFFFFFF</resetMask>
+          <resetMask>0x000FFFFF</resetMask>
           <fields>
             <field>
-              <name>EID</name>
+              <name>MAX_CHK_SHIFT_REG0</name>
               <bitOffset>0</bitOffset>
-              <bitWidth>18</bitWidth>
-              <access>read-write</access>
+              <bitWidth>8</bitWidth>
+              <access>read-only</access>
             </field>
             <field>
-              <name>SID</name>
+              <name>MAX_CHK_SHIFT_REG1</name>
+              <bitOffset>8</bitOffset>
+              <bitWidth>8</bitWidth>
+              <access>read-only</access>
+            </field>
+            <field>
+              <name>EVENT0</name>
+              <bitOffset>16</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-only</access>
+            </field>
+            <field>
+              <name>EVENT1</name>
+              <bitOffset>17</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-only</access>
+            </field>
+            <field>
+              <name>EVENT2</name>
               <bitOffset>18</bitOffset>
-              <bitWidth>11</bitWidth>
-              <access>read-write</access>
+              <bitWidth>1</bitWidth>
+              <access>read-only</access>
+            </field>
+            <field>
+              <name>EVENT3</name>
+              <bitOffset>19</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-only</access>
             </field>
           </fields>
         </register>
-        <register>
-          <name>RXDLC</name>
-          <description>CAN Receive DLC Register</description>
+			<register>
+          <name>LSI_CLK</name>
           <addressOffset>0x00000024</addressOffset>
           <size>32</size>
           <access>read-write</access>
           <resetValue>0x00000000</resetValue>
-          <resetMask>0x00001F0F</resetMask>
+          <resetMask>0xFFFF0000</resetMask>
           <fields>
             <field>
-              <name>DLC</name>
-              <bitOffset>0</bitOffset>
-              <bitWidth>4</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>RTR</name>
-              <bitOffset>8</bitOffset>
+              <name>EN_CHK_EVENT0</name>
+              <bitOffset>16</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
             </field>
             <field>
-              <name>R1</name>
-              <bitOffset>9</bitOffset>
+              <name>EN_CHK_EVENT1</name>
+              <bitOffset>17</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
             </field>
             <field>
-              <name>R0</name>
-              <bitOffset>10</bitOffset>
+              <name>EN_CHK_EVENT2</name>
+              <bitOffset>18</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
             </field>
             <field>
-              <name>SSR</name>
-              <bitOffset>11</bitOffset>
+              <name>EN_CHK_EVENT3</name>
+              <bitOffset>19</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
             </field>
-            <field>
-              <name>IDE</name>
-              <bitOffset>12</bitOffset>
+			<field>
+              <name>EN_CHK</name>
+              <bitOffset>20</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>CLR_CHK_SHIFT_REG0</name>
+              <bitOffset>21</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>CLR_CHK_SHIFT_REG1</name>
+              <bitOffset>22</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>CLR_CHK_EVENT0</name>
+              <bitOffset>23</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>CLR_CHK_EVENT1</name>
+              <bitOffset>24</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>CLR_CHK_EVENT2</name>
+              <bitOffset>25</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>CLR_CHK_EVENT3</name>
+              <bitOffset>26</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
             </field>
           </fields>
         </register>
-        <register>
-          <name>RXDATAL</name>
-          <description>CAN Receive Data low Register</description>
+			<register>
+          <name>LSI_CHK0</name>
           <addressOffset>0x00000028</addressOffset>
           <size>32</size>
           <access>read-write</access>
@@ -360,34 +508,21 @@
           <resetMask>0xFFFFFFFF</resetMask>
           <fields>
             <field>
-              <name>DB0</name>
+              <name>PRES_REG2</name>
               <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
+              <bitWidth>16</bitWidth>
               <access>read-write</access>
             </field>
             <field>
-              <name>DB1</name>
-              <bitOffset>8</bitOffset>
-              <bitWidth>8</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>DB2</name>
+              <name>PRES_REG0</name>
               <bitOffset>16</bitOffset>
-              <bitWidth>8</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>DB3</name>
-              <bitOffset>24</bitOffset>
-              <bitWidth>8</bitWidth>
+              <bitWidth>16</bitWidth>
               <access>read-write</access>
             </field>
           </fields>
         </register>
-        <register>
-          <name>RXDATAH</name>
-          <description>CAN Receive Data high Register</description>
+			<register>
+          <name>LSI_CHK1</name>
           <addressOffset>0x0000002C</addressOffset>
           <size>32</size>
           <access>read-write</access>
@@ -395,1331 +530,1895 @@
           <resetMask>0xFFFFFFFF</resetMask>
           <fields>
             <field>
-              <name>DB4</name>
+              <name>PRES_REG1</name>
+              <bitOffset>0</bitOffset>
+              <bitWidth>16</bitWidth>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>PRES_REG3</name>
+              <bitOffset>16</bitOffset>
+              <bitWidth>16</bitWidth>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+			<register>
+          <name>LSI_CHK2</name>
+          <addressOffset>0x00000030</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <resetMask>0xFFFFFFFF</resetMask>
+          <fields>
+            <field>
+              <name>BASE_REG0</name>
               <bitOffset>0</bitOffset>
               <bitWidth>8</bitWidth>
               <access>read-write</access>
             </field>
             <field>
-              <name>DB5</name>
+              <name>BASE_REG1</name>
               <bitOffset>8</bitOffset>
               <bitWidth>8</bitWidth>
               <access>read-write</access>
             </field>
-            <field>
-              <name>DB6</name>
+			<field>
+              <name>BASE_REG2</name>
               <bitOffset>16</bitOffset>
               <bitWidth>8</bitWidth>
               <access>read-write</access>
             </field>
-            <field>
-              <name>DB7</name>
+			<field>
+              <name>BASE_REG3</name>
               <bitOffset>24</bitOffset>
               <bitWidth>8</bitWidth>
               <access>read-write</access>
             </field>
           </fields>
         </register>
-        <register>
-          <name>TXID</name>
-          <description>CAN Transmit ID Register</description>
-          <addressOffset>0x00000030</addressOffset>
+			<register>
+          <name>LSI_STAT</name>
+          <description>LSI Status Register</description>
+          <addressOffset>0x00000034</addressOffset>
+          <size>32</size>
+          <access>read-only</access>
+          <resetValue>0x00000000</resetValue>
+          <resetMask>0x001FFFFF</resetMask>
+          <fields>
+            <field>
+              <name>MAX_CHK_SHIFT_REG0</name>
+              <bitOffset>0</bitOffset>
+              <bitWidth>8</bitWidth>
+              <access>read-only</access>
+            </field>
+            <field>
+              <name>MAX_CHK_SHIFT_REG1</name>
+              <bitOffset>8</bitOffset>
+              <bitWidth>8</bitWidth>
+              <access>read-only</access>
+            </field>
+			<field>
+              <name>EVENT0</name>
+              <bitOffset>16</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-only</access>
+            </field>
+		    <field>
+              <name>EVENT1</name>
+              <bitOffset>17</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-only</access>
+            </field>
+			<field>
+              <name>EVENT2</name>
+              <bitOffset>18</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-only</access>
+            </field>
+			<field>
+              <name>EVENT3</name>
+              <bitOffset>19</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-only</access>
+            </field>
+			<field>
+              <name>LSI_READY</name>
+              <bitOffset>20</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-only</access>
+            </field>
+          </fields>
+        </register>
+			<register>
+          <name>HSI_STAT</name>
+          <description>HSI Status Register</description>
+          <addressOffset>0x00000038</addressOffset>
+          <size>32</size>
+          <access>read-only</access>
+          <resetValue>0x00000000</resetValue>
+          <resetMask>0x00100000</resetMask>
+          <fields>
+            <field>
+              <name>HSI_READY</name>
+              <bitOffset>20</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-only</access>
+            </field>
+          </fields>
+        </register>
+			<register>
+          <name>LSE_CLK</name>
+          <addressOffset>0x0000003C</addressOffset>
           <size>32</size>
           <access>read-write</access>
           <resetValue>0x00000000</resetValue>
-          <resetMask>0x1FFFFFFF</resetMask>
+          <resetMask>0xFFFF0000</resetMask>
           <fields>
             <field>
-              <name>EID</name>
-              <bitOffset>0</bitOffset>
-              <bitWidth>18</bitWidth>
+              <name>EN_CHK_EVENT0</name>
+              <bitOffset>16</bitOffset>
+              <bitWidth>1</bitWidth>
               <access>read-write</access>
             </field>
             <field>
-              <name>SID</name>
+              <name>EN_CHK_EVENT1</name>
+              <bitOffset>17</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>EN_CHK_EVENT2</name>
               <bitOffset>18</bitOffset>
-              <bitWidth>11</bitWidth>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>EN_CHK_EVENT3</name>
+              <bitOffset>19</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>EN_CHK</name>
+              <bitOffset>20</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>CLR_CHK_SHIFT_REG0</name>
+              <bitOffset>21</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>CLR_CHK_SHIFT_REG1</name>
+              <bitOffset>22</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>CLR_CHK_EVENT0</name>
+              <bitOffset>23</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>CLR_CHK_EVENT1</name>
+              <bitOffset>24</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>CLR_CHK_EVENT2</name>
+              <bitOffset>25</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>CLR_CHK_EVENT3</name>
+              <bitOffset>26</bitOffset>
+              <bitWidth>1</bitWidth>
               <access>read-write</access>
             </field>
           </fields>
         </register>
-        <register>
-          <name>TXDLC</name>
-          <description>CAN Transmit DLC Register</description>
-          <addressOffset>0x00000034</addressOffset>
+			<register>
+          <name>LSE_CHK0</name>
+          <addressOffset>0x00000040</addressOffset>
           <size>32</size>
           <access>read-write</access>
           <resetValue>0x00000000</resetValue>
-          <resetMask>0x00001F0F</resetMask>
+          <resetMask>0xFFFFFFFF</resetMask>
           <fields>
             <field>
-              <name>DLC</name>
+              <name>PRES_REG2</name>
+              <bitOffset>0</bitOffset>
+              <bitWidth>16</bitWidth>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>PRES_REG0</name>
+              <bitOffset>16</bitOffset>
+              <bitWidth>16</bitWidth>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+			<register>
+          <name>LSE_CHK1</name>
+          <addressOffset>0x00000044</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <resetMask>0xFFFFFFFF</resetMask>
+          <fields>
+            <field>
+              <name>PRES_REG1</name>
+              <bitOffset>0</bitOffset>
+              <bitWidth>16</bitWidth>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>PRES_REG3</name>
+              <bitOffset>16</bitOffset>
+              <bitWidth>16</bitWidth>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+			<register>
+          <name>LSE_CHK2</name>
+          <addressOffset>0x00000048</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <resetMask>0xFFFFFFFF</resetMask>
+          <fields>
+            <field>
+              <name>BASE_REG0</name>
+              <bitOffset>0</bitOffset>
+              <bitWidth>8</bitWidth>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>BASE_REG1</name>
+              <bitOffset>8</bitOffset>
+              <bitWidth>8</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>BASE_REG2</name>
+              <bitOffset>16</bitOffset>
+              <bitWidth>8</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>BASE_REG3</name>
+              <bitOffset>24</bitOffset>
+              <bitWidth>8</bitWidth>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+			<register>
+          <name>LSE_STAT</name>
+          <description>LSE Status Register</description>
+          <addressOffset>0x0000004C</addressOffset>
+          <size>32</size>
+          <access>read-only</access>
+          <resetValue>0x00000000</resetValue>
+          <resetMask>0x001FFFFF</resetMask>
+          <fields>
+            <field>
+              <name>MAX_CHK_SHIFT_REG0</name>
+              <bitOffset>0</bitOffset>
+              <bitWidth>8</bitWidth>
+              <access>read-only</access>
+            </field>
+            <field>
+              <name>MAX_CHK_SHIFT_REG1</name>
+              <bitOffset>8</bitOffset>
+              <bitWidth>8</bitWidth>
+              <access>read-only</access>
+            </field>
+			<field>
+              <name>EVENT0</name>
+              <bitOffset>16</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-only</access>
+            </field>
+		    <field>
+              <name>EVENT1</name>
+              <bitOffset>17</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-only</access>
+            </field>
+			<field>
+              <name>EVENT2</name>
+              <bitOffset>18</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-only</access>
+            </field>
+			<field>
+              <name>EVENT3</name>
+              <bitOffset>19</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-only</access>
+            </field>
+			<field>
+              <name>LSE_READY</name>
+              <bitOffset>20</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-only</access>
+            </field>
+          </fields>
+        </register>
+			<register>
+          <name>HSE0_CLK</name>
+          <addressOffset>0x00000050</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <resetMask>0x3FFF0000</resetMask>
+          <fields>
+            <field>
+              <name>EN_CHK_EVENT0</name>
+              <bitOffset>16</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>EN_CHK_EVENT1</name>
+              <bitOffset>17</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>EN_CHK_EVENT2</name>
+              <bitOffset>18</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>EN_CHK_EVENT3</name>
+              <bitOffset>19</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>EN_CHK</name>
+              <bitOffset>20</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>CLR_CHK_SHIFT_REG0</name>
+              <bitOffset>21</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>CLR_CHK_SHIFT_REG1</name>
+              <bitOffset>22</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>CLR_CHK_EVENT0</name>
+              <bitOffset>23</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>CLR_CHK_EVENT1</name>
+              <bitOffset>24</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>CLR_CHK_EVENT2</name>
+              <bitOffset>25</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>CLR_CHK_EVENT3</name>
+              <bitOffset>26</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>HSE0_ON</name>
+              <bitOffset>27</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>HSE0_BYP</name>
+              <bitOffset>28</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>HSE_FILTER_EN</name>
+              <bitOffset>29</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+			<register>
+          <name>HSE0_CHK0</name>
+          <addressOffset>0x00000054</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <resetMask>0xFFFFFFFF</resetMask>
+          <fields>
+            <field>
+              <name>PRES_REG2</name>
+              <bitOffset>0</bitOffset>
+              <bitWidth>16</bitWidth>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>PRES_REG0</name>
+              <bitOffset>16</bitOffset>
+              <bitWidth>16</bitWidth>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+			<register>
+          <name>HSE0_CHK1</name>
+          <addressOffset>0x00000058</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <resetMask>0xFFFFFFFF</resetMask>
+          <fields>
+            <field>
+              <name>PRES_REG1</name>
+              <bitOffset>0</bitOffset>
+              <bitWidth>16</bitWidth>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>PRES_REG3</name>
+              <bitOffset>16</bitOffset>
+              <bitWidth>16</bitWidth>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+			<register>
+          <name>HSE0_CHK2</name>
+          <addressOffset>0x0000005C</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <resetMask>0xFFFFFFFF</resetMask>
+          <fields>
+            <field>
+              <name>BASE_REG0</name>
+              <bitOffset>0</bitOffset>
+              <bitWidth>8</bitWidth>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>BASE_REG1</name>
+              <bitOffset>8</bitOffset>
+              <bitWidth>8</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>BASE_REG2</name>
+              <bitOffset>16</bitOffset>
+              <bitWidth>8</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>BASE_REG3</name>
+              <bitOffset>24</bitOffset>
+              <bitWidth>8</bitWidth>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+			<register>
+          <name>HSE0_STAT</name>
+          <description>HSE0 Status Register</description>
+          <addressOffset>0x00000060</addressOffset>
+          <size>32</size>
+          <access>read-only</access>
+          <resetValue>0x00000000</resetValue>
+          <resetMask>0x001FFFFF</resetMask>
+          <fields>
+            <field>
+              <name>MAX_CHK_SHIFT_REG0</name>
+              <bitOffset>0</bitOffset>
+              <bitWidth>8</bitWidth>
+              <access>read-only</access>
+            </field>
+            <field>
+              <name>MAX_CHK_SHIFT_REG1</name>
+              <bitOffset>8</bitOffset>
+              <bitWidth>8</bitWidth>
+              <access>read-only</access>
+            </field>
+			<field>
+              <name>EVENT0</name>
+              <bitOffset>16</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-only</access>
+            </field>
+		    <field>
+              <name>EVENT1</name>
+              <bitOffset>17</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-only</access>
+            </field>
+			<field>
+              <name>EVENT2</name>
+              <bitOffset>18</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-only</access>
+            </field>
+			<field>
+              <name>EVENT3</name>
+              <bitOffset>19</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-only</access>
+            </field>
+			<field>
+              <name>HSE0_READY</name>
+              <bitOffset>20</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-only</access>
+            </field>
+          </fields>
+        </register>
+			<register>
+          <name>HSE1_CLK</name>
+          <addressOffset>0x00000064</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <resetMask>0x3FFF0000</resetMask>
+          <fields>
+            <field>
+              <name>EN_CHK_EVENT0</name>
+              <bitOffset>16</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>EN_CHK_EVENT1</name>
+              <bitOffset>17</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>EN_CHK_EVENT2</name>
+              <bitOffset>18</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>EN_CHK_EVENT3</name>
+              <bitOffset>19</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>EN_CHK</name>
+              <bitOffset>20</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>CLR_CHK_SHIFT_REG0</name>
+              <bitOffset>21</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>CLR_CHK_SHIFT_REG1</name>
+              <bitOffset>22</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>CLR_CHK_EVENT0</name>
+              <bitOffset>23</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>CLR_CHK_EVENT1</name>
+              <bitOffset>24</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>CLR_CHK_EVENT2</name>
+              <bitOffset>25</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>CLR_CHK_EVENT3</name>
+              <bitOffset>26</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>HSE1_ON</name>
+              <bitOffset>27</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>HSE1_BYP</name>
+              <bitOffset>28</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>HSE_FILTER_EN</name>
+              <bitOffset>29</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+			<register>
+          <name>HSE1_CHK0</name>
+          <addressOffset>0x00000068</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <resetMask>0xFFFFFFFF</resetMask>
+          <fields>
+            <field>
+              <name>PRES_REG2</name>
+              <bitOffset>0</bitOffset>
+              <bitWidth>16</bitWidth>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>PRES_REG0</name>
+              <bitOffset>16</bitOffset>
+              <bitWidth>16</bitWidth>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+			<register>
+          <name>HSE1_CHK1</name>
+          <addressOffset>0x0000006C</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <resetMask>0xFFFFFFFF</resetMask>
+          <fields>
+            <field>
+              <name>PRES_REG1</name>
+              <bitOffset>0</bitOffset>
+              <bitWidth>16</bitWidth>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>PRES_REG3</name>
+              <bitOffset>16</bitOffset>
+              <bitWidth>16</bitWidth>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+			<register>
+          <name>HSE1_CHK2</name>
+          <addressOffset>0x00000070</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <resetMask>0xFFFFFFFF</resetMask>
+          <fields>
+            <field>
+              <name>BASE_REG0</name>
+              <bitOffset>0</bitOffset>
+              <bitWidth>8</bitWidth>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>BASE_REG1</name>
+              <bitOffset>8</bitOffset>
+              <bitWidth>8</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>BASE_REG2</name>
+              <bitOffset>16</bitOffset>
+              <bitWidth>8</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>BASE_REG3</name>
+              <bitOffset>24</bitOffset>
+              <bitWidth>8</bitWidth>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+			<register>
+          <name>HSE1_STAT</name>
+          <description>HSE1 Status Register</description>
+          <addressOffset>0x00000074</addressOffset>
+          <size>32</size>
+          <access>read-only</access>
+          <resetValue>0x00000000</resetValue>
+          <resetMask>0x001FFFFF</resetMask>
+          <fields>
+            <field>
+              <name>MAX_CHK_SHIFT_REG0</name>
+              <bitOffset>0</bitOffset>
+              <bitWidth>8</bitWidth>
+              <access>read-only</access>
+            </field>
+            <field>
+              <name>MAX_CHK_SHIFT_REG1</name>
+              <bitOffset>8</bitOffset>
+              <bitWidth>8</bitWidth>
+              <access>read-only</access>
+            </field>
+			<field>
+              <name>EVENT0</name>
+              <bitOffset>16</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-only</access>
+            </field>
+		    <field>
+              <name>EVENT1</name>
+              <bitOffset>17</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-only</access>
+            </field>
+			<field>
+              <name>EVENT2</name>
+              <bitOffset>18</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-only</access>
+            </field>
+			<field>
+              <name>EVENT3</name>
+              <bitOffset>19</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-only</access>
+            </field>
+			<field>
+              <name>HSE1_READY</name>
+              <bitOffset>20</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-only</access>
+            </field>
+          </fields>
+        </register>
+			<register>
+          <name>PLL0_CLK</name>
+          <addressOffset>0x00000078</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <resetMask>0xFFFF7F1F</resetMask>
+          <fields>
+            <field>
+              <name>PLL0_Q</name>
               <bitOffset>0</bitOffset>
               <bitWidth>4</bitWidth>
               <access>read-write</access>
             </field>
             <field>
-              <name>RTR</name>
-              <bitOffset>8</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>R1</name>
-              <bitOffset>9</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>R0</name>
-              <bitOffset>10</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>SSR</name>
-              <bitOffset>11</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>IDE</name>
-              <bitOffset>12</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>DATAL</name>
-          <description>CAN Transmit Data low Register</description>
-          <addressOffset>0x00000038</addressOffset>
-          <size>32</size>
-          <access>read-write</access>
-          <resetValue>0x00000000</resetValue>
-          <resetMask>0xFFFFFFFF</resetMask>
-          <fields>
-            <field>
-              <name>DB0</name>
-              <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>DB1</name>
-              <bitOffset>8</bitOffset>
-              <bitWidth>8</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>DB2</name>
-              <bitOffset>16</bitOffset>
-              <bitWidth>8</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>DB3</name>
-              <bitOffset>24</bitOffset>
-              <bitWidth>8</bitWidth>
-              <access>read-write</access>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>DATAH</name>
-          <description>CAN Transmit Data high Register</description>
-          <addressOffset>0x0000003C</addressOffset>
-          <size>32</size>
-          <access>read-write</access>
-          <resetValue>0x00000000</resetValue>
-          <resetMask>0xFFFFFFFF</resetMask>
-          <fields>
-            <field>
-              <name>DB4</name>
-              <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>DB5</name>
-              <bitOffset>8</bitOffset>
-              <bitWidth>8</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>DB6</name>
-              <bitOffset>16</bitOffset>
-              <bitWidth>8</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>DB7</name>
-              <bitOffset>24</bitOffset>
-              <bitWidth>8</bitWidth>
-              <access>read-write</access>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>BUF_CON00</name>
-          <description>CAN Buffer Connection Register</description>
-          <addressOffset>0x00000040</addressOffset>
-          <size>32</size>
-          <access>read-write</access>
-          <resetValue>0x00000000</resetValue>
-          <resetMask>0x000000FF</resetMask>
-          <fields>
-            <field>
-              <name>EN</name>
-              <bitOffset>0</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>RX_TXn</name>
-              <bitOffset>1</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>OVER_EN</name>
-              <bitOffset>2</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>RTR_EN</name>
-              <bitOffset>3</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>PRIOR_0</name>
+              <name>DV</name>
               <bitOffset>4</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
             </field>
             <field>
-              <name>TX_REQ</name>
-              <bitOffset>5</bitOffset>
+              <name>PLL0_N</name>
+              <bitOffset>8</bitOffset>
+              <bitWidth>7</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>EN_CHK_EVENT0</name>
+              <bitOffset>16</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
             </field>
             <field>
-              <name>RX_FULL</name>
-              <bitOffset>6</bitOffset>
+              <name>EN_CHK_EVENT1</name>
+              <bitOffset>17</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
             </field>
             <field>
-              <name>OVER_WR</name>
-              <bitOffset>7</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-            </field>
-          </fields>
-        </register>
-        <register derivedFrom="BUF_CON00">
-          <name>BUF_CON01</name>
-          <addressOffset>0x00000044</addressOffset>
-        </register>
-        <register derivedFrom="BUF_CON00">
-          <name>BUF_CON02</name>
-          <addressOffset>0x00000048</addressOffset>
-        </register>
-        <register derivedFrom="BUF_CON00">
-          <name>BUF_CON03</name>
-          <addressOffset>0x0000004C</addressOffset>
-        </register>
-        <register derivedFrom="BUF_CON00">
-          <name>BUF_CON04</name>
-          <addressOffset>0x00000050</addressOffset>
-        </register>
-        <register derivedFrom="BUF_CON00">
-          <name>BUF_CON05</name>
-          <addressOffset>0x00000054</addressOffset>
-        </register>
-        <register derivedFrom="BUF_CON00">
-          <name>BUF_CON06</name>
-          <addressOffset>0x00000058</addressOffset>
-        </register>
-        <register derivedFrom="BUF_CON00">
-          <name>BUF_CON07</name>
-          <addressOffset>0x0000005C</addressOffset>
-        </register>
-        <register derivedFrom="BUF_CON00">
-          <name>BUF_CON08</name>
-          <addressOffset>0x00000060</addressOffset>
-        </register>
-        <register derivedFrom="BUF_CON00">
-          <name>BUF_CON09</name>
-          <addressOffset>0x00000064</addressOffset>
-        </register>
-        <register derivedFrom="BUF_CON00">
-          <name>BUF_CON10</name>
-          <addressOffset>0x00000068</addressOffset>
-        </register>
-        <register derivedFrom="BUF_CON00">
-          <name>BUF_CON11</name>
-          <addressOffset>0x0000006C</addressOffset>
-        </register>
-        <register derivedFrom="BUF_CON00">
-          <name>BUF_CON12</name>
-          <addressOffset>0x00000070</addressOffset>
-        </register>
-        <register derivedFrom="BUF_CON00">
-          <name>BUF_CON13</name>
-          <addressOffset>0x00000074</addressOffset>
-        </register>
-        <register derivedFrom="BUF_CON00">
-          <name>BUF_CON14</name>
-          <addressOffset>0x00000078</addressOffset>
-        </register>
-        <register derivedFrom="BUF_CON00">
-          <name>BUF_CON15</name>
-          <addressOffset>0x0000007C</addressOffset>
-        </register>
-        <register derivedFrom="BUF_CON00">
-          <name>BUF_CON16</name>
-          <addressOffset>0x00000080</addressOffset>
-        </register>
-        <register derivedFrom="BUF_CON00">
-          <name>BUF_CON17</name>
-          <addressOffset>0x00000084</addressOffset>
-        </register>
-        <register derivedFrom="BUF_CON00">
-          <name>BUF_CON18</name>
-          <addressOffset>0x00000088</addressOffset>
-        </register>
-        <register derivedFrom="BUF_CON00">
-          <name>BUF_CON19</name>
-          <addressOffset>0x0000008C</addressOffset>
-        </register>
-        <register derivedFrom="BUF_CON00">
-          <name>BUF_CON20</name>
-          <addressOffset>0x00000090</addressOffset>
-        </register>
-        <register derivedFrom="BUF_CON00">
-          <name>BUF_CON21</name>
-          <addressOffset>0x00000094</addressOffset>
-        </register>
-        <register derivedFrom="BUF_CON00">
-          <name>BUF_CON22</name>
-          <addressOffset>0x00000098</addressOffset>
-        </register>
-        <register derivedFrom="BUF_CON00">
-          <name>BUF_CON23</name>
-          <addressOffset>0x0000009C</addressOffset>
-        </register>
-        <register derivedFrom="BUF_CON00">
-          <name>BUF_CON24</name>
-          <addressOffset>0x000000A0</addressOffset>
-        </register>
-        <register derivedFrom="BUF_CON00">
-          <name>BUF_CON25</name>
-          <addressOffset>0x000000A4</addressOffset>
-        </register>
-        <register derivedFrom="BUF_CON00">
-          <name>BUF_CON26</name>
-          <addressOffset>0x000000A8</addressOffset>
-        </register>
-        <register derivedFrom="BUF_CON00">
-          <name>BUF_CON27</name>
-          <addressOffset>0x000000AC</addressOffset>
-        </register>
-        <register derivedFrom="BUF_CON00">
-          <name>BUF_CON28</name>
-          <addressOffset>0x000000B0</addressOffset>
-        </register>
-        <register derivedFrom="BUF_CON00">
-          <name>BUF_CON29</name>
-          <addressOffset>0x000000B4</addressOffset>
-        </register>
-        <register derivedFrom="BUF_CON00">
-          <name>BUF_CON30</name>
-          <addressOffset>0x000000B8</addressOffset>
-        </register>
-        <register derivedFrom="BUF_CON00">
-          <name>BUF_CON31</name>
-          <addressOffset>0x000000BC</addressOffset>
-        </register>
-        <register>
-          <name>INT_RX</name>
-          <addressOffset>0x000000C0</addressOffset>
-          <size>32</size>
-          <access>read-write</access>
-          <resetValue>0x00000000</resetValue>
-          <resetMask>0xFFFFFFFF</resetMask>
-          <fields>
-            <field>
-              <name>INT_RX</name>
-              <bitOffset>0</bitOffset>
-              <bitWidth>32</bitWidth>
-              <access>read-write</access>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>RX</name>
-          <addressOffset>0x000000C4</addressOffset>
-          <size>32</size>
-          <access>read-write</access>
-          <resetValue>0x00000000</resetValue>
-          <resetMask>0xFFFFFFFF</resetMask>
-          <fields>
-            <field>
-              <name>RX</name>
-              <bitOffset>0</bitOffset>
-              <bitWidth>32</bitWidth>
-              <access>read-write</access>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>INT_TX</name>
-          <addressOffset>0x000000C8</addressOffset>
-          <size>32</size>
-          <access>read-write</access>
-          <resetValue>0x00000000</resetValue>
-          <resetMask>0xFFFFFFFF</resetMask>
-          <fields>
-            <field>
-              <name>INT_TX</name>
-              <bitOffset>0</bitOffset>
-              <bitWidth>32</bitWidth>
-              <access>read-write</access>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>TX</name>
-          <addressOffset>0x000000CC</addressOffset>
-          <size>32</size>
-          <access>read-write</access>
-          <resetValue>0x00000000</resetValue>
-          <resetMask>0xFFFFFFFF</resetMask>
-          <fields>
-            <field>
-              <name>TX</name>
-              <bitOffset>0</bitOffset>
-              <bitWidth>32</bitWidth>
-              <access>read-write</access>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>BUF_00_ID</name>
-          <description>CAN Buffer ID Register</description>
-          <addressOffset>0x00000200</addressOffset>
-          <size>32</size>
-          <access>read-write</access>
-          <resetValue>0x00000000</resetValue>
-          <resetMask>0x1FFFFFFF</resetMask>
-          <fields>
-            <field>
-              <name>EID</name>
-              <bitOffset>0</bitOffset>
-              <bitWidth>18</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>SID</name>
+              <name>EN_CHK_EVENT2</name>
               <bitOffset>18</bitOffset>
-              <bitWidth>11</bitWidth>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>EN_CHK_EVENT3</name>
+              <bitOffset>19</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>EN_CHK</name>
+              <bitOffset>20</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>CLR_CHK_SHIFT_REG0</name>
+              <bitOffset>21</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>CLR_CHK_SHIFT_REG1</name>
+              <bitOffset>22</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>CLR_CHK_EVENT0</name>
+              <bitOffset>23</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>CLR_CHK_EVENT1</name>
+              <bitOffset>24</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>CLR_CHK_EVENT2</name>
+              <bitOffset>25</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>CLR_CHK_EVENT3</name>
+              <bitOffset>26</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>PLL0_ON</name>
+              <bitOffset>27</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>PLL0_RLD</name>
+              <bitOffset>28</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>SELECT</name>
+              <bitOffset>29</bitOffset>
+              <bitWidth>3</bitWidth>
               <access>read-write</access>
             </field>
           </fields>
         </register>
-        <register>
-          <name>BUF_00_DLC</name>
-          <description>CAN Buffer DLC Register</description>
-          <addressOffset>0x00000204</addressOffset>
+			<register>
+          <name>PLL0_CHK0</name>
+          <addressOffset>0x0000007C</addressOffset>
           <size>32</size>
           <access>read-write</access>
           <resetValue>0x00000000</resetValue>
-          <resetMask>0x00001F0F</resetMask>
+          <resetMask>0xFFFFFFFF</resetMask>
           <fields>
             <field>
-              <name>DLC</name>
+              <name>PRES_REG2</name>
+              <bitOffset>0</bitOffset>
+              <bitWidth>16</bitWidth>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>PRES_REG0</name>
+              <bitOffset>16</bitOffset>
+              <bitWidth>16</bitWidth>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+			<register>
+          <name>PLL0_CHK1</name>
+          <addressOffset>0x00000080</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <resetMask>0xFFFFFFFF</resetMask>
+          <fields>
+            <field>
+              <name>PRES_REG1</name>
+              <bitOffset>0</bitOffset>
+              <bitWidth>16</bitWidth>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>PRES_REG3</name>
+              <bitOffset>16</bitOffset>
+              <bitWidth>16</bitWidth>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+			<register>
+          <name>PLL0_CHK2</name>
+          <addressOffset>0x00000084</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <resetMask>0x0F0F0F0F</resetMask>
+          <fields>
+            <field>
+              <name>BASE_REG0</name>
               <bitOffset>0</bitOffset>
               <bitWidth>4</bitWidth>
               <access>read-write</access>
             </field>
             <field>
-              <name>RTR</name>
+              <name>BASE_REG1</name>
               <bitOffset>8</bitOffset>
-              <bitWidth>1</bitWidth>
+              <bitWidth>4</bitWidth>
               <access>read-write</access>
             </field>
-            <field>
-              <name>R1</name>
-              <bitOffset>9</bitOffset>
-              <bitWidth>1</bitWidth>
+			<field>
+              <name>BASE_REG2</name>
+              <bitOffset>16</bitOffset>
+              <bitWidth>4</bitWidth>
               <access>read-write</access>
             </field>
-            <field>
-              <name>R0</name>
-              <bitOffset>10</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>SSR</name>
-              <bitOffset>11</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>IDE</name>
-              <bitOffset>12</bitOffset>
-              <bitWidth>1</bitWidth>
+			<field>
+              <name>BASE_REG3</name>
+              <bitOffset>24</bitOffset>
+              <bitWidth>4</bitWidth>
               <access>read-write</access>
             </field>
           </fields>
         </register>
-        <register>
-          <name>BUF_00_DATAL</name>
-          <description>CAN Buffer Data low Register</description>
-          <addressOffset>0x00000208</addressOffset>
+			<register>
+          <name>PLL0_STAT</name>
+          <description>PLL0 Status Register</description>
+          <addressOffset>0x00000088</addressOffset>
+          <size>32</size>
+          <access>read-only</access>
+          <resetValue>0x00000000</resetValue>
+          <resetMask>0x001FFFFF</resetMask>
+          <fields>
+            <field>
+              <name>MAX_CHK_SHIFT_REG0</name>
+              <bitOffset>0</bitOffset>
+              <bitWidth>8</bitWidth>
+              <access>read-only</access>
+            </field>
+            <field>
+              <name>MAX_CHK_SHIFT_REG1</name>
+              <bitOffset>8</bitOffset>
+              <bitWidth>8</bitWidth>
+              <access>read-only</access>
+            </field>
+			<field>
+              <name>EVENT0</name>
+              <bitOffset>16</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-only</access>
+            </field>
+		    <field>
+              <name>EVENT1</name>
+              <bitOffset>17</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-only</access>
+            </field>
+			<field>
+              <name>EVENT2</name>
+              <bitOffset>18</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-only</access>
+            </field>
+			<field>
+              <name>EVENT3</name>
+              <bitOffset>19</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-only</access>
+            </field>
+			<field>
+              <name>PLL0_READY</name>
+              <bitOffset>20</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-only</access>
+            </field>
+          </fields>
+        </register>
+			<register> 
+          <name>PLL1_CLK</name>
+          <addressOffset>0x0000008C</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <resetMask>0xFFFF7F1F</resetMask>
+          <fields>
+            <field>
+              <name>PLL1_Q</name>
+              <bitOffset>0</bitOffset>
+              <bitWidth>4</bitWidth>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>DV</name>
+              <bitOffset>4</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>PLL1_N</name>
+              <bitOffset>8</bitOffset>
+              <bitWidth>7</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>EN_CHK_EVENT0</name>
+              <bitOffset>16</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>EN_CHK_EVENT1</name>
+              <bitOffset>17</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>EN_CHK_EVENT2</name>
+              <bitOffset>18</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>EN_CHK_EVENT3</name>
+              <bitOffset>19</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>EN_CHK</name>
+              <bitOffset>20</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>CLR_CHK_SHIFT_REG0</name>
+              <bitOffset>21</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>CLR_CHK_SHIFT_REG1</name>
+              <bitOffset>22</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>CLR_CHK_EVENT0</name>
+              <bitOffset>23</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>CLR_CHK_EVENT1</name>
+              <bitOffset>24</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>CLR_CHK_EVENT2</name>
+              <bitOffset>25</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>CLR_CHK_EVENT3</name>
+              <bitOffset>26</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>PLL1_ON</name>
+              <bitOffset>27</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>PLL1_RLD</name>
+              <bitOffset>28</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>SELECT</name>
+              <bitOffset>29</bitOffset>
+              <bitWidth>3</bitWidth>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+			<register>
+          <name>PLL1_CHK0</name>
+          <addressOffset>0x00000090</addressOffset>
           <size>32</size>
           <access>read-write</access>
           <resetValue>0x00000000</resetValue>
           <resetMask>0xFFFFFFFF</resetMask>
           <fields>
             <field>
-              <name>DB0</name>
+              <name>PRES_REG2</name>
               <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
+              <bitWidth>16</bitWidth>
               <access>read-write</access>
             </field>
             <field>
-              <name>DB1</name>
-              <bitOffset>8</bitOffset>
-              <bitWidth>8</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>DB2</name>
+              <name>PRES_REG0</name>
               <bitOffset>16</bitOffset>
-              <bitWidth>8</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>DB3</name>
-              <bitOffset>24</bitOffset>
-              <bitWidth>8</bitWidth>
+              <bitWidth>16</bitWidth>
               <access>read-write</access>
             </field>
           </fields>
         </register>
-        <register>
-          <name>BUF_00_DATAH</name>
-          <description>CAN Buffer Data high Register</description>
-          <addressOffset>0x0000020C</addressOffset>
+			<register>
+          <name>PLL1_CHK1</name>
+          <addressOffset>0x00000094</addressOffset>
           <size>32</size>
           <access>read-write</access>
           <resetValue>0x00000000</resetValue>
           <resetMask>0xFFFFFFFF</resetMask>
           <fields>
             <field>
-              <name>DB4</name>
+              <name>PRES_REG1</name>
               <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
+              <bitWidth>16</bitWidth>
               <access>read-write</access>
             </field>
             <field>
-              <name>DB5</name>
-              <bitOffset>8</bitOffset>
-              <bitWidth>8</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>DB6</name>
+              <name>PRES_REG3</name>
               <bitOffset>16</bitOffset>
-              <bitWidth>8</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>DB7</name>
-              <bitOffset>24</bitOffset>
-              <bitWidth>8</bitWidth>
+              <bitWidth>16</bitWidth>
               <access>read-write</access>
             </field>
           </fields>
         </register>
-        <register derivedFrom="BUF_00_ID">
-          <name>BUF_01_ID</name>
-          <addressOffset>0x00000210</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DLC">
-          <name>BUF_01_DLC</name>
-          <addressOffset>0x00000214</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DATAL">
-          <name>BUF_01_DATAL</name>
-          <addressOffset>0x00000218</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DATAH">
-          <name>BUF_01_DATAH</name>
-          <addressOffset>0x0000021C</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_ID">
-          <name>BUF_02_ID</name>
-          <addressOffset>0x00000220</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DLC">
-          <name>BUF_02_DLC</name>
-          <addressOffset>0x00000224</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DATAL">
-          <name>BUF_02_DATAL</name>
-          <addressOffset>0x00000228</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DATAH">
-          <name>BUF_02_DATAH</name>
-          <addressOffset>0x0000022C</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_ID">
-          <name>BUF_03_ID</name>
-          <addressOffset>0x00000230</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DLC">
-          <name>BUF_03_DLC</name>
-          <addressOffset>0x00000234</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DATAL">
-          <name>BUF_03_DATAL</name>
-          <addressOffset>0x00000238</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DATAH">
-          <name>BUF_03_DATAH</name>
-          <addressOffset>0x0000023C</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_ID">
-          <name>BUF_04_ID</name>
-          <addressOffset>0x00000240</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DLC">
-          <name>BUF_04_DLC</name>
-          <addressOffset>0x00000244</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DATAL">
-          <name>BUF_04_DATAL</name>
-          <addressOffset>0x00000248</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DATAH">
-          <name>BUF_04_DATAH</name>
-          <addressOffset>0x0000024C</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_ID">
-          <name>BUF_05_ID</name>
-          <addressOffset>0x00000250</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DLC">
-          <name>BUF_05_DLC</name>
-          <addressOffset>0x00000254</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DATAL">
-          <name>BUF_05_DATAL</name>
-          <addressOffset>0x00000258</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DATAH">
-          <name>BUF_05_DATAH</name>
-          <addressOffset>0x0000025C</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_ID">
-          <name>BUF_06_ID</name>
-          <addressOffset>0x00000260</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DLC">
-          <name>BUF_06_DLC</name>
-          <addressOffset>0x00000264</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DATAL">
-          <name>BUF_06_DATAL</name>
-          <addressOffset>0x00000268</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DATAH">
-          <name>BUF_06_DATAH</name>
-          <addressOffset>0x0000026C</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_ID">
-          <name>BUF_07_ID</name>
-          <addressOffset>0x00000270</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DLC">
-          <name>BUF_07_DLC</name>
-          <addressOffset>0x00000274</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DATAL">
-          <name>BUF_07_DATAL</name>
-          <addressOffset>0x00000278</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DATAH">
-          <name>BUF_07_DATAH</name>
-          <addressOffset>0x0000027C</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_ID">
-          <name>BUF_08_ID</name>
-          <addressOffset>0x00000280</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DLC">
-          <name>BUF_08_DLC</name>
-          <addressOffset>0x00000284</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DATAL">
-          <name>BUF_08_DATAL</name>
-          <addressOffset>0x00000288</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DATAH">
-          <name>BUF_08_DATAH</name>
-          <addressOffset>0x0000028C</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_ID">
-          <name>BUF_09_ID</name>
-          <addressOffset>0x00000290</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DLC">
-          <name>BUF_09_DLC</name>
-          <addressOffset>0x00000294</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DATAL">
-          <name>BUF_09_DATAL</name>
-          <addressOffset>0x00000298</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DATAH">
-          <name>BUF_09_DATAH</name>
-          <addressOffset>0x0000029C</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_ID">
-          <name>BUF_10_ID</name>
-          <addressOffset>0x000002A0</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DLC">
-          <name>BUF_10_DLC</name>
-          <addressOffset>0x000002A4</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DATAL">
-          <name>BUF_10_DATAL</name>
-          <addressOffset>0x000002A8</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DATAH">
-          <name>BUF_10_DATAH</name>
-          <addressOffset>0x000002AC</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_ID">
-          <name>BUF_11_ID</name>
-          <addressOffset>0x000002B0</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DLC">
-          <name>BUF_11_DLC</name>
-          <addressOffset>0x000002B4</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DATAL">
-          <name>BUF_11_DATAL</name>
-          <addressOffset>0x000002B8</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DATAH">
-          <name>BUF_11_DATAH</name>
-          <addressOffset>0x000002BC</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_ID">
-          <name>BUF_12_ID</name>
-          <addressOffset>0x000002C0</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DLC">
-          <name>BUF_12_DLC</name>
-          <addressOffset>0x000002C4</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DATAL">
-          <name>BUF_12_DATAL</name>
-          <addressOffset>0x000002C8</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DATAH">
-          <name>BUF_12_DATAH</name>
-          <addressOffset>0x000002CC</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_ID">
-          <name>BUF_13_ID</name>
-          <addressOffset>0x000002D0</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DLC">
-          <name>BUF_13_DLC</name>
-          <addressOffset>0x000002D4</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DATAL">
-          <name>BUF_13_DATAL</name>
-          <addressOffset>0x000002D8</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DATAH">
-          <name>BUF_13_DATAH</name>
-          <addressOffset>0x000002DC</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_ID">
-          <name>BUF_14_ID</name>
-          <addressOffset>0x000002E0</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DLC">
-          <name>BUF_14_DLC</name>
-          <addressOffset>0x000002E4</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DATAL">
-          <name>BUF_14_DATAL</name>
-          <addressOffset>0x000002E8</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DATAH">
-          <name>BUF_14_DATAH</name>
-          <addressOffset>0x000002EC</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_ID">
-          <name>BUF_15_ID</name>
-          <addressOffset>0x000002F0</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DLC">
-          <name>BUF_15_DLC</name>
-          <addressOffset>0x000002F4</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DATAL">
-          <name>BUF_15_DATAL</name>
-          <addressOffset>0x000002F8</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DATAH">
-          <name>BUF_15_DATAH</name>
-          <addressOffset>0x000002FC</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_ID">
-          <name>BUF_16_ID</name>
-          <addressOffset>0x00000300</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DLC">
-          <name>BUF_16_DLC</name>
-          <addressOffset>0x00000304</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DATAL">
-          <name>BUF_16_DATAL</name>
-          <addressOffset>0x00000308</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DATAH">
-          <name>BUF_16_DATAH</name>
-          <addressOffset>0x0000030C</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_ID">
-          <name>BUF_17_ID</name>
-          <addressOffset>0x00000310</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DLC">
-          <name>BUF_17_DLC</name>
-          <addressOffset>0x00000314</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DATAL">
-          <name>BUF_17_DATAL</name>
-          <addressOffset>0x00000318</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DATAH">
-          <name>BUF_17_DATAH</name>
-          <addressOffset>0x0000031C</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_ID">
-          <name>BUF_18_ID</name>
-          <addressOffset>0x00000320</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DLC">
-          <name>BUF_18_DLC</name>
-          <addressOffset>0x00000324</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DATAL">
-          <name>BUF_18_DATAL</name>
-          <addressOffset>0x00000328</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DATAH">
-          <name>BUF_18_DATAH</name>
-          <addressOffset>0x0000032C</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_ID">
-          <name>BUF_19_ID</name>
-          <addressOffset>0x00000330</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DLC">
-          <name>BUF_19_DLC</name>
-          <addressOffset>0x00000334</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DATAL">
-          <name>BUF_19_DATAL</name>
-          <addressOffset>0x00000338</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DATAH">
-          <name>BUF_19_DATAH</name>
-          <addressOffset>0x0000033C</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_ID">
-          <name>BUF_20_ID</name>
-          <addressOffset>0x00000340</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DLC">
-          <name>BUF_20_DLC</name>
-          <addressOffset>0x00000344</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DATAL">
-          <name>BUF_20_DATAL</name>
-          <addressOffset>0x00000348</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DATAH">
-          <name>BUF_20_DATAH</name>
-          <addressOffset>0x0000034C</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_ID">
-          <name>BUF_21_ID</name>
-          <addressOffset>0x00000350</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DLC">
-          <name>BUF_21_DLC</name>
-          <addressOffset>0x00000354</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DATAL">
-          <name>BUF_21_DATAL</name>
-          <addressOffset>0x00000358</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DATAH">
-          <name>BUF_21_DATAH</name>
-          <addressOffset>0x0000035C</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_ID">
-          <name>BUF_22_ID</name>
-          <addressOffset>0x00000360</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DLC">
-          <name>BUF_22_DLC</name>
-          <addressOffset>0x00000364</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DATAL">
-          <name>BUF_22_DATAL</name>
-          <addressOffset>0x00000368</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DATAH">
-          <name>BUF_22_DATAH</name>
-          <addressOffset>0x0000036C</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_ID">
-          <name>BUF_23_ID</name>
-          <addressOffset>0x00000370</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DLC">
-          <name>BUF_23_DLC</name>
-          <addressOffset>0x00000374</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DATAL">
-          <name>BUF_23_DATAL</name>
-          <addressOffset>0x00000378</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DATAH">
-          <name>BUF_23_DATAH</name>
-          <addressOffset>0x0000037C</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_ID">
-          <name>BUF_24_ID</name>
-          <addressOffset>0x00000380</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DLC">
-          <name>BUF_24_DLC</name>
-          <addressOffset>0x00000384</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DATAL">
-          <name>BUF_24_DATAL</name>
-          <addressOffset>0x00000388</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DATAH">
-          <name>BUF_24_DATAH</name>
-          <addressOffset>0x0000038C</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_ID">
-          <name>BUF_25_ID</name>
-          <addressOffset>0x00000390</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DLC">
-          <name>BUF_25_DLC</name>
-          <addressOffset>0x00000394</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DATAL">
-          <name>BUF_25_DATAL</name>
-          <addressOffset>0x00000398</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DATAH">
-          <name>BUF_25_DATAH</name>
-          <addressOffset>0x0000039C</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_ID">
-          <name>BUF_26_ID</name>
-          <addressOffset>0x000003A0</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DLC">
-          <name>BUF_26_DLC</name>
-          <addressOffset>0x000003A4</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DATAL">
-          <name>BUF_26_DATAL</name>
-          <addressOffset>0x000003A8</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DATAH">
-          <name>BUF_26_DATAH</name>
-          <addressOffset>0x000003AC</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_ID">
-          <name>BUF_27_ID</name>
-          <addressOffset>0x000003B0</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DLC">
-          <name>BUF_27_DLC</name>
-          <addressOffset>0x000003B4</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DATAL">
-          <name>BUF_27_DATAL</name>
-          <addressOffset>0x000003B8</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DATAH">
-          <name>BUF_27_DATAH</name>
-          <addressOffset>0x000003BC</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_ID">
-          <name>BUF_28_ID</name>
-          <addressOffset>0x000003C0</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DLC">
-          <name>BUF_28_DLC</name>
-          <addressOffset>0x000003C4</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DATAL">
-          <name>BUF_28_DATAL</name>
-          <addressOffset>0x000003C8</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DATAH">
-          <name>BUF_28_DATAH</name>
-          <addressOffset>0x000003CC</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_ID">
-          <name>BUF_29_ID</name>
-          <addressOffset>0x000003D0</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DLC">
-          <name>BUF_29_DLC</name>
-          <addressOffset>0x000003D4</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DATAL">
-          <name>BUF_29_DATAL</name>
-          <addressOffset>0x000003D8</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DATAH">
-          <name>BUF_29_DATAH</name>
-          <addressOffset>0x000003DC</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_ID">
-          <name>BUF_30_ID</name>
-          <addressOffset>0x000003E0</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DLC">
-          <name>BUF_30_DLC</name>
-          <addressOffset>0x000003E4</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DATAL">
-          <name>BUF_30_DATAL</name>
-          <addressOffset>0x000003E8</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DATAH">
-          <name>BUF_30_DATAH</name>
-          <addressOffset>0x000003EC</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_ID">
-          <name>BUF_31_ID</name>
-          <addressOffset>0x000003F0</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DLC">
-          <name>BUF_31_DLC</name>
-          <addressOffset>0x000003F4</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DATAL">
-          <name>BUF_31_DATAL</name>
-          <addressOffset>0x000003F8</addressOffset>
-        </register>
-        <register derivedFrom="BUF_00_DATAH">
-          <name>BUF_31_DATAH</name>
-          <addressOffset>0x000003FC</addressOffset>
-        </register>
-        <register>
-          <name>BUF_FILTER00_MASK</name>
-          <addressOffset>0x00000500</addressOffset>
+			<register>
+          <name>PLL1_CHK2</name>
+          <addressOffset>0x00000098</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <resetMask>0x0F0F0F0F</resetMask>
+          <fields>
+            <field>
+              <name>BASE_REG0</name>
+              <bitOffset>0</bitOffset>
+              <bitWidth>4</bitWidth>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>BASE_REG1</name>
+              <bitOffset>8</bitOffset>
+              <bitWidth>4</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>BASE_REG2</name>
+              <bitOffset>16</bitOffset>
+              <bitWidth>4</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>BASE_REG3</name>
+              <bitOffset>24</bitOffset>
+              <bitWidth>4</bitWidth>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+			<register>
+          <name>PLL1_STAT</name>
+          <description>PLL1 Status Register</description>
+          <addressOffset>0x0000009C</addressOffset>
+          <size>32</size>
+          <access>read-only</access>
+          <resetValue>0x00000000</resetValue>
+          <resetMask>0x001FFFFF</resetMask>
+          <fields>
+            <field>
+              <name>MAX_CHK_SHIFT_REG0</name>
+              <bitOffset>0</bitOffset>
+              <bitWidth>8</bitWidth>
+              <access>read-only</access>
+            </field>
+            <field>
+              <name>MAX_CHK_SHIFT_REG1</name>
+              <bitOffset>8</bitOffset>
+              <bitWidth>8</bitWidth>
+              <access>read-only</access>
+            </field>
+			<field>
+              <name>EVENT0</name>
+              <bitOffset>16</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-only</access>
+            </field>
+		    <field>
+              <name>EVENT1</name>
+              <bitOffset>17</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-only</access>
+            </field>
+			<field>
+              <name>EVENT2</name>
+              <bitOffset>18</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-only</access>
+            </field>
+			<field>
+              <name>EVENT3</name>
+              <bitOffset>19</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-only</access>
+            </field>
+			<field>
+              <name>PLL1_READY</name>
+              <bitOffset>20</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-only</access>
+            </field>
+          </fields>
+        </register>
+			<register> 
+          <name>PLL2_CLK</name>
+          <addressOffset>0x000000A0</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <resetMask>0xFFFF7F1F</resetMask>
+          <fields>
+            <field>
+              <name>PLL2_Q</name>
+              <bitOffset>0</bitOffset>
+              <bitWidth>4</bitWidth>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>DV</name>
+              <bitOffset>4</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>PLL2_N</name>
+              <bitOffset>8</bitOffset>
+              <bitWidth>7</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>EN_CHK_EVENT0</name>
+              <bitOffset>16</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>EN_CHK_EVENT1</name>
+              <bitOffset>17</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>EN_CHK_EVENT2</name>
+              <bitOffset>18</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>EN_CHK_EVENT3</name>
+              <bitOffset>19</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>EN_CHK</name>
+              <bitOffset>20</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>CLR_CHK_SHIFT_REG0</name>
+              <bitOffset>21</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>CLR_CHK_SHIFT_REG1</name>
+              <bitOffset>22</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>CLR_CHK_EVENT0</name>
+              <bitOffset>23</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>CLR_CHK_EVENT1</name>
+              <bitOffset>24</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>CLR_CHK_EVENT2</name>
+              <bitOffset>25</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>CLR_CHK_EVENT3</name>
+              <bitOffset>26</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>PLL2_ON</name>
+              <bitOffset>27</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>PLL2_RLD</name>
+              <bitOffset>28</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>SELECT</name>
+              <bitOffset>29</bitOffset>
+              <bitWidth>3</bitWidth>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+			<register>
+          <name>PLL2_CHK0</name>
+          <addressOffset>0x000000A4</addressOffset>
           <size>32</size>
           <access>read-write</access>
           <resetValue>0x00000000</resetValue>
           <resetMask>0xFFFFFFFF</resetMask>
+          <fields>
+            <field>
+              <name>PRES_REG2</name>
+              <bitOffset>0</bitOffset>
+              <bitWidth>16</bitWidth>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>PRES_REG0</name>
+              <bitOffset>16</bitOffset>
+              <bitWidth>16</bitWidth>
+              <access>read-write</access>
+            </field>
+          </fields>
         </register>
-        <register>
-          <name>BUF_FILTER00_FILTER</name>
-          <addressOffset>0x00000504</addressOffset>
+			<register>
+          <name>PLL2_CHK1</name>
+          <addressOffset>0x000000A8</addressOffset>
           <size>32</size>
           <access>read-write</access>
           <resetValue>0x00000000</resetValue>
           <resetMask>0xFFFFFFFF</resetMask>
+          <fields>
+            <field>
+              <name>PRES_REG1</name>
+              <bitOffset>0</bitOffset>
+              <bitWidth>16</bitWidth>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>PRES_REG3</name>
+              <bitOffset>16</bitOffset>
+              <bitWidth>16</bitWidth>
+              <access>read-write</access>
+            </field>
+          </fields>
         </register>
-        <register derivedFrom="BUF_FILTER00_MASK">
-          <name>BUF_FILTER01_MASK</name>
-          <addressOffset>0x00000508</addressOffset>
+			<register>
+          <name>PLL2_CHK2</name>
+          <addressOffset>0x000000AC</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <resetMask>0x0F0F0F0F</resetMask>
+          <fields>
+            <field>
+              <name>BASE_REG0</name>
+              <bitOffset>0</bitOffset>
+              <bitWidth>4</bitWidth>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>BASE_REG1</name>
+              <bitOffset>8</bitOffset>
+              <bitWidth>4</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>BASE_REG2</name>
+              <bitOffset>16</bitOffset>
+              <bitWidth>4</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>BASE_REG3</name>
+              <bitOffset>24</bitOffset>
+              <bitWidth>4</bitWidth>
+              <access>read-write</access>
+            </field>
+          </fields>
         </register>
-        <register derivedFrom="BUF_FILTER00_FILTER">
-          <name>BUF_FILTER01_FILTER</name>
-          <addressOffset>0x0000050C</addressOffset>
+			<register>
+          <name>PLL2_STAT</name>
+          <description>PLL2 Status Register</description>
+          <addressOffset>0x000000B0</addressOffset>
+          <size>32</size>
+          <access>read-only</access>
+          <resetValue>0x00000000</resetValue>
+          <resetMask>0x001FFFFF</resetMask>
+          <fields>
+            <field>
+              <name>MAX_CHK_SHIFT_REG0</name>
+              <bitOffset>0</bitOffset>
+              <bitWidth>8</bitWidth>
+              <access>read-only</access>
+            </field>
+            <field>
+              <name>MAX_CHK_SHIFT_REG1</name>
+              <bitOffset>8</bitOffset>
+              <bitWidth>8</bitWidth>
+              <access>read-only</access>
+            </field>
+			<field>
+              <name>EVENT0</name>
+              <bitOffset>16</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-only</access>
+            </field>
+		    <field>
+              <name>EVENT1</name>
+              <bitOffset>17</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-only</access>
+            </field>
+			<field>
+              <name>EVENT2</name>
+              <bitOffset>18</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-only</access>
+            </field>
+			<field>
+              <name>EVENT3</name>
+              <bitOffset>19</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-only</access>
+            </field>
+			<field>
+              <name>PLL2_READY</name>
+              <bitOffset>20</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-only</access>
+            </field>
+          </fields>
         </register>
-        <register derivedFrom="BUF_FILTER00_MASK">
-          <name>BUF_FILTER02_MASK</name>
-          <addressOffset>0x00000510</addressOffset>
+			<register>
+          <name>CAN_CLK</name>
+          <addressOffset>0x00000118</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <resetMask>0x0001FFFF</resetMask>
+          <fields>
+            <field>
+              <name>DIV</name>
+              <bitOffset>0</bitOffset>
+              <bitWidth>16</bitWidth>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>EN_CLK</name>
+              <bitOffset>16</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+          </fields>
         </register>
-        <register derivedFrom="BUF_FILTER00_FILTER">
-          <name>BUF_FILTER02_FILTER</name>
-          <addressOffset>0x00000514</addressOffset>
+			<register>
+          <name>TIM0_CLK</name>
+          <addressOffset>0x00000130</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <resetMask>0x0001FFFF</resetMask>
+          <fields>
+            <field>
+              <name>DIV</name>
+              <bitOffset>0</bitOffset>
+              <bitWidth>16</bitWidth>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>EN_CLK</name>
+              <bitOffset>16</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+          </fields>
         </register>
-        <register derivedFrom="BUF_FILTER00_MASK">
-          <name>BUF_FILTER03_MASK</name>
-          <addressOffset>0x00000518</addressOffset>
+			<register>
+          <name>TIM1_CLK</name>
+          <addressOffset>0x00000134</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <resetMask>0x0001FFFF</resetMask>
+          <fields>
+            <field>
+              <name>DIV</name>
+              <bitOffset>0</bitOffset>
+              <bitWidth>16</bitWidth>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>EN_CLK</name>
+              <bitOffset>16</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+          </fields>
         </register>
-        <register derivedFrom="BUF_FILTER00_FILTER">
-          <name>BUF_FILTER03_FILTER</name>
-          <addressOffset>0x0000051C</addressOffset>
+			<register>
+          <name>TIM2_CLK</name>
+          <addressOffset>0x00000138</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <resetMask>0x0001FFFF</resetMask>
+          <fields>
+            <field>
+              <name>DIV</name>
+              <bitOffset>0</bitOffset>
+              <bitWidth>16</bitWidth>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>EN_CLK</name>
+              <bitOffset>16</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+          </fields>
         </register>
-        <register derivedFrom="BUF_FILTER00_MASK">
-          <name>BUF_FILTER04_MASK</name>
-          <addressOffset>0x00000520</addressOffset>
+			<register>
+          <name>TIM3_CLK</name>
+          <addressOffset>0x0000013C</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <resetMask>0x0001FFFF</resetMask>
+          <fields>
+            <field>
+              <name>DIV</name>
+              <bitOffset>0</bitOffset>
+              <bitWidth>16</bitWidth>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>EN_CLK</name>
+              <bitOffset>16</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+          </fields>
         </register>
-        <register derivedFrom="BUF_FILTER00_FILTER">
-          <name>BUF_FILTER04_FILTER</name>
-          <addressOffset>0x00000524</addressOffset>
+			<register>
+          <name>EPHY_CLK</name>
+          <addressOffset>0x00000170</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <resetMask>0xF001FFFF</resetMask>
+          <fields>
+            <field>
+              <name>DIV</name>
+              <bitOffset>0</bitOffset>
+              <bitWidth>16</bitWidth>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>EN_CLK</name>
+              <bitOffset>16</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>SELECT</name>
+              <bitOffset>28</bitOffset>
+              <bitWidth>4</bitWidth>
+              <access>read-write</access>
+            </field>
+          </fields>
         </register>
-        <register derivedFrom="BUF_FILTER00_MASK">
-          <name>BUF_FILTER05_MASK</name>
-          <addressOffset>0x00000528</addressOffset>
+			<register>
+          <name>SPW_CLK</name>
+          <addressOffset>0x00000178</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <resetMask>0x0001FFFF</resetMask>
+          <fields>
+            <field>
+              <name>DIV</name>
+              <bitOffset>0</bitOffset>
+              <bitWidth>16</bitWidth>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>EN_CLK</name>
+              <bitOffset>16</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+          </fields>
         </register>
-        <register derivedFrom="BUF_FILTER00_FILTER">
-          <name>BUF_FILTER05_FILTER</name>
-          <addressOffset>0x0000052C</addressOffset>
+			<register>
+          <name>UART0_CLK</name>
+          <addressOffset>0x00000188</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <resetMask>0xF001FFFF</resetMask>
+          <fields>
+            <field>
+              <name>DIV</name>
+              <bitOffset>0</bitOffset>
+              <bitWidth>16</bitWidth>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>EN_CLK</name>
+              <bitOffset>16</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>SELECT</name>
+              <bitOffset>28</bitOffset>
+              <bitWidth>4</bitWidth>
+              <access>read-write</access>
+            </field>
+          </fields>
         </register>
-        <register derivedFrom="BUF_FILTER00_MASK">
-          <name>BUF_FILTER06_MASK</name>
-          <addressOffset>0x00000530</addressOffset>
+			<register>
+          <name>UART1_CLK</name>
+          <addressOffset>0x0000018C</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <resetMask>0xF001FFFF</resetMask>
+          <fields>
+            <field>
+              <name>DIV</name>
+              <bitOffset>0</bitOffset>
+              <bitWidth>16</bitWidth>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>EN_CLK</name>
+              <bitOffset>16</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>SELECT</name>
+              <bitOffset>28</bitOffset>
+              <bitWidth>4</bitWidth>
+              <access>read-write</access>
+            </field>
+          </fields>
         </register>
-        <register derivedFrom="BUF_FILTER00_FILTER">
-          <name>BUF_FILTER06_FILTER</name>
-          <addressOffset>0x00000534</addressOffset>
+			<register>
+          <name>SSP_CLK</name>
+          <addressOffset>0x000001A0</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <resetMask>0xF001FFFF</resetMask>
+          <fields>
+            <field>
+              <name>DIV</name>
+              <bitOffset>0</bitOffset>
+              <bitWidth>16</bitWidth>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>EN_CLK</name>
+              <bitOffset>16</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>SELECT</name>
+              <bitOffset>28</bitOffset>
+              <bitWidth>4</bitWidth>
+              <access>read-write</access>
+            </field>
+          </fields>
         </register>
-        <register derivedFrom="BUF_FILTER00_MASK">
-          <name>BUF_FILTER07_MASK</name>
-          <addressOffset>0x00000538</addressOffset>
+			<register>
+          <name>ADC0_CLK</name>
+          <addressOffset>0x000001BC</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <resetMask>0xF001FFFF</resetMask>
+          <fields>
+            <field>
+              <name>DIV</name>
+              <bitOffset>0</bitOffset>
+              <bitWidth>16</bitWidth>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>EN_CLK</name>
+              <bitOffset>16</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>SELECT</name>
+              <bitOffset>28</bitOffset>
+              <bitWidth>4</bitWidth>
+              <access>read-write</access>
+            </field>
+          </fields>
         </register>
-        <register derivedFrom="BUF_FILTER00_FILTER">
-          <name>BUF_FILTER07_FILTER</name>
-          <addressOffset>0x0000053C</addressOffset>
+			<register>
+          <name>ADC1_CLK</name>
+          <addressOffset>0x000001C0</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <resetMask>0xF001FFFF</resetMask>
+          <fields>
+            <field>
+              <name>DIV</name>
+              <bitOffset>0</bitOffset>
+              <bitWidth>16</bitWidth>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>EN_CLK</name>
+              <bitOffset>16</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>SELECT</name>
+              <bitOffset>28</bitOffset>
+              <bitWidth>4</bitWidth>
+              <access>read-write</access>
+            </field>
+          </fields>
         </register>
-        <register derivedFrom="BUF_FILTER00_MASK">
-          <name>BUF_FILTER08_MASK</name>
-          <addressOffset>0x00000540</addressOffset>
+			<register>
+          <name>DAC0_CLK</name>
+          <addressOffset>0x000001C4</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <resetMask>0xF001FFFF</resetMask>
+          <fields>
+            <field>
+              <name>DIV</name>
+              <bitOffset>0</bitOffset>
+              <bitWidth>16</bitWidth>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>EN_CLK</name>
+              <bitOffset>16</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>SELECT</name>
+              <bitOffset>28</bitOffset>
+              <bitWidth>4</bitWidth>
+              <access>read-write</access>
+            </field>
+          </fields>
         </register>
-        <register derivedFrom="BUF_FILTER00_FILTER">
-          <name>BUF_FILTER08_FILTER</name>
-          <addressOffset>0x00000544</addressOffset>
+			<register>
+          <name>DAC1_CLK</name>
+          <addressOffset>0x000001C8</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <resetMask>0xF001FFFF</resetMask>
+          <fields>
+            <field>
+              <name>DIV</name>
+              <bitOffset>0</bitOffset>
+              <bitWidth>16</bitWidth>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>EN_CLK</name>
+              <bitOffset>16</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>SELECT</name>
+              <bitOffset>28</bitOffset>
+              <bitWidth>4</bitWidth>
+              <access>read-write</access>
+            </field>
+          </fields>
         </register>
-        <register derivedFrom="BUF_FILTER00_MASK">
-          <name>BUF_FILTER09_MASK</name>
-          <addressOffset>0x00000548</addressOffset>
+			<register>
+          <name>RTC_CLK</name>
+          <addressOffset>0x000001CC</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <resetMask>0xF001FFFF</resetMask>
+          <fields>
+            <field>
+              <name>DIV</name>
+              <bitOffset>0</bitOffset>
+              <bitWidth>16</bitWidth>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>EN_CLK</name>
+              <bitOffset>16</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+			<field>
+              <name>SELECT</name>
+              <bitOffset>28</bitOffset>
+              <bitWidth>4</bitWidth>
+              <access>read-write</access>
+            </field>
+          </fields>
         </register>
-        <register derivedFrom="BUF_FILTER00_FILTER">
-          <name>BUF_FILTER09_FILTER</name>
-          <addressOffset>0x0000054C</addressOffset>
-        </register>
-        <register derivedFrom="BUF_FILTER00_MASK">
-          <name>BUF_FILTER10_MASK</name>
-          <addressOffset>0x00000550</addressOffset>
-        </register>
-        <register derivedFrom="BUF_FILTER00_FILTER">
-          <name>BUF_FILTER10_FILTER</name>
-          <addressOffset>0x00000554</addressOffset>
-        </register>
-        <register derivedFrom="BUF_FILTER00_MASK">
-          <name>BUF_FILTER11_MASK</name>
-          <addressOffset>0x00000558</addressOffset>
-        </register>
-        <register derivedFrom="BUF_FILTER00_FILTER">
-          <name>BUF_FILTER11_FILTER</name>
-          <addressOffset>0x0000055C</addressOffset>
-        </register>
-        <register derivedFrom="BUF_FILTER00_MASK">
-          <name>BUF_FILTER12_MASK</name>
-          <addressOffset>0x00000560</addressOffset>
-        </register>
-        <register derivedFrom="BUF_FILTER00_FILTER">
-          <name>BUF_FILTER12_FILTER</name>
-          <addressOffset>0x00000564</addressOffset>
-        </register>
-        <register derivedFrom="BUF_FILTER00_MASK">
-          <name>BUF_FILTER13_MASK</name>
-          <addressOffset>0x00000568</addressOffset>
-        </register>
-        <register derivedFrom="BUF_FILTER00_FILTER">
-          <name>BUF_FILTER13_FILTER</name>
-          <addressOffset>0x0000056C</addressOffset>
-        </register>
-        <register derivedFrom="BUF_FILTER00_MASK">
-          <name>BUF_FILTER14_MASK</name>
-          <addressOffset>0x00000570</addressOffset>
-        </register>
-        <register derivedFrom="BUF_FILTER00_FILTER">
-          <name>BUF_FILTER14_FILTER</name>
-          <addressOffset>0x00000574</addressOffset>
-        </register>
-        <register derivedFrom="BUF_FILTER00_MASK">
-          <name>BUF_FILTER15_MASK</name>
-          <addressOffset>0x00000578</addressOffset>
-        </register>
-        <register derivedFrom="BUF_FILTER00_FILTER">
-          <name>BUF_FILTER15_FILTER</name>
-          <addressOffset>0x0000057C</addressOffset>
-        </register>
-        <register derivedFrom="BUF_FILTER00_MASK">
-          <name>BUF_FILTER16_MASK</name>
-          <addressOffset>0x00000580</addressOffset>
-        </register>
-        <register derivedFrom="BUF_FILTER00_FILTER">
-          <name>BUF_FILTER16_FILTER</name>
-          <addressOffset>0x00000584</addressOffset>
-        </register>
-        <register derivedFrom="BUF_FILTER00_MASK">
-          <name>BUF_FILTER17_MASK</name>
-          <addressOffset>0x00000588</addressOffset>
-        </register>
-        <register derivedFrom="BUF_FILTER00_FILTER">
-          <name>BUF_FILTER17_FILTER</name>
-          <addressOffset>0x0000058C</addressOffset>
-        </register>
-        <register derivedFrom="BUF_FILTER00_MASK">
-          <name>BUF_FILTER18_MASK</name>
-          <addressOffset>0x00000590</addressOffset>
-        </register>
-        <register derivedFrom="BUF_FILTER00_FILTER">
-          <name>BUF_FILTER18_FILTER</name>
-          <addressOffset>0x00000594</addressOffset>
-        </register>
-        <register derivedFrom="BUF_FILTER00_MASK">
-          <name>BUF_FILTER19_MASK</name>
-          <addressOffset>0x00000598</addressOffset>
-        </register>
-        <register derivedFrom="BUF_FILTER00_FILTER">
-          <name>BUF_FILTER19_FILTER</name>
-          <addressOffset>0x0000059C</addressOffset>
-        </register>
-        <register derivedFrom="BUF_FILTER00_MASK">
-          <name>BUF_FILTER20_MASK</name>
-          <addressOffset>0x000005A0</addressOffset>
-        </register>
-        <register derivedFrom="BUF_FILTER00_FILTER">
-          <name>BUF_FILTER20_FILTER</name>
-          <addressOffset>0x000005A4</addressOffset>
-        </register>
-        <register derivedFrom="BUF_FILTER00_MASK">
-          <name>BUF_FILTER21_MASK</name>
-          <addressOffset>0x000005A8</addressOffset>
-        </register>
-        <register derivedFrom="BUF_FILTER00_FILTER">
-          <name>BUF_FILTER21_FILTER</name>
-          <addressOffset>0x000005AC</addressOffset>
-        </register>
-        <register derivedFrom="BUF_FILTER00_MASK">
-          <name>BUF_FILTER22_MASK</name>
-          <addressOffset>0x000005B0</addressOffset>
-        </register>
-        <register derivedFrom="BUF_FILTER00_FILTER">
-          <name>BUF_FILTER22_FILTER</name>
-          <addressOffset>0x000005B4</addressOffset>
-        </register>
-        <register derivedFrom="BUF_FILTER00_MASK">
-          <name>BUF_FILTER23_MASK</name>
-          <addressOffset>0x000005B8</addressOffset>
-        </register>
-        <register derivedFrom="BUF_FILTER00_FILTER">
-          <name>BUF_FILTER23_FILTER</name>
-          <addressOffset>0x000005BC</addressOffset>
-        </register>
-        <register derivedFrom="BUF_FILTER00_MASK">
-          <name>BUF_FILTER24_MASK</name>
-          <addressOffset>0x000005C0</addressOffset>
-        </register>
-        <register derivedFrom="BUF_FILTER00_FILTER">
-          <name>BUF_FILTER24_FILTER</name>
-          <addressOffset>0x000005C4</addressOffset>
-        </register>
-        <register derivedFrom="BUF_FILTER00_MASK">
-          <name>BUF_FILTER25_MASK</name>
-          <addressOffset>0x000005C8</addressOffset>
-        </register>
-        <register derivedFrom="BUF_FILTER00_FILTER">
-          <name>BUF_FILTER25_FILTER</name>
-          <addressOffset>0x000005CC</addressOffset>
-        </register>
-        <register derivedFrom="BUF_FILTER00_MASK">
-          <name>BUF_FILTER26_MASK</name>
-          <addressOffset>0x000005D0</addressOffset>
-        </register>
-        <register derivedFrom="BUF_FILTER00_FILTER">
-          <name>BUF_FILTER26_FILTER</name>
-          <addressOffset>0x000005D4</addressOffset>
-        </register>
-        <register derivedFrom="BUF_FILTER00_MASK">
-          <name>BUF_FILTER27_MASK</name>
-          <addressOffset>0x000005D8</addressOffset>
-        </register>
-        <register derivedFrom="BUF_FILTER00_FILTER">
-          <name>BUF_FILTER27_FILTER</name>
-          <addressOffset>0x000005DC</addressOffset>
-        </register>
-        <register derivedFrom="BUF_FILTER00_MASK">
-          <name>BUF_FILTER28_MASK</name>
-          <addressOffset>0x000005E0</addressOffset>
-        </register>
-        <register derivedFrom="BUF_FILTER00_FILTER">
-          <name>BUF_FILTER28_FILTER</name>
-          <addressOffset>0x000005E4</addressOffset>
-        </register>
-        <register derivedFrom="BUF_FILTER00_MASK">
-          <name>BUF_FILTER29_MASK</name>
-          <addressOffset>0x000005E8</addressOffset>
-        </register>
-        <register derivedFrom="BUF_FILTER00_FILTER">
-          <name>BUF_FILTER29_FILTER</name>
-          <addressOffset>0x000005EC</addressOffset>
-        </register>
-        <register derivedFrom="BUF_FILTER00_MASK">
-          <name>BUF_FILTER30_MASK</name>
-          <addressOffset>0x000005F0</addressOffset>
-        </register>
-        <register derivedFrom="BUF_FILTER00_FILTER">
-          <name>BUF_FILTER30_FILTER</name>
-          <addressOffset>0x000005F4</addressOffset>
-        </register>
-        <register derivedFrom="BUF_FILTER00_MASK">
-          <name>BUF_FILTER31_MASK</name>
-          <addressOffset>0x000005F8</addressOffset>
-        </register>
-        <register derivedFrom="BUF_FILTER00_FILTER">
-          <name>BUF_FILTER31_FILTER</name>
-          <addressOffset>0x000005FC</addressOffset>
-        </register>
-      </registers>
-    </peripheral>
-    <peripheral derivedFrom="MDR_CAN1">
-      <name>MDR_CAN2</name>
-      <description>CAN2 interfase controller registers</description>
-      <groupName>CAN</groupName>
-      <prependToName>MDR_CAN2_</prependToName>
-      <baseAddress>0x40008000</baseAddress>
-      <interrupt>
-        <name>CAN2_IRQ</name>
-        <value>1</value>
-      </interrupt>
-    </peripheral>
+		</registers>
+	</peripheral>
     <peripheral>
       <name>MDR_USB</name>
       <version>1.0</version>
