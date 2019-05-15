@@ -60,11 +60,11 @@ __Vectors       DCD     __initial_sp              ; Top of Stack
                 DCD     0                         ; Reserved
                 DCD     0                         ; Reserved
                 DCD     0                         ; Reserved
-                DCD     SVCall_Handler            ; SVCall Handler
+				DCD     SVC_Handler				  ; SVCall Handler
                 DCD     0                         ; Reserved
                 DCD     0                         ; Reserved
                 DCD     PendSV_Handler            ; PendSV Handler
-                DCD     Systick_Handler           ; SysTick Handler
+                DCD     SysTick_Handler           ; SysTick Handler
                 DCD     0           			  ; Reserved16
                 DCD     0          				  ; Reserved17
                 DCD     0           			  ; Reserved18
@@ -247,8 +247,8 @@ UsageFault_Handler     PROC
                 B       .
                 ENDP
 
-SVCall_Handler     PROC
-                EXPORT  SVCall_Handler					[WEAK]
+SVC_Handler     PROC
+                EXPORT  SVC_Handler						[WEAK]
                 B       .
                 ENDP
 
@@ -257,8 +257,8 @@ PendSV_Handler     PROC
                 B       .
                 ENDP
 
-Systick_Handler     PROC
-                EXPORT  Systick_Handler					[WEAK]
+SysTick_Handler     PROC
+                EXPORT  SysTick_Handler					[WEAK]
                 B       .
                 ENDP
                 
