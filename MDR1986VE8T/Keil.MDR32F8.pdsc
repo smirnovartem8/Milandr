@@ -25,7 +25,7 @@
           <description>
             (1986BE8 RUS)
             Core:
-             - 32-bit ARM Cortex-M4 processor, running at frequencies of up to 60 MHz
+             - 32-bit ARM Cortex-M4 processor, running at frequencies of up to 64 MHz
              - 1.25 DMIPS/MHz (Dhrystone 2.1) performance at 0 wait state memory access
              - memory Protection Unit (MPU)
              - 24-bit SysTick Timer
@@ -192,7 +192,18 @@
       <component Cclass="CMSIS"     Cgroup="CORE"/>
       <component Cclass="Device"    Cgroup="Startup"/>
     </attributes>
-  </example>      
+  </example>
+  <example name="rtos_led" doc="readme.txt" folder="Examples/rtos_led">
+    <description>Work with FreeRtos</description>
+    <board name="EVAL-BOARD1986VE8T" vendor="Milandr"/>
+    <project>
+      <environment name="uv" load="osrv.uvprojx"/>
+    </project>
+    <attributes>
+      <component Cclass="CMSIS"     Cgroup="CORE"/>
+      <component Cclass="Device"    Cgroup="Startup"/>
+    </attributes>
+  </example>    
 </examples>
 <!-- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ -->
 <boards>
