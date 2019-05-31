@@ -67,7 +67,6 @@
   */
 void SystemCoreClockUpdate (void)
 {
-   uint32_t cpu_freq;
    uint32_t regCLK;
    uint32_t pll_source, pll_N, pll_Q, pll_DIV;
    uint32_t sel_max_clk, sel_pll;
