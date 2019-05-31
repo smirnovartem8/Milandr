@@ -18,7 +18,7 @@
         <device Dname="MDR32F8">
           <processor  Dcore="Cortex-M4" DcoreVersion="r0p0" Dfpu="NO_FPU" Dmpu="NO_MPU" Dendian="Little-endian" Dclock="60000000"/>
           <compile    header="Libraries\CMSIS\CM4\DeviceSupport\MDR32F8\inc\" define="USE_MDR32F8"/>
-          <debug      svd="IDE\Keil\SVD\ARMCM4.svd"/>
+          <debug      svd="IDE\Keil\SVD\MDR1986BE8.svd"/>
           <memory     id="IROM1"                          start="0x20006000"  size="0x2000"    startup="1"   default="1"/>
           <memory     id="IRAM1"                          start="0x20000000"  size="0x6000"    init   ="1"   default="1"/>
           <algorithm  name="Flash\"           start="0x08000000"  size="0x20000" RAMstart="0x20000000" RAMsize="0x8000" default="1"/>
@@ -249,6 +249,8 @@
       <description>System Startup for MDR32F8 device series</description>
       <files>
       <file category="source" name="Libraries\CMSIS\CM4\DeviceSupport\MDR32F8\startup\arm\startup_1986ve8t.s" attr="config"/>
+	  <file category="source" name="Libraries\CMSIS\CM4\DeviceSupport\MDR32F8\startup\arm\system_1986ve8t.c" attr="config"/>
+	   <file category="header" name="Libraries\CMSIS\CM4\DeviceSupport\MDR32F8\startup\arm\system_1986ve8t.h" attr="config"/>
       </files>
     </component>
 
