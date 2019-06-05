@@ -19122,7 +19122,7 @@
             <description>Ethernet</description>
             <groupName>MDR_Ethernet</groupName>
             <baseAddress>0x21000000</baseAddress>
-            <size>16</size>
+            <size>32</size>
             <access>read-write</access>
             <addressBlock>
                 <offset>0</offset>
@@ -19138,184 +19138,119 @@
                 <value>15</value>
             </interrupt>
             <registers>
-                <!--DELIMITER-->
+                <!--DELIMITER/MAC_T-->
                 <register>
-                    <name>DELIMITER</name>
+                    <name>DELIMITER_MAC_T</name>
                     <addressOffset>0x00000000</addressOffset>
-                    <size>16</size>
+                    <size>32</size>
                     <access>read-write</access>
-                    <resetValue>0x1000</resetValue>
-                    <resetMask>0xFFFF</resetMask>
+                    <resetValue>0x78AB1000</resetValue>
+                    <resetMask>0xFFFFFFFF</resetMask>
                     <fields>
                         <field>
                             <name>Delimeter</name>
                             <bitOffset>0</bitOffset>
                             <bitWidth>16</bitWidth>
-                            <access>read-write</access>
                         </field>
-                    </fields>
-                </register>
-                <!--MAC_T-->
-                <register>
-                    <name>MAC_T</name>
-                    <addressOffset>0x00000002</addressOffset>
-                    <size>16</size>
-                    <access>read-write</access>
-                    <resetValue>0x78AB</resetValue>
-                    <resetMask>0xFFFF</resetMask>
-                    <fields>
                         <field>
                             <name>MAC_T</name>
-                            <bitOffset>0</bitOffset>
+                            <bitOffset>16</bitOffset>
                             <bitWidth>16</bitWidth>
-                            <access>read-write</access>
                         </field>
                     </fields>
                 </register>
-                <!--MAC_M-->
+                <!--MAC_M/MAC_H-->
                 <register>
-                    <name>MAC_M</name>
+                    <name>MAC_M_MAC_H</name>
                     <addressOffset>0x00000004</addressOffset>
-                    <size>16</size>
+                    <size>32</size>
                     <access>read-write</access>
-                    <resetValue>0x3456</resetValue>
-                    <resetMask>0xFFFF</resetMask>
+                    <resetValue>0x00123456</resetValue>
+                    <resetMask>0xFFFFFFFF</resetMask>
                     <fields>
                         <field>
                             <name>MAC_M</name>
                             <bitOffset>0</bitOffset>
                             <bitWidth>16</bitWidth>
-                            <access>read-write</access>
                         </field>
-                    </fields>
-                </register>
-                <!--MAC_H-->
-                <register>
-                    <name>MAC_H</name>
-                    <addressOffset>0x00000006</addressOffset>
-                    <size>16</size>
-                    <access>read-write</access>
-                    <resetValue>0x0012</resetValue>
-                    <resetMask>0xFFFF</resetMask>
-                    <fields>
                         <field>
                             <name>MAC_H</name>
-                            <bitOffset>0</bitOffset>
+                            <bitOffset>16</bitOffset>
                             <bitWidth>16</bitWidth>
-                            <access>read-write</access>
                         </field>
                     </fields>
                 </register>
-                <!--HASH0-->
+                <!--HASH0/HASH1-->
                 <register>
-                    <name>HASH0</name>
+                    <name>HASH0_HASH1</name>
                     <addressOffset>0x00000008</addressOffset>
-                    <size>16</size>
+                    <size>32</size>
                     <access>read-write</access>
-                    <resetValue>0x0000</resetValue>
-                    <resetMask>0xFFFF</resetMask>
+                    <resetValue>0x00000000</resetValue>
+                    <resetMask>0xFFFFFFFF</resetMask>
                     <fields>
                         <field>
-                            <name>HASH</name>
+                            <name>HASH0</name>
                             <bitOffset>0</bitOffset>
                             <bitWidth>16</bitWidth>
-                            <access>read-write</access>
+                        </field>
+                        <field>
+                            <name>HASH1</name>
+                            <bitOffset>16</bitOffset>
+                            <bitWidth>16</bitWidth>
                         </field>
                     </fields>
                 </register>
-                <!--HASH1-->
+                <!--HASH2/HASH3-->
                 <register>
-                    <name>HASH1</name>
-                    <addressOffset>0x0000000A</addressOffset>
-                    <size>16</size>
-                    <access>read-write</access>
-                    <resetValue>0x0000</resetValue>
-                    <resetMask>0xFFFF</resetMask>
-                    <fields>
-                        <field>
-                            <name>HASH</name>
-                            <bitOffset>0</bitOffset>
-                            <bitWidth>16</bitWidth>
-                            <access>read-write</access>
-                        </field>
-                    </fields>
-                </register>
-                <!--HASH2-->
-                <register>
-                    <name>HASH2</name>
+                    <name>HASH2_HASH3</name>
                     <addressOffset>0x0000000C</addressOffset>
-                    <size>16</size>
+                    <size>32</size>
                     <access>read-write</access>
-                    <resetValue>0x0000</resetValue>
-                    <resetMask>0xFFFF</resetMask>
+                    <resetValue>0x80000000</resetValue>
+                    <resetMask>0xFFFFFFFF</resetMask>
                     <fields>
                         <field>
-                            <name>HASH</name>
+                            <name>HASH2</name>
                             <bitOffset>0</bitOffset>
                             <bitWidth>16</bitWidth>
-                            <access>read-write</access>
+                        </field>
+                        <field>
+                            <name>HASH3</name>
+                            <bitOffset>16</bitOffset>
+                            <bitWidth>16</bitWidth>
                         </field>
                     </fields>
                 </register>
-                <!--HASH3-->
+                <!--IPG/PSC-->
                 <register>
-                    <name>HASH3</name>
-                    <addressOffset>0x0000000E</addressOffset>
-                    <size>16</size>
-                    <access>read-write</access>
-                    <resetValue>0x8000</resetValue>
-                    <resetMask>0xFFFF</resetMask>
-                    <fields>
-                        <field>
-                            <name>HASH</name>
-                            <bitOffset>0</bitOffset>
-                            <bitWidth>16</bitWidth>
-                            <access>read-write</access>
-                        </field>
-                    </fields>
-                </register>
-                <!--IPG-->
-                <register>
-                    <name>IPG</name>
+                    <name>IPG_PSC</name>
                     <addressOffset>0x00000010</addressOffset>
-                    <size>16</size>
+                    <size>32</size>
                     <access>read-write</access>
-                    <resetValue>0x0060</resetValue>
-                    <resetMask>0xFFFF</resetMask>
+                    <resetValue>0x00500060</resetValue>
+                    <resetMask>0xFFFFFFFF</resetMask>
                     <fields>
                         <field>
                             <name>IPG</name>
                             <bitOffset>0</bitOffset>
                             <bitWidth>16</bitWidth>
-                            <access>read-write</access>
                         </field>
-                    </fields>
-                </register>
-                <!--PSC-->
-                <register>
-                    <name>PSC</name>
-                    <addressOffset>0x00000012</addressOffset>
-                    <size>16</size>
-                    <access>read-write</access>
-                    <resetValue>0x0050</resetValue>
-                    <resetMask>0xFFFF</resetMask>
-                    <fields>
                         <field>
                             <name>PSC</name>
-                            <bitOffset>0</bitOffset>
+                            <bitOffset>16</bitOffset>
                             <bitWidth>16</bitWidth>
-                            <access>read-write</access>
                         </field>
                     </fields>
                 </register>
-                <!--BAG-->
+                <!--BAG/JITTERWND-->
                 <register>
-                    <name>BAG</name>
+                    <name>BAG_JITTERWND</name>
                     <addressOffset>0x00000014</addressOffset>
-                    <size>16</size>
+                    <size>32</size>
                     <access>read-write</access>
-                    <resetValue>0x0200</resetValue>
-                    <resetMask>0xFFFF</resetMask>
+                    <resetValue>0x00050200</resetValue>
+                    <resetMask>0xFFFFFFFF</resetMask>
                     <fields>
                         <field>
                             <name>BAG</name>
@@ -19323,581 +19258,452 @@
                             <bitWidth>16</bitWidth>
                             <access>read-write</access>
                         </field>
-                    </fields>
-                </register>
-                <!--JITTERWND-->
-                <register>
-                    <name>JITTERWND</name>
-                    <addressOffset>0x00000016</addressOffset>
-                    <size>16</size>
-                    <access>read-write</access>
-                    <resetValue>0x0005</resetValue>
-                    <resetMask>0xFFFF</resetMask>
-                    <fields>
                         <field>
                             <name>JWND</name>
-                            <bitOffset>0</bitOffset>
+                            <bitOffset>16</bitOffset>
                             <bitWidth>16</bitWidth>
                             <access>read-write</access>
                         </field>
                     </fields>
                 </register>
-                <!--R_CFG-->
+                <!--R_CFG/X_CFG-->
                 <register>
-                    <name>R_CFG</name>
+                    <name>R_CFG_X_CFG</name>
                     <addressOffset>0x00000018</addressOffset>
-                    <size>16</size>
+                    <size>32</size>
                     <access>read-write</access>
-                    <resetValue>0x0507</resetValue>
-                    <resetMask>0xB7FF</resetMask>
+                    <resetValue>0x01FA0507</resetValue>
+                    <resetMask>0xB7FFB7FF</resetMask>
                     <fields>
                         <field>
-                            <name>MCA_EN</name>
+                            <name>R_MCA_EN</name>
                             <bitOffset>0</bitOffset>
                             <bitWidth>1</bitWidth>
-                            <access>read-write</access>
                         </field>
                         <field>
-                            <name>BCA_EN</name>
+                            <name>R_BCA_EN</name>
                             <bitOffset>1</bitOffset>
                             <bitWidth>1</bitWidth>
-                            <access>read-write</access>
                         </field>
                         <field>
-                            <name>UCA_EN</name>
+                            <name>R_UCA_EN</name>
                             <bitOffset>2</bitOffset>
                             <bitWidth>1</bitWidth>
-                            <access>read-write</access>
                         </field>
                         <field>
-                            <name>AC_EN</name>
+                            <name>R_AC_EN</name>
                             <bitOffset>3</bitOffset>
                             <bitWidth>1</bitWidth>
-                            <access>read-write</access>
                         </field>
                         <field>
-                            <name>EF_EN</name>
+                            <name>R_EF_EN</name>
                             <bitOffset>4</bitOffset>
                             <bitWidth>1</bitWidth>
-                            <access>read-write</access>
                         </field>
                         <field>
-                            <name>CF_EN</name>
+                            <name>R_CF_EN</name>
                             <bitOffset>5</bitOffset>
                             <bitWidth>1</bitWidth>
-                            <access>read-write</access>
                         </field>
                         <field>
-                            <name>LF_EN</name>
+                            <name>R_LF_EN</name>
                             <bitOffset>6</bitOffset>
                             <bitWidth>1</bitWidth>
-                            <access>read-write</access>
                         </field>
                         <field>
-                            <name>SF_EN</name>
+                            <name>R_SF_EN</name>
                             <bitOffset>7</bitOffset>
                             <bitWidth>1</bitWidth>
-                            <access>read-write</access>
                         </field>
                         <field>
-                            <name>EVENT_MODE</name>
+                            <name>R_EVENT_MODE</name>
                             <bitOffset>8</bitOffset>
                             <bitWidth>3</bitWidth>
-                            <access>read-write</access>
                         </field>
                         <field>
-                            <name>MSB1st</name>
+                            <name>R_MSB1st</name>
                             <bitOffset>12</bitOffset>
                             <bitWidth>1</bitWidth>
-                            <access>read-write</access>
                         </field>
                         <field>
-                            <name>BE</name>
+                            <name>R_BE</name>
                             <bitOffset>13</bitOffset>
                             <bitWidth>1</bitWidth>
-                            <access>read-write</access>
                         </field>
                         <field>
-                            <name>EN</name>
+                            <name>R_EN</name>
                             <bitOffset>15</bitOffset>
                             <bitWidth>1</bitWidth>
-                            <access>read-write</access>
                         </field>
                     </fields>
-                </register>
-                <!--X_CFG-->
-                <register>
-                    <name>X_CFG</name>
-                    <addressOffset>0x0000001A</addressOffset>
-                    <size>16</size>
-                    <access>read-write</access>
-                    <resetValue>0x01FA</resetValue>
-                    <resetMask>0xB7FF</resetMask>
                     <fields>
                         <field>
-                            <name>RtryCnt</name>
-                            <bitOffset>0</bitOffset>
+                            <name>X_RtryCnt</name>
+                            <bitOffset>16</bitOffset>
                             <bitWidth>4</bitWidth>
-                            <access>read-write</access>
                         </field>
                         <field>
-                            <name>IPG_EN</name>
-                            <bitOffset>4</bitOffset>
+                            <name>X_IPG_EN</name>
+                            <bitOffset>20</bitOffset>
                             <bitWidth>1</bitWidth>
-                            <access>read-write</access>
                         </field>
                         <field>
-                            <name>CRC_EN</name>
-                            <bitOffset>5</bitOffset>
+                            <name>X_CRC_EN</name>
+                            <bitOffset>21</bitOffset>
                             <bitWidth>1</bitWidth>
-                            <access>read-write</access>
                         </field>
                         <field>
-                            <name>PRE_EN</name>
-                            <bitOffset>6</bitOffset>
+                            <name>X_PRE_EN</name>
+                            <bitOffset>22</bitOffset>
                             <bitWidth>1</bitWidth>
-                            <access>read-write</access>
                         </field>
                         <field>
-                            <name>PAD_EN</name>
-                            <bitOffset>7</bitOffset>
+                            <name>X_PAD_EN</name>
+                            <bitOffset>23</bitOffset>
                             <bitWidth>1</bitWidth>
-                            <access>read-write</access>
                         </field>
                         <field>
-                            <name>EVNT_MODE</name>
-                            <bitOffset>8</bitOffset>
+                            <name>X_EVNT_MODE</name>
+                            <bitOffset>24</bitOffset>
                             <bitWidth>3</bitWidth>
-                            <access>read-write</access>
                         </field>
                         <field>
-                            <name>MSB1st</name>
-                            <bitOffset>12</bitOffset>
+                            <name>X_MSB1st</name>
+                            <bitOffset>28</bitOffset>
                             <bitWidth>1</bitWidth>
-                            <access>read-write</access>
                         </field>
                         <field>
-                            <name>BE</name>
-                            <bitOffset>13</bitOffset>
+                            <name>X_BE</name>
+                            <bitOffset>29</bitOffset>
                             <bitWidth>1</bitWidth>
-                            <access>read-write</access>
                         </field>
                         <field>
-                            <name>EN</name>
-                            <bitOffset>15</bitOffset>
+                            <name>X_EN</name>
+                            <bitOffset>31</bitOffset>
                             <bitWidth>1</bitWidth>
-                            <access>read-write</access>
                         </field>
                     </fields>
                 </register>
-                <!--G_CFG_l-->
+                <!--G_CFG_l/h-->
                 <register>
-                    <name>G_CFG_l</name>
+                    <name>G_CFG_l_h</name>
                     <addressOffset>0x0000001C</addressOffset>
-                    <size>16</size>
+                    <size>32</size>
                     <access>read-write</access>
-                    <resetValue>0x4880</resetValue>
-                    <resetMask>0x7FFF</resetMask>
+                    <resetValue>0x30004880</resetValue>
+                    <resetMask>0xF0077FFF</resetMask>
                     <fields>
                         <field>
-                            <name>ColWnd</name>
+                            <name>l_ColWnd</name>
                             <bitOffset>0</bitOffset>
                             <bitWidth>7</bitWidth>
-                            <access>read-write</access>
                         </field>
                         <field>
-                            <name>PAUSE_EN</name>
+                            <name>l_PAUSE_EN</name>
                             <bitOffset>8</bitOffset>
                             <bitWidth>1</bitWidth>
-                            <access>read-write</access>
                         </field>
                         <field>
-                            <name>DTRM_EN</name>
+                            <name>l_DTRM_EN</name>
                             <bitOffset>9</bitOffset>
                             <bitWidth>1</bitWidth>
-                            <access>read-write</access>
                         </field>
                         <field>
-                            <name>HD_EN</name>
+                            <name>l_HD_EN</name>
                             <bitOffset>10</bitOffset>
                             <bitWidth>1</bitWidth>
-                            <access>read-write</access>
                         </field>
                         <field>
-                            <name>EXT_EN</name>
+                            <name>l_EXT_EN</name>
                             <bitOffset>11</bitOffset>
                             <bitWidth>1</bitWidth>
-                            <access>read-write</access>
                         </field>
                         <field>
-                            <name>BUFF_MODE</name>
+                            <name>l_BUFF_MODE</name>
                             <bitOffset>12</bitOffset>
                             <bitWidth>2</bitWidth>
-                            <access>read-write</access>
                         </field>
                         <field>
-                            <name>RCLR_EN</name>
+                            <name>l_RCLR_EN</name>
                             <bitOffset>14</bitOffset>
                             <bitWidth>1</bitWidth>
-                            <access>read-write</access>
                         </field>
                     </fields>
-                </register>
-                <!--G_CFG_h-->
-                <register>
-                    <name>G_CFG_h</name>
-                    <addressOffset>0x0000001E</addressOffset>
-                    <size>16</size>
-                    <access>read-write</access>
-                    <resetValue>0x3000</resetValue>
-                    <resetMask>0xF007</resetMask>
                     <fields>
                         <field>
-                            <name>XRST</name>
-                            <bitOffset>0</bitOffset>
+                            <name>h_XRST</name>
+                            <bitOffset>16</bitOffset>
                             <bitWidth>1</bitWidth>
-                            <access>read-write</access>
                         </field>
                         <field>
-                            <name>RRST</name>
-                            <bitOffset>1</bitOffset>
+                            <name>h_RRST</name>
+                            <bitOffset>17</bitOffset>
                             <bitWidth>1</bitWidth>
-                            <access>read-write</access>
                         </field>
                         <field>
-                            <name>DLB</name>
-                            <bitOffset>2</bitOffset>
+                            <name>h_DLB</name>
+                            <bitOffset>18</bitOffset>
                             <bitWidth>1</bitWidth>
-                            <access>read-write</access>
                         </field>
                         <field>
-                            <name>DBGRF_EN</name>
-                            <bitOffset>12</bitOffset>
+                            <name>h_DBGRF_EN</name>
+                            <bitOffset>28</bitOffset>
                             <bitWidth>1</bitWidth>
-                            <access>read-write</access>
                         </field>
                         <field>
-                            <name>DBGXF_EN</name>
-                            <bitOffset>13</bitOffset>
+                            <name>h_DBGXF_EN</name>
+                            <bitOffset>29</bitOffset>
                             <bitWidth>1</bitWidth>
-                            <access>read-write</access>
                         </field>
                         <field>
-                            <name>DBG_mode</name>
-                            <bitOffset>14</bitOffset>
+                            <name>h_DBG_mode</name>
+                            <bitOffset>30</bitOffset>
                             <bitWidth>2</bitWidth>
-                            <access>read-write</access>
                         </field>
                     </fields>
                 </register>
-                <!--IMR-->
+                <!--IMR/IFR-->
                 <register>
-                    <name>IMR</name>
+                    <name>IMR_IFR</name>
                     <addressOffset>0x00000020</addressOffset>
-                    <size>16</size>
+                    <size>32</size>
                     <access>read-write</access>
-                    <resetValue>0x0000</resetValue>
-                    <resetMask>0xDFFF</resetMask>
+                    <resetValue>0x00000000</resetValue>
+                    <resetMask>0xDFFFDFFF</resetMask>
                     <fields>
                         <field>
-                            <name>RF_OK</name>
+                            <name>IMR_RF_OK</name>
                             <bitOffset>0</bitOffset>
                             <bitWidth>1</bitWidth>
-                            <access>read-write</access>
                         </field>
                         <field>
-                            <name>MISSED_F</name>
+                            <name>IMR_MISSED_F</name>
                             <bitOffset>1</bitOffset>
                             <bitWidth>1</bitWidth>
-                            <access>read-write</access>
                         </field>
                         <field>
-                            <name>OVF</name>
+                            <name>IMR_OVF</name>
                             <bitOffset>2</bitOffset>
                             <bitWidth>1</bitWidth>
-                            <access>read-write</access>
                         </field>
                         <field>
-                            <name>SMB_ERR</name>
+                            <name>IMR_SMB_ERR</name>
                             <bitOffset>3</bitOffset>
                             <bitWidth>1</bitWidth>
-                            <access>read-write</access>
                         </field>
                         <field>
-                            <name>CRC_ERR</name>
+                            <name>IMR_CRC_ERR</name>
                             <bitOffset>4</bitOffset>
                             <bitWidth>1</bitWidth>
-                            <access>read-write</access>
                         </field>
                         <field>
-                            <name>CF</name>
+                            <name>IMR_CF</name>
                             <bitOffset>5</bitOffset>
                             <bitWidth>1</bitWidth>
-                            <access>read-write</access>
                         </field>
                         <field>
-                            <name>LF</name>
+                            <name>IMR_LF</name>
                             <bitOffset>6</bitOffset>
                             <bitWidth>1</bitWidth>
-                            <access>read-write</access>
                         </field>
                         <field>
-                            <name>SF</name>
+                            <name>IMR_SF</name>
                             <bitOffset>7</bitOffset>
                             <bitWidth>1</bitWidth>
-                            <access>read-write</access>
                         </field>
                         <field>
-                            <name>XF_OK</name>
+                            <name>IMR_XF_OK</name>
                             <bitOffset>8</bitOffset>
                             <bitWidth>1</bitWidth>
-                            <access>read-write</access>
                         </field>
                         <field>
-                            <name>XF_ERR</name>
+                            <name>IMR_XF_ERR</name>
                             <bitOffset>9</bitOffset>
                             <bitWidth>1</bitWidth>
-                            <access>read-write</access>
                         </field>
                         <field>
-                            <name>UNDF</name>
+                            <name>IMR_UNDF</name>
                             <bitOffset>10</bitOffset>
                             <bitWidth>1</bitWidth>
-                            <access>read-write</access>
                         </field>
                         <field>
-                            <name>LC</name>
+                            <name>IMR_LC</name>
                             <bitOffset>11</bitOffset>
                             <bitWidth>1</bitWidth>
-                            <access>read-write</access>
                         </field>
                         <field>
-                            <name>CRS_LOST</name>
+                            <name>IMR_CRS_LOST</name>
                             <bitOffset>12</bitOffset>
                             <bitWidth>1</bitWidth>
-                            <access>read-write</access>
                         </field>
                         <field>
-                            <name>MDIO_INT</name>
+                            <name>IMR_MDIO_INT</name>
                             <bitOffset>14</bitOffset>
                             <bitWidth>1</bitWidth>
-                            <access>read-write</access>
                         </field>
                         <field>
-                            <name>MII_RDY</name>
+                            <name>IMR_MII_RDY</name>
                             <bitOffset>15</bitOffset>
                             <bitWidth>1</bitWidth>
-                            <access>read-write</access>
+                        </field>
+                    </fields>
+                    <fields>
+                        <field>
+                            <name>IFR_RF_OK</name>
+                            <bitOffset>16</bitOffset>
+                            <bitWidth>1</bitWidth>
+                        </field>
+                        <field>
+                            <name>IFR_MISSED_F</name>
+                            <bitOffset>17</bitOffset>
+                            <bitWidth>1</bitWidth>
+                        </field>
+                        <field>
+                            <name>IFR_OVF</name>
+                            <bitOffset>18</bitOffset>
+                            <bitWidth>1</bitWidth>
+                        </field>
+                        <field>
+                            <name>IFR_SMB_ERR</name>
+                            <bitOffset>19</bitOffset>
+                            <bitWidth>1</bitWidth>
+                        </field>
+                        <field>
+                            <name>IFR_CRC_ERR</name>
+                            <bitOffset>20</bitOffset>
+                            <bitWidth>1</bitWidth>
+                        </field>
+                        <field>
+                            <name>IFR_CF</name>
+                            <bitOffset>21</bitOffset>
+                            <bitWidth>1</bitWidth>
+                        </field>
+                        <field>
+                            <name>IFR_LF</name>
+                            <bitOffset>22</bitOffset>
+                            <bitWidth>1</bitWidth>
+                        </field>
+                        <field>
+                            <name>IFR_SF</name>
+                            <bitOffset>23</bitOffset>
+                            <bitWidth>1</bitWidth>
+                        </field>
+                        <field>
+                            <name>IFR_XF_OK</name>
+                            <bitOffset>24</bitOffset>
+                            <bitWidth>1</bitWidth>
+                        </field>
+                        <field>
+                            <name>IFR_XF_ERR</name>
+                            <bitOffset>25</bitOffset>
+                            <bitWidth>1</bitWidth>
+                        </field>
+                        <field>
+                            <name>IFR_UNDF</name>
+                            <bitOffset>26</bitOffset>
+                            <bitWidth>1</bitWidth>
+                        </field>
+                        <field>
+                            <name>IFR_LC</name>
+                            <bitOffset>27</bitOffset>
+                            <bitWidth>1</bitWidth>
+                        </field>
+                        <field>
+                            <name>IFR_CRS_LOST</name>
+                            <bitOffset>28</bitOffset>
+                            <bitWidth>1</bitWidth>
+                        </field>
+                        <field>
+                            <name>IFR_MDIO_INT</name>
+                            <bitOffset>30</bitOffset>
+                            <bitWidth>1</bitWidth>
+                        </field>
+                        <field>
+                            <name>IFR_MII_RDY</name>
+                            <bitOffset>31</bitOffset>
+                            <bitWidth>1</bitWidth>
                         </field>
                     </fields>
                 </register>
-                <!--IFR-->
+                <!--MDIO_CTRL/DATA-->
                 <register>
-                    <name>IFR</name>
-                    <addressOffset>0x00000022</addressOffset>
-                    <size>16</size>
-                    <access>read-write</access>
-                    <resetValue>0x0000</resetValue>
-                    <resetMask>0xDFFF</resetMask>
-                    <fields>
-                        <field>
-                            <name>RF_OK</name>
-                            <bitOffset>0</bitOffset>
-                            <bitWidth>1</bitWidth>
-                            <access>read-write</access>
-                        </field>
-                        <field>
-                            <name>MISSED_F</name>
-                            <bitOffset>1</bitOffset>
-                            <bitWidth>1</bitWidth>
-                            <access>read-write</access>
-                        </field>
-                        <field>
-                            <name>OVF</name>
-                            <bitOffset>2</bitOffset>
-                            <bitWidth>1</bitWidth>
-                            <access>read-write</access>
-                        </field>
-                        <field>
-                            <name>SMB_ERR</name>
-                            <bitOffset>3</bitOffset>
-                            <bitWidth>1</bitWidth>
-                            <access>read-write</access>
-                        </field>
-                        <field>
-                            <name>CRC_ERR</name>
-                            <bitOffset>4</bitOffset>
-                            <bitWidth>1</bitWidth>
-                            <access>read-write</access>
-                        </field>
-                        <field>
-                            <name>CF</name>
-                            <bitOffset>5</bitOffset>
-                            <bitWidth>1</bitWidth>
-                            <access>read-write</access>
-                        </field>
-                        <field>
-                            <name>LF</name>
-                            <bitOffset>6</bitOffset>
-                            <bitWidth>1</bitWidth>
-                            <access>read-write</access>
-                        </field>
-                        <field>
-                            <name>SF</name>
-                            <bitOffset>7</bitOffset>
-                            <bitWidth>1</bitWidth>
-                            <access>read-write</access>
-                        </field>
-                        <field>
-                            <name>XF_OK</name>
-                            <bitOffset>8</bitOffset>
-                            <bitWidth>1</bitWidth>
-                            <access>read-write</access>
-                        </field>
-                        <field>
-                            <name>XF_ERR</name>
-                            <bitOffset>9</bitOffset>
-                            <bitWidth>1</bitWidth>
-                            <access>read-write</access>
-                        </field>
-                        <field>
-                            <name>UNDF</name>
-                            <bitOffset>10</bitOffset>
-                            <bitWidth>1</bitWidth>
-                            <access>read-write</access>
-                        </field>
-                        <field>
-                            <name>LC</name>
-                            <bitOffset>11</bitOffset>
-                            <bitWidth>1</bitWidth>
-                            <access>read-write</access>
-                        </field>
-                        <field>
-                            <name>CRS_LOST</name>
-                            <bitOffset>12</bitOffset>
-                            <bitWidth>1</bitWidth>
-                            <access>read-write</access>
-                        </field>
-                        <field>
-                            <name>MDIO_INT</name>
-                            <bitOffset>14</bitOffset>
-                            <bitWidth>1</bitWidth>
-                            <access>read-write</access>
-                        </field>
-                        <field>
-                            <name>MII_RDY</name>
-                            <bitOffset>15</bitOffset>
-                            <bitWidth>1</bitWidth>
-                            <access>read-write</access>
-                        </field>
-                    </fields>
-                </register>
-                <!--MDIO_CTRL-->
-                <register>
-                    <name>MDIO_CTRL</name>
+                    <name>MDIO_CTRL_DATA</name>
                     <addressOffset>0x00000024</addressOffset>
-                    <size>16</size>
+                    <size>32</size>
                     <access>read-write</access>
-                    <resetValue>0x0000</resetValue>
-                    <resetMask>0xFFFF</resetMask>
+                    <resetValue>0x00000000</resetValue>
+                    <resetMask>0xFFFFFFFF</resetMask>
                     <fields>
                         <field>
                             <name>RG_A</name>
                             <bitOffset>0</bitOffset>
                             <bitWidth>5</bitWidth>
-                            <access>read-write</access>
                         </field>
                         <field>
                             <name>DIV</name>
                             <bitOffset>5</bitOffset>
                             <bitWidth>3</bitWidth>
-                            <access>read-write</access>
                         </field>
                         <field>
                             <name>PHYA</name>
                             <bitOffset>8</bitOffset>
                             <bitWidth>5</bitWidth>
-                            <access>read-write</access>
                         </field>
                         <field>
                             <name>OP</name>
                             <bitOffset>13</bitOffset>
                             <bitWidth>1</bitWidth>
-                            <access>read-write</access>
                         </field>
                         <field>
                             <name>PRE_EN</name>
                             <bitOffset>14</bitOffset>
                             <bitWidth>1</bitWidth>
-                            <access>read-write</access>
                         </field>
                         <field>
                             <name>RDY</name>
                             <bitOffset>15</bitOffset>
                             <bitWidth>1</bitWidth>
-                            <access>read-write</access>
                         </field>
                     </fields>
-                </register>
-                <!--MDIO_DATA-->
-                <register>
-                    <name>MDIO</name>
-                    <addressOffset>0x00000026</addressOffset>
-                    <size>16</size>
-                    <access>read-write</access>
-                    <resetValue>0x0000</resetValue>
-                    <resetMask>0xFFFF</resetMask>
                     <fields>
                         <field>
                             <name>DATA</name>
-                            <bitOffset>0</bitOffset>
+                            <bitOffset>16</bitOffset>
                             <bitWidth>16</bitWidth>
-                            <access>read-write</access>
                         </field>
                     </fields>
                 </register>
-                <!--R_Head-->
+                <!--R_Head/X_Tail-->
                 <register>
-                    <name>R_Head</name>
+                    <name>R_Head_X_Tail</name>
                     <addressOffset>0x00000028</addressOffset>
-                    <size>16</size>
+                    <size>32</size>
                     <access>read-write</access>
-                    <resetValue>0x0000</resetValue>
-                    <resetMask>0xFFFF</resetMask>
+                    <resetValue>0x10000000</resetValue>
+                    <resetMask>0xFFFFFFFF</resetMask>
                     <fields>
                         <field>
                             <name>RHead</name>
                             <bitOffset>0</bitOffset>
                             <bitWidth>16</bitWidth>
-                            <access>read-write</access>
                         </field>
                     </fields>
-                </register>
-                <!--X_Tail-->
-                <register>
-                    <name>X_Tail</name>
-                    <addressOffset>0x0000002A</addressOffset>
-                    <size>16</size>
-                    <access>read-write</access>
-                    <resetValue>0x1000</resetValue>
-                    <resetMask>0xFFFF</resetMask>
                     <fields>
                         <field>
                             <name>XTail</name>
-                            <bitOffset>0</bitOffset>
+                            <bitOffset>16</bitOffset>
                             <bitWidth>16</bitWidth>
-                            <access>read-write</access>
                         </field>
                     </fields>
                 </register>
-                <!--R_Tail-->
+                <!--R_Tail/X_Head-->
                 <register>
-                    <name>R_Tail</name>
+                    <name>R_Tail_X_Head</name>
                     <addressOffset>0x0000002C</addressOffset>
-                    <size>16</size>
+                    <size>32</size>
                     <access>read-only</access>
-                    <resetValue>0x0000</resetValue>
-                    <resetMask>0xFFFF</resetMask>
+                    <resetValue>0x10000000</resetValue>
+                    <resetMask>0xFFFFFFFF</resetMask>
                     <fields>
                         <field>
                             <name>RTail</name>
@@ -19905,31 +19711,22 @@
                             <bitWidth>16</bitWidth>
                         </field>
                     </fields>
-                </register>
-                <!--X_Head-->
-                <register>
-                    <name>X_Head</name>
-                    <addressOffset>0x0000002E</addressOffset>
-                    <size>16</size>
-                    <access>read-only</access>
-                    <resetValue>0x1000</resetValue>
-                    <resetMask>0xFFFF</resetMask>
                     <fields>
                         <field>
                             <name>XHead</name>
-                            <bitOffset>0</bitOffset>
+                            <bitOffset>16</bitOffset>
                             <bitWidth>16</bitWidth>
                         </field>
                     </fields>
                 </register>
-                <!--STAT-->
+                <!--STAT/RCOUNTER-->
                 <register>
-                    <name>STAT</name>
+                    <name>STAT_RCOUNTER</name>
                     <addressOffset>0x00000030</addressOffset>
-                    <size>16</size>
+                    <size>32</size>
                     <access>read-only</access>
-                    <resetValue>0x0303</resetValue>
-                    <resetMask>0x1FFF</resetMask>
+                    <resetValue>0x00000303</resetValue>
+                    <resetMask>0xFFFF1FFF</resetMask>
                     <fields>
                         <field>
                             <name>R_EMPTY</name>
@@ -19987,137 +19784,116 @@
                             <bitWidth>1</bitWidth>
                         </field>
                     </fields>
-                </register>
-                <!--RCOUNTER-->
-                <register>
-                    <name>RCOUNTER</name>
-                    <addressOffset>0x00000032</addressOffset>
-                    <size>32</size>
-                    <access>read-only</access>
-                    <resetValue>0x0000</resetValue>
-                    <resetMask>0xFFFF</resetMask>
                     <fields>
                         <field>
-                            <name>CNT</name>
-                            <bitOffset>0</bitOffset>
+                            <name>RCNT</name>
+                            <bitOffset>16</bitOffset>
                             <bitWidth>16</bitWidth>
                         </field>
                     </fields>
                 </register>
-                <!--PHY_CONTROL-->
+                <!--PHY_CONTROL/STATUS-->
                 <register>
-                    <name>PHY_CONTROL</name>
+                    <name>PHY_CONTROL_STATUS</name>
                     <addressOffset>0x00000034</addressOffset>
-                    <size>16</size>
+                    <size>32</size>
                     <access>read-write</access>
-                    <resetValue>0x0000</resetValue>
-                    <resetMask>0xCFFF</resetMask>
+                    <resetValue>0x00000000</resetValue>
+                    <resetMask>0x3F00CFFF</resetMask>
                     <fields>
                         <field>
-                            <name>LB</name>
+                            <name>CTRL_LB</name>
                             <bitOffset>0</bitOffset>
                             <bitWidth>1</bitWidth>
-                            <access>read-write</access>
                         </field>
                         <field>
-                            <name>DLB</name>
+                            <name>CTRL_DLB</name>
                             <bitOffset>1</bitOffset>
                             <bitWidth>1</bitWidth>
-                            <access>read-write</access>
                         </field>
                         <field>
-                            <name>HALFD</name>
+                            <name>CTRL_HALFD</name>
                             <bitOffset>2</bitOffset>
                             <bitWidth>1</bitWidth>
-                            <access>read-write</access>
                         </field>
                         <field>
-                            <name>EARLY_DV</name>
+                            <name>CTRL_EARLY_DV</name>
                             <bitOffset>3</bitOffset>
                             <bitWidth>1</bitWidth>
-                            <access>read-write</access>
                         </field>
                         <field>
-                            <name>DIR</name>
+                            <name>CTRL_DIR</name>
                             <bitOffset>4</bitOffset>
                             <bitWidth>1</bitWidth>
-                            <access>read-write</access>
                         </field>
                         <field>
-                            <name>BASE_2</name>
+                            <name>CTRL_BASE_2</name>
                             <bitOffset>5</bitOffset>
                             <bitWidth>1</bitWidth>
-                            <access>read-write</access>
                         </field>
                         <field>
-                            <name>LINK_PERIOD</name>
+                            <name>CTRL_LINK_PERIOD</name>
                             <bitOffset>6</bitOffset>
                             <bitWidth>6</bitWidth>
-                            <access>read-write</access>
                         </field>
                         <field>
-                            <name>EXT_EN</name>
+                            <name>CTRL_EXT_EN</name>
                             <bitOffset>14</bitOffset>
                             <bitWidth>1</bitWidth>
-                            <access>read-write</access>
                         </field>
                         <field>
-                            <name>RST</name>
+                            <name>CTRL_RST</name>
                             <bitOffset>15</bitOffset>
                             <bitWidth>1</bitWidth>
-                            <access>read-write</access>
                         </field>
                     </fields>
-                </register>
-                <!--PHY_STATUS-->
-                <register>
-                    <name>PHY_STATUS</name>
-                    <addressOffset>0x00000036</addressOffset>
-                    <size>16</size>
-                    <access>read-only</access>
-                    <resetValue>0x0000</resetValue>
-                    <resetMask>0x3F00</resetMask>
                     <fields>
                         <field>
-                            <name>LED_LINK</name>
-                            <bitOffset>8</bitOffset>
+                            <name>STAT_LED_LINK</name>
+                            <bitOffset>24</bitOffset>
                             <bitWidth>1</bitWidth>
+                            <access>read-only</access>
                         </field>
                         <field>
-                            <name>LED_STAT</name>
-                            <bitOffset>9</bitOffset>
+                            <name>STAT_LED_STAT</name>
+                            <bitOffset>25</bitOffset>
                             <bitWidth>1</bitWidth>
+                            <access>read-only</access>
                         </field>
                         <field>
-                            <name>INT_LOSS</name>
-                            <bitOffset>10</bitOffset>
+                            <name>STAT_INT_LOSS</name>
+                            <bitOffset>26</bitOffset>
                             <bitWidth>1</bitWidth>
+                            <access>read-only</access>
                         </field>
                         <field>
-                            <name>INT_POL</name>
-                            <bitOffset>11</bitOffset>
+                            <name>STAT_INT_POL</name>
+                            <bitOffset>27</bitOffset>
                             <bitWidth>1</bitWidth>
+                            <access>read-only</access>
                         </field>
                         <field>
-                            <name>INT_JAB</name>
-                            <bitOffset>12</bitOffset>
+                            <name>STAT_INT_JAB</name>
+                            <bitOffset>28</bitOffset>
                             <bitWidth>1</bitWidth>
+                            <access>read-only</access>
                         </field>
                         <field>
-                            <name>INT_JAM</name>
-                            <bitOffset>13</bitOffset>
+                            <name>STAT_INT_JAM</name>
+                            <bitOffset>29</bitOffset>
                             <bitWidth>1</bitWidth>
+                            <access>read-only</access>
                         </field>
                     </fields>
                 </register>
                 <!--PHY_CONTROL_A-->
                 <register>
-                    <name>ETH_PHY</name>
+                    <name>PHY_CONTROL_A</name>
                     <addressOffset>0x00000038</addressOffset>
-                    <size>16</size>
+                    <size>32</size>
                     <access>read-write</access>
-                    <resetValue>0x0000</resetValue>
-                    <resetMask>0xCFFF</resetMask>
+                    <resetValue>0x00000000</resetValue>
+                    <resetMask>0x0000CFFF</resetMask>
                     <fields>
                         <field>
                             <name>SELR</name>
