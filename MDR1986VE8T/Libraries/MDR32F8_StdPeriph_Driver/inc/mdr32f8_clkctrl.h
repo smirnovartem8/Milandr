@@ -433,7 +433,6 @@ void CLKCTRL_PER1_CLKcmd(uint32_t CLKCTRL_PER1_CLK, FunctionalState NewState);
 
 void BKPCNTR_REG_63_TMRx_HSIcmd(FunctionalState NewState);
 void BKPCNTR_REG_63_TMRx_LSIcmd(FunctionalState NewState);
-void SystemCoreClockUpdate (void);
 
 
 /**
