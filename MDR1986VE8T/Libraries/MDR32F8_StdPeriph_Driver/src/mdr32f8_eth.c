@@ -141,7 +141,7 @@ void ETH_PHY_ClockConfig(uint32_t clock_source, uint32_t PHY_HCLKdiv)
 	tmpreg_EPHY_CLOCK &= ~ (RST_CLK_ETH_CLOCK_PHY_BRG_Msk | RST_CLK_ETH_CLOCK_PHY_CLK_SEL_Msk);
 
 	/* Select clock source for PHY module and set PHY DIV */
-	tmpreg_EPHY_CLOCK |= clock_source | PHY_HCLKdiv;
+	tmpreg_EPHY_CLOCK = clock_source | PHY_HCLKdiv;
 	/* Enable PHY CLK */
 	tmpreg_EPHY_CLOCK |= RST_CLK_ETH_CLOCK_PHY_CLK_EN;
 
