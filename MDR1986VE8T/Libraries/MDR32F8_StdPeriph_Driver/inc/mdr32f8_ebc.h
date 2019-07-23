@@ -95,7 +95,7 @@ uint32_t RGN_DIVOCLK;
 
 
 
-#define EBC_RGNx_EN			    ((uint32_t)0x00000001)
+#define EBC_RGNx_EN		        ((uint32_t)0x00000001)
 
 #define EBC_ECCMODE_PAR 		(uint32_t)(0x00)
 #define EBC_ECCMODE_CON 		(uint32_t)(0x01)
