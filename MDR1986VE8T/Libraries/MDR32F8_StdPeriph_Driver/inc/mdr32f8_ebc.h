@@ -95,30 +95,30 @@ uint32_t RGN_DIVOCLK;
 
 
 
-#define EBC_RGNx_EN			    ((uint32_t)0x00000001)
+#define EBC_RGNx_EN		        ((uint32_t)0x00000001)
 
-#define EBC_ECCMODE_PAR 		(uint32_t)(0x00);
-#define EBC_ECCMODE_CON 		(uint32_t)(0x01);
+#define EBC_ECCMODE_PAR 		(uint32_t)(0x00)
+#define EBC_ECCMODE_CON 		(uint32_t)(0x01)
 
-#define EBC_RDYWAIT_NOWAIT 		(uint32_t)(0x00);
-#define EBC_RDYWAIT_WAIT 		(uint32_t)(0x01);
+#define EBC_RDYWAIT_NOWAIT 		(uint32_t)(0x00)
+#define EBC_RDYWAIT_WAIT 		(uint32_t)(0x01)
 
-#define EBC_MODE_32X 			(uint32_t)(0x00);
-#define EBC_MODE_16X 			(uint32_t)(0x01);
-#define EBC_MODE_8X 			(uint32_t)(0x02);
-#define EBC_MODE_64X 			(uint32_t)(0x03);
+#define EBC_MODE_32X 			(uint32_t)(0x00)
+#define EBC_MODE_16X 			(uint32_t)(0x01)
+#define EBC_MODE_8X 			(uint32_t)(0x02)
+#define EBC_MODE_64X 			(uint32_t)(0x03)
 
-#define EBC_ROM_RAM 			(uint32_t)(0x00);
-#define EBC_ROM_ROM 			(uint32_t)(0x01);
+#define EBC_ROM_RAM 			(uint32_t)(0x00)
+#define EBC_ROM_ROM 			(uint32_t)(0x01)
 
-#define EBC_CPOL_UP 			(uint32_t)(0x00);
-#define EBC_CPOL_DOWN 			(uint32_t)(0x01);
+#define EBC_CPOL_UP 			(uint32_t)(0x00)
+#define EBC_CPOL_DOWN 			(uint32_t)(0x01)
 
-#define EBC_USESEPAR_USER 		(uint32_t)(0x00);
-#define EBC_USESEPAR_FORSOC 	(uint32_t)(0x01);
+#define EBC_USESEPAR_USER 		(uint32_t)(0x00)
+#define EBC_USESEPAR_FORSOC 	        (uint32_t)(0x01)
 
-#define EBC_READ32_8_16 		(uint32_t)(0x00);
-#define EBC_READ32_32 			(uint32_t)(0x01);
+#define EBC_READ32_8_16 		(uint32_t)(0x00)
+#define EBC_READ32_32 			(uint32_t)(0x01)
 
 
 /** @} */ /* End of group EBC_Exported_Types */
