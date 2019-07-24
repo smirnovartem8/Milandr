@@ -106,30 +106,30 @@ typedef struct {
 } ADCx_InitTypeDef;
 
 
-#define ADCx_CONFIG0_WORKMODE_GO_CONV					(uint32_t)(0x00 << ADCx_CONFIG0_WORKMODE_Pos)
-#define ADCx_CONFIG0_WORKMODE_EXT_GO					(uint32_t)(0x01 << ADCx_CONFIG0_WORKMODE_Pos)
-#define ADCx_CONFIG0_WORKMODE_CONT						(uint32_t)(0x02 << ADCx_CONFIG0_WORKMODE_Pos)
+#define ADCx_CONFIG0_WORKMODE_GO_CONV					(uint32_t)(0x00)
+#define ADCx_CONFIG0_WORKMODE_EXT_GO					(uint32_t)(0x01)
+#define ADCx_CONFIG0_WORKMODE_CONT						(uint32_t)(0x02)
 
-#define ADCx_CONFIG0_REFMODE_ADC_POW				  (uint32_t)(0x00 << ADCx_CONFIG0_REFMODE_Pos)
-#define ADCx_CONFIG0_REFMODE_REFSEL						(uint32_t)(0x01 << ADCx_CONFIG0_REFMODE_Pos)
+#define ADCx_CONFIG0_REFMODE_ADC_POW				  	(uint32_t)(0x00)
+#define ADCx_CONFIG0_REFMODE_REFSEL						(uint32_t)(0x01)
 
-#define ADCx_CONFIG0_RH_MODE_REF25						(uint32_t)(0x00 << ADCx_CONFIG0_RH_MODE_Pos)
-#define ADCx_CONFIG0_RH_MODE_ADC_POW				  (uint32_t)(0x01 << ADCx_CONFIG0_RH_MODE_Pos)
+#define ADCx_CONFIG0_RH_MODE_REF25						(uint32_t)(0x00)
+#define ADCx_CONFIG0_RH_MODE_ADC_POW				  	(uint32_t)(0x01)
 
-#define ADCx_CONFIG0_SELMODE_NOSW							(uint32_t)(0x00 << ADCx_CONFIG0_SELMODE_Pos)
-#define ADCx_CONFIG0_SELMODE_CHSEL					  (uint32_t)(0x01 << ADCx_CONFIG0_SELMODE_Pos)
+#define ADCx_CONFIG0_SELMODE_NOSW						(uint32_t)(0x00)
+#define ADCx_CONFIG0_SELMODE_CHSEL					  	(uint32_t)(0x01)
 
-#define ADCx_CONFIG0_EXT_GO_INV_NOINV					(uint32_t)(0x00 << ADCx_CONFIG0_EXT_GO_INV_Pos)
-#define ADCx_CONFIG0_EXT_GO_INV_INV						(uint32_t)(0x01 << ADCx_CONFIG0_EXT_GO_INV_Pos)
+#define ADCx_CONFIG0_EXT_GO_INV_NOINV					(uint32_t)(0x00)
+#define ADCx_CONFIG0_EXT_GO_INV_INV						(uint32_t)(0x01)
 
-#define ADCx_CONFIG0_EXT_GO_SEL_NO_SRC				(uint32_t)(0x00 << ADCx_CONFIG0_EXT_GO_SEL_Pos)
-#define ADCx_CONFIG0_EXT_GO_SEL_ADC_GO				(uint32_t)(0x00 << ADCx_CONFIG0_EXT_GO_SEL_Pos)
+#define ADCx_CONFIG0_EXT_GO_SEL_NO_SRC					(uint32_t)(0x00)
+#define ADCx_CONFIG0_EXT_GO_SEL_ADC_GO					(uint32_t)(0x00)
 
-#define ADCx_CONFIG1_REFTRIM_TYP							(uint32_t)(0x00 << ADCx_CONFIG1_REFTRIM_Pos)
+#define ADCx_CONFIG1_REFTRIM_TYP						(uint32_t)(0x00)
 
-#define ADCx_CONFIG1_SETUP_NOPAUSE						(uint32_t)(0x00 << ADCx_CONFIG1_SETUP_Pos)
+#define ADCx_CONFIG1_SETUP_NOPAUSE						(uint32_t)(0x00)
 
-#define ADCx_CONFIG1_PAUSE_NOPAUSE						(uint32_t)(0x80 << ADCx_CONFIG1_PAUSE_Pos)
+#define ADCx_CONFIG1_PAUSE_NOPAUSE						(uint32_t)(0x80)
 
 //#define ADCx_CONFIG1_ADCTRIM_NOTR						(uint32_t)(0x00 << ADCx_CONFIG1_ADCTRIM_Pos)
 
@@ -148,9 +148,9 @@ typedef struct {
 //#define ADCx_CONFIG2_IE_ERFIN_								(uint32_t)(0x80 << ADCx_CONFIG2_IE_ERFIN_Pos)
 //#define ADCx_CONFIG2_IE_ERFIN_								(uint32_t)(0x00 << ADCx_CONFIG2_IE_ERFIN_Pos)
 
-#define ADCx_CONFIG2_LEVLCNTRL_NOCTRL						(uint32_t)(0x00 << ADCx_CONFIG2_LEVLCNTRL_Pos)
-#define ADCx_CONFIG2_LEVLCNTRL_INCMINMAX				(uint32_t)(0x01 << ADCx_CONFIG2_LEVLCNTRL_Pos)
-#define ADCx_CONFIG2_LEVLCNTRL_NOINCMINMAX			(uint32_t)(0x02 << ADCx_CONFIG2_LEVLCNTRL_Pos)
+#define ADCx_CONFIG2_LEVLCNTRL_NOCTRL					(uint32_t)(0x00)
+#define ADCx_CONFIG2_LEVLCNTRL_INCMINMAX				(uint32_t)(0x01)
+#define ADCx_CONFIG2_LEVLCNTRL_NOINCMINMAX				(uint32_t)(0x02)
 //#define ADCx_CONFIG2_LEVLCNTRL_								(uint32_t)(0x03 << ADCx_CONFIG2_LEVLCNTRL_Pos)
 
 //#define ADCx_CONFIG2_REFSEL_									(uint32_t)(0x80 << ADCx_CONFIG2_REFSEL_Pos)
