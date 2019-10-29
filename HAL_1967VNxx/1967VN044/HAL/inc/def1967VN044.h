@@ -52,7 +52,7 @@
 #define base_UART0    		0x80000100
 #define base_UART1    		0x80000120
 #define base_SPI0      		0x80000140
-#define base_LCD  			0x80000160
+#define base_LCD  		0x80000160
 #define base_VBUF     		0x80000180
 #define base_VIDEO   		0x800001a0
 #define base_CMU      		0x800001c0
@@ -65,12 +65,12 @@
 #define base_UDDC2     		0x800002A0
 #define base_UDDC3     		0x800002C0
 #define base_I2C			0x800002E0
-#define base_INTCTL			0x80000300
+#define base_INTCTL		0x80000300
 #define base_GPTIMER		0x8000034E
 #define base_SPI1    		0x80000360
 #define base_SPI2   		0x80000380
-#define base_TIMER0			0x80000400
-#define base_TIMER1			0x80000440
+#define base_TIMER0		0x80000400
+#define base_TIMER1		0x80000440
 #define base_GPA      		0x80001000
 #define base_GPB      		0x80001040
 #define base_GPC      		0x80001080
@@ -86,6 +86,22 @@
 
 #define base_IVT			(base_INTCTL + 0x00)
 
+#define DIGCORR_BASE		base_DIGCORR
+#define MILSTD0_BASE 		base_MILSTD0
+#define MILSTD1_BASE 		base_MILSTD1
+#define IVT_BASE			base_IVT
+#define RTC_BASE 			base_RTC
+#define GPA_BASE			base_GPA
+#define GPB_BASE 			base_GPB
+#define NAND_BASE			base_NAND
+#define UART0_BASE		base_UART0
+#define UART1_BASE		base_UART1
+#define LCD_BASE			base_LCD
+#define VIDEO_BASE		base_VIDEO
+#define UDDC0_BASE		base_UDDC0
+#define UDDC1_BASE		base_UDDC1
+#define UDDC2_BASE		base_UDDC2
+#define UDDC3_BASE		base_UDDC3
 /*----------------------------------  РЕГИСТРЫ  ----------------------------------*/
 
 //-------------------------------------------------------//
