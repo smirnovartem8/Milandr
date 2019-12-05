@@ -149,9 +149,9 @@ void DSP_PER_Cmd(FunctionalState NewState);
 void DSP_ReadBufferCmd(FunctionalState NewState);
 FlagStatus DSP_GetStatus(uint32_t flag);
 void DSP_CLKPCLKCmd(uint32_t DSP_CLK_PCLK, FunctionalState NewSate);
-void DSP_RISCToDSPInterruptCmd(uint32_t Interrupt, FlagStatus NewStatus);
-void DSP_DMA_RISC_Cmd(uint32_t ADMA, FlagStatus NewStatus);
-void DSP_DSPToRISCInterruptCmd(uint32_t Interrupt, FlagStatus NewStatus);
+void DSP_RISCToDSPInterruptCmd(uint16_t Interrupt, FlagStatus NewStatus);
+void DSP_DMA_RISC_Cmd(uint16_t ADMA, FlagStatus NewStatus);
+void DSP_DSPToRISCInterruptCmd(uint16_t Interrupt, FlagStatus NewStatus);
 
 
 /** @} */ /* End of group DSP_Exported_Functions */

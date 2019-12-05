@@ -4159,8 +4159,8 @@ typedef struct {
 typedef struct {
 	__I  uint32_t	RESERVED0[47];
 	__IO uint32_t	CLKCMD;                 /*!< */
-	__IO uint32_t	DIR;                    /*!< */
-	__IO uint32_t	AIR;                    /*!< */
+	//__IO uint32_t	DIR;                    /*!< not correct*/
+	//__IO uint32_t	AIR;                    /*!< not correct*/
 }MDR_DSP_CORE_TypeDef;
 
 /** @defgroup Periph_DSP_CORE_CLKCMD DSP_CORE CLKCMD
@@ -4200,6 +4200,18 @@ typedef struct {
 #define DSP_CORE_CLKCMD_CPU                                ((uint32_t)0x00008000)
 
 /** @} */ /* End of group DSP_CORE_CLKCMD */
+/** @defgroup MDR1901VC1T_Periph_DSP_CORE DSP_CORE
+  * @{
+  */
+
+
+/* MDR_DSP_IRQ_TypeDef structure */
+typedef struct {                 /*!< */
+	__IO uint16_t	DIR;                    /*!<*/
+	__IO uint16_t	AIR;                    /*!<*/
+}MDR_DSP_IRQ_TypeDef;
+
+
 
 /** @defgroup Periph_DSP_CORE_DIR DSP_CORE DIR
   * @{
@@ -5191,16 +5203,14 @@ typedef struct {
 /** @defgroup MDR1901VC1T_Periph_DSP_CRPT DSP_CRPT
   * @{
   */
-
-
 /* MDR_DSP_CRPT_TypeDef structure */
 typedef struct {
 	__IO uint32_t	CWR;                    /*!< */
 	__IO uint32_t	SR;                     /*!< */
 	__IO uint32_t	DATA;                   /*!< */
 	__IO uint32_t	KR;                     /*!< */
-	__IO uint32_t	SYNR;                   /*!< */
-	__IO uint32_t	CR;                     /*!< */
+	__IO uint32_t	CR;                   	/*!< */
+	__IO uint32_t	SYNR;                    /*!< */
 	__IO uint32_t	IMIT;                   /*!< */
 	__IO uint32_t	ITER;                   /*!< */
 }MDR_DSP_CRPT_TypeDef;
@@ -5401,6 +5411,7 @@ typedef struct {
 #define MDR_DSP_TIMER_BASE             (0x30000070)
 #define MDR_DSP_DMA_BASE               (0x300000C0)
 #define MDR_DSP_CRPT_BASE              (0x30000080)
+#define MDR_DSP_IRQ_BASE			   (0x30000078)
 
 /** @} */ /* End of group __Peripheral_Memory_Map */
 
@@ -5446,6 +5457,7 @@ typedef struct {
 #define MDR_DSP_TIMER                  ((MDR_DSP_TIMER_TypeDef 	*) MDR_DSP_TIMER_BASE)
 #define MDR_DSP_DMA                    ((MDR_DSP_DMA_TypeDef 	*) MDR_DSP_DMA_BASE)
 #define MDR_DSP_CRPT                   ((MDR_DSP_CRPT_TypeDef 	*) MDR_DSP_CRPT_BASE)
+#define MDR_DSP_IRQ					   ((MDR_DSP_IRQ_TypeDef	*) MDR_DSP_IRQ_BASE)
 
 /** @} */ /* End of group __Peripheral_declaration */
 

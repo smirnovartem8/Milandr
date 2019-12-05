@@ -200,13 +200,13 @@ void DSP_CLKPCLKCmd(uint32_t DSP_CLK_PCLK, FunctionalState NewSate)
   *         This parameter can be: SET or RESET.
   * @retval	None.
   */
-void DSP_RISCToDSPInterruptCmd(uint32_t Interrupt, FlagStatus NewStatus)
+void DSP_RISCToDSPInterruptCmd(uint16_t Interrupt, FlagStatus NewStatus)
 {
 	/* Check the parameters */
 	assert_param(IS_FLAG_STATUS(NewStatus));
 	assert_param(IS_DSP_AIRQ(Interrupt));
 
-	MDR_DSP_CORE->AIR = Interrupt | ((NewStatus == SET) << DSP_CORE_AIR_SNR_Pos);
+	MDR_DSP_IRQ->AIR = Interrupt | ((NewStatus == SET) << DSP_CORE_AIR_SNR_Pos);
 }
 
 /**
@@ -225,13 +225,13 @@ void DSP_RISCToDSPInterruptCmd(uint32_t Interrupt, FlagStatus NewStatus)
   * 		This parameter can be: SET or RESET.
   * @retval	None.
   */
-void DSP_DMA_RISC_Cmd(uint32_t ADMA, FlagStatus NewStatus)
+void DSP_DMA_RISC_Cmd(uint16_t ADMA, FlagStatus NewStatus)
 {
 	/* Check the parameters */
 	assert_param(IS_FLAG_STATUS(NewStatus));
 	assert_param(IS_DSP_ADMA(ADMA));
 
-	MDR_DSP_CORE->AIR = ADMA | ((NewStatus == SET) << DSP_CORE_AIR_SNR_Pos)
+	MDR_DSP_IRQ->AIR = ADMA | ((NewStatus == SET) << DSP_CORE_AIR_SNR_Pos)
 						     | DSP_CORE_AIR_SID;
 }
 
@@ -257,13 +257,13 @@ void DSP_DMA_RISC_Cmd(uint32_t ADMA, FlagStatus NewStatus)
   *	@param	NewStatus:
   * @retval None.
   */
-void DSP_DSPToRISCInterruptCmd(uint32_t Interrupt, FlagStatus NewStatus)
+void DSP_DSPToRISCInterruptCmd(uint16_t Interrupt, FlagStatus NewStatus)
 {
 	/* Check the parameters */
 	assert_param(IS_FLAG_STATUS(NewStatus));
 	assert_param(IS_DSP_DIR(Interrupt));
 
-	MDR_DSP_CORE->DIR = Interrupt | ((NewStatus == SET) << DSP_CORE_DIR_SNR_Pos);
+	MDR_DSP_IRQ->DIR = Interrupt | ((NewStatus == SET) << DSP_CORE_DIR_SNR_Pos);
 }
 
 /** @} */ /* End of group DSP_Private_Functions */
