@@ -1,11 +1,11 @@
 ﻿/*
  *
- *	Файл: 		hal_dma.c
- *	Описание: 	HAL для модуля прямого доступа к памяти
+ *	File/Файл: 		hal_dma.c
+ *	Description/Описание: 	HAL for the DMA unit/HAL для модуля прямого доступа к памяти
  *
- *	История:
- *	 			19-Jun-2017 Dmitriy Sharaviev 	- 	изменен под вторую ревизию
- *						    Zatonsky Pavel 		- 	создан
+ *	History/История:
+ *	 			19-Jun-2017 Dmitriy Sharaviev 	- 	changed for the second revision/изменен под вторую ревизию
+ *						    Zatonsky Pavel 		-   created/создан
  *
  */
 #include <sysreg.h>
@@ -17,7 +17,7 @@
 #define TCB_EXTMEM16			0x80000000
 #define TCB_EXTMEM22			0xE0000000
 
-// Запись конфигурационных регистров DMA канала 4 - 13
+// Writing to DMA channel configuration registers, channel 4-13/Запись конфигурационных регистров DMA канала 4 - 13
 void HAL_DMA_WriteDC( uint32_t ch_number, void *qw_tcb )
 {
 	switch ( ch_number )
@@ -36,7 +36,7 @@ void HAL_DMA_WriteDC( uint32_t ch_number, void *qw_tcb )
 	}
 }
 
-// Запись регистра задания адреса периферийного устройства DMA канала 4 - 11
+// Writing to the peripheral device address setting register, DMA channels 4-11/Запись регистра задания адреса периферийного устройства DMA канала 4 - 11
 void HAL_DMA_WriteDCA( uint32_t ch_number, uint64_t *data )
 {
 	switch ( ch_number )
@@ -53,7 +53,7 @@ void HAL_DMA_WriteDCA( uint32_t ch_number, uint64_t *data )
 	}
 }
 
-// Запись конфигурационного регистра ИСТОЧНИКА данных для каналов 0 - 3
+// Writing to the data source configuration register, DMA channels 0 - 3/Запись конфигурационного регистра ИСТОЧНИКА данных для каналов 0 - 3
 void HAL_DMA_WriteDCS( uint32_t ch_number, void *qw_tcb )
 {
 	switch ( ch_number )
@@ -66,7 +66,7 @@ void HAL_DMA_WriteDCS( uint32_t ch_number, void *qw_tcb )
 	}
 }
 
-// Запись конфигурационного регистра ПРИЕМНИКА данных для каналов 0 - 3
+// Writing to the data destination configuration register, DMA channels 0 - 3/Запись конфигурационного регистра ПРИЕМНИКА данных для каналов 0 - 3
 void HAL_DMA_WriteDCD( uint32_t ch_number, void *qw_tcb )
 {
 	switch ( ch_number )
@@ -79,7 +79,7 @@ void HAL_DMA_WriteDCD( uint32_t ch_number, void *qw_tcb )
 	}
 }
 
-// Чтение конфигурационных регистров DMA канала 4 - 13
+// Reading of the DMA configuration registers, DMA channels 4 - 13/Чтение конфигурационных регистров DMA канала 4 - 13
 void HAL_DMA_ReadDC( uint32_t ch_number, __builtin_quad *qw_tcb )
 {
 	switch ( ch_number )
@@ -98,7 +98,7 @@ void HAL_DMA_ReadDC( uint32_t ch_number, __builtin_quad *qw_tcb )
 	}
 }
 
-// Чтение регистра задания адреса периферийного устройства DMA канала 4 - 11
+// Reading of the peripheral device address setting register, DMA channels 4 - 11/Чтение регистра задания адреса периферийного устройства DMA канала 4 - 11
 void HAL_DMA_ReadDCA( uint32_t ch_number, uint64_t *data )
 {
 	switch ( ch_number )
@@ -115,7 +115,7 @@ void HAL_DMA_ReadDCA( uint32_t ch_number, uint64_t *data )
 	}
 }
 
-// Чтение конфигурационного регистра ИСТОЧНИКА данных для каналов 0 - 3
+// Reading of the data source configuration register, DMA channels 0 - 3/Чтение конфигурационного регистра ИСТОЧНИКА данных для каналов 0 - 3
 void HAL_DMA_ReadDCS( uint32_t ch_number, __builtin_quad *qw_tcb )
 {
 	switch ( ch_number )
@@ -128,7 +128,7 @@ void HAL_DMA_ReadDCS( uint32_t ch_number, __builtin_quad *qw_tcb )
 	}
 }
 
-// Чтение конфигурационного регистра ПРИЕМНИКА данных для каналов 0 - 3
+// Reading of the data destination configuration register, DMA channels 0 - 3/Чтение конфигурационного регистра ПРИЕМНИКА данных для каналов 0 - 3
 void HAL_DMA_ReadDCD( uint32_t ch_number, __builtin_quad *qw_tcb )
 {
 	switch ( ch_number )
@@ -141,7 +141,7 @@ void HAL_DMA_ReadDCD( uint32_t ch_number, __builtin_quad *qw_tcb )
 	}
 }
 
-// Выключение канала DMA
+// Disconnection of the DMA channel/Выключение канала DMA
 void HAL_DMA_Stop( uint32_t ch_number )
 {
 	__builtin_quad zero_tcb = __builtin_compose_128( 0, 0 );
@@ -157,7 +157,7 @@ void HAL_DMA_Stop( uint32_t ch_number )
 
 }
 
-// Извлечение статусных битов канала
+// Extraction of the channel status bits/Извлечение статусных битов канала
 static uint32_t HAL_DMA_DecodeStatus( uint64_t dmaStatus, uint32_t channel )
 {
 	switch ( channel )
@@ -176,22 +176,22 @@ static uint32_t HAL_DMA_DecodeStatus( uint64_t dmaStatus, uint32_t channel )
 		case 11: return ( uint32_t ) ( ( dmaStatus >> 41 ) & 0x07 );
 		case 12: return ( uint32_t ) ( ( dmaStatus >> 50 ) & 0x07 );
 		case 13: return ( uint32_t ) ( ( dmaStatus >> 53 ) & 0x07 );
-		default: return 0x05;																		// Ошибка
+		default: return 0x05;																		// An error/ошибка
 	}
 }
 
-// Получение статуса DMA канала
+// Reading of the DMA channel status/Получение статуса DMA канала
 uint32_t HAL_DMA_GetChannelStatus( uint32_t channel )
 {
 	uint64_t dmaStatus = __builtin_sysreg_read2( __DSTAT );
 	return HAL_DMA_DecodeStatus( dmaStatus, channel );
 }
 
-// Ожидание завершения передачи DMA канала
-// Возвращаемое значение:
-// 0 - успешное завершение передачи
-// 1 - возникла ошибка
-// 2 - канал отключен
+// Waiting for the end of the DMA channel transmission/ Ожидание завершения передачи DMA канала
+// Returned value/Возвращаемое значение:
+// 0 - transmission has been completed successfully/успешное завершение передачи;
+// 1 - an error has occurred/возникла ошибка;
+// 2 - the cannel is off/канал отключен.
 uint32_t HAL_DMA_WaitForChannel( uint32_t channel )
 {
 	uint32_t status;
@@ -208,7 +208,7 @@ uint32_t HAL_DMA_WaitForChannel( uint32_t channel )
 	}
 }
 
-// Чтение количества слов для передачи каналом 4 - 13
+// Reading of the number of words which are to be transferred, channels 4 - 13/Чтение количества слов для передачи каналом 4 - 13
 uint32_t HAL_DMA_GetDcCountX( uint32_t ch_number )
 {
 	__builtin_quad temp_tcb;
@@ -234,7 +234,33 @@ uint32_t HAL_DMA_GetDcCountX( uint32_t ch_number )
 	return ( temp >> 16 );
 }
 
-// Возвращает поле регистра DP для текущего канала
+// Returns the DI register for the current channel/ Возвращает регистр DI для текущего канала
+uint32_t HAL_DMA_GetDcAddr( uint32_t ch_number )
+{
+	__builtin_quad temp_tcb;
+	uint32_t *ptr = ( uint32_t* ) &temp_tcb;
+	uint32_t temp;
+
+	switch ( ch_number )
+	{
+		case 4:  temp_tcb = __builtin_sysreg_read4( __DC4 ); 	break;
+		case 5:  temp_tcb = __builtin_sysreg_read4( __DC5 ); 	break;
+		case 6:  temp_tcb = __builtin_sysreg_read4( __DC6 ); 	break;
+		case 7:  temp_tcb = __builtin_sysreg_read4( __DC7 ); 	break;
+		case 8:  temp_tcb = __builtin_sysreg_read4( __DC8 ); 	break;
+		case 9:  temp_tcb = __builtin_sysreg_read4( __DC9 ); 	break;
+		case 10: temp_tcb = __builtin_sysreg_read4( __DC10 ); 	break;
+		case 11: temp_tcb = __builtin_sysreg_read4( __DC11 );	break;
+		case 12: temp_tcb = __builtin_sysreg_read4( __DC12 );	break;
+		case 13: temp_tcb = __builtin_sysreg_read4( __DC13 );	break;
+		default: break;
+	}
+
+	temp = *( ptr + 0 );
+	return ( temp  );
+}
+
+// Returns the DP register field for the current channel/ Возвращает поле регистра DP для текущего канала
 uint32_t HAL_DMA_GetTCBChannelDest( uint32_t channel )
 {
 	switch ( channel )
@@ -251,7 +277,7 @@ uint32_t HAL_DMA_GetTCBChannelDest( uint32_t channel )
 	}
 }
 
-// Функция принимает номер канала DMA, который будет следующим в цепочке
+// The argument of the function is the number of the DMA channel that is next in the chain/ Функция принимает номер канала DMA, который будет следующим в цепочке
 void HAL_DMA_CreateChannelDest( uint32_t channel, void *tcb_current, void *tcb_next )
 {
 	uint32_t tmp;
@@ -259,7 +285,7 @@ void HAL_DMA_CreateChannelDest( uint32_t channel, void *tcb_current, void *tcb_n
 	*( ( uint32_t * ) ( tcb_current ) + 3 ) |= ( ( uint32_t ) tcb_next >> 2 ) | tmp | TCB_CHAIN;
 }
 
-// Чтение статуса канала и его сброс в состояние выключено
+// Reading of the channel status and its setting to the state 'OFF'/ Чтение статуса канала и его сброс в состояние выключено
 uint32_t HAL_DMA_GetChannelStatusClear( uint32_t channel )
 {
 	uint64_t dmaStatus = __builtin_sysreg_read2( __DSTATC );
@@ -267,39 +293,39 @@ uint32_t HAL_DMA_GetChannelStatusClear( uint32_t channel )
 }
 
 #define HAL_DMA_InitMemType( addr, DPReg )\
-	if ( ( addr <= ( 0x00FFF ) ) || ( addr >= 0x040000 && addr <= ( 0x04FFFF ) ) ||\
-		( addr >= 0x080000 && addr <= ( 0x08FFFF ) ) || ( addr >= 0x0C0000 && addr <= ( 0x0CFFFF ) ) ||\
-		( addr >= 0x100000 && addr <= ( 0x10FFFF ) ) || ( addr >= 0x140000 && addr <= ( 0x14FFFF ) ) )\
+	if ((addr >= (0x00000000) && addr <= (0x0000FFFF)) || (addr >= 0x00040000 && addr <= (0x04FFFF)) ||\
+		(addr >= 0x080000 && addr <= (0x08FFFF)) || (addr >= 0x0C0000 && addr <= (0x0CFFFF)) ||\
+		(addr >= 0x100000 && addr <= (0x10FFFF)) || (addr >= 0x140000 && addr <= (0x14FFFF)))\
 		DPReg |= TCB_INTMEM16;\
-	else if( ( addr >= 0x30000000 && addr <= ( 0x44000000 ) ) || ( addr >= 0x50000000 && addr <= ( 0x54000000 ) ) ||\
-			( addr >= 0x60000000 && addr <= ( 0x64000000 ) ) || ( addr >= 0x70000000 && addr <= ( 0x74000000 ) ) )\
+	else if((addr >= 0x30000000 && addr <= (0x44000000) ) || (addr >= 0x50000000 && addr <= (0x54000000)) ||\
+			(addr >= 0x60000000 && addr <= (0x64000000)) || (addr >= 0x70000000 && addr <= (0x74000000)) || (addr >= 0x80000000 && addr <= (0xFFFFFFFF)))\
 		DPReg |= TCB_EXTMEM16;\
 	else return dmaCopyAddrErr
 
-// Копирование массива данных с использованием DMA канала 0 - 3
+// Copying of the data array with the use of DMA channels 0-3/ Копирование массива данных с использованием DMA канала, 0 - 3
 DMA_Return_type HAL_DMA_MemCopy32( uint32_t ch_number, const void *src, const void *dst, uint32_t size )
 {
 	uint32_t __attribute((aligned(4))) tcb_dcs[4];
 	uint32_t __attribute((aligned(4))) tcb_dcd[4];
 	uint32_t chStat;
 
-	if ( size > 0xFFFF ) return dmaCopyLengthErr;													// Проверка размера массива
+	if ( size > 0xFFFF ) return dmaCopyLengthErr;													// Check of the array dimension
 
 	tcb_dcs[ 3 ] = 0;
-	HAL_DMA_InitMemType( ( uint32_t )src, tcb_dcs[ 3 ] );											// Инициализация DCS
+	HAL_DMA_InitMemType( ( uint32_t )src, tcb_dcs[ 3 ] );											// Initialization of DCS/Инициализация DCS
 	tcb_dcs[ 0 ] = ( uint32_t ) src;
 	tcb_dcs[ 1 ] = ( size << 16 ) | 1;
 	tcb_dcs[ 2 ] = 0;
 	tcb_dcs[ 3 ] |= TCB_NORMAL;
 
-	tcb_dcd[ 3 ] = 0;																				// Инициализация DCD
+	tcb_dcd[ 3 ] = 0;																				// Initioalization of DCD/Инициализация DCD
 	HAL_DMA_InitMemType( ( uint32_t )dst, tcb_dcd[ 3 ] );
 	tcb_dcd[ 0 ] = ( uint32_t ) dst;
 	tcb_dcd[ 1 ] = ( size << 16 ) | 1;
 	tcb_dcd[ 2 ] = 0;
 	tcb_dcd[ 3 ] |= TCB_NORMAL;
 
-	if ( ch_number < 4 )																			// Старт DMA
+	if ( ch_number < 4 )																			// Start DMA/Старт DMA
 	{
 		HAL_DMA_WriteDCD( ch_number, &tcb_dcd );
 		HAL_DMA_WriteDCS( ch_number, &tcb_dcs );
@@ -307,7 +333,7 @@ DMA_Return_type HAL_DMA_MemCopy32( uint32_t ch_number, const void *src, const vo
 	else
 		return dmaCopyChNumErr;
 
-	chStat = HAL_DMA_GetChannelStatus( ch_number );													// Проверка статуса DMA
+	chStat = HAL_DMA_GetChannelStatus( ch_number );													// Check of the DMA status/Проверка статуса DMA
 
 	switch ( chStat )
 	{
@@ -318,7 +344,7 @@ DMA_Return_type HAL_DMA_MemCopy32( uint32_t ch_number, const void *src, const vo
 	}
 }
 
-// Задание источника запросов для DMA каналов 0 - 11
+// Setting of the request sources for the DMA channels 0-11/Задание источника запросов для DMA каналов 0 - 11
 void HAL_DMA_RqstSet( uint32_t ch_number, DMA_Requester_type dmaRqster )
 {
 	if( ch_number < 8 )
@@ -339,7 +365,7 @@ void HAL_DMA_RqstSet( uint32_t ch_number, DMA_Requester_type dmaRqster )
 	}
 }
 
-// Сброс источника запросов для DMA каналов 0 - 11
+//  Reset of the request sources for DMA channels 0-11/Сброс источника запросов для DMA каналов 0 - 11
 void HAL_DMA_RqstClr( uint32_t ch_number )
 {
 	if( ch_number < 8 )
@@ -356,14 +382,14 @@ void HAL_DMA_RqstClr( uint32_t ch_number )
 	}
 }
 
-// Сброс источников запросов для всех каналов DMA
+// Reset of the request sources for all DMA channels/ Сброс источников запросов для всех каналов DMA
 void HAL_DMA_SourceDestRqstReset( void )
 {
 	*( uint32_t * ) base_DMACFGL = 0;
 	*( uint32_t * ) base_DMACFGH = 0;
 }
 
-// Разрешение высокоприоритетному каналу DMA иметь преимущество перед процессором при доступе к внешней памяти
+// High-priority DMA channel is allowed to have external memory access priority over the processor/ Разрешение высокоприоритетному каналу DMA иметь преимущество перед процессором при доступе к внешней памяти
 void HAL_DMA_PrimaryPriority( void )
 {
 	*( uint32_t * ) CMU_CFG1_LOC |= ( 1 << 12 );

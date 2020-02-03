@@ -7,8 +7,10 @@
 #include "hal_1967VN028.h"
 #include <sysreg.h>
 #include <builtins.h>
+#include <stdint.h>
 
 
+/*************************************************************************************************/
 void HAL_SYS_SDRAMEnable(int sdrconValue){
 	__builtin_sysreg_write(__SDRCON, sdrconValue);
 	while( !(__builtin_sysreg_read(__SYSTAT)&(1<<13)) ); //Wait SDRAM Enable

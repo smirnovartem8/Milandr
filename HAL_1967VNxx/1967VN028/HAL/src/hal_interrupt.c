@@ -103,15 +103,19 @@ void HAL_Interrupt_Enable(InterruptRequest_type intRQST, void *ptrHndlr){
 	case intHW:
 		__builtin_sysreg_write(__IVHW, (unsigned int)ptrHndlr);
 		break;
+	case intSW:
+		__builtin_sysreg_write(__IVSW, (unsigned int)ptrHndlr);
+		return;
+		break;
 	}
 
 	if (intRQST < 32){
 		tmp32 = __builtin_sysreg_read(__IMASKL);
-		__builtin_sysreg_write(__IMASKL, ( tmp32 | (1<<intRQST) ));
+		__builtin_sysreg_write(__IMASKL, ( tmp32 | (1<<(int)intRQST) ));
 	}
 	else{
 		tmp32 = __builtin_sysreg_read(__IMASKH);
-		__builtin_sysreg_write(__IMASKH, (tmp32 | (1<<(intRQST-32))));
+		__builtin_sysreg_write(__IMASKH, (tmp32 | (1<<((int)intRQST-32))));
 	}
 }
 
@@ -135,11 +139,20 @@ void HAL_Interrupt_GlobalEnable(void){
 
 }
 
+void HAL_Interrupt_SWGlobalEnable(void){
+	__builtin_sysreg_write(__SQCTLST, SQCTL_SW);
+
+}
+
 void HAL_Interrupt_GlobalDisable(void){
 	__builtin_sysreg_write(__SQCTLCL, ~SQCTL_GIE);
 
 }
 
+void HAL_Interrupt_SWGlobalDisable(void){
+	__builtin_sysreg_write(__SQCTLCL, ~SQCTL_SW);
+
+}
 
 void HAL_Interrupt_IMASKClear(void){
 	__builtin_sysreg_write(__IMASKL, 0);

@@ -1,11 +1,11 @@
 ﻿/*
  *
- *	Файл: 		hal_milstd.c
- *	Описание: 	HAL для модуля контроллера интерфейса по ГОСТ Р 52070-2003
+ *	File/Файл: 		hal_milstd.c
+ *	Description/описание: 	HAL для модуля контроллера интерфейса по ГОСТ Р 52070-2003
  *
- *	История:
- *				26-Jun-2017 Dmitriy Sharaviev 	- 	изменен под вторую ревизию
- *						    Zatonsky Pavel 		- 	создан
+ *	History/История:
+ *				26-Jun-2017 Dmitriy Sharaviev 	- 	changed for the second revision/изменен под вторую ревизию
+ *						    Zatonsky Pavel 		- 	created/создан
  *
  */
 #include "hal_1967VN044.h"

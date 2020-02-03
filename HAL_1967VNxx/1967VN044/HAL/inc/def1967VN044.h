@@ -1,15 +1,4 @@
-﻿/*
- *
- *	Файл: 		def_1967VN044.h
- *	Описание: 	определения адресов
- *
- *	История:
- *				19-Mar-2019 Dmitry Sharaviev  - 	создан
- *
- */
-
-
-#ifndef __DEF1967VN044_H_
+﻿#ifndef __DEF1967VN044_H_
 #define __DEF1967VN044_H_
 
 #include <defts201.h>
@@ -43,7 +32,7 @@
 #define BITSIZEOF(x) ( LAST_BIT(x) - FIRST_BIT(x) + 1)
 #define CREATE_BIT_MASK(e, s) ( ((1 << (1 + (e - s))) - 1) << s )
 
-/*-------------------------------- БАЗОВЫЕ АДРЕСА --------------------------------*/
+/*-------------------------------- BASE ADDRESSES --------------------------------*/
 #define base_DMACFGL  		0x80000078
 #define base_DMACFGH  		0x80000079
 #define base_EBIU     		0x80000080
@@ -52,7 +41,7 @@
 #define base_UART0    		0x80000100
 #define base_UART1    		0x80000120
 #define base_SPI0      		0x80000140
-#define base_LCD  		0x80000160
+#define base_LCD  			0x80000160
 #define base_VBUF     		0x80000180
 #define base_VIDEO   		0x800001a0
 #define base_CMU      		0x800001c0
@@ -65,12 +54,12 @@
 #define base_UDDC2     		0x800002A0
 #define base_UDDC3     		0x800002C0
 #define base_I2C			0x800002E0
-#define base_INTCTL		0x80000300
+#define base_INTCTL			0x80000300
 #define base_GPTIMER		0x8000034E
 #define base_SPI1    		0x80000360
 #define base_SPI2   		0x80000380
-#define base_TIMER0		0x80000400
-#define base_TIMER1		0x80000440
+#define base_TIMER0			0x80000400
+#define base_TIMER1			0x80000440
 #define base_GPA      		0x80001000
 #define base_GPB      		0x80001040
 #define base_GPC      		0x80001080
@@ -94,15 +83,15 @@
 #define GPA_BASE			base_GPA
 #define GPB_BASE 			base_GPB
 #define NAND_BASE			base_NAND
-#define UART0_BASE		base_UART0
-#define UART1_BASE		base_UART1
+#define UART0_BASE			base_UART0
+#define UART1_BASE			base_UART1
 #define LCD_BASE			base_LCD
-#define VIDEO_BASE		base_VIDEO
-#define UDDC0_BASE		base_UDDC0
-#define UDDC1_BASE		base_UDDC1
-#define UDDC2_BASE		base_UDDC2
-#define UDDC3_BASE		base_UDDC3
-/*----------------------------------  РЕГИСТРЫ  ----------------------------------*/
+#define VIDEO_BASE			base_VIDEO
+#define UDDC0_BASE			base_UDDC0
+#define UDDC1_BASE			base_UDDC1
+#define UDDC2_BASE			base_UDDC2
+#define UDDC3_BASE			base_UDDC3
+/*----------------------------------  REGISTERS  ----------------------------------*/
 
 //-------------------------------------------------------//
 // Digital Correlator
@@ -654,7 +643,7 @@
 #define ARINC_TX_STATUS_DATA_WP_MASK  		CREATE_BIT_MASK (23,16)
 #define ARINC_TX_STATUS_CHAN_RP_MASK  		CREATE_BIT_MASK (31,24)
 
-//-----------------------------Внешний порт --------------------------//
+//----------------------------- EXTERNAL PORT --------------------------//
 #define SYSCON_BNK0IDLE_P		0
 #define SYSCON_BNK0WAIT0_P		1
 #define SYSCON_BNK0WAIT1_P		2
@@ -1209,7 +1198,7 @@
 
 #define PA_BIT_MASK_SPI			(0x1FF)
 
-/*--------------------------------  SPI РЕГИСТРЫ  --------------------------------*/
+/*--------------------------------  SPI REGISTERS  --------------------------------*/
 #define base_SPI_SPCR0_offset						0
 #define base_SPI_SPCR1_offset						1
 #define base_SPI_SPDR_offset						2
@@ -1266,7 +1255,7 @@
 #define SPCR0_CSN_DEV7								((1<<14) | (1<<13) | (1<<12))
 #define SPCR0_SCR_MASK								0x0FFF0000
 
-// SPCR1 биты
+// SPCR1 bits
 #define SPCR1_RIM_P									(0)
 #define SPCR1_TIM_P									(1)
 #define SPCR1_LBM_P									(2)
@@ -1292,7 +1281,7 @@
 #define SPCR1_DLY_T2_P								(26)
 #define SPCR1_DLY_T3_P								(27)
 
-// SPSR биты
+// SPSR bits
 #define SPSR_TFE_P									(0)
 #define SPSR_TNF_P									(1)
 #define SPSR_RNE_P									(2)

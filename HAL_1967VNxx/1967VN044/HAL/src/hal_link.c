@@ -1,10 +1,10 @@
 ﻿/*
  *
- *	Файл: 		hal_link.c
- *	Описание: 	HAL для модуля контроллера интерфейса ARINC
+ *	File/Файл: 		hal_link.c
+ *	Description/Описание: 	HAL for ARINC/HAL для модуля контроллера интерфейса ARINC
  *
- *	История:
- *					Zatonsky Pavel 		- 	создан
+ *	History/История:
+ *					Zatonsky Pavel 		- 	reated/создан
  *
  */
 #include <sysreg.h>

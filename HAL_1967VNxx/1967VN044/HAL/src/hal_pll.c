@@ -1,14 +1,14 @@
 ﻿/*
  *
- *	Файл: 		hal_pll.c
- *	Описание: 	HAL для модуля PLL
+ *	File/Файл: 		hal_pll.c
+ *	Description/Описание: 	HAL for PLL/HAL для модуля PLL
  *
- *	История:
- *	 			19-Jun-2017 Dmitriy Sharaviev 	- 	изменен под вторую ревизию, добавлен макрос определяющий частоту внешнего источника тактирования
- *				08-May-2015 Andrei Abramchuk 	- 	создан
+ *	History/История:
+ *	 			19-Jun-2017 Dmitriy Sharaviev 	- 	changed for the second revision, the macros which defines the frequency of the external clock has been added/изменен под вторую ревизию, добавлен макрос определяющий частоту внешнего источника тактирования
+ *				08-May-2015 Andrei Abramchuk 	- 	created/создан
  *
  */
-#include "hal_1967VN044.h"
+#include <hal_1967VN044.h>
 
 #define FREQ_KHZ_RANGE1         ( 10000 )
 #define FREQ_KHZ_RANGE2         ( 16000 )
@@ -91,7 +91,7 @@ void HAL_PLL_CoreSwitch( PLL_Config_type* pll_cfg )
 	*( ( uint32_t* ) CPU_CLK_CONFIG_LOC ) &= ~( CPU_CPLL_SEL );
 	*( ( uint32_t* ) PLL_CORE_CFG_LOC ) = pll_cfg->value;
 	HAL_SYS_WaitClk( 500 );
-	*( ( uint32_t* ) CMU_CFG4_LOC ) |= CPU_CPLL_SEL;												// Переключение на PLL
+	*( ( uint32_t* ) CMU_CFG4_LOC ) |= CPU_CPLL_SEL;												// Switching to the PLL/Переключение на PLL
 	HAL_SYS_WaitClk( 500 );
 }
 

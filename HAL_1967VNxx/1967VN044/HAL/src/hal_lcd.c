@@ -1,11 +1,11 @@
 ﻿/*
  *
- *	Файл: 		hal_lcd.c
- *	Описание: 	HAL для контроллера LCD панели
+ *	File/Файл: 		hal_lcd.c
+ *	Description/Описание: 	HAL for the controller of LCD-pannel/HAL для контроллера LCD панели
  *
- *	История:
- *				20-Jun-2017 Dmitriy Sharaviev 	- 	изменен под вторую ревизию
- *				20-Mar-2017 Dmitriy Sharaviev 	- 	создан
+ *	History/История:
+ *				20-Jun-2017 Dmitriy Sharaviev 	- 	changed for the second revision/изменен под вторую ревизию
+ *				20-Mar-2017 Dmitriy Sharaviev 	- 	created/создан
  *
  */
 #include "hal_1967VN044.h"
@@ -118,10 +118,10 @@ void HAL_LCD_Setup( LCD_Conf_type *pxCfg )
 {
 	uint32_t ulTemp;
 
-	LX_LCD->CTRL.word = 0;																			// Выключаем контроллер
+	LX_LCD->CTRL.word = 0;																			// Turn off the controlle/Выключаем контроллер
 	LX_LCD->PWM_CR.word = 0;
 
-	LX_LCD->VSIZE.b.VSIZE = pxCfg->usHSize * pxCfg->usVSize / 										// Задаем размер видеобуффера в 32-битных словах
+	LX_LCD->VSIZE.b.VSIZE = pxCfg->usHSize * pxCfg->usVSize / 										// Set the size of the video-buffer in 32-bit words/Задаем размер видеобуффера в 32-битных словах
 			( ( pxCfg->ulRgbMode >> 4 ) & 0x0F );
 
 	ulTemp = PLL_Freq.CoreClk / ( 2 * pxCfg->ulPixelClock );										// PX_CLK = SOC_CLK / (P_div + 1)
@@ -130,79 +130,79 @@ void HAL_LCD_Setup( LCD_Conf_type *pxCfg )
 	wa_delay();
 	LX_LCD->PXDV.b.EN_DIV = 1;
 
-	// Количество пикселей в линии и общее количество линий
-	// Не все линии и пиксели видны на экране
+	// The number of pixels in the line and the general number of lines/Количество пикселей в линии и общее количество линий
+	// Not all lines and pixels can be seen on the screen/Не все линии и пиксели видны на экране
 	LX_LCD->HVLEN.b.HT = ( ( pxCfg->usHFrontBlank + pxCfg->usHSize + pxCfg->usHBackBlank ) >> 3 ) - 1;
 	wa_delay();
 	LX_LCD->HVLEN.b.VT = ( pxCfg->usVFrontBlank + pxCfg->usVSize + pxCfg->usVBackBlank ) - 1;
 
-	// HSYNC (fpline) тайминги
+	// HSYNC (fpline) timings/тайминги
 	LX_LCD->HTIM.b.HPS = pxCfg->usHSyncPos - 1;
 	wa_delay();
-	LX_LCD->HTIM.b.HPL = ~pxCfg->bHSyncActiveLevel;													// Активный уровень: 0 - высокий, 1 - низкий
+	LX_LCD->HTIM.b.HPL = ~pxCfg->bHSyncActiveLevel;													// Active level: 0 - high; 1 - low/Активный уровень: 0 - высокий, 1 - низкий
 	wa_delay();
 	LX_LCD->HTIM.b.HPW = pxCfg->usHSyncPos + pxCfg->usHSyncLen - 1;
 
-	// VSYNC (fpframe) тайминги
+	// VSYNC (fpframe) timings/тайминги
 	LX_LCD->VTIM.b.VPS = pxCfg->usVSyncPos - 1;
 	wa_delay();
-	LX_LCD->VTIM.b.VPL = ~pxCfg->bVSyncActiveLevel;													// Активный уровень: 0 - высокий, 1 - низкий
+	LX_LCD->VTIM.b.VPL = ~pxCfg->bVSyncActiveLevel;													// Active level: 0 - high; 1 - low/Активный уровень: 0 - высокий, 1 - низкий
 	wa_delay();
 	LX_LCD->VTIM.b.VPW = pxCfg->usVSyncPos + pxCfg->usVSyncLen - 1;
 
-	// Управление горизонтальной активной областью панели
+	// Control of active horizontal area of the pannel/Управление горизонтальной активной областью панели
 	LX_LCD->HDTIM.b.HDPS = pxCfg->usHFrontBlank - 1;
 	wa_delay();
 	LX_LCD->HDTIM.b.HDPE = pxCfg->usHFrontBlank + pxCfg->usHSize - 1;
 
-	// Управление вертикальной активной областью панели
+	// Control of active vertical area of the pannel/Управление вертикальной активной областью панели
 	LX_LCD->VDTIM.b.VDPS = pxCfg->usVFrontBlank - 1;
 	wa_delay();
 	LX_LCD->VDTIM.b.VDPE = pxCfg->usVFrontBlank + pxCfg->usVSize - 1;
 
 	if ( pxCfg->pxWindow )
 	{
-		// Видимая область по горизонтали
+		// visible horizontal area/ Видимая область по горизонтали
 		LX_LCD->HDxTIM.b.HXDPS = pxCfg->usHFrontBlank + pxCfg->pxWindow->sHOffset - 1;
 		wa_delay();
 		LX_LCD->HDxTIM.b.HXDPE = pxCfg->usHFrontBlank + pxCfg->pxWindow->sHOffset + pxCfg->pxWindow->usHSize - 1;
 
-		// Видимая область по вертикали
+		// visible vertical area/ Видимая область по вертикали
 		LX_LCD->VDxTIM.b.VXDPS = pxCfg->usVFrontBlank + pxCfg->pxWindow->sVOffset - 1;
 		wa_delay();
 		LX_LCD->VDxTIM.b.VXDPE = pxCfg->usVFrontBlank + pxCfg->pxWindow->sVOffset + pxCfg->pxWindow->usVSize - 1;
 
-		// Фон (для оконного режима)
+		// backgound (for the window-mode)/Фон (для оконного режима)
 		LX_LCD->FON = pxCfg->pxWindow->ulBackgndColor;
 	}
 
-	LX_LCD->PANEL_CFG.b.FPSHI = pxCfg->bPClkInverse;												// Инверсия пиксель клока
+	LX_LCD->PANEL_CFG.b.FPSHI = pxCfg->bPClkInverse;												// Inversion of the clock pixel/Инверсия пиксель клока
 
-	// Настройка ШИМ подсветки
+	// PWM for lightning/Настройка ШИМ подсветки
 	LX_LCD->PWM_CR.b.RELOAD = HAL_LCD_MAX_PWM_DUTY;
 	wa_delay();
 	LX_LCD->PWM_CR.b.DUTY = 0;
 	wa_delay();
-	LX_LCD->PWM_CR.b.PWM_Dv = pxCfg->ulPwmDiv; 														// Значение делителя;
+	LX_LCD->PWM_CR.b.PWM_Dv = pxCfg->ulPwmDiv; 														// Divisor value/Значение делителя;
 	wa_delay();
 	LX_LCD->PWM_CR.b.CLKEN = 1;
 
-	LX_LCD->CTRL.b.VBGR = pxCfg->bSwapRgbToBgr;														// Порядок следования цветов BGR или RGB
+	LX_LCD->CTRL.b.VBGR = pxCfg->bSwapRgbToBgr;														// The order of colours - BGR or RGB/Порядок следования цветов BGR или RGB
 	wa_delay();
-	LX_LCD->CTRL.b.CD = ( pxCfg->ulRgbMode >> 2 ) & 0x3;											// 0 - 8bit, 1 - 16bit, 2 - 24bit, 3 - 32bit в пикселе
+	LX_LCD->CTRL.b.CD = ( pxCfg->ulRgbMode >> 2 ) & 0x3;											// 0 - 8bit, 1 - 16bit, 2 - 24bit, 3 - 32bit in the pixel
 	wa_delay();
-	LX_LCD->CTRL.b.VBL = ( pxCfg->ulRgbMode >> 0 ) & 0x3;											// Количеств бит в пикселе
+	LX_LCD->CTRL.b.VBL = ( pxCfg->ulRgbMode >> 0 ) & 0x3;											// The number of bits in the pixel/Количеств бит в пикселе
 	wa_delay();
-	LX_LCD->CTRL.b.BL = ~pxCfg->bDReadyActiveLevel;													// Активный уровень линии готовности данных (0 - DRDY активный высокий, 1 - DRDY активный низкий)
+	LX_LCD->CTRL.b.BL = ~pxCfg->bDReadyActiveLevel;													// Active level for data redyness 0 - DRDY active high; 1 - DRDY active low/ Активный уровень линии готовности данных (0 - DRDY активный высокий, 1 - DRDY активный низкий)
 	wa_delay();
-	LX_LCD->CTRL.b.W2W_EN = ( pxCfg->pxWindow != 0 );												// Если 1, то используются регистры HDxTIM и VDxTIM
+	LX_LCD->CTRL.b.W2W_EN = ( pxCfg->pxWindow != 0 );												// If 1 then use HDxTIM and VDxTIM registers/ Если 1, то используются регистры HDxTIM и VDxTIM
 	wa_delay();
-	LX_LCD->CTRL.b.PXP_EN = pxCfg->bStopPclkWhenNoData;												// Если 1, разрешен останов пиксельклока в случае если в выходном FIFO нет данных
+	LX_LCD->CTRL.b.PXP_EN = pxCfg->bStopPclkWhenNoData;												// If 1, then pixelclock can be stopped if output FIFO buffer has no data/ Если 1, разрешен останов пиксельклока в случае если в выходном FIFO нет данных
 }
 
 void HAL_LCD_PwmSetDuty( uint8_t ucValue )
 {
-	if ( ucValue >= HAL_LCD_MAX_PWM_DUTY ) 															// Устранение небольших мерцаний при значениях duty == reload
+	if ( ucValue >= HAL_LCD_MAX_PWM_DUTY ) 															// Elimenation of flicker when duty == reload/Устранение небольших мерцаний при значениях duty == reload
 		ucValue = HAL_LCD_MAX_PWM_DUTY + 1;
 	LX_LCD->PWM_CR.b.DUTY = ucValue;
 }
@@ -221,27 +221,27 @@ void HAL_LCD_StartDma( uint32_t ulChannel, void *pvLcdBuf,
 	switch ( ( ulRgbMode >> 4 ) & 0x0F )
 	{
 		case 2:
-			ulXSize >>= 1;																			// 2 пикселя в 32-bit слове
+			ulXSize >>= 1;																			// 2 pixels in 32-bit word/2 пикселя в 32-bit слове
 			break;
 		case 4:
-			ulXSize >>= 2;																			// 4 пикселя в 32-bit слове
+			ulXSize >>= 2;																			// 4 pixels in 32-bit word/4 пикселя в 32-bit слове
 			break;
 		default:
 			break;
 	}
 
-	*( ptr + 0 ) = ( uint32_t ) pvLcdBuf;															// Источник информации
-	*( ptr + 1 ) = ( ulXSize << 16 ) | 4;															// Количество слов + инкремент адреса
-	*( ptr + 2 ) = ( ulYSize << 16 ) | 4;															// Количество попыток передачи по X + инкремент адреса X
-	*( ptr + 3 ) = 	TCB_TWODIM |																	// Включение режима 2-х мерной пересылки
-					TCB_QUAD |																		// Длина передаваемых данных (операнда) в одном цикле обмена
+	*( ptr + 0 ) = ( uint32_t ) pvLcdBuf;															// Information source/Источник информации
+	*( ptr + 1 ) = ( ulXSize << 16 ) | 4;															// The number of words and address increment/Количество слов + инкремент адреса
+	*( ptr + 2 ) = ( ulYSize << 16 ) | 4;															// The number of X-transmission attempts+X-address increment/Количество попыток передачи по X + инкремент адреса X
+	*( ptr + 3 ) = 	TCB_TWODIM |																	// 2D sending mode enabling/Включение режима 2-х мерной пересылки
+					TCB_QUAD |																		// The length of transmitted data (operand) in one exchange-cycle/Длина передаваемых данных (операнда) в одном цикле обмена
 					TCB_DMAR;
-	*( ptr + 3 ) |= ( ( uint32_t ) pvLcdBuf < 0x0C000000 ) ? TCB_INTMEM : TCB_EXTMEM;				// Источник в внешней/внутренней памяти
+	*( ptr + 3 ) |= ( ( uint32_t ) pvLcdBuf < 0x0C000000 ) ? TCB_INTMEM : TCB_EXTMEM;				// The source is in the internal/external memory/Источник в внешней/внутренней памяти
 
 	HAL_DMA_CreateChannelDest( ulChannel, &tcb, &tcb );
 	HAL_DMA_RqstSet( ulChannel, dmaVIDEO );
 
-	if ( pvDmaIsrHandler )																			// Настройка прерывания, если оно нужно
+	if ( pvDmaIsrHandler )																			// Setting of an interrupt if needed/Настройка прерывания, если оно нужно
 	{
 		switch( ulChannel )
 		{
@@ -263,7 +263,7 @@ void HAL_LCD_StartDma( uint32_t ulChannel, void *pvLcdBuf,
 		*( ptr + 3 ) |= TCB_INT;
 	}
 
-	HAL_DMA_WriteDC( ulChannel, &tcb );																// Запуск DMA
+	HAL_DMA_WriteDC( ulChannel, &tcb );																// DMA start/Запуск DMA
 }
 
 void HAL_LCD_StartDma2Q( uint32_t ulChannel, void *pvLcdBuf,
@@ -283,27 +283,27 @@ void HAL_LCD_StartDma2Q( uint32_t ulChannel, void *pvLcdBuf,
 	switch ( ( ulRgbMode >> 4 ) & 0x0F )
 	{
 		case 2:
-			ulXSize >>= 1;																			// 2 пикселя в 32-bit слове
+			ulXSize >>= 1;																			// 2 pixels in 32-bit word/2 пикселя в 32-bit слове
 			break;
 		case 4:
-			ulXSize >>= 2;																			// 4 пикселя в 32-bit слове
+			ulXSize >>= 2;																			// 4 pixels in 32-bit word/4 пикселя в 32-bit слове
 			break;
 		default:
 			break;
 	}
 
-	*( ptr + 0 ) = ( uint32_t ) pvLcdBuf;															// Источник информации
-	*( ptr + 1 ) = ( ulXSize << 16 ) | 4;															// Количество слов + инкремент адреса
-	*( ptr + 2 ) = ( ulYSize << 16 ) | 4;															// Количество попыток передачи по X + инкремент адреса X
-	*( ptr + 3 ) = 	TCB_TWODIM |																	// Включение режима 2-х мерной пересылки
-					TCB_QUAD |																		// Длина передаваемых данных (операнда) в одном цикле обмена
+	*( ptr + 0 ) = ( uint32_t ) pvLcdBuf;															// Information source/Источник информации
+	*( ptr + 1 ) = ( ulXSize << 16 ) | 4;															// The number of words and address increment/Количество слов + инкремент адреса
+	*( ptr + 2 ) = ( ulYSize << 16 ) | 4;															// The number of X-transmission attempts+X-address increment/Количество попыток передачи по X + инкремент адреса X
+	*( ptr + 3 ) = 	TCB_TWODIM |																	// 2D sending mode enabling/Включение режима 2-х мерной пересылки
+					TCB_QUAD |																		// The length of transmitted data (operand) in one exchange-cycle/Длина передаваемых данных (операнда) в одном цикле обмена
 					TCB_DMAR;
-	*( ptr + 3 ) |= ( ( uint32_t ) pvLcdBuf < 0x0C000000 ) ? TCB_INTMEM : TCB_EXTMEM;				// Источник в внешней/внутренней памяти
+	*( ptr + 3 ) |= ( ( uint32_t ) pvLcdBuf < 0x0C000000 ) ? TCB_INTMEM : TCB_EXTMEM;				// The source is in the internal/external memory/Источник в внешней/внутренней памяти
 
 	HAL_DMA_CreateChannelDest( ulChannel, &tcb, &tcb );
 	HAL_DMA_RqstSet( ulChannel, dmaVIDEO );
 
-	if ( pvDmaIsrHandler )																			// Настройка прерывания, если оно нужно
+	if ( pvDmaIsrHandler )																			// Setting of an interrupt if needed/Настройка прерывания, если оно нужно
 	{
 		switch( ulChannel )
 		{
@@ -328,10 +328,10 @@ void HAL_LCD_StartDma2Q( uint32_t ulChannel, void *pvLcdBuf,
 	LX_LCD->CTRL.b.DMA_2QW = 1;
 	HAL_DMA_PrimaryPriority();
 	HAL_DMA_WriteDCA( ulChannel, &DCA );
-	HAL_DMA_WriteDC( ulChannel, &tcb );																// Запуск DMA
+	HAL_DMA_WriteDC( ulChannel, &tcb );																// DMA Start/Запуск DMA
 }
 
-// Этот режим пока не работает
+// This mode doesn't work at a moment/Этот режим пока не работает
 //void HAL_LCD_StartIntDma( void *pvLcdBuf )
 //{
 //	LX_LCD->EXT_MEM_ADDR = ( uint32_t ) pvLcdBuf;

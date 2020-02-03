@@ -1,16 +1,16 @@
 ﻿/*
  *
- *	Файл: 		hal_timer.c
- *	Описание: 	HAL для модуля таймеров с функцией захвата/ШИМ
+ *	File/Файл: 		hal_timer.c
+ *	Description/Описание: 	HAL for Timers with capture function or PWM/ HAL для модуля таймеров с функцией захвата/ШИМ
  *
- *	История:
- *	 			20-Jun-2017 Dmitriy Sharaviev 	- 	создан
+ *	History/История:
+ *	 			20-Jun-2017 Dmitriy Sharaviev 	- 	created/создан
  *
  */
 
 #include "hal_1967VN044.h"
 
-// Сброс настроек таймера
+// Timer deinitialization/Сброс настроек таймера
 void HAL_TIMER_DeInit( TIMER_type* TIMERx )
 {
 	TIMERx->CNTRL.word = 0;
@@ -54,7 +54,7 @@ void HAL_TIMER_DeInit( TIMER_type* TIMERx )
 	TIMERx->DMA_REChx[ TIMER_CH4 ] = 0;
 }
 
-// Инициализация перефирии таймера
+// Timer periphery initialization/Инициализация перефирии таймера
 void HAL_TIMER_CntInit( TIMER_type* TIMERx, const TIMER_CntInit_type* TIMER_CntInitStruct )
 {
   TIMERx->CNT = TIMER_CntInitStruct->IniCounter;
@@ -73,7 +73,7 @@ void HAL_TIMER_CntInit( TIMER_type* TIMERx, const TIMER_CntInit_type* TIMER_CntI
   TIMERx->BRKETR_CNTRL.b.BRK_INV = TIMER_CntInitStruct->BRK_Polarity;
 }
 
-// Инициализация структуры таймера значениями по-умолчанию
+// Timer structure initialization by default values/Инициализация структуры таймера значениями по-умолчанию
 void HAL_TIMER_CntStructInit( TIMER_CntInit_type* TIMER_CntInitStruct )
 {
   TIMER_CntInitStruct->IniCounter 	  	= 0;
@@ -90,7 +90,7 @@ void HAL_TIMER_CntStructInit( TIMER_CntInit_type* TIMER_CntInitStruct )
   TIMER_CntInitStruct->BRK_Polarity     = TIMER_Polarity_NonInverted;
 }
 
-// Включение/выключение работы таймера
+// Timer is enabled/disabled/Включение/выключение работы таймера
 void HAL_TIMER_Cmd( TIMER_type* TIMERx, FunctionalState_type NewState )
 {
 	if ( NewState != DISABLE )
@@ -99,38 +99,38 @@ void HAL_TIMER_Cmd( TIMER_type* TIMERx, FunctionalState_type NewState )
 		TIMERx->CNTRL.b.CNT_EN = 0;
 }
 
-// Задание счетчика таймера
+// Setting of the timer counter/Задание счетчика таймера
 void HAL_TIMER_SetCounter( TIMER_type* TIMERx, uint32_t Counter )
 {
 	TIMERx->CNT = Counter;
 }
 
-// Задание делителя частоты таймера
+// Setting of the timer prescaler/Задание делителя частоты таймера
 void HAL_TIMER_SetCntPrescaler( TIMER_type* TIMERx, uint16_t Prescaler )
 {
 	TIMERx->PSG = Prescaler;
 }
 
-// Задание основания счета таймера и способа его обновления
+// Setting of timer counting base and the way of its renewal/Задание основания счета таймера и способа его обновления
 void HAL_TIMER_CntAutoreloadConfig( TIMER_type* TIMERx, uint32_t Autoreload, TIMER_Update_type UpdateMode )
 {
 	TIMERx->CNTRL.b.ARRB_EN = UpdateMode;
 	TIMERx->ARR = Autoreload;
 }
 
-// Получение текущего значения счетчика
+// Get counter current value/Получение текущего значения счетчика
 uint32_t HAL_TIMER_GetCounter( TIMER_type* TIMERx )
 {
 	return TIMERx->CNT;
 }
 
-// Получение направления счета таймера
+// Get the direction of the timer counter/Получение направления счета таймера
 TIMER_CNTRL_DIR_type HAL_TIMER_GetCounterDirection( TIMER_type* TIMERx )
 {
 	return ( TIMER_CNTRL_DIR_type )TIMERx->CNTRL.b.DIR;
 }
 
-// Получение статуса состояния записи регистров CNT, PSG и ARR
+// Get the status of registers CNT, PSG, ARR/Получение статуса состояния записи регистров CNT, PSG и ARR
 State_type HAL_TIMER_GetCntWriteComplete( TIMER_type* TIMERx )
 {
 	if( TIMERx->CNTRL.b.WR_CMPL == 0 )
@@ -139,7 +139,7 @@ State_type HAL_TIMER_GetCntWriteComplete( TIMER_type* TIMERx )
 		return SET;
 }
 
-// Настройка входа ETR
+// Configuration of the ETR input/Настройка входа ETR
 void HAL_TIMER_ETRInputConfig( TIMER_type* TIMERx, TIMER_Prescaler_type Prescaler, TIMER_Polarity_type Polarity, TIMER_Filter_type Filter )
 {
 	 TIMERx->BRKETR_CNTRL.b.ETR_FILTER = Filter;
@@ -147,13 +147,13 @@ void HAL_TIMER_ETRInputConfig( TIMER_type* TIMERx, TIMER_Prescaler_type Prescale
 	 TIMERx->BRKETR_CNTRL.b.ETR_INV = Polarity;
 }
 
-// Настройка входа BRK
+// Configuration of BRK input/Настройка входа BRK
 void HAL_TIMER_BRKPolarityConfig( TIMER_type* TIMERx, TIMER_Polarity_type Polarity )
 {
 	TIMERx->BRKETR_CNTRL.b.BRK_INV = Polarity;
 }
 
-// Настройка канала таймера
+// Timer channel configuration/Настройка канала таймера
 void HAL_TIMER_ChnInit( TIMER_type* TIMERx, const TIMER_ChnInit_type* TIMER_ChnInitStruct )
 {
 
@@ -179,7 +179,7 @@ void HAL_TIMER_ChnInit( TIMER_type* TIMERx, const TIMER_ChnInit_type* TIMER_ChnI
 	TIMERx->CHx_CNTRL2[ TIMER_ChnInitStruct->ChNumber ].b.CHSEL1 = TIMER_ChnInitStruct->CCR1_EventSource;
 }
 
-// Инициализация структуры канала таймера значениями по-умолчанию
+// Initialization of timer channel structure by default values/Инициализация структуры канала таймера значениями по-умолчанию
 void HAL_TIMER_ChnStructInit( TIMER_ChnInit_type* TIMER_ChnInitStruct )
 {
 	TIMER_ChnInitStruct->ChNumber = TIMER_CH1;
@@ -196,45 +196,45 @@ void HAL_TIMER_ChnStructInit( TIMER_ChnInit_type* TIMER_ChnInitStruct )
 	TIMER_ChnInitStruct->CCR1_EventSource = TIMER_EventIn_PE;
 }
 
-// Задание регистра сравнения, захвата
+// Setting of the comparison, capture register/Задание регистра сравнения, захвата
 void HAL_TIMER_ChnCompareSet( TIMER_type* TIMERx, TIMER_CH_type Channel, uint32_t Compare )
 {
 	TIMERx->CCRx[ Channel ] = Compare;
 }
 
-// Задание регистра сравнения, захвата и способа его обновления
+// Setting of the comparison, capture register and the way of its renewal/Задание регистра сравнения, захвата и способа его обновления
 void HAL_TIMER_ChnCompareConfig( TIMER_type* TIMERx, TIMER_CH_type Channel, uint32_t Compare, TIMER_Update_type UpdateMode )
 {
 	TIMERx->CHx_CNTRL2[ Channel ].b.CRRRLD = UpdateMode;
 	TIMERx->CCRx[ Channel ] = Compare;
 }
 
-// Задание регистра сравнения, захвата 1
+// Setting of the comparison, capture register 1 /Задание регистра сравнения, захвата 1
 void HAL_TIMER_ChnCompare1Set( TIMER_type* TIMERx, TIMER_CH_type Channel, uint32_t Compare )
 {
 	TIMERx->CCRx1[ Channel ] = Compare;
 }
 
-// Задание регистра сравнения, захвата 1 и способа его обновления
+// Setting of the comparison, capture register 1 and the way of its renewal/Задание регистра сравнения, захвата 1 и способа его обновления
 void HAL_TIMER_ChnCompare1Config( TIMER_type* TIMERx, TIMER_CH_type Channel, uint32_t Compare, TIMER_Update_type UpdateMode )
 {
 	TIMERx->CHx_CNTRL2[ Channel ].b.CRRRLD = UpdateMode;
 	TIMERx->CCRx1[ Channel ] = Compare;
 }
 
-// Получение регистра сравнения, захвата
+// Getting of the comparison, capture register/Получение регистра сравнения, захвата
 uint32_t HAL_TIMER_GetChnCapture( TIMER_type* TIMERx, TIMER_CH_type Channel )
 {
 	return TIMERx->CCRx[ Channel ];
 }
 
-// Получение регистра сравнения, захвата 1
+// Getting of the comparison, capture register 1/Получение регистра сравнения, захвата 1
 uint32_t HAL_TIMER_GetChnCapture1( TIMER_type* TIMERx, TIMER_CH_type Channel )
 {
 	return TIMERx->CCRx1[ Channel ];
 }
 
-// Управление выводом ETR канала
+// Control of channel ETR input /Управление выводом ETR канала
 void HAL_TIMER_ChnETR_Cmd( TIMER_type* TIMERx, TIMER_CH_type Channel, FunctionalState_type NewState )
 {
 	if ( NewState != DISABLE )
@@ -243,7 +243,7 @@ void HAL_TIMER_ChnETR_Cmd( TIMER_type* TIMERx, TIMER_CH_type Channel, Functional
 		TIMERx->CHx_CNTRL[ Channel ].b.OCCE = 0;
 }
 
-// Настройка сброса канала по выводу ETR
+// Channel ETR reset configuration/ Настройка сброса канала по выводу ETR
 void HAL_TIMER_ChnETRResetConfig( TIMER_type* TIMERx, TIMER_CH_type Channel, FunctionalState_type NewState )
 {
 	if ( NewState != DISABLE )
@@ -252,7 +252,7 @@ void HAL_TIMER_ChnETRResetConfig( TIMER_type* TIMERx, TIMER_CH_type Channel, Fun
 		TIMERx->CHx_CNTRL[ Channel ].b.ETREN = 0;
 }
 
-// Настройка сброса канала по выводу BRK
+// Channel BRK reset configuration/ Настройка сброса канала по выводу BRK
 void HAL_TIMER_ChnBRKResetConfig( TIMER_type* TIMERx, TIMER_CH_type Channel, FunctionalState_type NewState )
 {
 	if ( NewState != DISABLE )
@@ -261,31 +261,31 @@ void HAL_TIMER_ChnBRKResetConfig( TIMER_type* TIMERx, TIMER_CH_type Channel, Fun
 		TIMERx->CHx_CNTRL[ Channel ].b.BRKEN = 0;
 }
 
-// Настройка формата REF сигнала
+// REF signal format configuration/ Настройка формата REF сигнала
 void HAL_TIMER_ChnREFFormatConfig( TIMER_type* TIMERx, TIMER_CH_type Channel, TIMER_PWM_REF_type Format )
 {
 	TIMERx->CHx_CNTRL[ Channel ].b.OCCM = Format;
 }
 
-// Настройка предварительного делителя входного канала
+// Input channel prescaler configuration/ Настройка предварительного делителя входного канала
 void HAL_TIMER_ChnCapturePrescalerConfig( TIMER_type* TIMERx, TIMER_CH_type Channel, TIMER_Prescaler_type Prescaler )
 {
 	TIMERx->CHx_CNTRL[ Channel ].b.CHPSC = Prescaler;
 }
 
-// Настройка события по входному каналу
+// Event configuration by input channel/ Настройка события по входному каналу
 void HAL_TIMER_ChnEventSourceConfig( TIMER_type* TIMERx, TIMER_CH_type Channel, TIMER_EventIn_type EventSource )
 {
 	TIMERx->CHx_CNTRL[ Channel ].b.CHSEL = EventSource;
 }
 
-// Настройка фильтрации канала
+// Channel filter configuration/ Настройка фильтрации канала
 void HAL_TIMER_ChnFilterConfig( TIMER_type* TIMERx, TIMER_CH_type Channel, TIMER_Filter_type Filter )
 {
 	TIMERx->CHx_CNTRL[ Channel ].b.CHFLTR = Filter;
 }
 
-// Получение состояния записи нового значения регистра CCR
+// Getting of the write-status of a new value of CCR/Получение состояния записи нового значения регистра CCR
 State_type HAL_TIMER_GetChnWriteComplete( TIMER_type* TIMERx, TIMER_CH_type Channel )
 {
 	if( TIMERx->CHx_CNTRL[ Channel ].b.WR_CMPL == 0 )
@@ -294,13 +294,13 @@ State_type HAL_TIMER_GetChnWriteComplete( TIMER_type* TIMERx, TIMER_CH_type Chan
 		return SET;
 }
 
-// Настройка события по входному каналу для CAP1
+// Event configuration by input channel for CAP1/ Настройка события по входному каналу для CAP1
 void HAL_TIMER_ChnCCR1_EventSourceConfig( TIMER_type* TIMERx, TIMER_CH_type Channel, TIMER_EventIn_type EventSource )
 {
 	TIMERx->CHx_CNTRL2[ Channel ].b.CHSEL1 = EventSource;
 }
 
-// Управление работой CCR1
+// Timer CCR1 control/ Управление работой CCR1
 void HAL_TIMER_ChnCCR1_Cmd( TIMER_type* TIMERx, TIMER_CH_type Channel, FunctionalState_type NewState )
 {
 	if ( NewState != DISABLE )
@@ -309,7 +309,7 @@ void HAL_TIMER_ChnCCR1_Cmd( TIMER_type* TIMERx, TIMER_CH_type Channel, Functiona
 		TIMERx->CHx_CNTRL2[ Channel ].b.CCR1_EN = 0;
 }
 
-// Настройка прямого и инверсного выхода канала таймера
+// Configuration of timer channel direct and inverse outputs/Настройка прямого и инверсного выхода канала таймера
 void HAL_TIMER_ChnOutInit( TIMER_type* TIMERx, const TIMER_ChnOutInit_type* TIMER_ChnOutInitStruct )
 {
 	TIMERx->CHx_CNTRL1[ TIMER_ChnOutInitStruct->ChNumber ].b.INV = TIMER_ChnOutInitStruct->DirOut_Polarity;
@@ -325,7 +325,7 @@ void HAL_TIMER_ChnOutInit( TIMER_type* TIMERx, const TIMER_ChnOutInit_type* TIME
 	TIMERx->CHx_DTG[ TIMER_ChnOutInitStruct->ChNumber ].b.EDTS = TIMER_ChnOutInitStruct->DTG_ClockSource;
 }
 
-// Инициализация структуры прямого и инверсного выхода канала таймера значениями по-умолчанию
+// Initialization by default values of timer channel direct and inverse outputs/ Инициализация структуры прямого и инверсного выхода канала таймера значениями по-умолчанию
 void HAL_TIMER_ChnOutStructInit( TIMER_ChnOutInit_type* TIMER_ChnOutInitStruct )
 {
 	TIMER_ChnOutInitStruct->DirOut_Polarity = TIMER_CHOPolarity_NonInverted;
@@ -339,7 +339,7 @@ void HAL_TIMER_ChnOutStructInit( TIMER_ChnOutInit_type* TIMER_ChnOutInitStruct )
 	TIMER_ChnOutInitStruct->DTG_ClockSource = TIMER_CH_DTG_ClkSrc_TIMER_CLK;
 }
 
-// Настройка прямого канала таймера
+// Configuration of the timer direct channel/ Настройка прямого канала таймера
 void HAL_TIMER_ChnOutConfig( TIMER_type* TIMERx, TIMER_CH_type Channel, TIMER_CHO_SOURCE_type OutSource, TIMER_CHO_MODE_type Mode, TIMER_CHO_POLARITY_type Polarity )
 {
 	TIMERx->CHx_CNTRL1[ Channel ].b.INV = Polarity;
@@ -347,7 +347,7 @@ void HAL_TIMER_ChnOutConfig( TIMER_type* TIMERx, TIMER_CH_type Channel, TIMER_CH
 	TIMERx->CHx_CNTRL1[ Channel ].b.SELOE = Mode;
 }
 
-// Настройка инверсного канала таймера
+// Configuration of the timer inverse channel/ Настройка инверсного канала таймера
 void HAL_TIMER_ChnNOutConfig( TIMER_type* TIMERx, TIMER_CH_type Channel, TIMER_CHO_SOURCE_type OutSource, TIMER_CHO_MODE_type Mode, TIMER_CHO_POLARITY_type Polarity )
 {
 	TIMERx->CHx_CNTRL1[ Channel ].b.NINV = Polarity;
@@ -355,7 +355,7 @@ void HAL_TIMER_ChnNOutConfig( TIMER_type* TIMERx, TIMER_CH_type Channel, TIMER_C
 	TIMERx->CHx_CNTRL1[ Channel ].b.NSELOE = Mode;
 }
 
-// Настройка генератора мертвого времени
+// Configuration of the dead time generator/ Настройка генератора мертвого времени
 void HAL_TIMER_ChnOutDTGConfig( TIMER_type* TIMERx, TIMER_CH_type Channel, uint16_t MainPrescaler, 	uint16_t AuxPrescaler, TIMER_CH_DTG_CLKSRC_type ClockSource )
 {
 	TIMERx->CHx_DTG[ Channel ].b.DTG = AuxPrescaler;
@@ -363,13 +363,13 @@ void HAL_TIMER_ChnOutDTGConfig( TIMER_type* TIMERx, TIMER_CH_type Channel, uint1
 	TIMERx->CHx_DTG[ Channel ].b.EDTS = ClockSource;
 }
 
-// Получение статуса таймера
+// Getting of the timer status/ Получение статуса таймера
 uint32_t HAL_TIMER_GetStatus( TIMER_type* TIMERx )
 {
 	return TIMERx->STATUS.word;
 }
 
-// Получение состояния флага статуса
+// Getting of the state of the status flag/ Получение состояния флага статусаа
 State_type HAL_TIMER_GetFlagStatus( TIMER_type* TIMERx, uint32_t Flag )
 {
 	if( ( TIMERx->STATUS.word & Flag ) == 0 )
@@ -378,13 +378,13 @@ State_type HAL_TIMER_GetFlagStatus( TIMER_type* TIMERx, uint32_t Flag )
 		return SET;
 }
 
-// Сброс флага статуса
+// Clearing of the status flag/Сброс флага статуса
 void HAL_TIMER_ClearFlag( TIMER_type* TIMERx, uint32_t Flags )
 {
 	TIMERx->STATUS.word &= ~Flags;
 }
 
-// Настройка источника запросов для DMA
+// Configuration of DMA request source/ Настройка источника запросов для DMA
 void HAL_TIMER_DMACmd( TIMER_type* TIMERx, uint32_t TIMER_DMASource, TIMER_DMA_CH_type TIMER_DMA_Channel, FunctionalState_type NewState )
 {
 	if( TIMER_DMA_Channel == TIMER_DMA_ALL_CH )
@@ -403,7 +403,7 @@ void HAL_TIMER_DMACmd( TIMER_type* TIMERx, uint32_t TIMER_DMASource, TIMER_DMA_C
 	}
 }
 
-// Настройка прерываний от таймера
+// Configuration of timer interrupt/ Настройка прерываний от таймера
 void HAL_TIMER_ITConfig( TIMER_type* TIMERx, uint32_t TIMER_IT, FunctionalState_type NewState )
 {
 	if( NewState != DISABLE )
@@ -412,7 +412,7 @@ void HAL_TIMER_ITConfig( TIMER_type* TIMERx, uint32_t TIMER_IT, FunctionalState_
 		TIMERx->IE.word &= ~TIMER_IT;
 }
 
-// Получение статуса прерывания
+// Get interrupt status/Получение статуса прерывания
 State_type HAL_TIMER_GetITStatus( TIMER_type* TIMERx, uint32_t TIMER_IT )
 {
 	if( TIMERx->STATUS.word & TIMERx->IE.word & TIMER_IT )

@@ -1,10 +1,10 @@
 ﻿/*
  *
- *	Файл: 		hal_interrupt.с
- *	Описание: 	HAL для контроллера прерываний
+ *	File/файл: 		hal_interrupt.с
+ *	Description/описание: 	HAL for the controller of interrupts/HAL для контроллера прерываний
  *
- *	История:
- *	 			Zatonsky Pavel 		- 	создан
+ *	History/история:
+ *	 			Zatonsky Pavel 		- 	created/создан
  */
 #include <sysreg.h>
 #include <builtins.h>

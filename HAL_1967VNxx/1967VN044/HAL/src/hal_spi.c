@@ -1,11 +1,11 @@
 ﻿/*
  *
- *	Файл: 		hal_spi.c
- *	Описание: 	HAL для модуля SPI
+ *	File/Файл: 		hal_spi.c
+ *	Description/Описание: 	HAL for SPI unit/HAL для модуля SPI
  *
- *	История:
- *	 			23-May-2017 Dmitriy Sharaviev 	- 	изменен под вторую ревизию
- *				15-Mar-2017 Ivan Osadchy 		- 	создан
+ *	History/История:
+ *	 			23-May-2017 Dmitriy Sharaviev 	- 	changed for the second revision/изменен под вторую ревизию
+ *				15-Mar-2017 Ivan Osadchy 		- 	created/создан
  *
  */
 #include "hal_1967VN044.h"
@@ -33,7 +33,7 @@ static void HAL_SPI1_DmaIrqHandler( void );
 #pragma interrupt
 static void HAL_SPI2_DmaIrqHandler( void );
 
-// Инициализация SPI:
+// SPI initialization/Инициализация SPI:
 void HAL_SPI_Init( SPI_type *SPI, SPI_Init_type *InitStr )
 {
 	HAL_SPI_Control( SPI, SPI_State_Disable );
@@ -60,51 +60,51 @@ void HAL_SPI_Init( SPI_type *SPI, SPI_Init_type *InitStr )
 	HAL_SPI_ClearFlag( SPI, SPI_Flag_RxFifoOverflow );
 }
 
-// Деинициализация SPI:
+// SPI deinitialization/Деинициализация SPI:
 void HAL_SPI_DeInit( SPI_type *SPI )
 {
-	// Сбрасываем регистры в состояния по умолчанию:
+	// Setting registers in the default state/ Сбрасываем регистры в состояния по умолчанию:
 	SPI->SPCR0.word 	= 0;
 	SPI->SPCR1.word 	= 0;
 	SPI->RX_CNT 		= 0;
 }
 
-// Инициализация структуры настройки по умолчанию:
+// Default structure initialization/ Инициализация структуры настройки по умолчанию:
 void HAL_SPI_DefaultInitStruct( SPI_Init_type *InitStr )
 {
-	InitStr->CLK_Phase 		= SPI_CLK_Phase_Negedge;			// активность по спадающему фронту
-	InitStr->CLK_Polarity 	= SPI_CLK_Polarity_High;			// выскокий уровень CLK
-	InitStr->CLK_Prescaler 	= 2;								// предделитель частоты на (2 + 1)
-	InitStr->CSNum			= 0;								// обмен по сигналу СS0
-	InitStr->CS_Active 		= SPI_CS_Active_Low;				// активный уровень CS - низкий
-	InitStr->FirstBit 		= SPI_FirstBit_MSB;					// первым выдает старший байт слова
-	InitStr->Mode 			= SPI_Mode_Master;					// режим работы - ведущий
-	InitStr->CS_Hold 		= SPI_CS_Unhold;					// сигнал CS не удерживается в активном состоянии
-	InitStr->CS_Hold_Delay  = 0;								// Нет паузы между отправки данных
-	InitStr->WordSize 		= 8;								// размер выдаваемого слова - 8 бит
-	InitStr->LoopBack 		= SPI_LoopBack_Off;					// тестовый режим возврата данных выключен
+	InitStr->CLK_Phase 		= SPI_CLK_Phase_Negedge;			// active on negative edge/активность по спадающему фронту
+	InitStr->CLK_Polarity 	= SPI_CLK_Polarity_High;			// high level of CLK/ высокий уровень CLK
+	InitStr->CLK_Prescaler 	= 2;								// frequency prescaler (2+1)/ предделитель частоты на (2 + 1)
+	InitStr->CSNum			= 0;								// exchange is started by CS0/ обмен по сигналу СS0
+	InitStr->CS_Active 		= SPI_CS_Active_Low;				// CS active level is low/ активный уровень CS - низкий
+	InitStr->FirstBit 		= SPI_FirstBit_MSB;					// MSB goes first/ первым выдает старший байт слова
+	InitStr->Mode 			= SPI_Mode_Master;					// operation mode - Master/ режим работы - ведущий
+	InitStr->CS_Hold 		= SPI_CS_Unhold;					// CS signal is not hold in active state/ сигнал CS не удерживается в активном состоянии
+	InitStr->CS_Hold_Delay  = 0;								// no delay between sending/ Нет паузы между отправками данных
+	InitStr->WordSize 		= 8;								// word size is 8 bits/ размер выдаваемого слова - 8 бит
+	InitStr->LoopBack 		= SPI_LoopBack_Off;					// testing mode LoopBack is off/ тестовый режим возврата данных выключен
 }
 
-// Включение/отключение SPI:
+// SPI enable/disable/ Включение/отключение SPI:
 void HAL_SPI_Control( SPI_type *SPI, SPI_State_type State )
 {
 	SPI->SPCR1.b.SPE = (uint32_t) State;
 }
 
-// Установка режима обмена по SPI (общий, только Tх, только Rx):
+// Setting of the SPI exchange mode (common, only TX, only RX)/ Установка режима обмена по SPI (общий, только Tх, только Rx):
 void HAL_SPI_SetExchangeMode( SPI_type *SPI, SPI_ExchangeMode_type Mode )
 {
 	SPI->SPCR1.b.TXO = (Mode == SPI_ExchangeMode_TxOnly);
 	SPI->SPCR1.b.RXO = (Mode == SPI_ExchangeMode_RxOnly);
 }
 
-// Получить текущий режим обмена по SPI:
+// Get the current SPI exchange mode/ Получить текущий режим обмена по SPI:
 SPI_ExchangeMode_type HAL_SPI_GetExchangeMode( SPI_type *SPI )
 {
 	return ( ( SPI_ExchangeMode_type )( ( SPI->SPCR1.b.RXO << 1 ) | SPI->SPCR1.b.TXO ) );
 }
 
-// Записать данных в FIFO передатчика:
+// Writing into transmitter FIFO/ Записать данных в FIFO передатчика:
 uint32_t HAL_SPI_WriteToTxFIFO( SPI_type *SPI, uint32_t *src, uint32_t Size )
 {
 	uint32_t *SrcStart 	= src;
@@ -118,7 +118,7 @@ uint32_t HAL_SPI_WriteToTxFIFO( SPI_type *SPI, uint32_t *src, uint32_t Size )
 	return ( src - SrcStart );
 }
 
-// Считать данные из FIFO приемника:
+// Reading out of receiver FIFO/ Считать данные из FIFO приемника:
 uint32_t HAL_SPI_ReadFromRxFIFO( SPI_type *SPI, uint32_t *dst, uint32_t Size )
 {
 	uint32_t *DstStart 	= dst;
@@ -132,7 +132,7 @@ uint32_t HAL_SPI_ReadFromRxFIFO( SPI_type *SPI, uint32_t *dst, uint32_t Size )
 	return ( dst - DstStart );
 }
 
-// Отправка данных:
+// Data sending/ Отправка данных:
 void HAL_SPI_SendOnly( SPI_type *SPI, uint32_t *src,  uint32_t Size )
 {
 	SPI_ExchangeMode_type EM = HAL_SPI_GetExchangeMode( SPI );
@@ -151,7 +151,7 @@ void HAL_SPI_SendOnly( SPI_type *SPI, uint32_t *src,  uint32_t Size )
 	HAL_SPI_SetExchangeMode( SPI, EM );
 }
 
-// Прием данных:
+// Data receiving/ Прием данных:
 void HAL_SPI_ReceiveOnly( SPI_type *SPI, uint32_t *dst, uint32_t Size, uint8_t DO_State )
 {
 	SPI_ExchangeMode_type EM = HAL_SPI_GetExchangeMode( SPI );
@@ -182,7 +182,7 @@ void HAL_SPI_ReceiveOnly( SPI_type *SPI, uint32_t *dst, uint32_t Size, uint8_t D
 	HAL_SPI_SetExchangeMode( SPI, EM );
 }
 
-// Одновременный прием и отправка:
+// Simultenious receiving and transmission/ Одновременный прием и отправка:
 void HAL_SPI_SendAndReceive( SPI_type *SPI, uint32_t *src, uint32_t *dst, uint16_t Size )
 {
 	uint32_t *SrcEnd = src + Size;
@@ -209,19 +209,19 @@ void HAL_SPI_SendAndReceive( SPI_type *SPI, uint32_t *src, uint32_t *dst, uint16
 	HAL_SPI_SetExchangeMode ( SPI, EM );
 }
 
-// Получить состояние флага:
+// Get flag status/ Получить состояние флага:
 SPI_State_type HAL_SPI_GetFlag( SPI_type *SPI, const SPI_Flag_type Flag )
 {
 	return ( ( SPI_State_type )( ( SPI->SPSR.word & Flag ) != 0 ) );
 }
 
-// Сбросить значение флага:
+// Clear flag status/ Сбросить значение флага:
 void HAL_SPI_ClearFlag( SPI_type *SPI, const SPI_Flag_type Flag )
 {
 	SPI->SPSR.word |= ( ( uint32_t ) Flag);
 }
 
-// Настройка событий для прерывания:
+// Events configuration for interrupts/ Настройка событий для прерывания:
 void HAL_SPI_ITConfig( SPI_type *SPI, const SPI_IT_type IT, const SPI_State_type State )
 {
 	uint32_t S = ( ( uint32_t ) State );
@@ -244,7 +244,7 @@ void HAL_SPI_ITConfig( SPI_type *SPI, const SPI_IT_type IT, const SPI_State_type
 		SPI->SPCR1.b.TUM = S;
 }
 
-// Проверка события прерывания:
+// Checking of interrupt event/ Проверка события прерывания:
 SPI_State_type HAL_SPI_ITCheck( SPI_type *SPI, const SPI_IT_type IT )
 {
 	uint32_t S = SPI_State_Disable;
@@ -263,7 +263,7 @@ SPI_State_type HAL_SPI_ITCheck( SPI_type *SPI, const SPI_IT_type IT )
 	return ( SPI_State_type )S;
 }
 
-// Выдача данных в SPI с помощью DMA:
+// Send data to SPI via DMA/ Выдача данных в SPI с помощью DMA:
 void HAL_SPI_DMA_SendOnly( SPI_type *SPI, uint32_t ulChannel, uint32_t *pusBuff, uint16_t usSize )
 {
 	__builtin_quad tcb;
@@ -277,11 +277,11 @@ void HAL_SPI_DMA_SendOnly( SPI_type *SPI, uint32_t ulChannel, uint32_t *pusBuff,
 
 	HAL_DMA_Stop( ulChannel );
 
-	*( ptr + 0 ) = ( uint32_t ) pusBuff;															// Источник информации
-	*( ptr + 1 ) = ( usSize << 16 ) | 1;															// Количество слов + инкремент адреса
-	*( ptr + 2 ) = 0;																				// Количество попыток передачи по X + инкремент адреса X
-	*( ptr + 3 ) = 	TCB_NORMAL;																		// Длина передаваемых данных (операнда) в одном цикле обмена
-	*( ptr + 3 ) |= ( ( uint32_t ) pusBuff < 0x0C000000 ) ? TCB_INTMEM : TCB_EXTMEM;				// Источник в внешней/внутренней памяти
+	*( ptr + 0 ) = ( uint32_t ) pusBuff;															// Information source/Источник информации
+	*( ptr + 1 ) = ( usSize << 16 ) | 1;															// The number of words + address increment/Количество слов + инкремент адреса
+	*( ptr + 2 ) = 0;																				// The number of X-transmission attempts + X address increment/Количество попыток передачи по X + инкремент адреса X
+	*( ptr + 3 ) = 	TCB_NORMAL;																		// The length of the transmitted data (operand) in one exchange cycle/ Длина передаваемых данных (операнда) в одном цикле обмена
+	*( ptr + 3 ) |= ( ( uint32_t ) pusBuff < 0x0C000000 ) ? TCB_INTMEM : TCB_EXTMEM;				// The source is in the external or in the internal memory/ Источник в внешней/внутренней памяти
 
 	switch( ( uint32_t )SPI )
 	{
@@ -343,11 +343,11 @@ void HAL_SPI_DMA_ReceiveOnly( SPI_type *SPI, uint32_t ulChannel, uint32_t *pusBu
 
 	HAL_DMA_Stop( ulChannel );
 
-	*( ptr + 0 ) = ( uint32_t ) pusBuff;															// Приемник информации
-	*( ptr + 1 ) = ( usSize << 16 ) | 1;															// Количество слов + инкремент адреса
-	*( ptr + 2 ) = 0;																				// Количество попыток передачи по X + инкремент адреса X
-	*( ptr + 3 ) = 	TCB_NORMAL;																		// Длина передаваемых данных (операнда) в одном цикле обмена
-	*( ptr + 3 ) |= ( ( uint32_t ) pusBuff < 0x0C000000 ) ? TCB_INTMEM : TCB_EXTMEM;				// Приемник в внешней/внутренней памяти
+	*( ptr + 0 ) = ( uint32_t ) pusBuff;															// Information receiver/ Приемник информации
+	*( ptr + 1 ) = ( usSize << 16 ) | 1;															// The number of words + address increment/ Количество слов + инкремент адреса
+	*( ptr + 2 ) = 0;																				// The number of X-transmission attempts + X address increment/ Количество попыток передачи по X + инкремент адреса X
+	*( ptr + 3 ) = 	TCB_NORMAL;																		// The length of the transmitted data (operand) in one exchange cycle/ Длина передаваемых данных (операнда) в одном цикле обмена
+	*( ptr + 3 ) |= ( ( uint32_t ) pusBuff < 0x0C000000 ) ? TCB_INTMEM : TCB_EXTMEM;				// The receiver is in the internal or external RAM/ Приемник в внешней/внутренней памяти
 
 	switch( ( uint32_t )SPI )
 	{
@@ -417,17 +417,17 @@ void HAL_SPI_DMA_SendAndReceive( SPI_type *SPI, uint32_t ulChannelRx, uint32_t *
 	HAL_DMA_Stop( ulChannelRx );
 	HAL_DMA_Stop( ulChannelTx );
 
-	*( ptrRx + 0 ) = ( uint32_t ) pusBuffRx;														// Приемник информации
-	*( ptrRx + 1 ) = ( usSize << 16 ) | 1;															// Количество слов + инкремент адреса
-	*( ptrRx + 2 ) = 0;																				// Количество попыток передачи по X + инкремент адреса X
-	*( ptrRx + 3 ) = TCB_NORMAL;																	// Длина передаваемых данных (операнда) в одном цикле обмена
-	*( ptrRx + 3 ) |= ( ( uint32_t ) pusBuffRx < 0x0C000000 ) ? TCB_INTMEM : TCB_EXTMEM;			// Приемник в внешней/внутренней памяти
+	*( ptrRx + 0 ) = ( uint32_t ) pusBuffRx;														// Information receiver/ Приемник информации
+	*( ptrRx + 1 ) = ( usSize << 16 ) | 1;															// The number of words + address increment/ Количество слов + инкремент адреса
+	*( ptrRx + 2 ) = 0;																				// The number of X-transmission attempts + X address increment/ Количество попыток передачи по X + инкремент адреса X
+	*( ptrRx + 3 ) = TCB_NORMAL;																	// The length of the transmitted data (operand) in one exchange cycle/ Длина передаваемых данных (операнда) в одном цикле обмена
+	*( ptrRx + 3 ) |= ( ( uint32_t ) pusBuffRx < 0x0C000000 ) ? TCB_INTMEM : TCB_EXTMEM;			// The receiver is in the external/internal memory/ Приемник в внешней/внутренней памяти
 
-	*( ptrTx + 0 ) = ( uint32_t ) pusBuffTx;														// Источник информации
-	*( ptrTx + 1 ) = ( usSize << 16 ) | 1;															// Количество слов + инкремент адреса
-	*( ptrTx + 2 ) = 0;																				// Количество попыток передачи по X + инкремент адреса X
-	*( ptrTx + 3 ) = TCB_NORMAL;																	// Длина передаваемых данных (операнда) в одном цикле обмена
-	*( ptrTx + 3 ) |= ( ( uint32_t ) pusBuffTx < 0x0C000000 ) ? TCB_INTMEM : TCB_EXTMEM;			// Источник в внешней/внутренней памяти
+	*( ptrTx + 0 ) = ( uint32_t ) pusBuffTx;														// Information source /Источник информации
+	*( ptrTx + 1 ) = ( usSize << 16 ) | 1;															// The number of words + address increment/ Количество слов + инкремент адреса
+	*( ptrTx + 2 ) = 0;																				// The number of X-transmission attempts + X address increment/ Количество попыток передачи по X + инкремент адреса X
+	*( ptrTx + 3 ) = TCB_NORMAL;																	// The length of the transmitted data (operand) in one exchange cycle/ Длина передаваемых данных (операнда) в одном цикле обмена
+	*( ptrTx + 3 ) |= ( ( uint32_t ) pusBuffTx < 0x0C000000 ) ? TCB_INTMEM : TCB_EXTMEM;			// The source is in the external/internal memory/ Источник в внешней/внутренней памяти
 
 	switch( ( uint32_t )SPI )
 	{

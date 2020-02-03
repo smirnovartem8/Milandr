@@ -1,11 +1,11 @@
 ﻿/*
  *
- *	Файл: 		hal_camera.c
- *	Описание: 	HAL для интерфейса видеокамеры
+ *	File/Файл: 		hal_camera.c
+ *	Description/Описание: 	HAL for video-camera interface / HAL для интерфейса видеокамеры
  *
- *	История:
- *				19-Jun-2017 Dmitry Sharavev - изменен под вторую ревизию
- *				15-Mar-2017 Dmitry Sharavev - создан
+ *	History/История:
+ *				19-Jun-2017 Dmitry Sharavev - changed for the second revision / изменен под вторую ревизию
+ *				15-Mar-2017 Dmitry Sharavev - created/создан
  *
  */
 
@@ -35,8 +35,8 @@ void HAL_CAMERA_Enable( void )
 
 void HAL_CAMERA_Disable( void )
 {
-	LX_CAMERA->CR.word = 0x00000000;																// Выключаем интерфейс камеры
-	LX_CAMERA->SR.word = 0xFFFFFFFF;																// Сбрасываем все флаги
+	LX_CAMERA->CR.word = 0x00000000;																// disable camera interface / Выключаем интерфейс камеры
+	LX_CAMERA->SR.word = 0xFFFFFFFF;																// reset all flags / Сбрасываем все флаги
 }
 
 void HAL_CAMERA_StartDma( uint32_t ulChannel, void *pvCameraBuf, uint32_t ulXSize, uint32_t ulYSize,
@@ -52,28 +52,28 @@ void HAL_CAMERA_StartDma( uint32_t ulChannel, void *pvCameraBuf, uint32_t ulXSiz
 	switch ( ucPixelsInWord )
 	{
 		case 2:
-			ulXSize >>= 1;																			// 2 пикселя в 32-bit слове
+			ulXSize >>= 1;																			// 2 pixels in the 32-bit word / 2 пикселя в 32-bit слове
 			break;
 		case 4:
-			ulXSize >>= 2;																			// 4 пикселя в 32-bit слове
+			ulXSize >>= 2;																			// 4 pixels in the 32-bit word / 4 пикселя в 32-bit слове
 			break;
 		default:
 			break;
 	}
 
-	*( ptr + 0 ) = ( uint32_t ) pvCameraBuf;														// Источник информации
-	*( ptr + 1 ) = ( ulXSize << 16 ) | 4;															// Количество слов + инкремент адреса
-	*( ptr + 2 ) = ( ulYSize << 16 ) | ulDelta;														// Количество попыток передачи по X + инкремент адреса X
-	*( ptr + 3 ) = 	TCB_TWODIM |																	// Включение режима 2-х мерной пересылки
-//					TCB_HPRIORITY |																	// Приоритет циклов обмена
-					TCB_QUAD ;																		// Длина передаваемых данных (операнда) в одном цикле обмена
-//					HAL_DMA_GetTCBChannelDest( ulChannel );  											// Канал-приемник следующей цепочки
+	*( ptr + 0 ) = ( uint32_t ) pvCameraBuf;														// Information source/ Источник информации
+	*( ptr + 1 ) = ( ulXSize << 16 ) | 4;															// The number of words + address increment/ Количество слов + инкремент адреса
+	*( ptr + 2 ) = ( ulYSize << 16 ) | ulDelta;														// The number of X-transmission attempts + X address increment/Количество попыток передачи по X + инкремент адреса X
+	*( ptr + 3 ) = 	TCB_TWODIM |																	// Enabling of the 2D sending mode/Включение режима 2-х мерной пересылки
+//					TCB_HPRIORITY |																	// Priority of exchange cycles/Приоритет циклов обмена
+					TCB_QUAD ;																		// The length of the transmitted data (operand) in one exchange cycle/Длина передаваемых данных (операнда) в одном цикле обмена
+//					HAL_DMA_GetTCBChannelDest( ulChannel );  											// Receiver-channel of the next chain / Канал-приемник следующей цепочки
 
-	*( ptr + 3 ) |= ( ( uint32_t ) pvCameraBuf < 0x0C000000 ) ? TCB_INTMEM : TCB_EXTMEM;			// Источник в внешней/внутренней памяти
+	*( ptr + 3 ) |= ( ( uint32_t ) pvCameraBuf < 0x0C000000 ) ? TCB_INTMEM : TCB_EXTMEM;			// The source is in the external or in the internal memory/Источник в внешней/внутренней памяти
 
 	HAL_DMA_RqstSet( ulChannel, dmaVIDEO );
 
-	if ( pvDmaIsrHandler )																			// Настройка прерывания, если оно нужно
+	if ( pvDmaIsrHandler )																			// Setting of the interrupt if needed/Настройка прерывания, если оно нужно
 	{
 		switch( ulChannel )
 		{
@@ -92,8 +92,8 @@ void HAL_CAMERA_StartDma( uint32_t ulChannel, void *pvCameraBuf, uint32_t ulXSiz
 			default:
 				break;
 		}
-		*( ptr + 3 ) |= TCB_INT;																	// Генерация запроса прерывания после окончания работы канала
+		*( ptr + 3 ) |= TCB_INT;																	// Generation of the interrupt request when the operation of the channel was completed/ Генерация запроса прерывания после окончания работы канала
 	}
 
-	HAL_DMA_WriteDC( ulChannel, &camera_tcb );														// Запуск DMA
+	HAL_DMA_WriteDC( ulChannel, &camera_tcb );														// DMA start/Запуск DMA
 }

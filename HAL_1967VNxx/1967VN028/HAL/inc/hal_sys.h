@@ -9,6 +9,7 @@
 #define __HAL_SYS_H__
 
 #include <defts201.h>
+#include <sysreg.h>
 
 #define __NOP			asm("nop;;")
 #define __IDLE			asm("idle;;")
@@ -23,20 +24,22 @@
        asm("KL0 = JL0;;"); \
        asm("KB0 = JB0;;")
 
+
 #ifdef __cplusplus
 extern "C"
 {
 #endif
+
 	void HAL_SYS_SDRAMEnable(int sdrconValue);
 	void HAL_SYS_SDRAMDisable(void);
 	void HAL_SYS_SRAMEnable(int sysconValue);
 	void HAL_SYS_SRAMDisable(void);
 
-	/*static inline void HAL_SYS_WaitClk(unsigned int clk){
+	__inline	__attribute__((always_inline)) void HAL_SYS_WaitClk(unsigned int clk){
 	    unsigned long long int stop = __read_ccnt();
 	    stop += clk;
 	    while ((((unsigned long long int)(__read_ccnt())) - stop) & ((unsigned long long int)1<<63));
-	}*/
+	}
 
 #ifdef __cplusplus
 }

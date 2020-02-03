@@ -1,13 +1,14 @@
 ﻿/*
  *
- *	Файл: 		hal_rtc.c
- *	Описание: 	HAL для модуля часов реального времени
+ *	file/Файл: 		hal_rtc.c
+ *	Description/Описание: 	HAL for RTC/HAL для модуля часов реального времени
  *
- *	История:
- *				13-Dec-2016	Zatonsky Pavel 		- 	создан
+ *	History/История:
+ *				13-Dec-2016	Zatonsky Pavel 		- 	created/создан
  *
  */
 #include "hal_1967VN044.h"
+#include <math.h>
 
 uint32_t HAL_RTC_RegRead( RTC_Reg_type RTCReg )
 {
@@ -32,16 +33,14 @@ void HAL_RTC_InitTicPeriod( uint32_t NumOfXTI )
 	while( LX_RTC->RTC_BUSY == 1 );
 }
 
-uint32_t HAL_RTC_InitTicPeriodUS( uint32_t XTI_khz, uint32_t Period_us )
+void HAL_RTC_InitTicPeriodUS( uint32_t XTI_khz, uint32_t Period_us )
 {
 	uint32_t divider;
-	float real_period;
-	divider = ( ( XTI_khz ) / ( Period_us * 1000 ) );
-	real_period = ( 1 / ( float ) XTI_khz ) * ( float ) divider;
+	float period_ms = (float)Period_us/1000;
+	divider = ( XTI_khz ) * ( (uint32_t)period_ms );
 	while( LX_RTC->RTC_BUSY == 1 );
 	LX_RTC->TIC_VAL = divider - 1;
-	while( LX_RTC->RTC_BUSY == 1 );
-	return ( uint32_t ) ( real_period * 1000000 ); 													// ns
+	while( LX_RTC->RTC_BUSY == 1 );												// ns
 }
 
 void HAL_RTC_InitSecPeriod( uint32_t NumOfTic )
@@ -168,41 +167,44 @@ void HAL_RTC_WDogHWResetEn( uint32_t WDT_tic )
 	tmp32 = LX_RTC->RTC_CR;
 	while( LX_RTC->RTC_BUSY == 1 );
 
-	switch ( WDT_tic )
+	if ( WDT_tic == 1 )
 	{
-		case 1:
-			tmp32 &= ~( 7 << 4 ); 																	// reset WDT_SEL
-			break;
-		case 2:
-			tmp32 &= ~( 7 << 4 ); 																	// reset WDT_SEL
-			tmp32 |= ( 1 << 4 );
-			break;
-		case 4:
-			tmp32 &= ~( 7 << 4 ); 																	// reset WDT_SEL
-			tmp32 |= ( 2 << 4 );
-			break;
-		case 8:
-			tmp32 &= ~( 7 << 4 ); 																	// reset WDT_SEL
-			tmp32 |= ( 3 << 4 );
-			break;
-		case 16:
-			tmp32 &= ~( 7 << 4 ); 																	// reset WDT_SEL
-			tmp32 |= ( 4 << 4 );
-			break;
-		case 32:
-			tmp32 &= ~( 7 << 4 ); 																	// reset WDT_SEL
-			tmp32 |= ( 5 << 4 );
-			break;
-		case 64:
-			tmp32 &= ~( 7 << 4 ); 																	// reset WDT_SEL
-			tmp32 |= ( 6 << 4 );
-			break;
-		case 128:
-			tmp32 &= ~( 7 << 4 ); 																	// reset WDT_SEL
-			tmp32 |= ( 7 << 4 );
-			break;
-		default:
-			break;
+		tmp32 &= ~( 7 << 4 );
+	}
+	else if ( WDT_tic == 2 )
+	{
+		tmp32 &= ~( 7 << 4 ); 																	// reset WDT_SEL
+		tmp32 |= ( 1 << 4 );
+	}
+	else if ( WDT_tic == 4 )
+	{
+		tmp32 &= ~( 7 << 4 ); 																	// reset WDT_SEL
+		tmp32 |= ( 2 << 4 );
+	}
+	else if ( WDT_tic == 8 )
+	{
+		tmp32 &= ~( 7 << 4 ); 																	// reset WDT_SEL
+		tmp32 |= ( 3 << 4 );
+	}
+	else if ( WDT_tic == 16 )
+	{
+		tmp32 &= ~( 7 << 4 ); 																	// reset WDT_SEL
+		tmp32 |= ( 4 << 4 );
+	}
+	else if ( WDT_tic == 32 )
+	{
+		tmp32 &= ~( 7 << 4 ); 																	// reset WDT_SEL
+		tmp32 |= ( 5 << 4 );
+	}
+	else if ( WDT_tic == 64 )
+	{
+		tmp32 &= ~( 7 << 4 ); 																	// reset WDT_SEL
+		tmp32 |= ( 6 << 4 );
+	}
+	else if ( WDT_tic == 128 )
+	{
+		tmp32 &= ~( 7 << 4 ); 																	// reset WDT_SEL
+		tmp32 |= ( 7 << 4 );
 	}
 
 	LX_RTC->RTC_CR = tmp32;																		// Init Wdog
@@ -329,4 +331,33 @@ void HAL_RTC_UnLock( void )
 	tmp32 &= ~( 1 << 7 );
 	LX_RTC->RTC_CR = tmp32;																			// Lock WDOG
 	while( LX_RTC->RTC_BUSY == 1 );
+}
+
+int HAL_RTC_GetCurrectClock(int Num)
+{
+	int XTI = 25000; // kHz
+	int Start_clk , Stop_clk;
+	int Count_rtc = 0 , Count_clk = 0;
+	int SEC , TIC , CNT , i , Result;
+
+	HAL_RTC_Lock();
+	SEC = HAL_RTC_RegRead(rtcSECVAL);
+	TIC = HAL_RTC_RegRead(rtcTICVAL);
+
+	for (i = 0; i < Num+1; i++)
+	{
+		CNT = HAL_RTC_RegRead(rtcCNT);
+		while(LX_RTC->RTC_CNT != CNT+1);
+		Start_clk = __read_ccnt();
+		while(LX_RTC->RTC_CNT != CNT+2);
+		Stop_clk = __read_ccnt();
+		if (i > 0) Count_clk += abs(Stop_clk - Start_clk);
+	}
+
+	Count_clk = (float)(Count_clk) / Num;
+	Count_rtc = (SEC + 1) * (TIC  + 1);
+
+	Result = ((int)(round(((float)(Count_clk) / Count_rtc ) * XTI)));
+	HAL_RTC_UnLock();
+	return Result;
 }

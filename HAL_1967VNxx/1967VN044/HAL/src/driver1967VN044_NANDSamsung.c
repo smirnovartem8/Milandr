@@ -4,7 +4,6 @@
   History:
   	  Zatonsky Pavel - Created.
 **********************************************************************************************************************/
-
 #include "driver1967VN044_NANDSamsung.h"
 #include "hal_1967VN044.h"
 
@@ -153,7 +152,7 @@ void Driver_NANDSamsung_WriteBurst(void *src, void *dst, int size){
 	}
 	i = amountPageWrite*(pageSizeW)+tmp;
 	LX_NAND->CNTR = size - i;
-	for(i;i<size;i++){
+	for(;i<size;i++){
 		while(!(LX_NAND->SR.word & 1));
 		LX_NAND->DR = *pSrc;
 		pSrc++;
@@ -240,7 +239,7 @@ void Driver_NANDSamsung_ReadBurst(void *src, void *dst, int size){
 	}
 	i = amountPageRead*(pageSizeW)+tmp;
 	LX_NAND->CNTR = size - i;
-	for(i;i<size;i++){
+	for(;i<size;i++){
 		while(!(LX_NAND->SR.word & 8)) {}
 		*pDst = LX_NAND->DR;
 		pDst++;

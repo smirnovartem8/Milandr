@@ -1,10 +1,10 @@
 ﻿/*
  *
- *	Файл: 		hal_rtc.h
- *	Описание: 	HAL для модуля часов реального времени
+ *	����: 		hal_rtc.h
+ *	��������: 	HAL ��� ������ ����� ��������� �������
  *
- *	История:
- *				13-Dec-2016	Zatonsky Pavel 		- 	создан
+ *	�������:
+ *				13-Dec-2016	Zatonsky Pavel 		- 	������
  *
  */
 #ifndef __HAL_RTC_H__
@@ -14,24 +14,23 @@
 #define inline __inline
 #endif /* __cplusplus */
 
-
-/* ------------------------------------ Структура периферии ------------------------------------- */
+/* ------------------------------------ ��������� ��������� ------------------------------------- */
 typedef volatile struct
 {
-	uint32_t RTC_CNT;																				// счетчик секунд
-	uint32_t RTC_MR; 																				// регистр сравнения
-	uint32_t WDT_CNT; 																				// текущее значение сторожевого счетчика
-	uint32_t RTC_TDIV; 																				// таймера Текущее значение делителя тик-импульса
-	uint32_t RTC_CR; 																				// Регистр управления
-	uint32_t RTC_SDIV; 																				// Текущее значение делителя секунды
-	uint32_t TIC_VAL; 																				// Период тик-импульса минус 1, max 20 bit (1048575)
-	uint32_t SEC_VAL; 																				// Количество тик-импульсов в секунде
-	uint32_t RTC_BUSY; 																				// Флаг занятости интерфейса
+	uint32_t RTC_CNT;																				// ������� ������
+	uint32_t RTC_MR; 																				// ������� ���������
+	uint32_t WDT_CNT; 																				// ������� �������� ����������� ��������
+	uint32_t RTC_TDIV; 																				// ������� ������� �������� �������� ���-��������
+	uint32_t RTC_CR; 																				// ������� ����������
+	uint32_t RTC_SDIV; 																				// ������� �������� �������� �������
+	uint32_t TIC_VAL; 																				// ������ ���-�������� ����� 1, max 20 bit (1048575)
+	uint32_t SEC_VAL; 																				// ���������� ���-��������� � �������
+	uint32_t RTC_BUSY; 																				// ���� ��������� ����������
 } RTC_type;
 
 #define LX_RTC                 ( ( volatile RTC_type * ) base_RTC )
 
-/* -------------------------------------- Специфические типы ------------------------------------ */
+/* -------------------------------------- ������������� ���� ------------------------------------ */
 #define __WDT_REINIT	0x04072013
 
 typedef enum
@@ -50,6 +49,7 @@ extern "C"
 	void 		HAL_RTC_AlarmIntEnExactTime	( uint32_t MRExact_sec );
 	void 		HAL_RTC_WDogIntEn			( uint32_t WDT_tic );
 	void 		HAL_RTC_WDogHWResetEn		( uint32_t WDT_tic );
+	void		HAL_RTC_WDogHWResetDis		( void );
 	void 		HAL_RTC_TicIntEn			( void );
 
 	void 		HAL_RTC_AlarmIntDis			( void );
@@ -58,13 +58,14 @@ extern "C"
 	void 		HAL_RTC_TicIntDis			( void );
 
 	void 		HAL_RTC_InitTicPeriod		( uint32_t NumOfXTI );
-	uint32_t 	HAL_RTC_InitTicPeriodUS		( uint32_t XTI_khz, uint32_t Period_us );
+	void 		HAL_RTC_InitTicPeriodUS		( uint32_t XTI_khz, uint32_t Period_us );
 	void 		HAL_RTC_InitSecPeriod		( uint32_t NumOfTic );
 
 	void 		HAL_RTC_WDogLock			( void );
 	void 		HAL_RTC_WDogUnLock			( void );
 	void 		HAL_RTC_Lock				( void );
 	void 		HAL_RTC_UnLock				( void );
+	int 		HAL_RTC_GetCurrectClock		(int Num);
 #ifdef __cplusplus
 }
 #endif // __cplusplus

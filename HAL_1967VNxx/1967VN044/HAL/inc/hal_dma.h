@@ -98,6 +98,7 @@ extern "C"
 
 	void 			HAL_DMA_SourceDestRqstReset		( void );
 	void 			HAL_DMA_PrimaryPriority			( void );
+	uint32_t HAL_DMA_GetDcAddr( uint32_t ch_number );
 #ifdef __cplusplus
 }
 #endif // __cplusplus

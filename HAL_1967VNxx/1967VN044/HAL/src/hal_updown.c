@@ -1,15 +1,15 @@
 ﻿/*
  *
- *	Файл: 		hal_updown.c
- *	Описание: 	HAL для модуля цифровой обработки UP/DOWN
+ *	File/Файл: 		hal_updown.c
+ *	Description/Описание: 	HAL for UP/DOWN digital processing unit/HAL для модуля цифровой обработки UP/DOWN
  *
- *	История:
- *	 			27-Feb-2017 Ivan Osadchy 		- 	создан
+ *	History/История:
+ *	 			27-Feb-2017 Ivan Osadchy 		- 	created/создан
  *
  */
 #include "hal_1967VN044.h"
 
-// Значения по умолчанию для структуры инициализации:
+// Default values for initialization structure/Значения по умолчанию для структуры инициализации:
 void HAL_UPDOWN_DefaultInitStruct( UPDOWN_Init_type *Init )
 {
 	Init->Mode = UPDOWN_Mode_Down;
@@ -30,10 +30,10 @@ void HAL_UPDOWN_Init( UPDOWN_type * const LX_UPDOWNx, UPDOWN_Init_type * const I
 	uint8_t tmp;
 	uint8_t i = 0;
 
-	// Сброс всех настроек:
+	// Clearing of all the settings/Сброс всех настроек:
 	HAL_UPDOWN_DeInit( LX_UPDOWNx );
 
-	// Настройка регистра CR:
+	// Setting of CR-register/Настройка регистра CR:
 	LX_UPDOWNx->CR.b.DAM = Init->Mode;
 	LX_UPDOWNx->CR.b.FLEN = Init->FiltersStage;
 	LX_UPDOWNx->CR.b.LNKUSE = ( ( Init->LinkX & 0x01 ) != 0 );
@@ -68,14 +68,14 @@ void HAL_UPDOWN_Init( UPDOWN_type * const LX_UPDOWNx, UPDOWN_Init_type * const I
 		LX_UPDOWNx->CR.b.SHFR = i * LX_UPDOWNx->CR.b.FLEN;
 	}
 
-	// Настройка RCNT и STEP:
+	// Setting of RCNT and STEP/Настройка RCNT и STEP:
 	HAL_UPDOWN_SetRcntStep( LX_UPDOWNx, Init->Cnt, Init->Step );
 
-	// Запуск:
+	// Launching/Запуск:
 	HAL_UPDOWN_Enable( LX_UPDOWNx );
 }
 
-// Деинициализация:
+// Deinitialization/Деинициализация:
 void HAL_UPDOWN_DeInit( UPDOWN_type * const LX_UPDOWNx )
 {
 	LX_UPDOWNx->CR.word = 0;
@@ -84,19 +84,19 @@ void HAL_UPDOWN_DeInit( UPDOWN_type * const LX_UPDOWNx )
 	LX_UPDOWNx->XCR = 0;
 }
 
-// Включение UPDOWN модуля:
+// Enabling of UPDWN-unit/Включение UPDOWN модуля:
 void HAL_UPDOWN_Enable( UPDOWN_type * const LX_UPDOWNx )
 {
 	LX_UPDOWNx->CR.b.EN = 1;
 }
 
-// Выключение UPDOWN модуля:
+// Disabling of UPDOWN unit/Выключение UPDOWN модуля:
 void HAL_UPDOWN_Disable( UPDOWN_type * const LX_UPDOWNx )
 {
 	LX_UPDOWNx->CR.b.EN = 0;
 }
 
-// Одновременная запись значений в регистры RCNT и Step:
+// Simultaneous writing to the registers RCNT and STEP/Одновременная запись значений в регистры RCNT и STEP:
 void HAL_UPDOWN_SetRcntStep( UPDOWN_type * const LX_UPDOWNx, const uint32_t RCNT, const uint16_t Step )
 {
 	uint64_t tmp = RCNT;
@@ -105,18 +105,18 @@ void HAL_UPDOWN_SetRcntStep( UPDOWN_type * const LX_UPDOWNx, const uint32_t RCNT
 	*( ( uint64_t * ) &LX_UPDOWNx->RCNT ) = tmp;
 }
 
-// Получение значения флага из регистра SR:
+// Getting of the flag value from the SR-register/Получение значения флага из регистра SR:
 UPDOWN_FlagState_type HAL_UPDOWN_GetFlag( UPDOWN_type * const LX_UPDOWNx, const UPDOWN_Flag_type Flag )
 {
 	return ( ( UPDOWN_FlagState_type ) ( ( LX_UPDOWNx->SR.word & Flag ) != 0 ) );
 }
 
-// Подключение DMA:
+// Connection of DMA/Подключение DMA:
 void HAL_UPDOWN_ConnectDMA( UPDOWN_type * const LX_UPDOWNx, uint32_t ch_number, void *tcb )
 {
 	DMA_Requester_type RT;
 
-	// Определяем номер UPDOWN:
+	// Determine the number UPDOWN/Определяем номер UPDOWN:
 	if ( LX_UPDOWNx == LX_UPDOWN0 )
 		RT = dmaUPDOWN0;
 	else if ( LX_UPDOWNx == LX_UPDOWN1 )
@@ -128,7 +128,7 @@ void HAL_UPDOWN_ConnectDMA( UPDOWN_type * const LX_UPDOWNx, uint32_t ch_number, 
 	else
 		return;
 
-	// Если режим DOWN:
+	// DOWN-mode/Если режим DOWN:
 	if ( ( ( UPDOWN_Mode_type ) LX_UPDOWNx->CR.b.DAM ) == UPDOWN_Mode_Down )
 	{
 		if ( ch_number > 3 ) return;
@@ -137,7 +137,7 @@ void HAL_UPDOWN_ConnectDMA( UPDOWN_type * const LX_UPDOWNx, uint32_t ch_number, 
 		return;
 	}
 
-	// Если режим UP:
+	// UP-mode/Если режим UP:
 	if ( ( ( UPDOWN_Mode_type ) LX_UPDOWNx->CR.b.DAM ) == UPDOWN_Mode_Up )
 	{
 		if ( ch_number > 3 ) return;

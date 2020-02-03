@@ -1,10 +1,10 @@
 ﻿/*
  *
- *	Файл: 		hal_audio.с
- *	Описание: 	HAL для интерфейса к аудио-кодеку AC97/I2S
+ *	File/Файл: 		hal_audio.с
+ *	Description/Описание: 	HAL for audio-codec interface AC97/I2S / HAL для интерфейса к аудио-кодеку AC97/I2S
  *
- *	История:
- *				21-Mar-2017 Dmitry Sharavev - создан
+ *	History/История:
+ *				21-Mar-2017 Dmitry Sharavev - created/создан
  *
  */
 
@@ -51,13 +51,13 @@ void HAL_AUDIO_StartDMA( uint32_t ulChannel, AUDIO_type* const AudioX, void *pvD
 
 	HAL_DMA_Stop( ulChannel );
 
-	*( ptr + 0 ) = ( uint32_t ) pvDataBuf;															// Источник информации
-	*( ptr + 1 ) = ( usSize << 16 ) | 1;															// Количество слов + инкремент адреса
-	*( ptr + 2 ) = 0;																				// Количество попыток передачи по X + инкремент адреса X
-	*( ptr + 3 ) = 	TCB_NORMAL |																	// Длина передаваемых данных (операнда) в одном цикле обмена
-					TCB_INT ;																		// Генерация запроса прерывания после окончания работы канала
+	*( ptr + 0 ) = ( uint32_t ) pvDataBuf;							// Information source/ Источник информации
+	*( ptr + 1 ) = ( usSize << 16 ) | 1;							// The number of words + address increment/ Количество слов + инкремент адреса
+	*( ptr + 2 ) = 0;												// The number of X-transmission attempts + X address increment/ Количество  попыток передачи по X + инкремент адреса X
+	*( ptr + 3 ) = 	TCB_NORMAL |									// The length of the transmitted data (operand) in one exchange cycle/ Длина передаваемых данных (операнда) в одном цикле обмена
+					TCB_INT ;										// Generation of the interrupt request when the channel completed operation/ Генерация запроса прерывания после окончания 		//работы канала
 	HAL_DMA_CreateChannelDest( ulChannel, &audioTcbTx, &audioTcbTx );
-	*( ptr + 3 ) |= 	( ( uint32_t ) pvDataBuf < 0x0C000000 ) ? TCB_INTMEM : TCB_EXTMEM;				// Источник в внешней/внутренней памяти
+	*( ptr + 3 ) |= 	( ( uint32_t ) pvDataBuf < 0x0C000000 ) ? TCB_INTMEM : TCB_EXTMEM;				// The source is in the external or in the internal RAM/ Источник в внешней/внутренней памяти
 
 	if( AudioX == LX_AUDIO0 )
 	{
@@ -70,7 +70,7 @@ void HAL_AUDIO_StartDMA( uint32_t ulChannel, AUDIO_type* const AudioX, void *pvD
 		HAL_DMA_RqstSet( ulChannel, dmaSSI1 );
 	}
 
-	if ( pvDmaIsrHandler )																			// Настройка прерывания, если оно нужно
+	if ( pvDmaIsrHandler )																			// Setting of the interrupt if needed / Настройка прерывания, если оно нужно
 	{
 		switch( ulChannel )
 		{
@@ -92,7 +92,7 @@ void HAL_AUDIO_StartDMA( uint32_t ulChannel, AUDIO_type* const AudioX, void *pvD
 		*( ptr + 3 ) |= TCB_INT;
 	}
 
-	HAL_DMA_WriteDC( ulChannel, &audioTcbTx );														// Запуск DMA
+	HAL_DMA_WriteDC( ulChannel, &audioTcbTx );														// DMA start/Запуск DMA
 }
 
 void HAL_AUDIO_StopDMA( AUDIO_type* const AudioX )

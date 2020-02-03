@@ -1,9 +1,9 @@
 ﻿/*
  *
- *	Файл: 		hal_interrupt.h
- *	Описание: 	HAL для контроллера прерываний
+ *	‘айл: 		hal_interrupt.h
+ *	ќписание: 	HAL дл¤ контроллера прерываний
  *
- *	История:
+ *	»стори¤:
  *	 			Zatonsky Pavel 		- 	создан
  */
 #ifndef __HAL_INTERRUPT_H__

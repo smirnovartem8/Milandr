@@ -1,11 +1,11 @@
 ﻿/*
  *
- *	Файл: 		hal_uart.с
- *	Описание: 	HAL для модуля последовательного асинхронного интерфейса UART
+ *	File/Файл: 		hal_uart.с
+ *	Description/Описание: 	HAL for UART unit/HAL для модуля последовательного асинхронного интерфейса UART
  *
- *	История:
- *				27-Jun-2017 Dmitriy Sharaviev 	- 	добавлена передача через прерывания
- *	 			Zatonsky Pavel 					- 	создан
+ *	History/История:
+ *				27-Jun-2017 Dmitriy Sharaviev 	- 	added the function of data transmission by means of interrupts/добавлена передача через прерывания
+ *	 			Zatonsky Pavel 					- 	created/создан
  *
  */
 #include "hal_1967VN044.h"
@@ -14,15 +14,15 @@ volatile UART_TxRxStatus_type UartTxRxStatus;
 
 static volatile struct
 {
-	uint32_t TxLenght[ UART_NUMS ];																	// Количество данных для передачи по прерываниям
-	uint8_t *Buff[ UART_NUMS ];																		// Указатель на буфер
+	uint32_t TxLenght[ UART_NUMS ];																	// The amount of data for transmission by means of interrupts/Количество данных для передачи по прерываниям
+	uint8_t *Buff[ UART_NUMS ];																		// Pointer to the buffer/Указатель на буфер
 } UART_TX_Data;
 
 static volatile struct
 {
-	uint32_t RxLenght[ UART_NUMS ];																	// Количество данных для передачи по прерываниям
-	uint32_t RxMaxLenght[ UART_NUMS ];																// Максимальное количество данных для приема
-	uint8_t *Buff[ UART_NUMS ];																		// Указатель на буфер
+	uint32_t RxLenght[ UART_NUMS ];																	// The amount of data for transmission be means of interrupts/Количество данных для передачи по прерываниям
+	uint32_t RxMaxLenght[ UART_NUMS ];																// The maximum amount of data for receiving/Максимальное количество данных для приема
+	uint8_t *Buff[ UART_NUMS ];																		// Pointer to the buffer/Указатель на буфер
 } UART_RX_Data;
 
 #pragma interrupt
@@ -39,21 +39,21 @@ uint32_t HAL_UART_Init( UART_type* UARTx, UART_Init_type* InitStruct )
 
 	XTIBaud = XTI_KHZ * 1000;
 
-	if ( ( UARTx != ( UART_type* ) base_UART0 ) && ( UARTx != ( UART_type* ) base_UART1 ) )			// Проверка UART
-		return 1; 																					// Ошибка: неправильный UART
+	if ( ( UARTx != ( UART_type* ) base_UART0 ) && ( UARTx != ( UART_type* ) base_UART1 ) )			// Checking of UART/Проверка UART
+		return 1; 																					// Error: wrong UART/Ошибка: неправильный UART
 
 	tmpreg |= InitStruct->WorkMode;
 	tmpreg |= InitStruct->OverSampling;
 
-	if ( InitStruct->BitRate == 0 ) return 2; 														// Ошибка: скорость обмена = 0
+	if ( InitStruct->BitRate == 0 ) return 2; 														// Error: the exchange rate = 0/Ошибка: скорость обмена = 0
 
 	if ( InitStruct->OverSampling == UART_OverSampling_High )
 	{
-		if ( InitStruct->BitRate > XTIBaud / 16 ) return 4; 										// Ошибка: скорость обмена выше допустимой для текщей длительности бита
+		if ( InitStruct->BitRate > XTIBaud / 16 ) return 4; 										// Error: the exchange rate if higher than allowed for the current bit duration/Ошибка: скорость обмена выше допустимой для текущей длительности бита
 	}
 	else
 	{
-		if ( InitStruct->BitRate > XTIBaud / 4 ) return 3; 											// Ошибка: скорость обмена выше допустимой для текщей длительности бита
+		if ( InitStruct->BitRate > XTIBaud / 4 ) return 3; 											// Error: the exchange rate if higher than allowed for the current bit duration/Ошибка: скорость обмена выше допустимой для текущей длительности бита
 	}
 
 	if ( InitStruct->OverSampling == UART_OverSampling_High )
@@ -69,13 +69,13 @@ uint32_t HAL_UART_Init( UART_type* UARTx, UART_Init_type* InitStruct )
 	tmpreg |= InitStruct->TXDMode;
 	tmpreg |= ( InitStruct->DMACtrlErr << 3 );
 
-	UARTx->UCR_LOAD.word = tmpreg;																	// Инициализация UART
+	UARTx->UCR_LOAD.word = tmpreg;																	// UART initialization/Инициализация UART
 
-	UARTx->UCR_SET.word = ( 1 << UCR_UARTEN_P );													// Включение UART
+	UARTx->UCR_SET.word = ( 1 << UCR_UARTEN_P );													// UART enabling/Включение UART
 	return 0;
 }
 
-// Сброс настроек UART
+// UART deinitialization/Сброс настроек UART
 void HAL_UART_DeInit( UART_type* UARTx )
 {
 	UARTx->UBitRate = 0;
@@ -83,7 +83,7 @@ void HAL_UART_DeInit( UART_type* UARTx )
 	UARTx->UCR_LOAD.word = 0;
 }
 
-// Инициализация структуры UART значениями по-умолчанию
+// Initialization of UART structure by defaults values/Инициализация структуры UART значениями по-умолчанию
 void HAL_UART_DefaultInitStruct( UART_Init_type* InitStruct )
 {
 	InitStruct->BitRate = 9600;
@@ -97,7 +97,7 @@ void HAL_UART_DefaultInitStruct( UART_Init_type* InitStruct )
 	InitStruct->DMACtrlErr = UART_DMACtrl_Dis;
 }
 
-// Настройка прерываний
+// Interrupts configuration/Настройка прерываний
 void HAL_UART_ITConfig( UART_type* UARTx, uint32_t IT, UART_IT_type IT_State )
 {
 	if( IT_State == UART_IT_En )
@@ -106,7 +106,7 @@ void HAL_UART_ITConfig( UART_type* UARTx, uint32_t IT, UART_IT_type IT_State )
 		UARTx->UCR_CLEAR.word = IT << 16;
 }
 
-// Разрешение прерываний от UART
+// Enabling of UART interrups/Разрешение прерываний от UART
 void HAL_UART_ITEnable( UART_type* UARTx )
 {
 	if( UARTx == LX_UART0 )
@@ -115,7 +115,7 @@ void HAL_UART_ITEnable( UART_type* UARTx )
 		HAL_Interrupt_Enable( intUART1, vUART1_IrqHandler );
 }
 
-// Запрещение прерываний от UART
+// Disabling of UART interrups/Запрещение прерываний от UART
 void HAL_UART_ITDisable( UART_type* UARTx )
 {
 	if( UARTx == LX_UART0 )
@@ -124,25 +124,25 @@ void HAL_UART_ITDisable( UART_type* UARTx )
 		HAL_Interrupt_Disable( intUART1 );
 }
 
-// Отправка буфера через UART
+// Buffer transmission by UART/Отправка буфера через UART
 uint32_t HAL_UART_Send( UART_type* UARTx, uint8_t* BuffAddr, uint32_t Lenght )
 {
 	unsigned char data;
 	uint32_t i;
 
-	if ( ( UARTx != ( UART_type* ) base_UART0 ) && ( UARTx != ( UART_type* ) base_UART1 ) )			// Проверка UART
-		return 1; 																					// Ошибка: неправильный UART
+	if ( ( UARTx != ( UART_type* ) base_UART0 ) && ( UARTx != ( UART_type* ) base_UART1 ) )			// Checking of UART/Проверка UART
+		return 1; 																					// Error: wrong UART/Ошибка: неправильный UART
 
 	for ( i = 0; i < Lenght; i++ )
 	{
-		while( UARTx->UFLAG.b.UTXFF ) ; 															// Ждем освобождения буфера передачи
+		while( UARTx->UFLAG.b.UTXFF ) ; 															// Wait until the transmission buffer is free/Ждем освобождения буфера передачи
 		data = *( BuffAddr + i );
 		UARTx->UDR = data;
 	}
 	return 0;
 }
 
-// Отправка буфера через UART с использованием DMA. Буфер должен быть 32-разрядный
+// Buffer transmission my means of UART with the help of DMA. The buffer must be 32-bit/Отправка буфера через UART с использованием DMA. Буфер должен быть 32-разрядный
 void HAL_UART_DmaSend( UART_type* UARTx, uint32_t Channel, void* BuffAddr, uint32_t Lenght, void *DmaIsrHandler )
 {
 	__builtin_quad tcb;
@@ -153,19 +153,19 @@ void HAL_UART_DmaSend( UART_type* UARTx, uint32_t Channel, void* BuffAddr, uint3
 
 	HAL_DMA_Stop( Channel );
 
-	*( ptr + 0 ) = ( uint32_t ) BuffAddr;															// Источник информации
-	*( ptr + 1 ) = ( Lenght << 16 ) | 1;															// Количество слов + инкремент адреса
-	*( ptr + 2 ) = 0;																				// Количество попыток передачи по X + инкремент адреса X
-	*( ptr + 3 ) = TCB_NORMAL|																		// Длина передаваемых данных (операнда) в одном цикле обмена
+	*( ptr + 0 ) = ( uint32_t ) BuffAddr;															// Information source/Источник информации
+	*( ptr + 1 ) = ( Lenght << 16 ) | 1;															// The amount of words + address increment/Количество слов + инкремент адреса
+	*( ptr + 2 ) = 0;																				// The number of X-transmission attempts + X address increment/Количество попыток передачи по X + инкремент адреса X
+	*( ptr + 3 ) = TCB_NORMAL|																		// The length of the transmitted data (operand) in one exchange cycle /Длина передаваемых данных (операнда) в одном цикле обмена
 					TCB_DMAR;
-	*( ptr + 3 ) |= ( ( uint32_t ) BuffAddr < 0x0C000000 ) ? TCB_INTMEM : TCB_EXTMEM;				// Источник в внешней/внутренней памяти
+	*( ptr + 3 ) |= ( ( uint32_t ) BuffAddr < 0x0C000000 ) ? TCB_INTMEM : TCB_EXTMEM;				// The source is in the internal/external memory/Источник в внешней/внутренней памяти
 
 	if( UARTx == LX_UART0 )
 		HAL_DMA_RqstSet( Channel, dmaUART0 );
 	else
 		HAL_DMA_RqstSet( Channel, dmaUART1 );
 
-	if ( DmaIsrHandler )																			// Настройка прерывания, если оно нужно
+	if ( DmaIsrHandler )																			// Setting of the interrupt if needed/Настройка прерывания, если оно нужно
 	{
 		switch( Channel )
 		{
@@ -190,7 +190,7 @@ void HAL_UART_DmaSend( UART_type* UARTx, uint32_t Channel, void* BuffAddr, uint3
 	HAL_DMA_WriteDC( Channel, &tcb );
 }
 
-// Прием буфера через UART с использованием DMA. Буфер должен быть 32-разрядный
+// Buffer receiving my means of UART with the help of DMA. The buffer must be 32-bit/Прием буфера через UART с использованием DMA. Буфер должен быть 32-разрядный
 void HAL_UART_DmaReceive( UART_type* UARTx, uint32_t Channel, void* BuffAddr, uint32_t Lenght, void *DmaIsrHandler )
 {
 	__builtin_quad tcb;
@@ -201,19 +201,19 @@ void HAL_UART_DmaReceive( UART_type* UARTx, uint32_t Channel, void* BuffAddr, ui
 
 	HAL_DMA_Stop( Channel );
 
-	*( ptr + 0 ) = ( uint32_t ) BuffAddr;															// Источник информации
-	*( ptr + 1 ) = ( Lenght << 16 ) | 1;															// Количество слов + инкремент адреса
-	*( ptr + 2 ) = 0;																				// Количество попыток передачи по X + инкремент адреса X
-	*( ptr + 3 ) = TCB_NORMAL|																		// Длина передаваемых данных (операнда) в одном цикле обмена
+	*( ptr + 0 ) = ( uint32_t ) BuffAddr;															// Information source/Источник информации
+	*( ptr + 1 ) = ( Lenght << 16 ) | 1;															// The amount of words + address increment/Количество слов + инкремент адреса
+	*( ptr + 2 ) = 0;																				// The number of X-transmission attempts + X address increment/Количество попыток передачи по X + инкремент адреса X
+	*( ptr + 3 ) = TCB_NORMAL|																		// The length of the transmitted data (operand) in one exchange cycle /Длина передаваемых данных (операнда) в одном цикле обмена
 					TCB_DMAR;
-	*( ptr + 3 ) |= ( ( uint32_t ) BuffAddr < 0x0C000000 ) ? TCB_INTMEM : TCB_EXTMEM;				// Источник в внешней/внутренней памяти
+	*( ptr + 3 ) |= ( ( uint32_t ) BuffAddr < 0x0C000000 ) ? TCB_INTMEM : TCB_EXTMEM;				// The source is in the internal/external memory/Источник в внешней/внутренней памяти
 
 	if( UARTx == LX_UART0 )
 		HAL_DMA_RqstSet( Channel, dmaUART0 );
 	else
 		HAL_DMA_RqstSet( Channel, dmaUART1 );
 
-	if ( DmaIsrHandler )																			// Настройка прерывания, если оно нужно
+	if ( DmaIsrHandler )																			// Setting of the interrupt if needed/Настройка прерывания, если оно нужно
 	{
 		switch( Channel )
 		{
@@ -238,7 +238,7 @@ void HAL_UART_DmaReceive( UART_type* UARTx, uint32_t Channel, void* BuffAddr, ui
 	HAL_DMA_WriteDC( Channel, &tcb );
 }
 
-// Передача буфера с использованием прерываний
+// Buffer transmission with the use of interrupts/Передача буфера с использованием прерываний
 void HAL_UART_ITSend( UART_type* UARTx, uint8_t* BuffAddr, uint32_t Lenght )
 {
 	uint32_t UartNum;
@@ -248,7 +248,7 @@ void HAL_UART_ITSend( UART_type* UARTx, uint8_t* BuffAddr, uint32_t Lenght )
 	else
 		UartNum = 1;
 
-	UARTx->UCR_SET.b.UFIFOEN = 1;																	// Включаем FIFO
+	UARTx->UCR_SET.b.UFIFOEN = 1;																	// Enable FIFO/Включаем FIFO
 
 	UartTxRxStatus.TxReady[ UartNum ] = 0;
 	UART_TX_Data.TxLenght[ UartNum ] = Lenght;
@@ -260,10 +260,10 @@ void HAL_UART_ITSend( UART_type* UARTx, uint8_t* BuffAddr, uint32_t Lenght )
 		UART_TX_Data.TxLenght[ UartNum ]--;
 	}
 
-	HAL_UART_ITConfig( UARTx, UART_IT_TX, UART_IT_En );												// Разрешаем прерывание от передатчика
+	HAL_UART_ITConfig( UARTx, UART_IT_TX, UART_IT_En );												// The intterupt from transmitter is enabled/Разрешаем прерывание от передатчика
 }
 
-// Прием буфера с использование прерываний
+// Buffer operates in receiving mode with interrupts/Прием буфера с использованием прерываний
 void HAL_UART_ITReceive( UART_type* UARTx, uint8_t* BuffAddr, uint32_t MaxLenght )
 {
 	uint32_t UartNum;
@@ -273,7 +273,7 @@ void HAL_UART_ITReceive( UART_type* UARTx, uint8_t* BuffAddr, uint32_t MaxLenght
 	else
 		UartNum = 1;
 
-	UARTx->UCR_SET.b.UFIFOEN = 1;																	// Включаем FIFO
+	UARTx->UCR_SET.b.UFIFOEN = 1;																	// FIFO disabling/Включаем FIFO
 
 	UartTxRxStatus.RxReady[ UartNum ] = 0;
 	UartTxRxStatus.RxLenght[ UartNum ] = 0;
@@ -282,16 +282,16 @@ void HAL_UART_ITReceive( UART_type* UARTx, uint8_t* BuffAddr, uint32_t MaxLenght
 	UART_RX_Data.RxMaxLenght[ UartNum ] = MaxLenght;
 	UART_RX_Data.RxLenght[ UartNum ] = 0;
 
-	HAL_UART_ITConfig( UARTx, UART_IT_RX | UART_IT_RXERR | UART_IT_URXT, UART_IT_En );				// Разрешаем прерывания от приемника
+	HAL_UART_ITConfig( UARTx, UART_IT_RX | UART_IT_RXERR | UART_IT_URXT, UART_IT_En );				// Enable the interrupts from the receiver/Разрешаем прерывания от приемника
 }
 
-/* ------------------------------------- Обработчики прерываний --------------------------------- */
+/* ------------------------------------- Interrupt Handlers/Обработчики прерываний --------------------------------- */
 void vUART0_IrqHandler( void )
 {
 	volatile uint32_t Tmp;
 	uint32_t rxCnt;
 
-	if( LX_UART0->UINTM.b.URXTINT )																	// Прерывание от приемника по таймауту
+	if( LX_UART0->UINTM.b.URXTINT )																	// Interrupt from receiver by timeout/Прерывание от приемника по таймауту
 	{
 		while( !LX_UART0->UFLAG.b.URXFE )
 		{
@@ -307,7 +307,7 @@ void vUART0_IrqHandler( void )
 		UartTxRxStatus.RxReady[ UART0 ] = 1;
 	}
 
-	if( LX_UART0->UINTM.b.RXINT )																	// Прерывание от приемника
+	if( LX_UART0->UINTM.b.RXINT )																	// Interrupt from receiver/ Прерывание от приемника
 	{
 		rxCnt = 0;
 		while( rxCnt < 3 )
@@ -324,7 +324,7 @@ void vUART0_IrqHandler( void )
 		}
 	}
 
-	if( LX_UART0->UINTM.b.TXINT )																	// Прерывание от передатчика
+	if( LX_UART0->UINTM.b.TXINT )																	// Interrupt from transmitter/Прерывание от передатчика
 	{
 		if( UART_TX_Data.TxLenght[ UART0 ] != 0 )
 		{
@@ -341,7 +341,7 @@ void vUART0_IrqHandler( void )
 		}
 	}
 
-	if( LX_UART0->UINTM.b.UTXEINT )																	// Буфер передатчика пуст
+	if( LX_UART0->UINTM.b.UTXEINT )																	// Transmitter buffer is empty/Буфер передатчика пуст
 	{
 		UartTxRxStatus.TxReady[ UART0 ] = 1;
 		HAL_UART_ITConfig( LX_UART0, UART_IT_UTXE, UART_IT_Dis );
@@ -353,7 +353,7 @@ void vUART1_IrqHandler( void )
 	volatile uint32_t Tmp;
 	uint32_t rxCnt;
 
-	if( LX_UART1->UINTM.b.URXTINT )																	// Прерывание от приемника по таймауту
+	if( LX_UART1->UINTM.b.URXTINT )																	// Interrupt from receiver by timeout/Прерывание от приемника по таймауту
 	{
 		while( !LX_UART1->UFLAG.b.URXFE )
 		{
@@ -369,7 +369,7 @@ void vUART1_IrqHandler( void )
 		UartTxRxStatus.RxReady[ UART1 ] = 1;
 	}
 
-	if( LX_UART1->UINTM.b.RXINT )																	// Прерывание от приемника
+	if( LX_UART1->UINTM.b.RXINT )																	// Interrupt from receiver/Прерывание от приемника
 	{
 		rxCnt = 0;
 		while( rxCnt < 3 )
@@ -386,7 +386,7 @@ void vUART1_IrqHandler( void )
 		}
 	}
 
-	if( LX_UART1->UINTM.b.TXINT )																	// Прерывание от передатчика
+	if( LX_UART1->UINTM.b.TXINT )																	// Interrupt from transmitter/Прерывание от передатчика
 	{
 		if( UART_TX_Data.TxLenght[ UART1 ] != 0 )
 		{
@@ -403,7 +403,7 @@ void vUART1_IrqHandler( void )
 		}
 	}
 
-	if( LX_UART1->UINTM.b.UTXEINT )																	// Буфер передатчика пуст
+	if( LX_UART1->UINTM.b.UTXEINT )																	// Transmitter buffer is empty/Буфер передатчика пуст
 	{
 		UartTxRxStatus.TxReady[ UART1 ] = 1;
 		HAL_UART_ITConfig( LX_UART1, UART_IT_UTXE, UART_IT_Dis );

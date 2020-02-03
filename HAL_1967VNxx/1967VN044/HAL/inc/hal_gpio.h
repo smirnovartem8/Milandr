@@ -140,8 +140,7 @@ typedef enum
 	GPIO_PinMode_InPU		= 1,
 	GPIO_PinMode_Out		= 2,
 	GPIO_PinMode_OutPU		= 3,
-	GPIO_PinMode_Alt		= 4,
-	GPIO_PinMode_AltPU		= 5
+	GPIO_PinMode_Alt		= 4
 } GPIO_PinMode;
 
 
@@ -194,7 +193,6 @@ typedef enum
   	  void 				HAL_GPIO_PxD_Init 			( const uint32_t Pins, const GPIO_PinMode Mode );
   	  void 				HAL_GPIO_PxD_DeInit 		( const uint32_t Pins );
   	  void 				HAL_GPIO_Px_AltInit 		( const GPIO_PxAlt_type PxAlt, const GPIO_PxAlt_Mode_type PxAltMode );
-	  void 				HAL_GPIO_Px_AltFullDeInit	( void );
   	  void 				HAL_GPIO_Px_AltDeInit		( const GPIO_PxAlt_type PxAlt );
 
   	  void 				HAL_GPIO_WritePin 			( GPIO_PortPi * const GPIO_Pi, const GPIO_PIN Pin, const GPIO_PinState NewState );

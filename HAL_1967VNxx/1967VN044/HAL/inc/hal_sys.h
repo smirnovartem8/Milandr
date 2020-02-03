@@ -1,11 +1,11 @@
 ﻿/*
  *
- *	Файл: 		hal_sys.h
- *	Описание: 	HAL для внешней шины памяти
+ *	����: 		hal_sys.h
+ *	��������: 	HAL ��� ������� ���� ������
  *
- *	История:
- *						28-Jun-2017 Dmitriy Sharaviev 	- 	изменен под вторую ревизию, добавлена функция задания периода регенерации
- *										Zatonsky Pavel 	- 	создан
+ *	�������:
+ *						28-Jun-2017 Dmitriy Sharaviev 	- 	������� ��� ������ �������, ��������� ������� ������� ������� �����������
+ *										Zatonsky Pavel 	- 	������
  *
  */
 #ifndef __HAL_SYS_H__
@@ -29,8 +29,8 @@
 
 typedef enum
 {
-	SYS_BUS_16b = 0,
-	SYS_BUS_32b
+	SYS_BUS_16b = 16,
+	SYS_BUS_32b = 32
 }SYS_BusSize_type;
 
 #ifdef __cplusplus

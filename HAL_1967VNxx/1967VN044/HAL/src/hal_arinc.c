@@ -1,11 +1,11 @@
 ﻿/*
  *
- *	”айл: 		hal_arinc.с
- *	Ћписание: 	HAL длЯ модулЯ контроллера интерфейса ARINC
+ *	File/Файл: 		hal_arinc.с
+ *	Description/Описание: 	HAL for ARINC/ HAL для модуля контроллера интерфейса ARINC
  *
- *	€сториЯ:
- *	 			19-Jun-2017 Dmitriy Sharaviev 	- 	частота шины периферии берется из PLL_Freq
- *						    Zatonsky Pavel 		- 	создан
+ *	History/История:
+ *	 			19-Jun-2017 Dmitriy Sharaviev 	- 	frequency of the peripheral bus is received out of PLL_Freq/частота шины периферии беретс¤ из PLL_Freq
+ *						    Zatonsky Pavel 		- 	created/создан
  *
  */
 

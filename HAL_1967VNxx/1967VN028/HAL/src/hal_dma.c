@@ -250,12 +250,12 @@ int HAL_DMA_GetChannelStatusClear(int channel)
 
 
 #define HAL_DMA_InitMemType(addr, DPReg)\
-	if ((addr <= (0x00FFF) ) || (addr >= 0x040000 && addr <= (0x04FFFF) ) ||\
-		(addr >= 0x080000 && addr <= (0x08FFFF) ) || (addr >= 0x0C0000 && addr <= (0x0CFFFF) ) ||\
-		(addr >= 0x100000 && addr <= (0x10FFFF) ) || (addr >= 0x140000 && addr <= (0x14FFFF) ))\
+	if ((addr >= (0x00000000) && addr <= (0x0001FFFF)) || (addr >= 0x00040000 && addr <= (0x0005FFFF)) ||\
+		(addr >= 0x00080000 && addr <= (0x0009FFFF)) || (addr >= 0x000C0000 && addr <= (0x000DFFFF)) ||\
+		(addr >= 0x00100000 && addr <= (0x0011FFFF)) || (addr >= 0x00140000 && addr <= (0x0015FFFF)))\
 		DPReg |= TCB_INTMEM16;\
 	else if((addr >= 0x30000000 && addr <= (0x44000000)) || (addr >= 0x50000000 && addr <= (0x54000000)) ||\
-			(addr >= 0x60000000 && addr <= (0x64000000)) || (addr >= 0x70000000 && addr <= (0x74000000)))\
+			(addr >= 0x60000000 && addr <= (0x64000000)) || (addr >= 0x70000000 && addr <= (0x74000000)) || (addr >= (0x80000000) && addr <= (0xFFFFFFFF)))\
 		DPReg |= TCB_EXTMEM16;\
 	else return dmaCopyAddrErr
 
