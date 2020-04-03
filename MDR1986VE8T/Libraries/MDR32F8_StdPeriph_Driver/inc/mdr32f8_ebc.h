@@ -115,7 +115,7 @@ uint32_t RGN_DIVOCLK;
 #define EBC_CPOL_DOWN 			(uint32_t)(0x01)
 
 #define EBC_USESEPAR_USER 		(uint32_t)(0x00)
-#define EBC_USESEPAR_FORSOC 	        (uint32_t)(0x01)
+#define EBC_USESEPAR_FORSOC 	(uint32_t)(0x01)
 
 #define EBC_READ32_8_16 		(uint32_t)(0x00)
 #define EBC_READ32_32 			(uint32_t)(0x01)
