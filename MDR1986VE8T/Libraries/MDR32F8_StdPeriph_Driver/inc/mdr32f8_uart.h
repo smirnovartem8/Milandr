@@ -243,7 +243,7 @@ void UART_Cmd(MDR_UART_TypeDef* UARTx, FunctionalState NewState);
 FlagStatus UART_GetFlagStatus(MDR_UART_TypeDef* UARTx, uint32_t UART_FLAG);
 void UART_SendData(MDR_UART_TypeDef* UARTx, uint16_t Data);
 uint16_t UART_ReceiveData(MDR_UART_TypeDef* UARTx);
-void UART_CLK_en(uint32_t UART_CLKSRC, uint32_t UART_DIV);
+void UART_CLK_en(MDR_UART_TypeDef * UARTx, uint32_t UART_CLKSRC, uint32_t UART_CLK_DIV);
 ITStatus UART_GetITStatusMasked(MDR_UART_TypeDef* UARTx, uint32_t UART_IT);
 void UART_ClearITPendingBit(MDR_UART_TypeDef* UARTx, uint32_t UART_IT);
 void UART_ITConfig(MDR_UART_TypeDef* UARTx, uint32_t UART_IT, FunctionalState NewState);

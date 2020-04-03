@@ -234,22 +234,32 @@ uint16_t UART_ReceiveData(MDR_UART_TypeDef* UARTx)
   *           @arg UART_CLKdiv8
   * @retval None
   */
-void UART_CLK_en(uint32_t UART_CLKSRC, uint32_t UART_CLK_DIV)
+void UART_CLK_en(MDR_UART_TypeDef * UARTx, uint32_t UART_CLKSRC, uint32_t UART_CLK_DIV)
 {
   uint32_t tmpreg;
   /* Check the parameters */
-  assert_param(IS_UART_ALL_PERIPH(UARTx));
+    assert_param(IS_UART_ALL_PERIPH(UARTx));
 	assert_param(IS_UART_CLKSRC(UART_CLKSRC));
-
-  tmpreg = CLK_CNTR->UART0_CLK;
-
-  tmpreg |=  UART_CLK_EN;
-  tmpreg &= ~UART_DIV_Msk;
-  tmpreg |=  UART_CLK_DIV;
-	tmpreg &= ~UART_CLKSRC_msk;
-	tmpreg |=  UART_CLKSRC<<UART_CLKSRC_offs;
-
-  CLK_CNTR->UART0_CLK = tmpreg;
+  if (UARTx == MDR_UART0)
+    { 
+       tmpreg = CLK_CNTR->UART0_CLK;
+       tmpreg |=  UART_CLK_EN;
+       tmpreg &= ~UART_DIV_Msk;
+       tmpreg |=  UART_CLK_DIV;
+       tmpreg &= ~UART_CLKSRC_msk;
+       tmpreg |=  UART_CLKSRC<<UART_CLKSRC_offs;
+       CLK_CNTR->UART0_CLK = tmpreg;
+    }
+  else
+    {
+       tmpreg = CLK_CNTR->UART1_CLK;
+       tmpreg |=  UART_CLK_EN;
+       tmpreg &= ~UART_DIV_Msk;
+       tmpreg |=  UART_CLK_DIV;
+       tmpreg &= ~UART_CLKSRC_msk;
+       tmpreg |=  UART_CLKSRC<<UART_CLKSRC_offs;
+       CLK_CNTR->UART1_CLK = tmpreg;
+    }
 }
 
 /**
