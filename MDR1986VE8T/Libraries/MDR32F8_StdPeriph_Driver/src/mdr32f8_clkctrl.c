@@ -727,21 +727,6 @@ ErrorStatus CLKCTRL_CPU_PLLstatus(uint32_t PLLn)
       break;
     case 2:
 			fl = CLKCTRL_PLLn_STAT_PLL2_RDY;
-      break;
-    case 3:
-			fl = CLKCTRL_PLLn_STAT_PLL3_RDY;
-      break;
-    case 4:
-			fl = CLKCTRL_PLLn_STAT_PLL4_RDY;
-      break;
-    case 5:
-			fl = CLKCTRL_PLLn_STAT_PLL5_RDY;
-      break;
-    case 6:
-			fl = CLKCTRL_PLLn_STAT_PLL6_RDY;
-      break;
-    case 7:
-			fl = CLKCTRL_PLLn_STAT_PLL7_RDY;
       break;		
     default:
       break;

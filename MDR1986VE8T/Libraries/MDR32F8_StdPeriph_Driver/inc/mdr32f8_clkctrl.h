@@ -200,11 +200,6 @@ typedef struct
 #define CLKCTRL_MAX_CLK_PLL0          ((uint32_t)0x00000008)
 #define CLKCTRL_MAX_CLK_PLL1          ((uint32_t)0x00000009)
 #define CLKCTRL_MAX_CLK_PLL2          ((uint32_t)0x0000000A)
-#define CLKCTRL_MAX_CLK_PLL3          ((uint32_t)0x0000000B)
-#define CLKCTRL_MAX_CLK_PLL4          ((uint32_t)0x0000000C)
-#define CLKCTRL_MAX_CLK_PLL5          ((uint32_t)0x0000000D)
-#define CLKCTRL_MAX_CLK_PLL6          ((uint32_t)0x0000000E)
-#define CLKCTRL_MAX_CLK_PLL7          ((uint32_t)0x0000000F)
 
 #define IS_CLKCTRL_MAX_CLK(SRC)      (((SRC) == CLKCTRL_MAX_CLK_HSIdiv1) || \
                                       ((SRC) == CLKCTRL_MAX_CLK_HSIdiv2) || \
@@ -216,12 +211,7 @@ typedef struct
                                       ((SRC) == CLKCTRL_MAX_CLK_LSE)     || \
                                       ((SRC) == CLKCTRL_MAX_CLK_PLL0)    || \
                                       ((SRC) == CLKCTRL_MAX_CLK_PLL1)    || \
-                                      ((SRC) == CLKCTRL_MAX_CLK_PLL2)    || \
-                                      ((SRC) == CLKCTRL_MAX_CLK_PLL3)    || \
-                                      ((SRC) == CLKCTRL_MAX_CLK_PLL4)    || \
-                                      ((SRC) == CLKCTRL_MAX_CLK_PLL5)    || \
-                                      ((SRC) == CLKCTRL_MAX_CLK_PLL6)    || \
-																			((SRC) == CLKCTRL_MAX_CLK_PLL7))
+                                      ((SRC) == CLKCTRL_MAX_CLK_PLL2))
 /**
   * @}
   */ 
@@ -314,7 +304,7 @@ typedef struct
 #define CLKCTRL_PER0_CLK_MDR_PORTD_EN					 ((uint32_t)0x00010000)
 #define CLKCTRL_PER0_CLK_MDR_PORTE_EN					 ((uint32_t)0x00020000)
 #define CLKCTRL_PER0_CLK_RESERVED18					   ((uint32_t)0x00040000)//RESERVED18
-#define CLKCTRL_PER0_CLK_MDR_ENET0_EN					 ((uint32_t)0x00080000)
+#define CLKCTRL_PER0_CLK_RESERVED19 					 ((uint32_t)0x00080000)//RESERVED19
 #define CLKCTRL_PER0_CLK_RESERVED20					   ((uint32_t)0x00100000)//RESERVED20
 #define CLKCTRL_PER0_CLK_MDR_SPW0_EN					 ((uint32_t)0x00200000)
 #define CLKCTRL_PER0_CLK_RESERVED22					   ((uint32_t)0x00400000)//RESERVED22
@@ -322,8 +312,8 @@ typedef struct
 #define CLKCTRL_PER0_CLK_MDR_TMR1_EN					 ((uint32_t)0x01000000)
 #define CLKCTRL_PER0_CLK_MDR_TMR2_EN					 ((uint32_t)0x02000000)
 #define CLKCTRL_PER0_CLK_MDR_TMR3_EN					 ((uint32_t)0x04000000)
-#define CLKCTRL_PER0_CLK_RESERVED27					   ((uint32_t)0x08000000)//RESERVED27
-#define CLKCTRL_PER0_CLK_RESERVED28				     ((uint32_t)0x10000000)//RESERVED28
+#define CLKCTRL_PER0_CLK_RESERVED27					    ((uint32_t)0x08000000)//RESERVED27
+#define CLKCTRL_PER0_CLK_RESERVED28				        ((uint32_t)0x10000000)//RESERVED28
 #define CLKCTRL_PER0_CLK_MDR_CAN0_EN					 ((uint32_t)0x20000000)
 #define CLKCTRL_PER0_CLK_RESERVED30					 	 ((uint32_t)0x40000000)//RESERVED30
 #define CLKCTRL_PER0_CLK_RESERVED31					 	 ((uint32_t)0x80000000)//RESERVED31
@@ -352,13 +342,13 @@ typedef struct
 #define	CLKCTRL_PER1_CLK_RESERVED04							((uint32_t)0x00000010)//RESERVED04
 #define	CLKCTRL_PER1_CLK_RESERVED05							((uint32_t)0x00000020)//RESERVED05
 #define CLKCTRL_PER1_CLK_MDR_UART0_EN						((uint32_t)0x00000040)
-#define	CLKCTRL_PER1_CLK_RESERVED07							((uint32_t)0x00000080)//RESERVED07
+#define	CLKCTRL_PER1_CLK_MDR_UART1_EN						((uint32_t)0x00000080)
 #define	CLKCTRL_PER1_CLK_RESERVED08							((uint32_t)0x00000100)//RESERVED08
 #define	CLKCTRL_PER1_CLK_RESERVED09							((uint32_t)0x00000200)//RESERVED09
 #define	CLKCTRL_PER1_CLK_RESERVED10							((uint32_t)0x00000400)//RESERVED10
-#define	CLKCTRL_PER1_CLK_MDR_ARCRX0_EN					((uint32_t)0x00000800)
+#define	CLKCTRL_PER1_CLK_MDR_ARCRX0_EN					    ((uint32_t)0x00000800)
 #define	CLKCTRL_PER1_CLK_RESERVED12							((uint32_t)0x00001000)//RESERVED12
-#define	CLKCTRL_PER1_CLK_MDR_ARCTX0_EN				  ((uint32_t)0x00002000)
+#define	CLKCTRL_PER1_CLK_MDR_ARCTX0_EN				        ((uint32_t)0x00002000)
 #define	CLKCTRL_PER1_CLK_RESERVED14							((uint32_t)0x00004000)//RESERVED14
 #define	CLKCTRL_PER1_CLK_RESERVED15							((uint32_t)0x00008000)//RESERVED15
 #define	CLKCTRL_PER1_CLK_RESERVED16							((uint32_t)0x00010000)//RESERVED16
@@ -369,9 +359,9 @@ typedef struct
 #define CLKCTRL_PER1_CLK_MDR_MIL1_EN						((uint32_t)0x00200000)
 #define	CLKCTRL_PER1_CLK_RESERVED22							((uint32_t)0x00400000)//RESERVED22
 #define CLKCTRL_PER1_CLK_MDR_ADC0_EN						((uint32_t)0x00800000)
-#define CLKCTRL_PER1_CLK_MDR_ADC1_EN					  ((uint32_t)0x01000000)
+#define CLKCTRL_PER1_CLK_MDR_ADC1_EN					    ((uint32_t)0x01000000)
 #define CLKCTRL_PER1_CLK_MDR_DAC0_EN						((uint32_t)0x02000000)
-#define CLKCTRL_PER1_CLK_MDR_DAC1_EN			      ((uint32_t)0x04000000)
+#define CLKCTRL_PER1_CLK_MDR_DAC1_EN			            ((uint32_t)0x04000000)
 #define	CLKCTRL_PER1_CLK_RESERVED27							((uint32_t)0x08000000)//RESERVED27
 #define	CLKCTRL_PER1_CLK_RESERVED28							((uint32_t)0x10000000)//RESERVED28
 #define	CLKCTRL_PER1_CLK_RESERVED29							((uint32_t)0x20000000)//RESERVED29
