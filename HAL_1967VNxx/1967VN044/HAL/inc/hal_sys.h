@@ -1,11 +1,11 @@
-﻿/*
+/*
  *
- *	����: 		hal_sys.h
- *	��������: 	HAL ��� ������� ���� ������
+ *	Файл: 		hal_sys.h
+ *	Описание: 	HAL для внешней шины памяти
  *
- *	�������:
- *						28-Jun-2017 Dmitriy Sharaviev 	- 	������� ��� ������ �������, ��������� ������� ������� ������� �����������
- *										Zatonsky Pavel 	- 	������
+ *	История:
+ *						28-Jun-2017 Dmitriy Sharaviev 	- 	изменен под вторую ревизию, добавлена функция задания периода регенерации
+ *										Zatonsky Pavel 	- 	создан
  *
  */
 #ifndef __HAL_SYS_H__
@@ -21,11 +21,6 @@
 #define __BTBEN			asm("btben;;")
 #define SysregWrite		__builtin_sysreg_write
 #define SysregRead		__builtin_sysreg_read
-#define FIX_IT_BUG() \
-       asm("JL0 = J27 + 0x100;;"); \
-       asm("JB0 = 8;;"); \
-       asm("KL0 = JL0;;"); \
-       asm("KB0 = JB0;;")
 
 typedef enum
 {
