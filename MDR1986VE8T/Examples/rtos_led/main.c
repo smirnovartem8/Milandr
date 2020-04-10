@@ -85,7 +85,7 @@ int main(void)
 	while(CLKCTRL_HSEstatus(CLKCTRL_HSEn_STAT_HSE0_RDY) != SUCCESS){}
 	
 	/* Select PLL0 clk src, PLL0_N, PLL0_Q to get FINT = FIN*(PLLn_N)/(PLLn_Q+1) */
-	CLKCTRL_CPU_PLLconfig(PLL0, CLKCTRL_PLLn_CLK_SELECT_HSE0div1, 0, 4);//PLLn, SRC, Q, N
+	CLKCTRL_CPU_PLLconfig(PLL0, CLKCTRL_PLLn_CLK_SELECT_HSE0div1, PLL_DIVQ_Q_1_DV, 8);//PLLn, SRC, Q, N
 		while(CLKCTRL_CPU_PLLstatus(0) != SUCCESS){}
 			CLKCTRL_MAX_CLKSelection(CLKCTRL_MAX_CLK_PLL0);	
 			

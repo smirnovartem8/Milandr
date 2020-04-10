@@ -80,9 +80,9 @@ int main(void)
 	while(CLKCTRL_HSEstatus(CLKCTRL_HSEn_STAT_HSE0_RDY) != SUCCESS){}
 	
 	/* Select PLL0 clk src, PLL0_N, PLL0_Q to get FINT = FIN*(PLLn_N)/(PLLn_Q+1) */
-	CLKCTRL_CPU_PLLconfig(PLL0, CLKCTRL_PLLn_CLK_SELECT_HSE0div1, 0, 4);//PLLn, SRC, Q, N
+	CLKCTRL_CPU_PLLconfig(PLL0, CLKCTRL_PLLn_CLK_SELECT_HSIdiv1, PLL_DIVQ_Q_1_DV, 8);//PLLn, SRC, Q, N
 		while(CLKCTRL_CPU_PLLstatus(0) != SUCCESS){}
-			CLKCTRL_MAX_CLKSelection(CLKCTRL_MAX_CLK_PLL0);	
+			CLKCTRL_MAX_CLKSelection(CLKCTRL_MAX_CLK_PLL0);			
 			
   /* Enable PORTx clk */
 	CLKCTRL_PER0_CLKcmd(CLKCTRL_PER0_CLK_MDR_PORTC_EN, ENABLE);
@@ -98,7 +98,7 @@ int main(void)
   PORT_InitStructure.PORT_CANALOG  = PORT_CANALOG_DIGITAL;//Clear dig, set analog
   PORT_Init(PORTC, &PORT_InitStructure);			
 			
-	ADCx_CLK_en(ADC1, ADCx_CLKSRC_MAX_CLK, ADCx_CLKdiv1);			
+	ADCx_CLK_en(ADC1, ADCx_CLKSRC_MAX_CLK, ADCx_CLKdiv4);			
 	ADC1->KEY = 0x8555AAA1;
 			
 	ADCx_IS.ADC_RH_MODE = ADCx_CONFIG0_RH_MODE_ADC_POW;

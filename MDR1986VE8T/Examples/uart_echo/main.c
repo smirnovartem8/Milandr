@@ -107,7 +107,7 @@ int main(void)
 	PORT_InitStructure.PORT_SPWR = PORT_SPWR_10;
   PORT_Init(PORTB, &PORT_InitStructure);
 	
-	UART_CLK_en(UART_CLKSRC_HSE0, UART_CLKdiv1);
+	UART_CLK_en(MDR_UART0,UART_CLKSRC_HSE0, UART_CLKdiv1);
 	/*UART configuration*/	
   UART_InitStructure.UART_BaudRate                = 9600;
   UART_InitStructure.UART_WordLength              = UART_WordLength8b;

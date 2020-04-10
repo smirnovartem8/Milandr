@@ -82,11 +82,12 @@ int main(void)
 	while(CLKCTRL_HSEstatus(CLKCTRL_HSEn_STAT_HSE0_RDY) != SUCCESS){}
 		
 	/* Select PLL0 clk src, PLL0_N, PLL0_Q to get FINT = FIN*(PLLn_N)/(PLLn_Q+1) */
-	CLKCTRL_CPU_PLLconfig(PLL0, CLKCTRL_PLLn_CLK_SELECT_HSE0div2, 0, 8);//PLLn, SRC, Q, N
+	CLKCTRL_CPU_PLLconfig(PLL0, CLKCTRL_PLLn_CLK_SELECT_HSE0div1, PLL_DIVQ_Q_1, 8);//PLLn, SRC, Q, N
 		while(CLKCTRL_CPU_PLLstatus(0) != SUCCESS){}
 			CLKCTRL_MAX_CLKSelection(CLKCTRL_MAX_CLK_PLL0);		
 
-	CLKCTRL_PER0_CLKcmd(CLKCTRL_PER0_CLK_MDR_ENET0_EN, ENABLE);
+	CLKCTRL_CPUclkPrescaler (CLKCTRL_CPU_CLK_CPUclkDIV2);
+		
 	CLKCTRL_PER0_CLKcmd(CLKCTRL_PER0_CLK_MDR_PORTC_EN, ENABLE);
 
 	KEY_reg_accs();
@@ -121,9 +122,9 @@ int main(void)
 	ETH_InitStruct.ETH_Receive_All_Packets = ENABLE;
 	ETH_InitStruct.ETH_Error_CRC_Frames_Reception = ENABLE;
 	ETH_InitStruct.ETH_Receiver_Event_Mode = ETH_RECEIVER_EVENT_MODE_PACET_RECEIVED;
-	ETH_InitStruct.ETH_Receiver_BE = ETH_RECEIVER_BE_BIG_ENDIAN;
+	ETH_InitStruct.ETH_Receiver_BE = ETH_RECEIVER_BE_LITTLE_ENDIAN;
 		
-	ETH_InitStruct.ETH_Transmitter_BE = ETH_TRANSMITTER_BE_BIG_ENDIAN;
+	ETH_InitStruct.ETH_Transmitter_BE = ETH_RECEIVER_BE_LITTLE_ENDIAN;
 	ETH_InitStruct.ETH_Transmitter_Event_Mode = ETH_TRANSMITTER_EVENT_MODE_XFIFO_ALMOST_EMPTY;
 	ETH_InitStruct.ETH_Automatic_Pad_Strip = ENABLE;
 	ETH_InitStruct.ETH_Automatic_Preamble = ENABLE;

@@ -73,14 +73,14 @@ int main(void)
 	/* Check HSE success, enable PLL0, check PLL0 success, select MAX_CLK src */
 	while(CLKCTRL_HSEstatus(CLKCTRL_HSEn_STAT_HSE0_RDY) != SUCCESS){}
 		
-	CLKCTRL_MAX_CLKSelection(CLKCTRL_MAX_CLK_HSE0div1);	
 	
-	CLKCTRL_CPU_PLLconfig(0, CLKCTRL_PLLn_CLK_SELECT_HSE0div1, 0, 8);//PLL, SRC, Q, N
-  if(CLKCTRL_CPU_PLLstatus(0) == ERROR)
+	CLKCTRL_CPU_PLLconfig(0, CLKCTRL_PLLn_CLK_SELECT_HSE0div1, PLL_DIVQ_Q_1_DV, 8);//PLL, SRC, Q, N
+  
+		if(CLKCTRL_CPU_PLLstatus(0) == ERROR)
   while(1);
 	
-	//CLKCTRL_MAX_CLKSelection(CLKCTRL_MAX_CLK_PLL0);			
-	CLKCTRL_MAX_CLKSelection(CLKCTRL_MAX_CLK_HSE0div2);	
+	CLKCTRL_MAX_CLKSelection(CLKCTRL_MAX_CLK_PLL0);			
+	
 
 	CLKCTRL_PER0_CLKcmd(CLKCTRL_PER0_CLK_MDR_PORTA_EN, ENABLE);
 	CLKCTRL_PER0_CLKcmd(CLKCTRL_PER0_CLK_MDR_TMR1_EN, ENABLE);
@@ -117,10 +117,10 @@ int main(void)
 
   sTIM_ChnInit.TIMER_CH_Mode                = TIMER_CH_MODE_PWM;
   sTIM_ChnInit.TIMER_CH_REF_Format          = TIMER_CH_REF_Format6;
-  sTIM_ChnInit.TIMER_CH_Number              = TIMER_CHANNEL2;
+  sTIM_ChnInit.TIMER_CH_Number              = TIMER_CHANNEL1;
   TIMER_ChnInit(MDR_TMR1, &sTIM_ChnInit);
 	
-	TIMER_SetChnCompare(MDR_TMR1, TIMER_CHANNEL2, CCR2_Val);
+	TIMER_SetChnCompare(MDR_TMR1, TIMER_CHANNEL1, CCR2_Val);
 	
 	/* Initializes the TIMER1 Channel 1,1N-------------------------------*/
 
@@ -132,7 +132,7 @@ int main(void)
   sTIM_ChnOutInit.TIMER_CH_NegOut_Polarity          = TIMER_CHOPolarity_NonInverted;
   sTIM_ChnOutInit.TIMER_CH_NegOut_Source            = TIMER_CH_OutSrc_REF;
   sTIM_ChnOutInit.TIMER_CH_NegOut_Mode              = TIMER_CH_OutMode_Output;
-  sTIM_ChnOutInit.TIMER_CH_Number                   = TIMER_CHANNEL2;
+  sTIM_ChnOutInit.TIMER_CH_Number                   = TIMER_CHANNEL1;
   TIMER_ChnOutInit(MDR_TMR1, &sTIM_ChnOutInit);
 
   /* Enable TIMER1 */
