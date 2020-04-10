@@ -70,11 +70,13 @@ void SystemCoreClockUpdate (void)
    uint32_t regCLK;
    uint32_t pll_source, pll_N, pll_Q, pll_DIV;
    uint32_t sel_max_clk, sel_pll;
+	 uint32_t cpu_div;
 	
 	sel_max_clk = CLK_CNTR->MAX_CLK &0xF;
+	cpu_div = (CLK_CNTR->CPU_CLK &0xF)+1;
 
   if (sel_max_clk < 8)
-    SystemCoreClock = _GenFreqsHz[sel_max_clk];
+    SystemCoreClock = _GenFreqsHz[sel_max_clk]/cpu_div;
   else if (sel_max_clk < 11)
   {  
     switch (sel_max_clk)
@@ -94,7 +96,7 @@ void SystemCoreClockUpdate (void)
       pll_N =((regCLK >> 8) & 0x7F);	
     pll_Q = (regCLK & 0xF);
     pll_DIV = ((regCLK >> 4) & 0x1);
-    SystemCoreClock = ((pll_source * pll_N / (pll_Q + 1)) / (pll_DIV + 1));	    
+    SystemCoreClock = (((pll_source * pll_N / (pll_Q + 1)) / (pll_DIV + 1))/cpu_div);	    
   } 
   else
 	SystemCoreClock = FREQ_FAULT_HZ;
