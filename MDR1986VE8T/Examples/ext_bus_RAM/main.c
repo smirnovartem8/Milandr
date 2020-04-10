@@ -161,6 +161,8 @@ void TestRam_EbcConfig(void)
 {
 	EXT_BUS_CNTR->KEY = _KEY_;
 	
+	EBC_RGNx_StructInit(&EBC_RGNx_IS);
+	
 	EBC_RGNx_IS.RGN_DIVOCLK = 3;
 	EBC_RGNx_IS.RGN_WS_HOLD = 3;
 	EBC_RGNx_IS.RGN_WS_SETUP  = 3;
