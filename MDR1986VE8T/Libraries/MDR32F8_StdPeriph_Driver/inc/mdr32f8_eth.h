@@ -471,14 +471,14 @@ typedef union {
   * @{
   */
 
-#define ETH_PHY_HCLKdiv1                       ((uint32_t)0x00000000 << RST_CLK_ETH_CLOCK_PHY_BRG_Pos)
-#define ETH_PHY_HCLKdiv2                       ((uint32_t)0x00000001 << RST_CLK_ETH_CLOCK_PHY_BRG_Pos)
-#define ETH_PHY_HCLKdiv4                       ((uint32_t)0x00000002 << RST_CLK_ETH_CLOCK_PHY_BRG_Pos)
-#define ETH_PHY_HCLKdiv8                       ((uint32_t)0x00000003 << RST_CLK_ETH_CLOCK_PHY_BRG_Pos)
-#define ETH_PHY_HCLKdiv16                      ((uint32_t)0x00000004 << RST_CLK_ETH_CLOCK_PHY_BRG_Pos)
-#define ETH_PHY_HCLKdiv32                      ((uint32_t)0x00000005 << RST_CLK_ETH_CLOCK_PHY_BRG_Pos)
-#define ETH_PHY_HCLKdiv64                      ((uint32_t)0x00000006 << RST_CLK_ETH_CLOCK_PHY_BRG_Pos)
-#define ETH_PHY_HCLKdiv128                     ((uint32_t)0x00000007 << RST_CLK_ETH_CLOCK_PHY_BRG_Pos)
+#define ETH_PHY_HCLKdiv1                       ((uint32_t)0x00000000)
+#define ETH_PHY_HCLKdiv2                       ((uint32_t)0x00000001)
+#define ETH_PHY_HCLKdiv4                       ((uint32_t)0x00000003)
+#define ETH_PHY_HCLKdiv8                       ((uint32_t)0x00000007)
+#define ETH_PHY_HCLKdiv16                      ((uint32_t)0x0000000F)
+#define ETH_PHY_HCLKdiv32                      ((uint32_t)0x0000001F)
+#define ETH_PHY_HCLKdiv64                      ((uint32_t)0x0000003F)
+#define ETH_PHY_HCLKdiv128                     ((uint32_t)0x0000007F)
 
 #define IS_ETH_PHY_HCLKdiv(BRG)                (((~BRG) & 0x00070000) == 0)
 

@@ -220,14 +220,14 @@ typedef struct
   * @{
   */
 #define CLKCTRL_CPU_CLK_CPUclkDIV1                    ((uint32_t)0x00000000)
-#define CLKCTRL_CPU_CLK_CPUclkDIV2                    ((uint32_t)0x00000008)
-#define CLKCTRL_CPU_CLK_CPUclkDIV4                    ((uint32_t)0x00000009)
-#define CLKCTRL_CPU_CLK_CPUclkDIV8                    ((uint32_t)0x0000000A)
-#define CLKCTRL_CPU_CLK_CPUclkDIV16                   ((uint32_t)0x0000000B)
-#define CLKCTRL_CPU_CLK_CPUclkDIV32                   ((uint32_t)0x0000000C)
-#define CLKCTRL_CPU_CLK_CPUclkDIV64                   ((uint32_t)0x0000000D)
-#define CLKCTRL_CPU_CLK_CPUclkDIV128                  ((uint32_t)0x0000000E)
-#define CLKCTRL_CPU_CLK_CPUclkDIV256                  ((uint32_t)0x0000000F)
+#define CLKCTRL_CPU_CLK_CPUclkDIV2                    ((uint32_t)0x00000001)
+#define CLKCTRL_CPU_CLK_CPUclkDIV4                    ((uint32_t)0x00000003)
+#define CLKCTRL_CPU_CLK_CPUclkDIV8                    ((uint32_t)0x00000007)
+#define CLKCTRL_CPU_CLK_CPUclkDIV16                   ((uint32_t)0x0000000F)
+#define CLKCTRL_CPU_CLK_CPUclkDIV32                   ((uint32_t)0x0000001F)
+#define CLKCTRL_CPU_CLK_CPUclkDIV64                   ((uint32_t)0x0000003F)
+#define CLKCTRL_CPU_CLK_CPUclkDIV128                  ((uint32_t)0x0000007E)
+#define CLKCTRL_CPU_CLK_CPUclkDIV256                  ((uint32_t)0x000000FF)
 
 #define IS_CLKCTRL_CPU_CLK_CPUclkDIV(DIV)     (((DIV) == CLKCTRL_CPU_CLK_CPUclkDIV1)   || \
                                                ((DIV) == CLKCTRL_CPU_CLK_CPUclkDIV2)   || \
@@ -241,7 +241,50 @@ typedef struct
 /**
   * @}
   */ 
+	
+/** @defgroup CLKCTRL_PLL_Multipliers Q, N and Q+DV
+  * @{
+  */
+#define PLL_DIVQ_Q_1					((uint32_t)0x00000000)
+#define PLL_DIVQ_Q_2					((uint32_t)0x00000001)
+#define PLL_DIVQ_Q_3					((uint32_t)0x00000002)
+#define PLL_DIVQ_Q_4					((uint32_t)0x00000003)
+#define PLL_DIVQ_Q_5					((uint32_t)0x00000004)
+#define PLL_DIVQ_Q_6					((uint32_t)0x00000005)
+#define PLL_DIVQ_Q_7					((uint32_t)0x00000006)
+#define PLL_DIVQ_Q_8					((uint32_t)0x00000007)
+#define PLL_DIVQ_Q_9					((uint32_t)0x00000008)
+#define PLL_DIVQ_Q_10					((uint32_t)0x00000009)
+#define PLL_DIVQ_Q_11					((uint32_t)0x0000000A)
+#define PLL_DIVQ_Q_12					((uint32_t)0x0000000B)
+#define PLL_DIVQ_Q_13					((uint32_t)0x0000000C)
+#define PLL_DIVQ_Q_14					((uint32_t)0x0000000D)
+#define PLL_DIVQ_Q_15					((uint32_t)0x0000000E)
+#define PLL_DIVQ_Q_16					((uint32_t)0x0000000F)
 
+
+#define PLL_DIVQ_Q_1_DV						((uint32_t)0x00000010)
+#define PLL_DIVQ_Q_2_DV						((uint32_t)0x00000011)
+#define PLL_DIVQ_Q_3_DV						((uint32_t)0x00000012)
+#define PLL_DIVQ_Q_4_DV						((uint32_t)0x00000013)
+#define PLL_DIVQ_Q_5_DV						((uint32_t)0x00000014)
+#define PLL_DIVQ_Q_6_DV						((uint32_t)0x00000015)
+#define PLL_DIVQ_Q_7_DV						((uint32_t)0x00000016)
+#define PLL_DIVQ_Q_8_DV						((uint32_t)0x00000017)
+#define PLL_DIVQ_Q_9_DV						((uint32_t)0x00000018)
+#define PLL_DIVQ_Q_10_DV					((uint32_t)0x00000019)
+#define PLL_DIVQ_Q_11_DV					((uint32_t)0x0000001A)
+#define PLL_DIVQ_Q_12_DV					((uint32_t)0x0000001B)
+#define PLL_DIVQ_Q_13_DV					((uint32_t)0x0000001C)
+#define PLL_DIVQ_Q_14_DV					((uint32_t)0x0000001D)
+#define PLL_DIVQ_Q_15_DV					((uint32_t)0x0000001E)
+#define PLL_DIVQ_Q_16_DV					((uint32_t)0x0000001F)
+
+
+
+/**
+  * @}
+  */ 
 /**
   * @defgroup CLKCTRL_BKPCTRL_FLAG
   */	
@@ -412,7 +455,7 @@ ErrorStatus BKPCTRL_REG_63_LSEstatus(void);
 FlagStatus CLKCTRL_BKPCTRL_GetFlagStatus(uint32_t CLKCTRL_BKPCTRL_FLAG);
 
 void CLKCTRL_CPU_PLLconfig (uint32_t PLLn, uint32_t CLKCTRL_CPU_PLLsource,
-	uint32_t CLKCTRL_PLLn_CLK_PLLn_Q, uint32_t CLKCTRL_PLLn_CLK_PLLn_N );
+	uint32_t CLKCTRL_PLLn_CLK_PLLn_Q, uint32_t CLKCTRL_PLLn_CLK_PLLn_N);
 
 void CLKCTRL_CPUclkPrescaler(uint32_t CPUclkDivValue);
 

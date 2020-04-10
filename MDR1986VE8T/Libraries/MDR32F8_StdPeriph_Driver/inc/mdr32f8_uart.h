@@ -200,8 +200,8 @@ typedef struct
 
 #define UART_CLKdiv1                        ((uint32_t)0x00000000)
 #define UART_CLKdiv2                        ((uint32_t)0x00000001)
-#define UART_CLKdiv4                        ((uint32_t)0x00000002)
-#define UART_CLKdiv8                        ((uint32_t)0x00000003)
+#define UART_CLKdiv4                        ((uint32_t)0x00000003)
+#define UART_CLKdiv8                        ((uint32_t)0x00000007)
 
 /** @defgroup UART_Interrupt_definition UART Interrupt definition
   * @{

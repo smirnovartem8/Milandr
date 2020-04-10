@@ -292,8 +292,8 @@ typedef struct
 
 #define SSP_CLKdiv1                        ((uint32_t)0x00000000)
 #define SSP_CLKdiv2                        ((uint32_t)0x00000001)
-#define SSP_CLKdiv4                        ((uint32_t)0x00000002)
-#define SSP_CLKdiv8                        ((uint32_t)0x00000003)
+#define SSP_CLKdiv4                        ((uint32_t)0x00000003)
+#define SSP_CLKdiv8                        ((uint32_t)0x00000007)
 
 /** @} */ /* End of group SSP_Clock_BRG */
 

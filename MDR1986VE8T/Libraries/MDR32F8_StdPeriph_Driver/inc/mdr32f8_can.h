@@ -494,8 +494,8 @@ typedef struct
 
 #define CAN_CLKdiv1                        ((uint32_t)0x00000000)
 #define CAN_CLKdiv2                        ((uint32_t)0x00000001)
-#define CAN_CLKdiv4                        ((uint32_t)0x00000002)
-#define CAN_CLKdiv8                        ((uint32_t)0x00000003)
+#define CAN_CLKdiv4                        ((uint32_t)0x00000003)
+#define CAN_CLKdiv8                        ((uint32_t)0x00000007)
 
 /** @} */ /* End of group CAN_Clock_BRG */
 

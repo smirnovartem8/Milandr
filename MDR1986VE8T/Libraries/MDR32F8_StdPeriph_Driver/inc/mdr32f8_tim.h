@@ -367,10 +367,10 @@ typedef struct
   * @{
   */
 
-#define TIMER_CHANNEL1                        ((uint32_t)0x0)  /*!< Specifies the TIMER channel 1. */
-#define TIMER_CHANNEL2                        ((uint32_t)0x1)  /*!< Specifies the TIMER channel 2. */
-#define TIMER_CHANNEL3                        ((uint32_t)0x2)  /*!< Specifies the TIMER channel 3. */
-#define TIMER_CHANNEL4                        ((uint32_t)0x3)  /*!< Specifies the TIMER channel 4. */
+#define TIMER_CHANNEL0                        ((uint32_t)0x0)  /*!< Specifies the TIMER channel 1. */
+#define TIMER_CHANNEL1                        ((uint32_t)0x1)  /*!< Specifies the TIMER channel 2. */
+#define TIMER_CHANNEL2                        ((uint32_t)0x2)  /*!< Specifies the TIMER channel 3. */
+#define TIMER_CHANNEL3                        ((uint32_t)0x3)  /*!< Specifies the TIMER channel 4. */
 
 #define IS_TIMER_CHANNEL_NUMBER(NUMBER) (((NUMBER) == TIMER_CHANNEL1) || \
                                          ((NUMBER) == TIMER_CHANNEL2) || \
@@ -687,8 +687,8 @@ typedef struct
 
 #define TIM_CLKdiv1                        ((uint32_t)0x00000000)
 #define TIM_CLKdiv2                        ((uint32_t)0x00000001)
-#define TIM_CLKdiv4                        ((uint32_t)0x00000002)
-#define TIM_CLKdiv8                        ((uint32_t)0x00000003)
+#define TIM_CLKdiv4                        ((uint32_t)0x00000003)
+#define TIM_CLKdiv8                        ((uint32_t)0x00000007)
 
 #define TIM0                    0
 #define TIM1                    1
