@@ -45,12 +45,12 @@
 #define CLKCTRL_BB(SFR, BIT)        BB_ADDR(CLKControl, CLKCTRL_OFFSET, SFR, BIT)
 #define BKP_BB(SFR, BIT)            BB_ADDR(BKPControl, BKP_OFFSET, SFR, BIT)
 
-#define CPUCLKdiv_msk								(~(uint32_t)0x00007FFF)
+#define CPUCLKdiv_msk								(~(uint32_t)0x0000FFFF)
 
 #define PLL_MULoffset								8
 #define PLL_SELoffset								29
 #define PLL_MULclr 									(~(uint32_t)0x00004100)
-#define PLL_SELclr 									(~(uint32_t)0xE0000000)
+#define PLL_SELclr 									(~(uint32_t)0xE0007F1F)
 
 #define FLAG_MASK                   ((uint8_t)0x1F)
 #define FLAG_SFR_MASK               ((uint8_t)0xE0)
@@ -87,6 +87,7 @@
 #define PLL1CPURLD_BB                CLKCTRL_BB(PLL1_CLK, 28)
 #define PLL2CPUON_BB                 CLKCTRL_BB(PLL2_CLK, 27)
 #define PLL2CPURLD_BB                CLKCTRL_BB(PLL2_CLK, 28)
+
 	
 /* Private function prototypes -----------------------------------------------*/
 /* Private functions ---------------------------------------------------------*/
@@ -393,31 +394,41 @@ void CLKCTRL_HSEconfig(uint32_t CLKCTRL_HSE)
   /* Check the parameters */
   assert_param(IS_CLKCTRL_HSEn_CLK(CLKCTRL_HSE));
   /* Reset HSEON and HSEBYP bits before configuring the HSE */
-  CLK_CNTR->HSE0_CLK &= ~((uint32_t)(CLKCTRL_HSE0_CLK_ON | CLKCTRL_HSE0_CLK_BYP));
-	CLK_CNTR->HSE1_CLK &= ~((uint32_t)(CLKCTRL_HSE1_CLK_ON | CLKCTRL_HSE1_CLK_BYP));
   /* Configure HSE */
   switch (CLKCTRL_HSE)
   {
     case CLKCTRL_HSE0_CLK_ON:
+			CLK_CNTR->HSE0_CLK &= ~((uint32_t)(CLKCTRL_HSE0_CLK_ON | CLKCTRL_HSE0_CLK_BYP));
       /* Set HSEON bit */
       CLK_CNTR->HSE0_CLK |= CLKCTRL_HSE0_CLK_ON;
       break;
 
     case CLKCTRL_HSE0_CLK_BYP:
+			CLK_CNTR->HSE0_CLK &= ~((uint32_t)(CLKCTRL_HSE0_CLK_ON | CLKCTRL_HSE0_CLK_BYP));
       /* Set HSEBYP and HSEON bits */
       CLK_CNTR->HSE0_CLK |= CLKCTRL_HSE0_CLK_ON | CLKCTRL_HSE0_CLK_BYP;
       break;
 		
 		case CLKCTRL_HSE1_CLK_ON:
+			CLK_CNTR->HSE1_CLK &= ~((uint32_t)(CLKCTRL_HSE1_CLK_ON | CLKCTRL_HSE1_CLK_BYP));
       /* Set HSEON bit */
       CLK_CNTR->HSE1_CLK |= CLKCTRL_HSE0_CLK_ON;
       break;
 
     case CLKCTRL_HSE1_CLK_BYP:
+			CLK_CNTR->HSE1_CLK &= ~((uint32_t)(CLKCTRL_HSE1_CLK_ON | CLKCTRL_HSE1_CLK_BYP));
       /* Set HSEBYP and HSEON bits */
       CLK_CNTR->HSE1_CLK |= CLKCTRL_HSE0_CLK_ON | CLKCTRL_HSE0_CLK_BYP;
       break;
-
+		
+		case CLKCTRL_HSE0_CLK_OFF:
+			CLK_CNTR->HSE0_CLK &= ~((uint32_t)(CLKCTRL_HSE0_CLK_ON | CLKCTRL_HSE0_CLK_BYP));
+			break;
+		
+		case CLKCTRL_HSE1_CLK_OFF:
+			CLK_CNTR->HSE1_CLK &= ~((uint32_t)(CLKCTRL_HSE1_CLK_ON | CLKCTRL_HSE1_CLK_BYP));
+			break;
+		
     default:
       break;
   }
@@ -646,12 +657,12 @@ ErrorStatus BKPCTRL_REG_63_LSIstatus(void)
   * @retval None
   */
 void CLKCTRL_CPU_PLLconfig (uint32_t PLLn, uint32_t CLKCTRL_CPU_PLLsource,
-	uint32_t CLKCTRL_PLLn_CLK_PLLn_Q, uint32_t CLKCTRL_PLLn_CLK_PLLn_N )
+	uint32_t CLKCTRL_PLLn_CLK_PLLn_Q, uint32_t CLKCTRL_PLLn_CLK_PLLn_N)
 {
   uint32_t temp;
-	//uint32_t reg;
 	uint32_t PLLON_def;
 	uint32_t PLLPLD_def;
+	
   /* Check the parameters */
   assert_param(IS_CLKCTRL_PLLn_CLK_SELECT(CLKCTRL_CPU_PLLsource));
 	assert_param(IS_CLKCTRL_PLLn_CLK_PLLn_N(CLKCTRL_PLLn_CLK_PLLn_N));
@@ -670,7 +681,7 @@ void CLKCTRL_CPU_PLLconfig (uint32_t PLLn, uint32_t CLKCTRL_CPU_PLLsource,
 		case 1:
     temp = CLK_CNTR->PLL1_CLK;
 		temp &= PLL_SELclr;
-		temp |= (CLKCTRL_CPU_PLLsource<<PLL_SELoffset) | (CLKCTRL_PLLn_CLK_PLLn_Q) | (CLKCTRL_PLLn_CLK_PLLn_N<<PLL_MULoffset);
+		temp |= (CLKCTRL_CPU_PLLsource<<PLL_SELoffset) | (CLKCTRL_PLLn_CLK_PLLn_Q) | (CLKCTRL_PLLn_CLK_PLLn_N<<PLL_MULoffset) ;
 		CLK_CNTR->PLL1_CLK=temp;
 		PLLON_def = PLL1CPUON_BB;
 		PLLPLD_def = PLL1CPURLD_BB;
