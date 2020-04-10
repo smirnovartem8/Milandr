@@ -455,7 +455,7 @@ void PORT_SetBits ( PortControl* PORTx, uint32_t PORT_Pin );
 void PORT_ResetBits ( PortControl* PORTx, uint32_t PORT_Pin );
 void PORT_StructInit(PORT_InitTypeDef* PORT_InitStruct);
 void PORT_ClearStructInit(PORT_InitTypeDef* PORT_InitStruct);
-
+void PORT_Write(PortControl* PORTx, uint32_t PortVal);
 uint8_t PORT_ReadInputDataBit(PortControl* PORTx, uint32_t PORT_Pin);
 
 
