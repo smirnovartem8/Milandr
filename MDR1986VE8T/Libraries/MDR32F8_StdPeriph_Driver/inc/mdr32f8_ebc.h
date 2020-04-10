@@ -82,6 +82,9 @@ uint32_t RGN_DIVOCLK;
 
 } EBC_RGN_InitTypeDef;
 
+typedef enum { DEEC_CNT=0, SEEC_CNT} Cnt_type;
+
+
 #define 	RGN0      		0
 #define 	RGN1			1
 #define 	RGN2			2
@@ -120,6 +123,18 @@ uint32_t RGN_DIVOCLK;
 #define EBC_READ32_8_16 		(uint32_t)(0x00)
 #define EBC_READ32_32 			(uint32_t)(0x01)
 
+#define EBC_IT_SEEC					(uint32_t) (0x4)
+#define EBC_IT_DEEC					(uint32_t) (0x8)
+
+#define EBC_FIX_SEEC				(uint32_t) (0x10)
+#define EBC_FIC_DEEC				(uint32_t) (0x20)
+
+#define EBC_CNT_DEEC_MSK		(uint32_t) (0xFF00)
+#define EBC_CNT_SEEC_MSK		(uint32_t) (0xFFFF0000)
+
+#define EBC_CNT_DEEC_Pos			8		
+#define EBC_CNT_SEEC_Pos			16
+
 
 /** @} */ /* End of group EBC_Exported_Types */
 
@@ -138,6 +153,9 @@ uint32_t RGN_DIVOCLK;
 void EBC_RGNx_Init(uint32_t RGNx, const EBC_RGN_InitTypeDef* EBC_RGN_InitStruct);	
 void EBC_RGNx_StructInit(EBC_RGN_InitTypeDef* EBC_RGN_InitStruct);
 void EBC_RGNx_Cmd(uint32_t RGNx, FunctionalState NewState);
+void EBC_RGNx_Addr_serial_ECC (uint32_t RGNx, uint32_t addr);
+void EBC_RGNx_ECCS_Config ( uint32_t RGNx, uint32_t EBC_IT_FIX, FunctionalState NewState);
+uint32_t EBC_RGNx_GetErrorCount (uint32_t RGNx, Cnt_type CNT);
 
 /** @} */ /* End of group EBC_Exported_Functions */
 

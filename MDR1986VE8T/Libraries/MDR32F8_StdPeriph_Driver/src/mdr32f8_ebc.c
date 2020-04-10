@@ -154,6 +154,168 @@ void EBC_RGNx_Cmd(uint32_t RGNx, FunctionalState NewState)
 	}
 }
 
+/**
+  * @brief  
+  * @param 
+  * @retval None
+  */
+void EBC_RGNx_Addr_serial_ECC (uint32_t RGNx, uint32_t addr)
+{
+	switch (RGNx)
+	{
+		case RGN0: EXT_BUS_CNTR->RGN0_ECCBASE = addr;break;
+		case RGN1: EXT_BUS_CNTR->RGN1_ECCBASE = addr;break;
+		case RGN2: EXT_BUS_CNTR->RGN2_ECCBASE = addr;break;
+		case RGN3: EXT_BUS_CNTR->RGN3_ECCBASE = addr;break;
+		case RGN4: EXT_BUS_CNTR->RGN4_ECCBASE = addr;break;
+		case RGN5: EXT_BUS_CNTR->RGN5_ECCBASE = addr;break;
+		case RGN6: EXT_BUS_CNTR->RGN6_ECCBASE = addr;break;
+		case RGN7: EXT_BUS_CNTR->RGN7_ECCBASE = addr;break;
+	}
+}
+
+/**
+  * @brief  
+* @param  EBC_IT_FIX valeus:
+	*					@arg EBC_IT_SEEC
+	*					@arg EBC_IT_DEEC
+	*					@arg EBC_FIX_SEEC
+	*					@arg EBC_FIC_DEEC
+  * @retval None
+  */
+void EBC_RGNx_ECCS_Config ( uint32_t RGNx, uint32_t EBC_IT_FIX, FunctionalState NewState)
+{
+	switch (RGNx)
+	{
+		case RGN0: 
+			if (NewState != DISABLE)
+				EXT_BUS_CNTR->RGN0_ECCS |= EBC_IT_FIX;
+			else
+				EXT_BUS_CNTR->RGN0_ECCS &= ~EBC_IT_FIX;
+		break;
+		
+		case RGN1: 
+			if (NewState != DISABLE)
+				EXT_BUS_CNTR->RGN1_ECCS |= EBC_IT_FIX;
+			else
+				EXT_BUS_CNTR->RGN1_ECCS &= ~EBC_IT_FIX;
+		break;
+		
+		case RGN2: 
+			if (NewState != DISABLE)
+				EXT_BUS_CNTR->RGN2_ECCS |= EBC_IT_FIX;
+			else
+				EXT_BUS_CNTR->RGN2_ECCS &= ~EBC_IT_FIX;
+		break;
+		
+		case RGN3: 
+			if (NewState != DISABLE)
+				EXT_BUS_CNTR->RGN3_ECCS |= EBC_IT_FIX;
+			else
+				EXT_BUS_CNTR->RGN3_ECCS &= ~EBC_IT_FIX;
+		break;
+		
+		case RGN4: 
+			if (NewState != DISABLE)
+				EXT_BUS_CNTR->RGN4_ECCS |= EBC_IT_FIX;
+			else
+				EXT_BUS_CNTR->RGN4_ECCS &= ~EBC_IT_FIX;;
+		break;
+		
+		case RGN5: 
+			if (NewState != DISABLE)
+				EXT_BUS_CNTR->RGN5_ECCS |= EBC_IT_FIX;
+			else
+				EXT_BUS_CNTR->RGN5_ECCS &= ~EBC_IT_FIX;
+		break;
+		
+		case RGN6: 
+			if (NewState != DISABLE)
+				EXT_BUS_CNTR->RGN6_ECCS |= EBC_IT_FIX;
+			else
+				EXT_BUS_CNTR->RGN6_ECCS &= ~EBC_IT_FIX;
+		break;
+		
+		case RGN7: 
+			if (NewState != DISABLE)
+				EXT_BUS_CNTR->RGN7_ECCS |= EBC_IT_FIX;
+			else
+				EXT_BUS_CNTR->RGN7_ECCS &= ~EBC_IT_FIX;
+		break;
+	}
+}
+
+/**
+  * @brief  
+  * @param 
+  * @retval None
+  */
+uint32_t EBC_RGNx_GetErrorCount (uint32_t RGNx, Cnt_type CNT)
+{
+	uint32_t cnt_value;
+	
+		switch (RGNx)
+	{
+		case RGN0: 
+			if (CNT)
+				cnt_value = (EXT_BUS_CNTR->RGN0_ECCS &EBC_CNT_SEEC_MSK)>>EBC_CNT_SEEC_Pos;
+			else
+				cnt_value = (EXT_BUS_CNTR->RGN0_ECCS &EBC_CNT_DEEC_MSK)>>EBC_CNT_DEEC_Pos;
+		break;
+		
+		case RGN1: 
+			if (CNT)
+				cnt_value = (EXT_BUS_CNTR->RGN1_ECCS &EBC_CNT_SEEC_MSK)>>EBC_CNT_SEEC_Pos;
+			else
+				cnt_value = (EXT_BUS_CNTR->RGN1_ECCS &EBC_CNT_DEEC_MSK)>>EBC_CNT_DEEC_Pos;
+		break;
+		
+		case RGN2: 
+			if (CNT)
+				cnt_value = (EXT_BUS_CNTR->RGN2_ECCS &EBC_CNT_SEEC_MSK)>>EBC_CNT_SEEC_Pos;
+			else
+				cnt_value = (EXT_BUS_CNTR->RGN2_ECCS &EBC_CNT_DEEC_MSK)>>EBC_CNT_DEEC_Pos;
+		break;
+		
+		case RGN3: 
+			if (CNT)
+				cnt_value = (EXT_BUS_CNTR->RGN3_ECCS &EBC_CNT_SEEC_MSK)>>EBC_CNT_SEEC_Pos;
+			else
+				cnt_value = (EXT_BUS_CNTR->RGN3_ECCS &EBC_CNT_DEEC_MSK)>>EBC_CNT_DEEC_Pos;
+		break;
+		
+		case RGN4: 
+			if (CNT)
+				cnt_value = (EXT_BUS_CNTR->RGN4_ECCS &EBC_CNT_SEEC_MSK)>>EBC_CNT_SEEC_Pos;
+			else
+				cnt_value = (EXT_BUS_CNTR->RGN4_ECCS &EBC_CNT_DEEC_MSK)>>EBC_CNT_DEEC_Pos;
+		break;
+		
+		case RGN5: 
+			if (CNT)
+				cnt_value = (EXT_BUS_CNTR->RGN5_ECCS &EBC_CNT_SEEC_MSK)>>EBC_CNT_SEEC_Pos;
+			else
+				cnt_value = (EXT_BUS_CNTR->RGN5_ECCS &EBC_CNT_DEEC_MSK)>>EBC_CNT_DEEC_Pos;
+		break;
+		
+		case RGN6: 
+			if (CNT)
+				cnt_value = (EXT_BUS_CNTR->RGN6_ECCS &EBC_CNT_SEEC_MSK)>>EBC_CNT_SEEC_Pos;
+			else
+				cnt_value = (EXT_BUS_CNTR->RGN6_ECCS &EBC_CNT_DEEC_MSK)>>EBC_CNT_DEEC_Pos;
+		break;
+		
+		case RGN7: 
+			if (CNT)
+				cnt_value = (EXT_BUS_CNTR->RGN7_ECCS &EBC_CNT_SEEC_MSK)>>EBC_CNT_SEEC_Pos;
+			else
+				cnt_value = (EXT_BUS_CNTR->RGN7_ECCS &EBC_CNT_DEEC_MSK)>>EBC_CNT_DEEC_Pos;
+		break;
+	}
+	return cnt_value;
+}
+
+	
 /** @} */ /* End of group EBC_Private_Functions */
 
 /** @} */ /* End of group EBC */
