@@ -304,13 +304,18 @@ typedef struct
 	uint32_t AudioFreq;						// Частота аудио потока, Гц
 } AUDIO_I2S_type;
 
+#define HAL_AUDIO_StartDMA HAL_AUDIO_StartDMA_TX // for backward compatibility
+
 #ifdef __cplusplus
 extern "C"
 	{
 #endif
 	void HAL_AUDIO_I2SInit	( AUDIO_type* const AudioX, AUDIO_I2S_type* I2sConf );
-	void HAL_AUDIO_StartDMA	( uint32_t channel, AUDIO_type* const AudioX, void *pvDataBuf, uint16_t usSize, void* pvDmaIsrHandler );
+	void HAL_AUDIO_StartDMA_TX	( uint32_t channel, AUDIO_type* const AudioX, void *pvDataBuf, uint16_t usSize, void* pvDmaIsrHandler );
+	void HAL_AUDIO_StartDMA_RX	( uint32_t channel, AUDIO_type* const AudioX, void *pvDataBuf, uint16_t usSize, void* pvDmaIsrHandler );
 	void HAL_AUDIO_StopDMA	( AUDIO_type* const AudioX );
+	void HAL_AUDIO_StartDMA_TX_2BUF( uint32_t ulChannel, AUDIO_type* const AudioX, void *pvDataBufA, void *pvDataBufB, uint32_t usSize, void* pvDmaIsrHandler );
+	void HAL_AUDIO_StartDMA_RX_2BUF( uint32_t ulChannel, AUDIO_type* const AudioX, void *pvDataBufA, void *pvDataBufB, uint32_t usSize, void* pvDmaIsrHandler );
 #ifdef __cplusplus
 	}
 #endif // __cplusplus

@@ -894,7 +894,7 @@
 #define IV_ADDA2_LOC	(IVT_BASE + 0x23)
 #define IV_ADDA3_LOC	(IVT_BASE + 0x24)
 #define IV_DMA12_LOC	(IVT_BASE + 0x25)
-#define IV_DMA13_LOC	(IVT_BASE + 0x26)
+#define IV_HOST_LOC		(IVT_BASE + 0x26)
 #define IV_LCD_LOC		(IVT_BASE + 0x27)
 //#define IV_xxx_LOC		(IVT_BASE + 0x28)	// reserved
 #define IV_IRQ0_LOC		(IVT_BASE + 0x29)

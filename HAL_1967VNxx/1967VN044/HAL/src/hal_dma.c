@@ -17,7 +17,7 @@
 #define TCB_EXTMEM16			0x80000000
 #define TCB_EXTMEM22			0xE0000000
 
-// Writing to DMA channel configuration registers, channel 4-13/Запись конфигурационных регистров DMA канала 4 - 13
+// Writing to DMA channel configuration registers, channel 4-12/Запись конфигурационных регистров DMA канала 4 - 12
 void HAL_DMA_WriteDC( uint32_t ch_number, void *qw_tcb )
 {
 	switch ( ch_number )
@@ -31,7 +31,6 @@ void HAL_DMA_WriteDC( uint32_t ch_number, void *qw_tcb )
 		case 10: __builtin_sysreg_write4( __DC10, *( __builtin_quad * ) qw_tcb );	break;
 		case 11: __builtin_sysreg_write4( __DC11, *( __builtin_quad * ) qw_tcb );	break;
 		case 12: __builtin_sysreg_write4( __DC12, *( __builtin_quad * ) qw_tcb );	break;
-		case 13: __builtin_sysreg_write4( __DC13, *( __builtin_quad * ) qw_tcb );	break;
 		default: break;
 	}
 }
@@ -79,7 +78,7 @@ void HAL_DMA_WriteDCD( uint32_t ch_number, void *qw_tcb )
 	}
 }
 
-// Reading of the DMA configuration registers, DMA channels 4 - 13/Чтение конфигурационных регистров DMA канала 4 - 13
+// Reading of the DMA configuration registers, DMA channels 4 - 12/Чтение конфигурационных регистров DMA канала 4 - 12
 void HAL_DMA_ReadDC( uint32_t ch_number, __builtin_quad *qw_tcb )
 {
 	switch ( ch_number )
@@ -93,7 +92,6 @@ void HAL_DMA_ReadDC( uint32_t ch_number, __builtin_quad *qw_tcb )
 		case 10: *qw_tcb = __builtin_sysreg_read4( __DC10 );	break;
 		case 11: *qw_tcb = __builtin_sysreg_read4( __DC11 );	break;
 		case 12: *qw_tcb = __builtin_sysreg_read4( __DC12 );	break;
-		case 13: *qw_tcb = __builtin_sysreg_read4( __DC13 );	break;
 		default: break;
 	}
 }
@@ -175,7 +173,6 @@ static uint32_t HAL_DMA_DecodeStatus( uint64_t dmaStatus, uint32_t channel )
 		case 10: return ( uint32_t ) ( ( dmaStatus >> 38 ) & 0x07 );
 		case 11: return ( uint32_t ) ( ( dmaStatus >> 41 ) & 0x07 );
 		case 12: return ( uint32_t ) ( ( dmaStatus >> 50 ) & 0x07 );
-		case 13: return ( uint32_t ) ( ( dmaStatus >> 53 ) & 0x07 );
 		default: return 0x05;																		// An error/ошибка
 	}
 }
@@ -208,7 +205,7 @@ uint32_t HAL_DMA_WaitForChannel( uint32_t channel )
 	}
 }
 
-// Reading of the number of words which are to be transferred, channels 4 - 13/Чтение количества слов для передачи каналом 4 - 13
+// Reading of the number of words which are to be transferred, channels 4 - 12/Чтение количества слов для передачи каналом 4 - 12
 uint32_t HAL_DMA_GetDcCountX( uint32_t ch_number )
 {
 	__builtin_quad temp_tcb;
@@ -226,7 +223,6 @@ uint32_t HAL_DMA_GetDcCountX( uint32_t ch_number )
 		case 10: temp_tcb = __builtin_sysreg_read4( __DC10 ); 	break;
 		case 11: temp_tcb = __builtin_sysreg_read4( __DC11 );	break;
 		case 12: temp_tcb = __builtin_sysreg_read4( __DC12 );	break;
-		case 13: temp_tcb = __builtin_sysreg_read4( __DC13 );	break;
 		default: break;
 	}
 
@@ -252,7 +248,6 @@ uint32_t HAL_DMA_GetDcAddr( uint32_t ch_number )
 		case 10: temp_tcb = __builtin_sysreg_read4( __DC10 ); 	break;
 		case 11: temp_tcb = __builtin_sysreg_read4( __DC11 );	break;
 		case 12: temp_tcb = __builtin_sysreg_read4( __DC12 );	break;
-		case 13: temp_tcb = __builtin_sysreg_read4( __DC13 );	break;
 		default: break;
 	}
 
