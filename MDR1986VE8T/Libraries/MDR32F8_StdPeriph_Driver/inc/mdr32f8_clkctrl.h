@@ -155,10 +155,6 @@ typedef struct
 #define PLL0			0	
 #define PLL1			1	
 #define PLL2			2	
-#define PLL3			3	
-#define PLL4			4	
-#define PLL5			5	
-#define PLL6			6	
 /**
   * @}
   */ 	
@@ -180,8 +176,6 @@ typedef struct
 																							((SRC) == CLKCTRL_PLLn_CLK_SELECT_HSE0div2) || \
 																							((SRC) == CLKCTRL_PLLn_CLK_SELECT_HSE1div1) || \
 																							((SRC) == CLKCTRL_PLLn_CLK_SELECT_HSE1div2))
-#define IS_CLKCTRL_PLLn_CLK_PLLn_N(VALUE)		 ((3>=(VALUE)) && ((VALUE)<=74)) 
-#define IS_CLKCTRL_PLLn_CLK_PLLn_Q(VALUE)		 ((1>=(VALUE)) && ((VALUE)<=15)) 
 /**
   * @}
   */ 
@@ -341,6 +335,19 @@ typedef struct
 /**
   * @defgroup CLKCTRL_PER0_CLK
   */
+#define	CLKCTRL_PER0_CLK_RESERVED00						((uint32_t)0x00000001)//RESERVED00
+#define	CLKCTRL_PER0_CLK_RESERVED01						((uint32_t)0x00000002)//RESERVED01
+#define	CLKCTRL_PER0_CLK_RESERVED02						((uint32_t)0x00000004)//RESERVED02
+#define	CLKCTRL_PER0_CLK_RESERVED03						((uint32_t)0x00000008)//RESERVED03
+#define	CLKCTRL_PER0_CLK_RESERVED04						((uint32_t)0x000000010)//RESERVED04
+#define	CLKCTRL_PER0_CLK_RESERVED05						((uint32_t)0x000000020)//RESERVED05
+#define	CLKCTRL_PER0_CLK_RESERVED06						((uint32_t)0x000000040)//RESERVED06
+#define	CLKCTRL_PER0_CLK_RESERVED07						((uint32_t)0x000000080)//RESERVED07
+#define	CLKCTRL_PER0_CLK_RESERVED08						((uint32_t)0x000000100)//RESERVED08
+#define	CLKCTRL_PER0_CLK_RESERVED09						((uint32_t)0x00000200)//RESERVED09
+#define	CLKCTRL_PER0_CLK_RESERVED10						((uint32_t)0x00000400)//RESERVED10
+#define	CLKCTRL_PER0_CLK_RESERVED11						((uint32_t)0x00000800)//RESERVED11
+#define	CLKCTRL_PER0_CLK_RESERVED12						((uint32_t)0x00001000)//RESERVED12
 #define CLKCTRL_PER0_CLK_MDR_PORTA_EN					 ((uint32_t)0x00002000)
 #define CLKCTRL_PER0_CLK_MDR_PORTB_EN					 ((uint32_t)0x00004000)
 #define CLKCTRL_PER0_CLK_MDR_PORTC_EN					 ((uint32_t)0x00008000)
@@ -361,11 +368,21 @@ typedef struct
 #define CLKCTRL_PER0_CLK_RESERVED30					 	 ((uint32_t)0x40000000)//RESERVED30
 #define CLKCTRL_PER0_CLK_RESERVED31					 	 ((uint32_t)0x80000000)//RESERVED31
 
-#define IS_CLKCTRL_PER0_CLK(PER0_CLK)        ((((PER0_CLK) & CLKCTRL_PER0_CLK_RESERVED07) == 0x00) && \
-																							(((PER0_CLK) & CLKCTRL_PER0_CLK_RESERVED10) == 0x00) && \
-																							(((PER0_CLK) & CLKCTRL_PER0_CLK_RESERVED12) == 0x00) && \
-																							(((PER0_CLK) & CLKCTRL_PER0_CLK_RESERVED18) == 0x00) && \
-																							(((PER0_CLK) & CLKCTRL_PER0_CLK_RESERVED20) == 0x00) && \
+#define IS_CLKCTRL_PER0_CLK(PER0_CLK)                                                   	((((PER0_CLK) & CLKCTRL_PER0_CLK_RESERVED00) == 0x00) && \
+                                                                                            (((PER0_CLK) & CLKCTRL_PER0_CLK_RESERVED01) == 0x00) && \
+                                                                                            (((PER0_CLK) & CLKCTRL_PER0_CLK_RESERVED02) == 0x00) && \
+                                                                                            (((PER0_CLK) & CLKCTRL_PER0_CLK_RESERVED03) == 0x00) && \
+                                                                                            (((PER0_CLK) & CLKCTRL_PER0_CLK_RESERVED04) == 0x00) && \
+                                                                                            (((PER0_CLK) & CLKCTRL_PER0_CLK_RESERVED05) == 0x00) && \
+                                                                                            (((PER0_CLK) & CLKCTRL_PER0_CLK_RESERVED06) == 0x00) && \
+                                                                                            (((PER0_CLK) & CLKCTRL_PER0_CLK_RESERVED07) == 0x00) && \
+                                                                                            (((PER0_CLK) & CLKCTRL_PER0_CLK_RESERVED08) == 0x00) && \
+                                                                                            (((PER0_CLK) & CLKCTRL_PER0_CLK_RESERVED09) == 0x00) && \
+                                                                                            (((PER0_CLK) & CLKCTRL_PER0_CLK_RESERVED10) == 0x00) && \
+                                                                                            (((PER0_CLK) & CLKCTRL_PER0_CLK_RESERVED11) == 0x00) && \
+                                                                                            (((PER0_CLK) & CLKCTRL_PER0_CLK_RESERVED12) == 0x00) && \
+																							(((PER0_CLK) & CLKCTRL_PER0_CLK_RESERVED19) == 0x00) && \
+                                                                                            (((PER0_CLK) & CLKCTRL_PER0_CLK_RESERVED20) == 0x00) && \
 																							(((PER0_CLK) & CLKCTRL_PER0_CLK_RESERVED22) == 0x00) && \
 																							(((PER0_CLK) & CLKCTRL_PER0_CLK_RESERVED27) == 0x00) && \
 																							(((PER0_CLK) & CLKCTRL_PER0_CLK_RESERVED28) == 0x00) && \
@@ -411,30 +428,73 @@ typedef struct
 #define	CLKCTRL_PER1_CLK_RESERVED30							((uint32_t)0x40000000)//RESERVED30
 #define	CLKCTRL_PER1_CLK_RESERVED31							((uint32_t)0x80000000)//RESERVED31
 
-#define IS_CLKCTRL_PER1_CLK(PER1_CLK)        ((((PER1_CLK) & CLKCTRL_PER0_CLK_RESERVED00) == 0x00) && \
-																							(((PER1_CLK) & CLKCTRL_PER0_CLK_RESERVED01) == 0x00) && \
-																							(((PER1_CLK) & CLKCTRL_PER0_CLK_RESERVED03) == 0x00) && \
-																							(((PER1_CLK) & CLKCTRL_PER0_CLK_RESERVED04) == 0x00) && \
-																							(((PER1_CLK) & CLKCTRL_PER0_CLK_RESERVED05) == 0x00) && \
-																							(((PER1_CLK) & CLKCTRL_PER0_CLK_RESERVED07) == 0x00) && \
-																							(((PER1_CLK) & CLKCTRL_PER0_CLK_RESERVED08) == 0x00) && \
-																							(((PER1_CLK) & CLKCTRL_PER0_CLK_RESERVED09) == 0x00) && \
-																							(((PER1_CLK) & CLKCTRL_PER0_CLK_RESERVED10) == 0x00) && \
-																							(((PER1_CLK) & CLKCTRL_PER0_CLK_RESERVED14) == 0x00) && \
-																							(((PER1_CLK) & CLKCTRL_PER0_CLK_RESERVED15) == 0x00) && \
-																							(((PER1_CLK) & CLKCTRL_PER0_CLK_RESERVED16) == 0x00) && \
-																							(((PER1_CLK) & CLKCTRL_PER0_CLK_RESERVED17) == 0x00) && \
-																							(((PER1_CLK) & CLKCTRL_PER0_CLK_RESERVED18) == 0x00) && \
-																							(((PER1_CLK) & CLKCTRL_PER0_CLK_RESERVED20) == 0x00) && \
-																							(((PER1_CLK) & CLKCTRL_PER0_CLK_RESERVED22) == 0x00) && \
-																							(((PER1_CLK) & CLKCTRL_PER0_CLK_RESERVED27) == 0x00) && \
-																							(((PER1_CLK) & CLKCTRL_PER0_CLK_RESERVED28) == 0x00) && \
-																							(((PER1_CLK) & CLKCTRL_PER0_CLK_RESERVED29) == 0x00) && \
-																							(((PER1_CLK) & CLKCTRL_PER0_CLK_RESERVED30) == 0x00) && \
-																							(((PER1_CLK) & CLKCTRL_PER0_CLK_RESERVED31) == 0x00))
+#define IS_CLKCTRL_PER1_CLK(PER1_CLK)        ((((PER1_CLK) & CLKCTRL_PER1_CLK_RESERVED00) == 0x00) && \
+											 (((PER1_CLK) & CLKCTRL_PER1_CLK_RESERVED01) == 0x00) && \
+											 (((PER1_CLK) & CLKCTRL_PER1_CLK_RESERVED03) == 0x00) && \
+											 (((PER1_CLK) & CLKCTRL_PER1_CLK_RESERVED04) == 0x00) && \
+											 (((PER1_CLK) & CLKCTRL_PER1_CLK_RESERVED05) == 0x00) && \
+											 (((PER1_CLK) & CLKCTRL_PER1_CLK_RESERVED08) == 0x00) && \
+											 (((PER1_CLK) & CLKCTRL_PER1_CLK_RESERVED09) == 0x00) && \
+											 (((PER1_CLK) & CLKCTRL_PER1_CLK_RESERVED10) == 0x00) && \
+									         (((PER1_CLK) & CLKCTRL_PER1_CLK_RESERVED14) == 0x00) && \
+											 (((PER1_CLK) & CLKCTRL_PER1_CLK_RESERVED15) == 0x00) && \
+											 (((PER1_CLK) & CLKCTRL_PER1_CLK_RESERVED16) == 0x00) && \
+											 (((PER1_CLK) & CLKCTRL_PER1_CLK_RESERVED17) == 0x00) && \
+										     (((PER1_CLK) & CLKCTRL_PER1_CLK_RESERVED18) == 0x00) && \
+											 (((PER1_CLK) & CLKCTRL_PER1_CLK_RESERVED20) == 0x00) && \
+											 (((PER1_CLK) & CLKCTRL_PER1_CLK_RESERVED22) == 0x00) && \
+											 (((PER1_CLK) & CLKCTRL_PER1_CLK_RESERVED27) == 0x00) && \
+											 (((PER1_CLK) & CLKCTRL_PER1_CLK_RESERVED28) == 0x00) && \
+											 (((PER1_CLK) & CLKCTRL_PER1_CLK_RESERVED29) == 0x00) && \
+											 (((PER1_CLK) & CLKCTRL_PER1_CLK_RESERVED30) == 0x00) && \
+											 (((PER1_CLK) & CLKCTRL_PER1_CLK_RESERVED31) == 0x00))
 /**
   * @}
-  */ 	
+  */ 
+  
+/** @defgroup BKPCTRL_SRILOWconfig
+  * @{
+  */
+#define BKPCNTR_SRILOW_upto_10MHz  ((uint32_t)0x00000000)
+#define BKPCNTR_SRILOW_upto_30MHz  ((uint32_t)0x00000001)
+#define BKPCNTR_SRILOW_upto_50MHz  ((uint32_t)0x00000002)
+#define BKPCNTR_SRILOW_upto_100MHz ((uint32_t)0x00000003)
+#define BKPCNTR_SRILOW_upto_1MHz   ((uint32_t)0x00000004)
+#define BKPCNTR_SRILOW_upto_500kHz ((uint32_t)0x00000005)
+#define BKPCNTR_SRILOW_upto_100kHz ((uint32_t)0x00000006)
+#define BKPCNTR_SRILOW_over_10kHz  ((uint32_t)0x00000007)  
+  
+/* Bit field positions: */
+#define BKPCTRL_REG_61_TMRx_SRILOW0_Pos  ((uint32_t)  0)
+#define BKPCTRL_REG_61_TMRx_SRILOW1_Pos  ((uint32_t)  8)
+#define BKPCTRL_REG_61_TMRx_SRILOW2_Pos  ((uint32_t) 16)
+#define BKPCTRL_REG_61_TMRx_SRILOW3_Pos  ((uint32_t) 24)
+
+#define BKPCTRL_REG_62_TMRx_SRILOW4_Pos  ((uint32_t)  0)
+#define BKPCTRL_REG_62_TMRx_SRILOW5_Pos  ((uint32_t)  8)
+
+/* Bit field masks: */
+#define BKPCTRL_REG_61_TMRx_SRILOW0_Msk  ((uint32_t)0x00000007)
+#define BKPCTRL_REG_61_TMRx_SRILOW1_Msk  ((uint32_t)0x00000700)
+#define BKPCTRL_REG_61_TMRx_SRILOW2_Msk  ((uint32_t)0x00070000)
+#define BKPCTRL_REG_61_TMRx_SRILOW3_Msk  ((uint32_t)0x07000000)
+#define BKPCTRL_REG_61_TMRx_SRILOWx_Msk  ((uint32_t)0x07070707)
+
+#define BKPCTRL_REG_62_TMRx_SRILOW4_Msk  ((uint32_t)0x00000007)
+#define BKPCTRL_REG_62_TMRx_SRILOW5_Msk  ((uint32_t)0x00000700)
+#define BKPCTRL_REG_62_TMRx_SRILOWx_Msk  ((uint32_t)0x00000707)
+
+#define IS_BKPCNTR_SRILOW(MODE) (((MODE) == BKPCNTR_SRILOW_upto_10MHz) || \
+                                ((MODE) == BKPCNTR_SRILOW_upto_30MHz)  || \
+                                ((MODE) == BKPCNTR_SRILOW_upto_50MHz)  || \
+                                ((MODE) == BKPCNTR_SRILOW_upto_100MHz) || \
+                                ((MODE) == BKPCNTR_SRILOW_upto_1MHz)   || \
+                                ((MODE) == BKPCNTR_SRILOW_upto_500kHz) || \
+                                ((MODE) == BKPCNTR_SRILOW_upto_100kHz) || \
+                                ((MODE) == BKPCNTR_SRILOW_over_10kHz))
+/**
+  * @}
+  */   
 
 /** @defgroup CLKCTRL_Exported_Functions
   * @{
@@ -466,6 +526,8 @@ void CLKCTRL_PER1_CLKcmd(uint32_t CLKCTRL_PER1_CLK, FunctionalState NewState);
 
 void BKPCNTR_REG_63_TMRx_HSIcmd(FunctionalState NewState);
 void BKPCNTR_REG_63_TMRx_LSIcmd(FunctionalState NewState);
+
+void BKPCNTR_SRILOWconfig(uint32_t SRILOW);
 
 
 /**
