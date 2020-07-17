@@ -85,6 +85,13 @@ uint32_t RGN_DIVOCLK;
 typedef enum { DEEC_CNT=0, SEEC_CNT} Cnt_type;
 
 
+/** @} */ /* End of group EBC_Exported_Types */
+
+
+/** @defgroup EBC_Exported_Macros EBC Exported Macros
+  * @{
+  */
+
 #define 	RGN0      		0
 #define 	RGN1			1
 #define 	RGN2			2
@@ -135,14 +142,28 @@ typedef enum { DEEC_CNT=0, SEEC_CNT} Cnt_type;
 #define EBC_CNT_DEEC_Pos			8		
 #define EBC_CNT_SEEC_Pos			16
 
+#define IS_EBC_RGNx_WS_SETUP(SRC)            ((SRC)<16)
+#define IS_EBC_RGNx_WS_ACTIVE(SRC)           ((SRC)<256)
+#define IS_EBC_RGNx_WS_HOLD(SRC)             ((SRC)<16)
 
-/** @} */ /* End of group EBC_Exported_Types */
-
-
-
-/** @defgroup EBC_Exported_Macros EBC Exported Macros
-  * @{
-  */
+#define IS_EBC_RGNx(NUMBER)				     ((NUMBER == RGN0) ||\
+                                              (NUMBER == RGN1) ||\
+                                              (NUMBER == RGN2) ||\
+                                              (NUMBER == RGN3) ||\
+                                              (NUMBER == RGN4) ||\
+                                              (NUMBER == RGN5) ||\
+                                              (NUMBER == RGN6) ||\
+                                              (NUMBER == RGN7))
+											  
+#if defined ( __ICCARM__ )
+   #define __RAMFUNC      __ramfunc
+#elif defined (__CMCARM__)
+  #define __RAMFUNC       __ramfunc
+#elif defined ( __CC_ARM )
+  #define __RAMFUNC
+#elif defined ( __GNUC__)
+ #define __RAMFUNC
+#endif
 
 /** @} */ /* End of group EBC_Exported_Macros */
 
@@ -156,6 +177,7 @@ void EBC_RGNx_Cmd(uint32_t RGNx, FunctionalState NewState);
 void EBC_RGNx_Addr_serial_ECC (uint32_t RGNx, uint32_t addr);
 void EBC_RGNx_ECCS_Config ( uint32_t RGNx, uint32_t EBC_IT_FIX, FunctionalState NewState);
 uint32_t EBC_RGNx_GetErrorCount (uint32_t RGNx, Cnt_type CNT);
+__RAMFUNC void EBC_RGNx_WSConfig(uint32_t RGNx, uint32_t RGN_WS_SETUP, uint32_t RGN_WS_ACTIVE, uint32_t RGN_WS_HOLD) __attribute__((section("EXECUTABLE_MEMORY_SECTION")));
 
 /** @} */ /* End of group EBC_Exported_Functions */
 

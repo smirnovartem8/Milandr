@@ -44,11 +44,22 @@
   *         the specified parameters in the EBC_RGN_InitStruct.
   * @param  EBC_RGN_InitStruct: pointer to a EBC_RGN_InitTypeDef structure
   *         that contains the configuration information for the specified EBC_RGN.
+  * @param 	RGNx: specifies the region number.
+  *         @arg RGN0: region 0 (0x1000_0000 - 0x17FF_FFFF)
+  *         @arg RGN1: region 1 (0x1800_0000 - 0x1FFF_FFFF)
+  *         @arg RGN2: region 2 (0x5000_0000 - 0x57FF_FFFF)
+  *         @arg RGN3: region 3 (0x5800_0000 - 0x5FFF_FFFF)
+  *         @arg RGN4: region 4 (0x6000_0000 - 0x67FF_FFFF)
+  *         @arg RGN5: region 5 (0x6800_0000 - 0x6FFF_FFFF)
+  *         @arg RGN6: region 6 (0x7000_0000 - 0x7FFF_FFFF)
+  *         @arg RGN7: region 7 (0x8000_0000 - 0xDFFF_FFFF)
   * @retval None
   */
 void EBC_RGNx_Init(uint32_t RGNx, const EBC_RGN_InitTypeDef* EBC_RGN_InitStruct)
 {
   uint32_t tmpreg_RGNx_CNTRL;
+   /* Check the parameters */
+  assert_param(IS_EBC_RGNx(RGNx));
 
 	tmpreg_RGNx_CNTRL =               (EBC_RGN_InitStruct->RGN_ECCEN 		<< EBC_ECCEN_pos)
 									| (EBC_RGN_InitStruct->RGN_ECCMODE 		<< EBC_ECCMODE_pos)
@@ -105,8 +116,15 @@ void EBC_RGNx_StructInit(EBC_RGN_InitTypeDef* EBC_RGN_InitStruct)
 
 /**
   * @brief  Enables or disables the EBC_RGNx.
-  * @param  NewState: new state of the EBC_RGNx.
-  *         This parameter can be: ENABLE or DISABLE.
+  * @param 	RGNx: specifies the region number.
+  *         @arg RGN0: region 0 (0x1000_0000 - 0x17FF_FFFF)
+  *         @arg RGN1: region 1 (0x1800_0000 - 0x1FFF_FFFF)
+  *         @arg RGN2: region 2 (0x5000_0000 - 0x57FF_FFFF)
+  *         @arg RGN3: region 3 (0x5800_0000 - 0x5FFF_FFFF)
+  *         @arg RGN4: region 4 (0x6000_0000 - 0x67FF_FFFF)
+  *         @arg RGN5: region 5 (0x6800_0000 - 0x6FFF_FFFF)
+  *         @arg RGN6: region 6 (0x7000_0000 - 0x7FFF_FFFF)
+  *         @arg RGN7: region 7 (0x8000_0000 - 0xDFFF_FFFF)
   * @retval None
   */
 void EBC_RGNx_Cmd(uint32_t RGNx, FunctionalState NewState)
@@ -115,6 +133,7 @@ void EBC_RGNx_Cmd(uint32_t RGNx, FunctionalState NewState)
 
   /* Check the parameters */
   assert_param(IS_FUNCTIONAL_STATE(NewState));
+  assert_param(IS_EBC_RGNx(RGNx));
 
 	switch (RGNx)
 	{
@@ -155,12 +174,24 @@ void EBC_RGNx_Cmd(uint32_t RGNx, FunctionalState NewState)
 }
 
 /**
-  * @brief  
-  * @param 
+  * @brief Set adddres to serial ECC
+  * @param 	RGNx: specifies the region number.
+  *         @arg RGN0: region 0 (0x1000_0000 - 0x17FF_FFFF)
+  *         @arg RGN1: region 1 (0x1800_0000 - 0x1FFF_FFFF)
+  *         @arg RGN2: region 2 (0x5000_0000 - 0x57FF_FFFF)
+  *         @arg RGN3: region 3 (0x5800_0000 - 0x5FFF_FFFF)
+  *         @arg RGN4: region 4 (0x6000_0000 - 0x67FF_FFFF)
+  *         @arg RGN5: region 5 (0x6800_0000 - 0x6FFF_FFFF)
+  *         @arg RGN6: region 6 (0x7000_0000 - 0x7FFF_FFFF)
+  *         @arg RGN7: region 7 (0x8000_0000 - 0xDFFF_FFFF)
+  * @param addr: value address 
   * @retval None
   */
 void EBC_RGNx_Addr_serial_ECC (uint32_t RGNx, uint32_t addr)
 {
+	/* Check the parameters */
+  assert_param(IS_EBC_RGNx(RGNx));
+  
 	switch (RGNx)
 	{
 		case RGN0: EXT_BUS_CNTR->RGN0_ECCBASE = addr;break;
@@ -175,16 +206,29 @@ void EBC_RGNx_Addr_serial_ECC (uint32_t RGNx, uint32_t addr)
 }
 
 /**
-  * @brief  
-* @param  EBC_IT_FIX valeus:
-	*					@arg EBC_IT_SEEC
-	*					@arg EBC_IT_DEEC
-	*					@arg EBC_FIX_SEEC
-	*					@arg EBC_FIC_DEEC
+  * @brief  Configurate the interruptions of EBC
+  * @param 	RGNx: specifies the region number.
+  *         @arg RGN0: region 0 (0x1000_0000 - 0x17FF_FFFF)
+  *         @arg RGN1: region 1 (0x1800_0000 - 0x1FFF_FFFF)
+  *         @arg RGN2: region 2 (0x5000_0000 - 0x57FF_FFFF)
+  *         @arg RGN3: region 3 (0x5800_0000 - 0x5FFF_FFFF)
+  *         @arg RGN4: region 4 (0x6000_0000 - 0x67FF_FFFF)
+  *         @arg RGN5: region 5 (0x6800_0000 - 0x6FFF_FFFF)
+  *         @arg RGN6: region 6 (0x7000_0000 - 0x7FFF_FFFF)
+  *         @arg RGN7: region 7 (0x8000_0000 - 0xDFFF_FFFF)
+  * @param  EBC_IT_FIX valeus:
+  *					@arg EBC_IT_SEEC
+  *					@arg EBC_IT_DEEC
+  *					@arg EBC_FIX_SEEC
+  *					@arg EBC_FIC_DEEC
   * @retval None
   */
 void EBC_RGNx_ECCS_Config ( uint32_t RGNx, uint32_t EBC_IT_FIX, FunctionalState NewState)
 {
+		/* Check the parameters */
+  assert_param(IS_EBC_RGNx(RGNx));
+  assert_param(IS_FUNCTIONAL_STATE(NewState));
+  
 	switch (RGNx)
 	{
 		case RGN0: 
@@ -247,12 +291,25 @@ void EBC_RGNx_ECCS_Config ( uint32_t RGNx, uint32_t EBC_IT_FIX, FunctionalState 
 
 /**
   * @brief  
-  * @param 
-  * @retval None
+  * @param 	RGNx: specifies the region number.
+  *         @arg RGN0: region 0 (0x1000_0000 - 0x17FF_FFFF)
+  *         @arg RGN1: region 1 (0x1800_0000 - 0x1FFF_FFFF)
+  *         @arg RGN2: region 2 (0x5000_0000 - 0x57FF_FFFF)
+  *         @arg RGN3: region 3 (0x5800_0000 - 0x5FFF_FFFF)
+  *         @arg RGN4: region 4 (0x6000_0000 - 0x67FF_FFFF)
+  *         @arg RGN5: region 5 (0x6800_0000 - 0x6FFF_FFFF)
+  *         @arg RGN6: region 6 (0x7000_0000 - 0x7FFF_FFFF)
+  *         @arg RGN7: region 7 (0x8000_0000 - 0xDFFF_FFFF)
+  * @param 	CNT:
+			@arg DEEC_CNT
+			@arg SEEC_CNT
+  * @retval Counter value
   */
 uint32_t EBC_RGNx_GetErrorCount (uint32_t RGNx, Cnt_type CNT)
 {
 	uint32_t cnt_value;
+	
+	assert_param(IS_EBC_RGNx(RGNx));
 	
 		switch (RGNx)
 	{
@@ -315,6 +372,45 @@ uint32_t EBC_RGNx_GetErrorCount (uint32_t RGNx, Cnt_type CNT)
 	return cnt_value;
 }
 
+/**
+  * @brief  Configures the timing parameters for RGNx.
+  * @param  RGNx: specifies the region number.
+  *         @arg RGN0: region 0 (0x1000_0000 - 0x17FF_FFFF)
+  *         @arg RGN1: region 1 (0x1800_0000 - 0x1FFF_FFFF)
+  *         @arg RGN2: region 2 (0x5000_0000 - 0x57FF_FFFF)
+  *         @arg RGN3: region 3 (0x5800_0000 - 0x5FFF_FFFF)
+  *         @arg RGN4: region 4 (0x6000_0000 - 0x67FF_FFFF)
+  *         @arg RGN5: region 5 (0x6800_0000 - 0x6FFF_FFFF)
+  *         @arg RGN6: region 6 (0x7000_0000 - 0x7FFF_FFFF)
+  *         @arg RGN7: region 7 (0x8000_0000 - 0xDFFF_FFFF)
+  * @param  RGN_WS_SETUP: specifies the setup phase time.
+  *         This parameter must be a number between 0 and 15.
+  * @param  RGN_WS_ACTIVE: specifies the active phase time.
+  *         This parameter must be a number between 0 and 255.
+  * @param  RGN_WS_HOLD: specifies the hold phase time.
+  *         This parameter must be a number between 0 and 15.
+  * @retval None
+  */
+void EBC_RGNx_WSConfig(uint32_t RGNx, uint32_t RGN_WS_SETUP, uint32_t RGN_WS_ACTIVE, uint32_t RGN_WS_HOLD)
+{
+    uint32_t tmpreg_CNTRL, *EBC_RGNx_CNTRL_ptr;
+    /* Check the parameters */
+    assert_param(IS_EBC_RGNx(RGNx));
+    assert_param(IS_EBC_RGNx_WS_SETUP(RGN_WS_SETUP));
+    assert_param(IS_EBC_RGNx_WS_ACTIVE(RGN_WS_ACTIVE));
+    assert_param(IS_EBC_RGNx_WS_HOLD(RGN_WS_HOLD));
+    
+    EBC_RGNx_CNTRL_ptr = (uint32_t *)(&EXT_BUS_CNTR->RGN0_CNTRL) + RGNx;
+    
+    /* Clear WS bits */
+    tmpreg_CNTRL = *EBC_RGNx_CNTRL_ptr & (~(EBC_WS_SETUP_MSK | EBC_WS_ACTIVE_MSK | EBC_WS_HOLD_MSK));
+    
+    /* Form new value */
+    tmpreg_CNTRL |= RGN_WS_SETUP<<EBC_WS_SETUP_pos | RGN_WS_ACTIVE<<EBC_WS_ACTIVE_pos | RGN_WS_HOLD<<EBC_WS_HOLD_pos;
+    
+    /* Configure CNTRL register with new value */
+    *EBC_RGNx_CNTRL_ptr = tmpreg_CNTRL;
+}
 	
 /** @} */ /* End of group EBC_Private_Functions */
 
