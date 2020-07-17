@@ -56,12 +56,6 @@ extern "C" {
   * @{
   */
 
-#define DAC_SYNC_MODE_Independent             (((uint32_t)0x0) << DAC_CFG_SYNC_A_Pos)       /*!< The independent DAC1, DAC2 operation mode. */
-#define DAC_SYNC_MODE_Synchronous             (((uint32_t)0x1) << DAC_CFG_SYNC_A_Pos)       /*!< The synchronous DAC1, DAC2 operation mode. */
-
-#define IS_DAC_SYNC_MODE(MODE) (((MODE) == DAC_SYNC_MODE_Independent) || \
-                                ((MODE) == DAC_SYNC_MODE_Synchronous))
-
 /** @} */ /* End of group DAC_Synchronous_Mode */
 
 /** @defgroup DAC1_Ref_Source DAC1 Reference Voltage source
