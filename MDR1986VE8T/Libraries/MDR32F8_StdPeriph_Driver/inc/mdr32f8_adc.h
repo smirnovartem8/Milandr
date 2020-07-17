@@ -212,6 +212,24 @@ typedef struct {
 #define FIEN4  										  					((uint32_t)0x00000010)
 #define FIEN5  										  					((uint32_t)0x00000020)
 #define FIEN6  										  					((uint32_t)0x00000040)
+#define FIEN7  										  					((uint32_t)0x00000080)
+#define FIEN8  										  					((uint32_t)0x00000100)
+#define FIEN9  										  					((uint32_t)0x00000200)
+#define FIEN10  										  				((uint32_t)0x00000400)
+#define FIEN11  										  				((uint32_t)0x00000800)
+#define FIEN12  										  				((uint32_t)0x00001000)
+#define FIEN13  										  				((uint32_t)0x00002000)
+#define FIEN14  										  				((uint32_t)0x00004000)
+#define FIEN15  										  				((uint32_t)0x00008000)
+#define FIEN16  										  				((uint32_t)0x00010000)
+#define FIEN17  										  				((uint32_t)0x00020000)
+#define FIEN18  										  				((uint32_t)0x00040000)
+#define FIEN19  										  				((uint32_t)0x00080000)
+#define FIEN20  										  				((uint32_t)0x00100000)
+#define FIEN21  										  				((uint32_t)0x00200000)
+#define FIEN22  										  				((uint32_t)0x00400000)
+#define FIEN23  										  				((uint32_t)0x00800000)
+
 
 /** @defgroup ADC_Exported_Macros ADC Exported Macros
   * @{
