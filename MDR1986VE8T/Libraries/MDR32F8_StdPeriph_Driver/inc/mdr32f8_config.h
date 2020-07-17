@@ -1,10 +1,11 @@
 
 #include "mdr32f8_lib.h"
 #include "stdio.h"
+#include "stdint.h"
 
  #define USE_ASSERT_INFO    0
-/* #define USE_ASSERT_INFO    1 */
-/* #define USE_ASSERT_INFO    2 */
+ //#define USE_ASSERT_INFO    1 
+//#define USE_ASSERT_INFO    2 
 
 /* Target system parameters */
 /* RST_CLK generators frequencies in HZ */
