@@ -66,8 +66,6 @@ void CAN_DeInit(MDR_CAN_TypeDef* CANx)
 {
   uint32_t i;
 
-  /* Check the parameters */
-  assert_param(IS_CAN_ALL_PERIPH(CANx));
 
   CANx->CONTROL = 0;
   CANx->STATUS = 0;
@@ -102,17 +100,6 @@ void CAN_Init(MDR_CAN_TypeDef* CANx, const CAN_InitTypeDef* CAN_InitStruct)
   uint32_t tmpreg_BITTMNG;
   uint32_t i;
 
-  /* Check the parameters */
-  assert_param(IS_CAN_ALL_PERIPH(CANx));
-  assert_param(IS_FUNCTIONAL_STATE(CAN_InitStruct->CAN_ROP));
-  assert_param(IS_FUNCTIONAL_STATE(CAN_InitStruct->CAN_SAP));
-  assert_param(IS_FUNCTIONAL_STATE(CAN_InitStruct->CAN_STM));
-  assert_param(IS_FUNCTIONAL_STATE(CAN_InitStruct->CAN_ROM));
-  assert_param(IS_CAN_PSEG_VALUE(CAN_InitStruct->CAN_PSEG));
-  assert_param(IS_CAN_SEG1_VALUE(CAN_InitStruct->CAN_SEG1));
-  assert_param(IS_CAN_SEG2_VALUE(CAN_InitStruct->CAN_SEG2));
-  assert_param(IS_CAN_SJW_VALUE(CAN_InitStruct->CAN_SJW));
-  assert_param(IS_CAN_SAMPLING_MODE(CAN_InitStruct->CAN_SB));
 
   /* Configure CONTROL register*/
   if (CAN_InitStruct->CAN_ROP != DISABLE)
@@ -196,11 +183,6 @@ void CAN_StructInit(CAN_InitTypeDef* CAN_InitStruct)
   */
 void CAN_FilterInit(MDR_CAN_TypeDef* CANx, uint32_t BufferNumber, CAN_FilterInitTypeDef* CAN_FilterInitStruct)
 {
-  /* Check the parameters */
-  assert_param(IS_CAN_ALL_PERIPH(CANx));
-  assert_param(IS_CAN_BUFFER(BufferNumber));
-  assert_param(IS_CAN_ID(CAN_FilterInitStruct->Filter_ID));
-  assert_param(IS_CAN_ID(CAN_FilterInitStruct->Mask_ID));
 
   CANx->FILTER[BufferNumber].FILTER  = CAN_FilterInitStruct->Filter_ID;
   CANx->FILTER[BufferNumber].MASK    = CAN_FilterInitStruct->Mask_ID;
@@ -220,10 +202,6 @@ void CAN_FilterInit(MDR_CAN_TypeDef* CANx, uint32_t BufferNumber, CAN_FilterInit
   */
 void CAN_ITConfig(MDR_CAN_TypeDef* CANx, uint32_t CAN_IT, FunctionalState NewState)
 {
-  /* Check the parameters */
-  assert_param(IS_CAN_ALL_PERIPH(CANx));
-  assert_param(IS_CAN_ITConfig(CAN_IT));
-  assert_param(IS_FUNCTIONAL_STATE(NewState));
 
   if (NewState != DISABLE)
   {
@@ -248,8 +226,6 @@ uint32_t CAN_GetDisabledBuffer(MDR_CAN_TypeDef* CANx)
 {
   uint32_t buffer_number;
 
-  /* Check the parameters */
-  assert_param(IS_CAN_ALL_PERIPH(CANx));
 
   for (buffer_number = 0;
 	  ((buffer_number < CAN_BUFFER_NUMBER) &&  ((CANx->BUF_CON[buffer_number] & CAN_STATUS_EN) != 0));
@@ -272,8 +248,6 @@ uint32_t CAN_GetEmptyTransferBuffer(MDR_CAN_TypeDef* CANx)
 {
   uint32_t buffer_number;
 
-  /* Check the parameters */
-  assert_param(IS_CAN_ALL_PERIPH(CANx));
 
   for (buffer_number = 0; (buffer_number < CAN_BUFFER_NUMBER) &&
         ((CANx->BUF_CON[buffer_number] & (CAN_STATUS_EN | CAN_STATUS_TX_REQ | CAN_STATUS_RX_TXn)) != CAN_STATUS_EN);
@@ -296,13 +270,6 @@ void CAN_Transmit(MDR_CAN_TypeDef* CANx, uint32_t BufferNumber, CAN_TxMsgTypeDef
 {
   uint32_t tmpreg;
 
-  /* Check the parameters */
-  assert_param(IS_CAN_ALL_PERIPH(CANx));
-  assert_param(IS_CAN_BUFFER(BufferNumber));
-  assert_param(IS_CAN_IDTYPE(TxMessage->IDE));
-  assert_param(IS_CAN_DLC(TxMessage->DLC));
-  assert_param(IS_FUNCTIONAL_STATE(TxMessage->PRIOR_0));
-  assert_param(IS_CAN_ID(TxMessage->ID));
 
   /* Configure CAN_BUF_ID and CAN_BUF_DLC registers */
   /* Packet format */
@@ -351,12 +318,6 @@ void CAN_SendRTR(MDR_CAN_TypeDef* CANx, uint32_t BufferNumber, CAN_RTRMessageTyp
 {
   uint32_t tmpreg;
 
-  /* Check the parameters */
-  assert_param(IS_CAN_ALL_PERIPH(CANx));
-  assert_param(IS_CAN_BUFFER(BufferNumber));
-  assert_param(IS_CAN_IDTYPE(RTRMessage->IDE));
-  assert_param(IS_FUNCTIONAL_STATE(RTRMessage->PRIOR_0));
-  assert_param(IS_CAN_ID(RTRMessage->ID));
 
   /* Configure CAN_BUF_ID and CAN_BUF_DLC registers */
   /* Packet format */
@@ -402,12 +363,6 @@ void CAN_RTRReply(MDR_CAN_TypeDef* CANx, uint32_t BufferNumber, CAN_RTRReplyType
 {
   uint32_t tmpreg;
 
-  /* Check the parameters */
-  assert_param(IS_CAN_ALL_PERIPH(CANx));
-  assert_param(IS_CAN_BUFFER(BufferNumber));
-  assert_param(IS_CAN_IDTYPE(RTRReplyMessage->IDE));
-  assert_param(IS_CAN_ID(RTRReplyMessage->ID));
-  assert_param(IS_CAN_DLC(RTRReplyMessage->DLC));
 
   /* Configure CAN_BUF_ID and CAN_BUF_DLC registers */
   /* Configure CAN_BUF_ID and CAN_BUF_DLC registers */
@@ -453,11 +408,6 @@ void CAN_Receive(MDR_CAN_TypeDef* CANx, uint32_t BufferNumber, FunctionalState O
 {
   uint32_t tmpreg = 0;
 
-  /* Check the parameters */
-  assert_param(IS_CAN_ALL_PERIPH(CANx));
-  assert_param(IS_CAN_BUFFER(BufferNumber));
-  assert_param(IS_FUNCTIONAL_STATE(OverWrite));
-
   /* Configure CAN_BUF_CON register */
   /* Overwrite mode */
   if (OverWrite != DISABLE)
@@ -481,9 +431,6 @@ void CAN_Receive(MDR_CAN_TypeDef* CANx, uint32_t BufferNumber, FunctionalState O
   */
 void CAN_GetReceivedData(MDR_CAN_TypeDef* CANx, uint32_t BufferNumber, CAN_DataTypeDef RxBuffer)
 {
-  /* Check the parameters */
-  assert_param(IS_CAN_ALL_PERIPH(CANx));
-  assert_param(IS_CAN_BUFFER(BufferNumber));
 
   RxBuffer[0] = CAN_ReadBufferSFR(&(CANx->BUF[BufferNumber].DATAL));
   RxBuffer[1] = CAN_ReadBufferSFR(&(CANx->BUF[BufferNumber].DATAH));
@@ -502,9 +449,6 @@ void CAN_GetRawReceivedData(MDR_CAN_TypeDef* CANx, uint32_t BufferNumber, CAN_Rx
 {
   uint32_t tmpreg;
 
-  /* Check the parameters */
-  assert_param(IS_CAN_ALL_PERIPH(CANx));
-  assert_param(IS_CAN_BUFFER(BufferNumber));
 
   /* Get the DLC */
   tmpreg = CAN_ReadBufferSFR(&(CANx->BUF[BufferNumber].DLC));
@@ -543,9 +487,6 @@ void CAN_BufferRelease(MDR_CAN_TypeDef* CANx, uint32_t BufferNumber)
 {
   uint32_t tmpreg;
 
-  /* Check the parameters */
-  assert_param(IS_CAN_ALL_PERIPH(CANx));
-  assert_param(IS_CAN_BUFFER(BufferNumber));
 
   tmpreg = CANx->BUF_CON[BufferNumber];
   tmpreg &= ~CAN_STATUS_EN;
@@ -565,9 +506,6 @@ void CAN_Cmd(MDR_CAN_TypeDef* CANx, FunctionalState NewState)
 {
   uint32_t tmpreg_CONTROL;
 
-  /* Check the parameters */
-  assert_param(IS_CAN_ALL_PERIPH(CANx));
-  assert_param(IS_FUNCTIONAL_STATE(NewState));
 
   tmpreg_CONTROL = CANx->CONTROL;
 
@@ -596,8 +534,6 @@ void CAN_Cmd(MDR_CAN_TypeDef* CANx, FunctionalState NewState)
   */
 uint32_t CAN_GetStatus(MDR_CAN_TypeDef* CANx)
 {
-  /* Check the parameters */
-  assert_param(IS_CAN_ALL_PERIPH(CANx));
 
   return CANx->STATUS;
 }
@@ -612,9 +548,7 @@ uint32_t CAN_GetStatus(MDR_CAN_TypeDef* CANx)
   */
 uint32_t CAN_GetBufferStatus(MDR_CAN_TypeDef* CANx, uint32_t BufferNumber)
 {
-  /* Check the parameters */
-  assert_param(IS_CAN_ALL_PERIPH(CANx));
-  assert_param(IS_CAN_BUFFER(BufferNumber));
+
 
   return CANx->BUF_CON[BufferNumber];
 }
@@ -633,9 +567,6 @@ ITStatus CAN_GetITState(MDR_CAN_TypeDef* CANx, uint32_t CAN_IT)
 {
   ITStatus bitstatus;
 
-  /* Check the parameters */
-  assert_param(IS_CAN_ALL_PERIPH(CANx));
-  assert_param(IS_CAN_ITConfig(CAN_IT));
 
   if ((CANx->INT_EN & CAN_IT) == 0)
   {
@@ -666,9 +597,6 @@ ITStatus CAN_GetITState(MDR_CAN_TypeDef* CANx, uint32_t CAN_IT)
   */
 void CAN_ITClearErrorPendingBit(MDR_CAN_TypeDef* CANx, uint32_t Status_Flag)
 {
-  /* Check the parameters */
-  assert_param(IS_CAN_ALL_PERIPH(CANx));
-  assert_param(IS_CAN_IT_ERROR_FLAG(Status_Flag));
 
   CANx->STATUS &= ~Status_Flag;
 }
@@ -689,9 +617,6 @@ void CAN_RxITConfig(MDR_CAN_TypeDef* CANx, uint32_t Buffer_IT, FunctionalState N
 {
   uint32_t tmpreg;
 
-  /* Check the parameters */
-  assert_param(IS_CAN_ALL_PERIPH(CANx));
-  assert_param(IS_FUNCTIONAL_STATE(NewState));
 
   tmpreg = CANx->INT_RX;
 
@@ -719,9 +644,6 @@ ITStatus CAN_GetRxITStatus(MDR_CAN_TypeDef* CANx, uint32_t BufferNumber)
 {
   FlagStatus bitstatus;
 
-  /* Check the parameters */
-  assert_param(IS_CAN_ALL_PERIPH(CANx));
-  assert_param(IS_CAN_BUFFER(BufferNumber));
 
   if ((CANx->RX & CANx->INT_RX & (((uint32_t)0x1) << BufferNumber)) == 0)
   {
@@ -744,8 +666,6 @@ ITStatus CAN_GetRxITStatus(MDR_CAN_TypeDef* CANx, uint32_t BufferNumber)
   */
 uint32_t CAN_GetRx(MDR_CAN_TypeDef* CANx)
 {
-  /* Check the parameters */
-  assert_param(IS_CAN_ALL_PERIPH(CANx));
 
   return CANx->RX;
 }
@@ -766,9 +686,6 @@ void CAN_TxITConfig(MDR_CAN_TypeDef* CANx, uint32_t Buffer_IT, FunctionalState N
 {
   uint32_t tmpreg;
 
-  /* Check the parameters */
-  assert_param(IS_CAN_ALL_PERIPH(CANx));
-  assert_param(IS_FUNCTIONAL_STATE(NewState));
 
   tmpreg = CANx->INT_TX;
 
@@ -795,10 +712,6 @@ void CAN_TxITConfig(MDR_CAN_TypeDef* CANx, uint32_t Buffer_IT, FunctionalState N
 ITStatus CAN_GetTxITStatus(MDR_CAN_TypeDef* CANx, uint32_t BufferNumber)
 {
   FlagStatus bitstatus;
-
-  /* Check the parameters */
-  assert_param(IS_CAN_ALL_PERIPH(CANx));
-  assert_param(IS_CAN_BUFFER(BufferNumber));
 
   if ((CANx->TX & CANx->INT_TX & (((uint32_t)0x1) << BufferNumber)) == 0)
   {
@@ -829,10 +742,6 @@ void CAN_ITClearRxTxPendingBit(MDR_CAN_TypeDef* CANx, uint32_t BufferNumber, uin
 {
   uint32_t tmpreg;
 
-  /* Check the parameters */
-  assert_param(IS_CAN_ALL_PERIPH(CANx));
-  assert_param(IS_CAN_BUFFER(BufferNumber));
-  assert_param(IS_CAN_IT_RXTX_FLAG(Status_Flag));
 
   tmpreg = CANx->BUF_CON[BufferNumber];
 
@@ -865,9 +774,7 @@ void CAN_ITClearRxTxPendingBit(MDR_CAN_TypeDef* CANx, uint32_t BufferNumber, uin
 void CAN_CLK_en(uint32_t CAN_CLK_DIV)
 {
   uint32_t tmpreg;
-  /* Check the parameters */
-  assert_param(IS_UART_ALL_PERIPH(UARTx));
-	assert_param(IS_UART_CLKSRC(UART_CLKSRC));
+
 
   tmpreg = CLK_CNTR->CAN0_CLK;
 

@@ -18,7 +18,7 @@
 #include "mdr32f8_ssp.h"
 #include "MDR1986VE8T.h"	
 
-#define ASSERT_INFO_FILE_ID FILEID__MDR32F9X_SSP_C
+#define ASSERT_INFO_FILE_ID FILEID__MDR32F8_SSP_C
 
 /** @addtogroup __MDR32F8_StdPeriph_Driver
   * @{
@@ -391,9 +391,6 @@ FlagStatus SSP_GetFlagStatus(MDR_SSP_TypeDef* SSPx, uint32_t SSP_FLAG)
 void SSP_CLK_en(uint32_t SSP_CLKSRC, uint32_t SSP_CLK_DIV)
 {
   uint32_t tmpreg;
-  /* Check the parameters */
-  assert_param(IS_UART_ALL_PERIPH(UARTx));
-	assert_param(IS_UART_CLKSRC(UART_CLKSRC));
 
   tmpreg = CLK_CNTR->SSP0_CLK;
 

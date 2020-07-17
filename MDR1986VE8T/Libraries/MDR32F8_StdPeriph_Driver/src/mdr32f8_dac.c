@@ -25,7 +25,7 @@
 #include "mdr32f8_dac.h"
 
 
-#define ASSERT_INFO_FILE_ID FILEID__MDR32F9X_DAC_C
+#define ASSERT_INFO_FILE_ID FILEID__MDR32F8_DAC_C
 
 /** @addtogroup __MDR32F9Qx_StdPeriph_Driver MDR32F9Qx Standard Peripherial Driver
   * @{
@@ -70,11 +70,6 @@ void DAC_DeInit(DACxControl* DACx)
 void DAC_Init(DACxControl* DACx, uint32_t SyncMode, uint32_t DAC_Ref)
 {
   uint32_t tmpreg_CFG;
-
-  /* Check the parameters */
-  assert_param(IS_DAC_SYNC_MODE(SyncMode));
-  assert_param(IS_DAC1_REF_CONFIG(DAC1_Ref));
-  assert_param(IS_DAC2_REF_CONFIG(DAC2_Ref));
 
   tmpreg_CFG = DACx->CONFIG0;
   tmpreg_CFG &= ~(DAC_CONFIG0_M_REF | DAC_CONFIG0_SYNC_A);
@@ -142,9 +137,7 @@ uint32_t DAC_GetData(DACxControl* DACx)
 void DAC_CLK_en(DACxControl* DACx, uint32_t DAC_CLKSRC, uint32_t DAC_CLK_DIV)
 {
   uint32_t tmpreg;
-  /* Check the parameters */
-  assert_param(IS_UART_ALL_PERIPH(UARTx));
-	assert_param(IS_UART_CLKSRC(UART_CLKSRC));
+
 
 	if(DACx==DAC0){
   tmpreg = CLK_CNTR->DAC0_CLK;

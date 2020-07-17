@@ -26,7 +26,7 @@
 #include "mdr32f8_clkctrl.h"
 #include "MDR1986VE8T.h"
 
-#define ASSERT_INFO_FILE_ID FILEID__MDR32F9X_MIL_STD1553_C
+#define ASSERT_INFO_FILE_ID FILEID__MDR32F8_MIL_STD1553_C
 
 /** @addtogroup __MDR32F9Qx_StdPeriph_Driver MDR32F9Qx Standard Peripherial Driver
   * @{

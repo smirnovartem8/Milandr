@@ -25,7 +25,7 @@
 #include "mdr32f8_clkctrl.h"
 #include "MDR1986VE8T.h"
 
-#define ASSERT_INFO_FILE_ID FILEID__MDR32F9X_DMA_C
+#define ASSERT_INFO_FILE_ID FILEID__MDR32F8_DMA_C
 
 /** @addtogroup __MDR32F9Qx_StdPeriph_Driver MDR32F9Qx Standard Peripherial Driver
   * @{
@@ -118,14 +118,14 @@ void DMA_CtrlDataInit(DMA_CtrlDataInitTypeDef *DMA_ctrl_data_ptr, DMA_CtrlDataTy
   assert_param(IS_DMA_ALTERNATE_DATA(DMA_AlternateData));
 
   /* Check the parameters */
-  assert_param(IS_DMA_SOURCE_INC_STATE(DMA_ctrl_data_ptr->DMA_SourceIncSize));
-  assert_param(IS_DMA_DEST_INC_STATE(DMA_ctrl_data_ptr->DMA_DestIncSize));
-  assert_param(IS_DMA_MEMORY_DATA_SIZE(DMA_ctrl_data_ptr->DMA_MemoryDataSize));
-  assert_param(IS_DMA_MODE(DMA_ctrl_data_ptr->DMA_Mode));
-  assert_param(IS_DMA_CYCLE_SIZE(DMA_ctrl_data_ptr->DMA_CycleSize));
-  assert_param(IS_DMA_CONTINUOUS_NUMBER(DMA_ctrl_data_ptr->DMA_NumContinuous));
-  assert_param(IS_DMA_SOURCE_PROT(DMA_ctrl_data_ptr->DMA_SourceProtCtrl));
-  assert_param(IS_DMA_DEST_PROT(DMA_ctrl_data_ptr->DMA_DestProtCtrl));
+//  assert_param(IS_DMA_SOURCE_INC_STATE(DMA_ctrl_data_ptr->DMA_SourceIncSize));
+//  assert_param(IS_DMA_DEST_INC_STATE(DMA_ctrl_data_ptr->DMA_DestIncSize));
+//  assert_param(IS_DMA_MEMORY_DATA_SIZE(DMA_ctrl_data_ptr->DMA_MemoryDataSize));
+//  assert_param(IS_DMA_MODE(DMA_ctrl_data_ptr->DMA_Mode));
+//  assert_param(IS_DMA_CYCLE_SIZE(DMA_ctrl_data_ptr->DMA_CycleSize));
+//  assert_param(IS_DMA_CONTINUOUS_NUMBER(DMA_ctrl_data_ptr->DMA_NumContinuous));
+//  assert_param(IS_DMA_SOURCE_PROT(DMA_ctrl_data_ptr->DMA_SourceProtCtrl));
+//  assert_param(IS_DMA_DEST_PROT(DMA_ctrl_data_ptr->DMA_DestProtCtrl));
 
   /* DMA Source Data End Address */
   if (DMA_ctrl_data_ptr->DMA_SourceIncSize == DMA_SourceIncNo)

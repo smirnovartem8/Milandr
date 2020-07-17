@@ -90,13 +90,6 @@ void ADC_Init(ADCxControl* ADCx, const ADCx_InitTypeDef* ADC_InitStruct)
   uint32_t tmpreg_CONFIG2_MSK;		
   //uint32_t tmpreg_MSK;
 
-  assert_param(IS_ADC_START_DELAY_VALUE(ADC_InitStruct->ADC_StartDelay));
-  assert_param(IS_ADC_TEMP_SENSOR_CONFIG(ADC_InitStruct->ADC_TempSensor));
-  assert_param(IS_ADC_TEMP_SENSOR_AMP_CONFIG(ADC_InitStruct->ADC_TempSensorAmplifier));
-  assert_param(IS_ADC_TEMP_SENSOR_CONVERSION_CONFIG(ADC_InitStruct->ADC_TempSensorConversion));
-  assert_param(IS_ADC_VREF_CONVERSION_CONFIG(ADC_InitStruct->ADC_IntVRefConversion));
-  assert_param(IS_ADC_VREF_TRIMMING_VALUE(ADC_InitStruct->ADC_IntVRefTrimming));
-
 /* CONFIG0 */	
   tmpreg_CONFIG0 = (ADC_InitStruct->ADC_WORKMODE << ADCx_CONFIG0_WORKMODE_Pos)
              | (ADC_InitStruct->ADC_REFMODE << ADCx_CONFIG0_REFMODE_Pos)
@@ -232,9 +225,6 @@ void ADCx_SetChannel(ADCxControl* ADCx, uint32_t Channel)
 {
   uint32_t tmpreg_CTRL;
 
-  /* Check the parameters */
-  assert_param(IS_ADC1_CH_NUM(Channel));
-
   tmpreg_CTRL = ADCx->CONTROL;
   tmpreg_CTRL &= ~ADCx_CONTROL_CHANNEL_Mask;
   tmpreg_CTRL |= Channel << ADCx_CONTROL_CHANNEL_Pos;
@@ -248,8 +238,6 @@ void ADCx_SetChannel(ADCxControl* ADCx, uint32_t Channel)
   */
 void ADCx_SetChannels0(ADCxControl* ADCx, uint32_t ChannelMask)
 {
-  /* Check the parameters */
-  assert_param(IS_ADC1_CH_MASK(ChannelMask));
 
   ADCx->CHSEL0 = ChannelMask;
 }
@@ -261,8 +249,6 @@ void ADCx_SetChannels0(ADCxControl* ADCx, uint32_t ChannelMask)
   */
 void ADCx_SetChannels1(ADCxControl* ADCx, uint32_t ChannelMask)
 {
-  /* Check the parameters */
-  assert_param(IS_ADC1_CH_MASK(ChannelMask));
 
   ADCx->CHSEL1 = ChannelMask;
 }
@@ -313,8 +299,6 @@ FlagStatus ADC_GetFlagStatus(ADCxControl* ADCx, uint32_t Flag)
 {
   FlagStatus bitstatus;
 
-  /* Check the parameters */
-  assert_param(IS_ADC_STATUS_FLAG(Flag));
 
   if ((ADCx_GetStatus(ADCx) & Flag) == 0)
   {
@@ -359,9 +343,7 @@ FlagStatus ADC_GetFlagStatus(ADCxControl* ADCx, uint32_t Flag)
 
 void ADCx_CLK_en(ADCxControl* ADCx, uint32_t ADC_CLKSRC, uint32_t ADC_CLK_DIV)
 {
-  /* Check the parameters */
-  assert_param(IS_UART_ALL_PERIPH(UARTx));
-	assert_param(IS_UART_CLKSRC(UART_CLKSRC));
+
    
   if (ADCx == ADC0)
   {  

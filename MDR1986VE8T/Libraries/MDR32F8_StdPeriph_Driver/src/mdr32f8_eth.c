@@ -30,7 +30,7 @@
 #include <math.h>
 #include <stdio.h>
 
-#define ASSERT_INFO_FILE_ID FILEID__MDR32F9X_ETH_C
+#define ASSERT_INFO_FILE_ID FILEID__MDR32F8_ETH_C
 
 /** @addtogroup __MDR32F9Qx_StdPeriph_Driver MDR32F9Qx Standard Peripherial Driver
   * @{
@@ -135,7 +135,6 @@ void ETH_PHY_ClockConfig(uint32_t clock_source, uint32_t PHY_HCLKdiv)
 	uint32_t tmpreg_EPHY_CLOCK;
 	/* Check the parameters */
 	assert_param(IS_ETH_CLOCK_SOURCE(clock_source));
-	assert_param(IS_ETH_PHY_HCLKdiv(PHY_HCLKdiv));
 
 	tmpreg_EPHY_CLOCK = CLK_CNTR->EPHY0_CLK;
 	tmpreg_EPHY_CLOCK &= ~ (RST_CLK_ETH_CLOCK_PHY_BRG_Msk | RST_CLK_ETH_CLOCK_PHY_CLK_SEL_Msk);
@@ -157,8 +156,6 @@ void ETH_PHY_ClockConfig(uint32_t clock_source, uint32_t PHY_HCLKdiv)
   */
 void ETH_PHY_Reset(MDR_ETH_TypeDef * ETHERNETx)
 {
-	/* Check the parameters */
-	assert_param(IS_ETH_ALL_PERIPH(ETHERNETx));
 	/* Reset PHY */
 	ETHERNETx->PHY_CONTROL &= ~ETH_PHY_CONTROL_RST;
 
@@ -179,7 +176,6 @@ void ETH_PHY_Reset(MDR_ETH_TypeDef * ETHERNETx)
 void ETH_PHYCmd(MDR_ETH_TypeDef * ETHERNETx, FunctionalState NewState)
 {
 	/* Check the parameters */
-	assert_param(IS_ETH_ALL_PERIPH(ETHERNETx));
 	assert_param(IS_FUNCTIONAL_STATE(NewState));
 
 	if(NewState == ENABLE){
@@ -201,8 +197,6 @@ void ETH_PHYCmd(MDR_ETH_TypeDef * ETHERNETx, FunctionalState NewState)
   */
 void ETH_DeInit(MDR_ETH_TypeDef * ETHERNETx )
 {
-	/* Check the parameters */
-	assert_param(IS_ETH_ALL_PERIPH(ETHERNETx));
 
 	/* PHY reset */
 	ETH_PHY_Reset(ETHERNETx);
@@ -377,17 +371,12 @@ void ETH_Init(MDR_ETH_TypeDef * ETHERNETx, ETH_InitTypeDef * ETH_InitStruct)
 	uint16_t tmpreg_G_CFGh;
 	uint16_t tmpreg_G_CFGl;
 	/* Check the parameters */
-	assert_param(IS_ETH_ALL_PERIPH(ETHERNETx));
 
 	assert_param(IS_ETH_DELIMITER(ETH_InitStruct->ETH_Dilimiter));
-	assert_param(IS_ETH_PHY_ADDRESS(ETH_InitStruct->ETH_PHY_Address));
-	assert_param(IS_ETH_PHY_MODE(ETH_InitStruct->ETH_PHY_Mode));
 	assert_param(IS_ETH_DBG_MODE(ETH_InitStruct->ETH_DBG_Mode));
 	assert_param(IS_FUNCTIONAL_STATE(ETH_InitStruct->ETH_DBG_XF));
 	assert_param(IS_FUNCTIONAL_STATE(ETH_InitStruct->ETH_DBG_RF));
 	assert_param(IS_FUNCTIONAL_STATE(ETH_InitStruct->ETH_Loopback_Mode));
-	assert_param(IS_BIT_STATUS(ETH_InitStruct->ETH_Receiver_RST));
-	assert_param(IS_BIT_STATUS(ETH_InitStruct->ETH_Transmitter_RST));
 	assert_param(IS_FUNCTIONAL_STATE(ETH_InitStruct->ETH_Register_CLR));
 	assert_param(IS_ETH_BUFFER_MODE(ETH_InitStruct->ETH_Buffer_Mode));
 	assert_param(IS_FUNCTIONAL_STATE(ETH_InitStruct->ETH_Extension_Mode));
@@ -526,8 +515,6 @@ void ETH_Init(MDR_ETH_TypeDef * ETHERNETx, ETH_InitTypeDef * ETH_InitStruct)
   */
 void ETH_Start(MDR_ETH_TypeDef * ETHERNETx)
 {
-	/* Check the parameters */
-	assert_param(IS_ETH_ALL_PERIPH(ETHERNETx));
 
 	//ETHERNETx->PHY_CONTROL |= ETH_PHY_CONTROL_nRST;
 
@@ -552,7 +539,6 @@ void ETH_Start(MDR_ETH_TypeDef * ETHERNETx)
 void ETH_MACTransmissionCmd( MDR_ETH_TypeDef * ETHERNETx, FunctionalState NewState)
 {
 	/* Check the parameters */
-	assert_param(IS_ETH_ALL_PERIPH(ETHERNETx));
 	assert_param(IS_FUNCTIONAL_STATE(NewState));
 
 	if(NewState == ENABLE){
@@ -577,7 +563,6 @@ void ETH_MACTransmissionCmd( MDR_ETH_TypeDef * ETHERNETx, FunctionalState NewSta
 void ETH_MACReceptionCmd( MDR_ETH_TypeDef * ETHERNETx, FunctionalState NewState)
 {
 	/* Check the parameters */
-	assert_param(IS_ETH_ALL_PERIPH(ETHERNETx));
 	assert_param(IS_FUNCTIONAL_STATE(NewState));
 
 	if(NewState == ENABLE){
@@ -599,8 +584,6 @@ void ETH_MACReceptionCmd( MDR_ETH_TypeDef * ETHERNETx, FunctionalState NewState)
   */
 uint16_t ETH_GetMACITStatusRegister(MDR_ETH_TypeDef * ETHERNETx)
 {
-	/* Check the parameters */
-	assert_param(IS_ETH_ALL_PERIPH(ETHERNETx));
 
 	return(ETHERNETx->IFR);
 }
@@ -635,7 +618,6 @@ FlagStatus ETH_GetMACITStatus(MDR_ETH_TypeDef * ETHERNETx, uint32_t ETH_MAC_IT)
 	 FlagStatus bitstatus;
 
 	/* Check the parameters */
-	assert_param(IS_ETH_ALL_PERIPH(ETHERNETx));
 	assert_param(IS_ETH_MAC_IT(ETH_MAC_IT));
 
 	if(ETHERNETx->IFR & ETH_MAC_IT){
@@ -657,8 +639,6 @@ FlagStatus ETH_GetMACITStatus(MDR_ETH_TypeDef * ETHERNETx, uint32_t ETH_MAC_IT)
   */
 uint32_t ETH_GetMACStatusRegister(MDR_ETH_TypeDef * ETHERNETx)
 {
-	/* Check the parameters */
-	assert_param(IS_ETH_ALL_PERIPH(ETHERNETx));
 
 	return (ETHERNETx->STAT);
 }
@@ -688,7 +668,6 @@ FlagStatus ETH_GetFlagStatus(MDR_ETH_TypeDef * ETHERNETx, uint16_t ETH_MAC_FLAG)
 	 FlagStatus bitstatus;
 
 	/* Check the parameters */
-	assert_param(IS_ETH_ALL_PERIPH(ETHERNETx));
 	assert_param(IS_ETH_MAC_FLAG(ETH_MAC_FLAG));
 
 	if(ETHERNETx->STAT & ETH_MAC_FLAG){
@@ -731,7 +710,6 @@ FlagStatus ETH_GetFlagStatus(MDR_ETH_TypeDef * ETHERNETx, uint16_t ETH_MAC_FLAG)
 void ETH_MACITConfig(MDR_ETH_TypeDef * ETHERNETx, uint32_t ETH_MAC_IT, FunctionalState NewState)
 {
 	/* Check the parameters */
-	assert_param(IS_ETH_ALL_PERIPH(ETHERNETx));
 	assert_param(IS_ETH_MAC_IT(ETH_MAC_IT));
 	assert_param(IS_FUNCTIONAL_STATE(NewState));
 
@@ -754,8 +732,6 @@ void ETH_MACITConfig(MDR_ETH_TypeDef * ETHERNETx, uint32_t ETH_MAC_IT, Functiona
   */
 void ETH_MACAddressConfig(MDR_ETH_TypeDef * ETHERNETx, uint16_t *MacAddr)
 {
-	/* Check the parameters */
-	assert_param(IS_ETH_ALL_PERIPH(ETHERNETx));
 
 	ETHERNETx->MAC_T = MacAddr[0];
 	ETHERNETx->MAC_M = MacAddr[1];
@@ -773,8 +749,6 @@ void ETH_MACAddressConfig(MDR_ETH_TypeDef * ETHERNETx, uint16_t *MacAddr)
   */
 void ETH_GetMACAddress(MDR_ETH_TypeDef * ETHERNETx, uint16_t *MacAddr)
 {
-	/* Check the parameters */
-	assert_param(IS_ETH_ALL_PERIPH(ETHERNETx));
 
 	MacAddr[0] = ETHERNETx->MAC_T;
 	MacAddr[1] = ETHERNETx->MAC_M;
@@ -806,7 +780,6 @@ FlagStatus ETH_GetPHYStatus(MDR_ETH_TypeDef * ETHERNETx, uint16_t ETH_PHY_FLAG)
 	FlagStatus bitstatus;
 
 	/* Check the parameters */
-	assert_param(IS_ETH_ALL_PERIPH(ETHERNETx));
 	assert_param(IS_ETH_PHY_FLAG(ETH_PHY_FLAG));
 
 	if(ETHERNETx->PHY_STATUS & ETH_PHY_FLAG){
@@ -847,8 +820,6 @@ uint16_t ETH_ReadPHYRegister(MDR_ETH_TypeDef * ETHERNETx, uint16_t PHYAddress, u
 	uint32_t tmpreg = 0;
 	__IO uint32_t timeout = 0;
 	/* Check the parameters */
-	assert_param(IS_ETH_ALL_PERIPH(ETHERNETx));
-	assert_param(IS_ETH_PHY_ADDRESS(PHYAddress));
 	assert_param(IS_ETH_PHYReg(PHYReg));
 
 	/* Get the ETHERNET MACMIIAR value */
@@ -902,8 +873,6 @@ uint32_t ETH_WritePHYRegister(MDR_ETH_TypeDef * ETHERNETx, uint16_t PHYAddress, 
 	uint32_t tmpreg = 0;
 	__IO uint32_t timeout = 0;
 	/* Check the parameters */
-	assert_param(IS_ETH_ALL_PERIPH(ETHERNETx));
-	assert_param(IS_ETH_PHY_ADDRESS(PHYAddress));
 	assert_param(IS_ETH_PHYReg(PHYReg));
 
 	/* Get the ETHERNET MACMIIAR value */
@@ -948,9 +917,6 @@ uint32_t ETH_ReceivedFrame(MDR_ETH_TypeDef * ETHERNETx, uint32_t * ptr_InputBuff
 	uint16_t BufferMode;
 	int32_t EthReceiverFreeBufferSize;
     uint32_t RHead;  
-
-	/* Check the parameters */
-	assert_param(IS_ETH_ALL_PERIPH(ETHERNETx));
 
 	/* Read the buffer mode */
 	BufferMode = (ETHERNETx->G_CFGl & ETH_G_CFGl_BUFF_MODE_Msk);
@@ -1057,9 +1023,6 @@ void ETH_SendFrame(MDR_ETH_TypeDef * ETHERNETx, uint32_t * ptr_OutputBuffer, uin
 	uint32_t BufferMode, i, Xtail, tmp;
 	uint32_t * ptr_OutputFrame;
 	int32_t EthReceiverFreeBufferSize;
-
-	/* Check the parameters */
-	assert_param(IS_ETH_ALL_PERIPH(ETHERNETx));
 
 	/* Read the buffer mode */
 	BufferMode = (ETHERNETx->G_CFGl & ETH_G_CFGl_BUFF_MODE_Msk);

@@ -19,7 +19,7 @@
 #include "mdr32f8_arinc_rx.h"
 #include "MDR1986VE8T.h"
 
-#define ASSERT_INFO_FILE_ID FILEID__MDR32F9X_ARINC429R_C
+#define ASSERT_INFO_FILE_ID FILEID__MDR32F8_ARINC429R_C
 
 /** @addtogroup __MDR32F9Qx_StdPeriph_Driver MDR32F9Qx Standard Peripherial Driver
   * @{
@@ -56,9 +56,6 @@ void ARINC429R_BRG_Init(uint32_t ARINC429R_BRG)
 	uint32_t tmpreg_CONTROL1;
 	uint32_t tmpreg_CONTROL2;
 	ARINC429RControl * ARINC429Rx;
-
-	/* Check the parameters */
-	assert_param(IS_ARINC429R_BRG(ARINC429R_BRG));
 
 	ARINC429Rx = ARINC429R1;
 
@@ -136,15 +133,6 @@ void ARINC429R_ChannelInit(uint32_t ARINC429R_CHANNELx, ARINC429R_InitChannelTyp
 	uint32_t tmpreg_CONTROL5;
   uint32_t tmpreg_CONTROL9;
 
-	/* Check the parameters */
-	assert_param(IS_ARINC429R_CHANNEL(ARINC429R_CHANNELx));
-	assert_param(IS_ARINC429R_CLK(ARINC429R_InitChannelStruct->ARINC429R_CLK));
-	assert_param(IS_FUNCTIONAL_STATE(ARINC429R_InitChannelStruct->ARINC429R_LB));
-	assert_param(IS_FUNCTIONAL_STATE(ARINC429R_InitChannelStruct->ARINC429R_SD));
-	assert_param(IS_BIT_STATUS(ARINC429R_InitChannelStruct->ARINC429R_SDI1));
-	assert_param(IS_BIT_STATUS(ARINC429R_InitChannelStruct->ARINC429R_SDI2));
-	assert_param(IS_ARINC429R_DIV(ARINC429R_InitChannelStruct->ARINC429R_DIV));
-  assert_param(IS_FUNCTIONAL_STATE(ARINC429R_InitChannelStruct->ENSYNC));
 	
   ARINC429Rx = ARINC429R1;
 
@@ -263,8 +251,6 @@ void ARINC429R_ChannelCmd(uint32_t ARINC429R_CHANNELx, FunctionalState NewState)
 {
 	ARINC429RControl * ARINC429Rx;
 
-	/* Check the parameters */
-	assert_param(IS_ARINC429R_CHANNEL(ARINC429R_CHANNELx));
 	assert_param(IS_FUNCTIONAL_STATE(NewState));
 
 	ARINC429Rx = ARINC429R1;
@@ -386,7 +372,6 @@ FlagStatus ARINC429R_GetFlagStatus(uint32_t ARINC429R_CHANNELx, uint32_t ARINC42
 	ARINC429RControl * ARINC429Rx;
 	FlagStatus bitstatus;
 	/* Check the parameters */
-	assert_param(IS_ARINC429R_CHANNEL(ARINC429R_CHANNELx));
 	assert_param(IS_ARINC429R_FLAG(ARINC429R_FLAG));
 
 	ARINC429Rx = ARINC429R1;
@@ -433,8 +418,6 @@ FlagStatus ARINC429R_GetFlagStatus(uint32_t ARINC429R_CHANNELx, uint32_t ARINC42
 void ARINC429R_SetChannel(uint32_t ARINC429R_CHANNELx)
 {
 	ARINC429RControl * ARINC429Rx;
-	/* Check the parameters */
-	assert_param(IS_ARINC429R_CHANNEL(ARINC429R_CHANNELx));
 
 	ARINC429Rx = ARINC429R1;
 

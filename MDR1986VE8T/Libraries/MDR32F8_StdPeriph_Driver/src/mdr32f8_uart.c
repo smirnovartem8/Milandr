@@ -21,7 +21,7 @@
 #include "mdr32f8_clkctrl.h"
 #include "MDR1986VE8T.h"
 
-#define ASSERT_INFO_FILE_ID FILEID__MDR32F8_UART
+#define ASSERT_INFO_FILE_ID FILEID__MDR32F8_UART_C
 
 /** @addtogroup __MDR32F8_StdPeriph_Driver
   * @{
@@ -201,7 +201,6 @@ void UART_SendData(MDR_UART_TypeDef* UARTx, uint16_t Data)
 {
   /* Check the parameters */
   assert_param(IS_UART_ALL_PERIPH(UARTx));
-  assert_param(IS_UART_DATA(Data));
 
   /* Transmit Data */
   UARTx->DR = (Data & (uint16_t)0x0FF);

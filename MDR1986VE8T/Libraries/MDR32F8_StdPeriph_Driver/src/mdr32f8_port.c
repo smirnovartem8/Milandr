@@ -24,7 +24,7 @@
 #include "mdr32f8_port.h"
 #include "MDR1986VE8T.h"
 
-#define ASSERT_INFO_FILE_ID FILEID__MDR32F8_PORT
+#define ASSERT_INFO_FILE_ID FILEID__MDR32F8_PORT_C
 
 /** @addtogroup __MDR32F8_StdPeriph_Driver MDR32F8 Standard Peripherial Driver
   * @{
@@ -122,7 +122,7 @@ void PORT_Init(PortControl* PORTx, const PORT_InitTypeDef* PORT_InitStruct)
   assert_param(IS_PORT_SIT(PORT_InitStruct->PORT_SIT));	
   assert_param(IS_PORT_SIR(PORT_InitStruct->PORT_SIR));	
 	
-	assert_param(IS_PORT_COE(PORT_InitStruct->PORT_COE));	
+   assert_param(IS_PORT_COE(PORT_InitStruct->PORT_COE));	
   assert_param(IS_PORT_CFUNC(PORT_InitStruct->PORT_CFUNC));	
   assert_param(IS_PORT_CANALOG(PORT_InitStruct->PORT_CANALOG));	
   assert_param(IS_PORT_CPULLUP(PORT_InitStruct->PORT_CPULLUP));	
@@ -430,7 +430,6 @@ void PORT_Write(PortControl* PORTx, uint32_t PortVal)
 {
   /* Check the parameters */
   assert_param(IS_PORT_ALL_PERIPH(PORTx));
-  assert_param(IS_NOT_JTAG_PIN(PORTx, PortVal));
 
   PORTx->RXTX = PortVal;
 }

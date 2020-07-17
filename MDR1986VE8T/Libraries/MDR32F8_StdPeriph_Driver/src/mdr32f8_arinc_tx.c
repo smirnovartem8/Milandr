@@ -25,7 +25,7 @@
 #include "mdr32f8_arinc_tx.h"
 #include "MDR1986VE8T.h"
 
-#define ASSERT_INFO_FILE_ID FILEID__MDR32F9X_ARINC429T_C
+#define ASSERT_INFO_FILE_ID FILEID__MDR32F8_ARINC429T_C
 
 /** @addtogroup __MDR32F9Qx_StdPeriph_Driver MDR32F9Qx Standard Peripherial Driver
   * @{
@@ -63,8 +63,6 @@ void ARINC429T_BRG_Init(uint32_t ARINC429T_BRG)
 	ARINC429TControl * ARINC429Tx;
 	uint32_t tmpreg_CONTROL1;
 
-	/* Check the parameters */
-	assert_param(IS_ARINC429T_HCLKdiv(ARINC429T_BRG));
 
 	ARINC429Tx = ARINC429T1;
 
@@ -114,13 +112,6 @@ void ARINC429T_ChannelInit(uint32_t ARINC429T_CHANNELx, ARINC429T_InitChannelTyp
 	uint32_t tmpreg_CONTROL3;
     uint32_t tmpreg_CONTROL4;
 
-	/* Check the parameters */
-	assert_param(IS_ARINC429T_CHANNEL(ARINC429T_CHANNELx));
-	assert_param(IS_ARINC429T_CLK(ARINC429T_InitChanelStruct->ARINC429T_CLK));
-	assert_param(IS_ARINC429T_DIV_CH(ARINC429T_InitChanelStruct->ARINC429T_DIV));
-	assert_param(IS_FUNCTIONAL_STATE(ARINC429T_InitChanelStruct->ARINC429T_EN_PAR));
-	assert_param(IS_ARINC429T_ODD(ARINC429T_InitChanelStruct->ARINC429T_ODD));
-    assert_param(IS_FUNCTIONAL_STATE(ARINC429T_InitChanelStruct->ARINC429T_EN_SYNC));
 	
     ARINC429Tx = ARINC429T1;
 
@@ -177,10 +168,6 @@ void ARINC429T_ChannelCmd(uint32_t ARINC429T_CHANNELx, FunctionalState NewState)
 {
 	ARINC429TControl * ARINC429Tx;
 
-	/* Check the parameters */
-	assert_param(IS_ARINC429T_CHANNEL(ARINC429T_CHANNELx));
-	assert_param(IS_FUNCTIONAL_STATE(NewState));
-
 	ARINC429Tx = ARINC429T1;
 
 	if(NewState != DISABLE){
@@ -220,10 +207,6 @@ void ARINC429T_ITConfig(uint32_t ARINC429T_CHANNELx, uint32_t ARINC429T_IT, Func
 {
 	ARINC429TControl * ARINC429Tx;
 
-	/* Check the parameters */
-	assert_param(IS_ARINC429T_CHANNEL(ARINC429T_CHANNELx));
-	assert_param(IS_ARINC429T_IT(ARINC429T_IT));
-	assert_param(IS_FUNCTIONAL_STATE(NewState));
 
 	ARINC429Tx = ARINC429T1;
 
@@ -260,9 +243,6 @@ FlagStatus ARINC429T_GetFlagStatus(uint32_t ARINC429T_CHANNELx, uint32_t ARINC42
 	ARINC429TControl * ARINC429Tx;
 	FlagStatus bitstatus;
 
-	/* Check the parameters */
-	assert_param(IS_ARINC429T_CHANNEL(ARINC429T_CHANNELx));
-	assert_param(IS_ARINC429T_FLAG(ARINC429T_FLAG));
 
 	ARINC429Tx = ARINC429T1;
 
@@ -294,9 +274,6 @@ FlagStatus ARINC429T_GetFlagStatus(uint32_t ARINC429T_CHANNELx, uint32_t ARINC42
 void ARINC429T_SendData(uint32_t ARINC429T_CHANNELx, uint32_t Data )
 {
 	ARINC429TControl * ARINC429Tx;
-
-	/* Check the parameters */
-	assert_param(IS_ARINC429T_CHANNEL(ARINC429T_CHANNELx));
 
 	ARINC429Tx = ARINC429T1;
 
