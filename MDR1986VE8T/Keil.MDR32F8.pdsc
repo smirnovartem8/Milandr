@@ -6,8 +6,8 @@
   <description>Milandr MDR1986VE8T Series Device Support, Drivers and Examples</description>
 
   <releases>
-    <release version="0.3">
-      07/06/2019, Initial version
+    <release version="0.4">
+      1/08/2020, Initial version
     </release>
   </releases>
 <!-- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ -->   
@@ -243,7 +243,7 @@
 <!-- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ -->
   <!-- component section (optional for all Software Packs)-->
   <components>
-  <bundle Cbundle="EVAL-BOARD1986VE8TSupport" Cclass="Board Support" Cversion="0.3">
+  <bundle Cbundle="EVAL-BOARD1986VE8TSupport" Cclass="Board Support" Cversion="0.4">
   <description>MyDevBoard custom board support package</description>
   <doc>Docs/BSP/MyBSP.htm</doc>
   <component Cgroup="Board Setup" condition="RHMCU Series">
@@ -256,7 +256,7 @@
   </component>
 </bundle>	
 <!-- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ -->
-    <component Cclass="Device" Cgroup="Startup" Cversion="0.3" condition="CON_MDR1986VE8">
+    <component Cclass="Device" Cgroup="Startup" Cversion="0.4" condition="CON_MDR1986VE8">
       <description>System Startup for MDR32F8 device series</description>
       <files>
       <file category="source" name="Libraries\CMSIS\CM4\DeviceSupport\MDR32F8\startup\arm\startup_1986ve8t.s" attr="config"/>
@@ -265,7 +265,7 @@
       </files>
     </component>
 
-    <component Cclass="Drivers" Cgroup="PORT" Cversion="0.3" condition="CON_MDR1986VE8">
+    <component Cclass="Drivers" Cgroup="PORT" Cversion="0.4" condition="CON_MDR1986VE8">
       <description>PORT driver for MDR32F8 Series</description>
       <files>
         <file category="header" name="Libraries\MDR32F8_StdPeriph_Driver\inc\mdr32f8_port.h"/>
@@ -273,7 +273,7 @@
       </files>
     </component>
 
-    <component Cclass="Drivers" Cgroup="CLKCTRL" Cversion="0.3" condition="CON_MDR1986VE8">
+    <component Cclass="Drivers" Cgroup="CLKCTRL" Cversion="0.4" condition="CON_MDR1986VE8">
       <description>CLKCTRL driver for MDR32F8 Series</description>
       <files>
         <file category="header" name="Libraries\MDR32F8_StdPeriph_Driver\inc\mdr32f8_clkctrl.h"/>
@@ -281,7 +281,7 @@
       </files>
     </component>
 
-    <component Cclass="Drivers" Cgroup="UART" Cversion="0.3" condition="CON_MDR1986VE8">
+    <component Cclass="Drivers" Cgroup="UART" Cversion="0.4" condition="CON_MDR1986VE8">
       <description>UART driver for MDR32F8 Series</description>
       <files>
         <file category="header" name="Libraries\MDR32F8_StdPeriph_Driver\inc\mdr32f8_uart.h"/>
@@ -289,7 +289,7 @@
       </files>
     </component>
 
-    <component Cclass="Drivers" Cgroup="SSP" Cversion="0.3" condition="CON_MDR1986VE8">
+    <component Cclass="Drivers" Cgroup="SSP" Cversion="0.4" condition="CON_MDR1986VE8">
       <description>SSP driver for MDR32F8 Series</description>
       <files>
         <file category="header" name="Libraries\MDR32F8_StdPeriph_Driver\inc\mdr32f8_ssp.h"/>
@@ -297,7 +297,7 @@
       </files>
     </component>
 
-    <component Cclass="Drivers" Cgroup="ARINC429_tx" Cversion="0.3" condition="CON_MDR1986VE8">
+    <component Cclass="Drivers" Cgroup="ARINC429_tx" Cversion="0.4" condition="CON_MDR1986VE8">
       <description>ARINC429_tx driver for MDR32F8 Series</description>
       <files>
         <file category="header" name="Libraries\MDR32F8_StdPeriph_Driver\inc\mdr32f8_arinc_tx.h"/>
@@ -305,7 +305,7 @@
       </files>
     </component>
 
-    <component Cclass="Drivers" Cgroup="ARINC429_rx" Cversion="0.3" condition="CON_MDR1986VE8">
+    <component Cclass="Drivers" Cgroup="ARINC429_rx" Cversion="0.4" condition="CON_MDR1986VE8">
       <description>ARINC429_rx driver for MDR32F8 Series</description>
       <files>
         <file category="header" name="Libraries\MDR32F8_StdPeriph_Driver\inc\mdr32f8_arinc_rx.h"/>
@@ -313,7 +313,7 @@
       </files>
     </component>
 
-    <component Cclass="Drivers" Cgroup="CAN" Cversion="0.3" condition="CON_MDR1986VE8">
+    <component Cclass="Drivers" Cgroup="CAN" Cversion="0.4" condition="CON_MDR1986VE8">
       <description>CAN driver for MDR32F8 Series</description>
       <files>
         <file category="header" name="Libraries\MDR32F8_StdPeriph_Driver\inc\mdr32f8_can.h"/>
@@ -321,7 +321,7 @@
       </files>
     </component>
 
-    <component Cclass="Drivers" Cgroup="TIM" Cversion="0.3" condition="CON_MDR1986VE8">
+    <component Cclass="Drivers" Cgroup="TIM" Cversion="0.4" condition="CON_MDR1986VE8">
       <description>TIM driver for MDR32F8 Series</description>
       <files>
         <file category="header" name="Libraries\MDR32F8_StdPeriph_Driver\inc\mdr32f8_tim.h"/>
@@ -329,7 +329,7 @@
       </files>
     </component>
 
-    <component Cclass="Drivers" Cgroup="DMA" Cversion="0.3" condition="CON_MDR1986VE8">
+    <component Cclass="Drivers" Cgroup="DMA" Cversion="0.4" condition="CON_MDR1986VE8">
       <description>DMA driver for MDR32F8 Series</description>
       <files>
         <file category="header" name="Libraries\MDR32F8_StdPeriph_Driver\inc\mdr32f8_dma.h"/>
@@ -337,7 +337,7 @@
       </files>
     </component>
 
-    <component Cclass="Drivers" Cgroup="DAC" Cversion="0.3" condition="CON_MDR1986VE8">
+    <component Cclass="Drivers" Cgroup="DAC" Cversion="0.4" condition="CON_MDR1986VE8">
       <description>DAC driver for MDR32F8 Series</description>
       <files>
         <file category="header" name="Libraries\MDR32F8_StdPeriph_Driver\inc\mdr32f8_dac.h"/>
@@ -345,7 +345,7 @@
       </files>
     </component>
 
-    <component Cclass="Drivers" Cgroup="MIL_STD_1553" Cversion="0.3" condition="CON_MDR1986VE8">
+    <component Cclass="Drivers" Cgroup="MIL_STD_1553" Cversion="0.4" condition="CON_MDR1986VE8">
       <description>MIL_STD_1553 driver for MDR32F8 Series</description>
       <files>
         <file category="header" name="Libraries\MDR32F8_StdPeriph_Driver\inc\mdr32f8_milstd.h"/>
@@ -353,7 +353,7 @@
       </files>
     </component>   
 
-    <component Cclass="Drivers" Cgroup="ETH" Cversion="0.3" condition="CON_MDR1986VE8">
+    <component Cclass="Drivers" Cgroup="ETH" Cversion="0.4" condition="CON_MDR1986VE8">
       <description>ETHERNET driver for MDR32F8 Series</description>
       <files>
         <file category="header" name="Libraries\MDR32F8_StdPeriph_Driver\inc\mdr32f8_eth.h"/>
@@ -361,7 +361,7 @@
       </files>
     </component>   
 
-    <component Cclass="Drivers" Cgroup="ADC" Cversion="0.3" condition="CON_MDR1986VE8">
+    <component Cclass="Drivers" Cgroup="ADC" Cversion="0.4" condition="CON_MDR1986VE8">
       <description>ADC driver for MDR32F8 Series</description>
       <files>
         <file category="header" name="Libraries\MDR32F8_StdPeriph_Driver\inc\mdr32f8_adc.h"/>
@@ -369,7 +369,7 @@
       </files>
     </component>        
 
-    <component Cclass="Drivers" Cgroup="EBC" Cversion="0.3" condition="CON_MDR1986VE8">
+    <component Cclass="Drivers" Cgroup="EBC" Cversion="0.4" condition="CON_MDR1986VE8">
       <description>EBC driver for MDR32F8 Series</description>
       <files>
         <file category="header" name="Libraries\MDR32F8_StdPeriph_Driver\inc\mdr32f8_ebc.h"/>
@@ -377,14 +377,14 @@
       </files>
     </component>         
 
-    <component Cclass="Drivers" Cgroup="CONFIG" Cversion="0.3" condition="CON_MDR1986VE8">
+    <component Cclass="Drivers" Cgroup="CONFIG" Cversion="0.4" condition="CON_MDR1986VE8">
       <description>CONFIG for MDR32F8 Series</description>
       <files>
         <file category="header" name="Libraries\MDR32F8_StdPeriph_Driver\inc\mdr32f8_config.h"/>
       </files>
     </component>
 
-    <component Cclass="Drivers" Cgroup="LIB" Cversion="0.3" condition="CON_MDR1986VE8">
+    <component Cclass="Drivers" Cgroup="LIB" Cversion="0.4" condition="CON_MDR1986VE8">
       <description>LIB for MDR32F8 Series</description>
       <files>
         <file category="header" name="Libraries\MDR32F8_StdPeriph_Driver\inc\mdr32f8_lib.h"/>
