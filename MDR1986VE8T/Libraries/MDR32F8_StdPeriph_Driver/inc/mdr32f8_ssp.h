@@ -73,18 +73,7 @@ typedef struct
   * @{
   */
 
-#ifdef USE_MDR1986VE9x /* For Cortex M3 */
-#define IS_SSP_ALL_PERIPH(PERIPH)          (((PERIPH) == MDR_SSP1) || \
-                                            ((PERIPH) == MDR_SSP2))
-#endif // #ifdef USE_MDR1986VE9x /* For Cortex M3 */
-
-
-#ifdef USE_MDR1986VE3 /* For Cortex M1 */
-#define IS_SSP_ALL_PERIPH(PERIPH)          (((PERIPH) == MDR_SSP1) || \
-                                            ((PERIPH) == MDR_SSP2) || \
-                                            ((PERIPH) == MDR_SSP3) || \
-                                            ((PERIPH) == MDR_SSP4))
-#endif // #ifdef USE_MDR1986VE3 /* For Cortex M1 */
+#define IS_SSP_ALL_PERIPH(PERIPH)          ((PERIPH) == MDR_SSP0)
 
 
 
@@ -224,7 +213,7 @@ typedef struct
 #define SSP_IT_MASK							(SSP_IT_TX | SSP_IT_RX |\
 											 SSP_IT_RT | SSP_IT_ROR)
 
-#define IS_SSP_CONFIG_IT(IT)				((IT) & (~SSP_IT_MASK) == 0)
+#define IS_SSP_CONFIG_IT(IT)				(((IT) & (~SSP_IT_MASK)) == 0)
 
 /*
 #define IS_SSP_CONFIG_IT(IT)                (((IT) == SSP_IT_TX) || \

@@ -47,7 +47,7 @@
                                     ((PERIPH) == PORTC) || \
                                     ((PERIPH) == PORTD) || \
                                     ((PERIPH) == PORTE) || \
-																		((PERIPH) == PORTF))
+									((PERIPH) == PORTF))
 	
 /**
   * @brief  Configuration OE enumeration
@@ -112,22 +112,23 @@ typedef enum
 	PORT_CFUNC_15          = 0xF	
 }PORT_CFUNC_TypeDef;
 
-#define IS_PORT_SFUNC(SFUNC) 	(((SFUNC) == PORT_SFUNC_USER)  || ((SFUNC) == PORT_SFUNC_1) || \
-															((SFUNC) == PORT_SFUNC_2) 	|| ((SFUNC) == PORT_SFUNC_3)) 	|| \
-															((SFUNC) == PORT_SFUNC_4) 	|| ((SFUNC) == PORT_SFUNC_5)) 	|| \
-															((SFUNC) == PORT_SFUNC_6) 	|| ((SFUNC) == PORT_SFUNC_7)) 	|| \
-															((SFUNC) == PORT_SFUNC_8) 	|| ((SFUNC) == PORT_SFUNC_9)) 	|| \
-															((SFUNC) == PORT_SFUNC_10) 	|| ((SFUNC) == PORT_SFUNC_11)) 	|| \
-															((SFUNC) == PORT_SFUNC_12) 	|| ((SFUNC) == PORT_SFUNC_13)) 	|| \
-															((SFUNC) == PORT_SFUNC_14) 	|| ((SFUNC) == PORT_SFUNC_15)))
-#define IS_PORT_CFUNC(CFUNC) 	(((CFUNC) == PORT_CFUNC_USER)  || ((CFUNC) == PORT_CFUNC_1) || \
-															((CFUNC) == PORT_CFUNC_2) 	|| ((CFUNC) == PORT_CFUNC_3)) 	|| \
-															((CFUNC) == PORT_CFUNC_4) 	|| ((CFUNC) == PORT_CFUNC_5)) 	|| \
-															((CFUNC) == PORT_CFUNC_6) 	|| ((CFUNC) == PORT_CFUNC_7)) 	|| \
-															((CFUNC) == PORT_CFUNC_8) 	|| ((CFUNC) == PORT_CFUNC_9)) 	|| \
-															((CFUNC) == PORT_CFUNC_10) 	|| ((CFUNC) == PORT_CFUNC_11)) 	|| \
-															((CFUNC) == PORT_CFUNC_12) 	|| ((CFUNC) == PORT_CFUNC_13)) 	|| \
-															((CFUNC) == PORT_CFUNC_14) 	|| ((CFUNC) == PORT_CFUNC_15)))
+#define IS_PORT_SFUNC(SFUNC) 	                            (((SFUNC) == PORT_SFUNC_USER)  || ((SFUNC) == PORT_SFUNC_1) || \
+															((SFUNC) == PORT_SFUNC_2) 	|| ((SFUNC) == PORT_SFUNC_3) 	|| \
+															((SFUNC) == PORT_SFUNC_4) 	|| ((SFUNC) == PORT_SFUNC_5) 	|| \
+															((SFUNC) == PORT_SFUNC_6) 	|| ((SFUNC) == PORT_SFUNC_7) 	|| \
+															((SFUNC) == PORT_SFUNC_8) 	|| ((SFUNC) == PORT_SFUNC_9) 	|| \
+															((SFUNC) == PORT_SFUNC_10) 	|| ((SFUNC) == PORT_SFUNC_11) 	|| \
+															((SFUNC) == PORT_SFUNC_12) 	|| ((SFUNC) == PORT_SFUNC_13) 	|| \
+															((SFUNC) == PORT_SFUNC_14) 	|| ((SFUNC) == PORT_SFUNC_15))
+
+#define IS_PORT_CFUNC(CFUNC) 	                            (((CFUNC) == PORT_CFUNC_USER)  || ((CFUNC) == PORT_CFUNC_1) || \
+															((CFUNC) == PORT_CFUNC_2) 	|| ((CFUNC) == PORT_CFUNC_3) 	|| \
+															((CFUNC) == PORT_CFUNC_4) 	|| ((CFUNC) == PORT_CFUNC_5) 	|| \
+															((CFUNC) == PORT_CFUNC_6) 	|| ((CFUNC) == PORT_CFUNC_7) 	|| \
+															((CFUNC) == PORT_CFUNC_8) 	|| ((CFUNC) == PORT_CFUNC_9) 	|| \
+															((CFUNC) == PORT_CFUNC_10) 	|| ((CFUNC) == PORT_CFUNC_11) 	|| \
+															((CFUNC) == PORT_CFUNC_12) 	|| ((CFUNC) == PORT_CFUNC_13) 	|| \
+															((CFUNC) == PORT_CFUNC_14) 	|| ((CFUNC) == PORT_CFUNC_15))
 
 /**
   * @brief  Configuration Mode enumeration
@@ -284,7 +285,7 @@ typedef enum
   PORT_CIT_HIGH        	= 0x1
 }PORT_CIT_TypeDef;
 
-#define IS_PORT_SIT(SIT) (((SIT) == PORT_SIT_LOW) || ((SIE) == PORT_SIT_HIGH))
+#define IS_PORT_SIT(SIT) (((SIT) == PORT_SIT_LOW) || ((SIT) == PORT_SIT_HIGH))
 #define IS_PORT_CIT(CIT) (((CIT) == PORT_CIT_LOW) || ((CIT) == PORT_CIT_HIGH))
 
 /**

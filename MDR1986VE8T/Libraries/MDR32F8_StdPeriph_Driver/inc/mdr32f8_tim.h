@@ -190,16 +190,10 @@ typedef struct
   * @{
   */
 
-#if defined (USE_MDR1986VE9x)
-#define IS_TIMER_ALL_PERIPH(PERIPH) (((PERIPH) == MDR_TIMER1) || \
-                                     ((PERIPH) == MDR_TIMER2) || \
-                                     ((PERIPH) == MDR_TIMER3)))
-#elif ((defined (USE_MDR1986VE3)) || (defined (USE_MDR1986VE1T)))
-#define IS_TIMER_ALL_PERIPH(PERIPH) (((PERIPH) == MDR_TIMER1) || \
-                                     ((PERIPH) == MDR_TIMER2) || \
-                                     ((PERIPH) == MDR_TIMER3) || \
-                                     ((PERIPH) == MDR_TIMER4))
-#endif
+#define IS_TIMER_ALL_PERIPH(PERIPH) ((((PERIPH) == MDR_TMR0) || \
+                                     ((PERIPH) == MDR_TMR1) || \
+                                     ((PERIPH) == MDR_TMR2) || \
+                                     ((PERIPH) == MDR_TMR3)))
 
 /** @defgroup TIMER_Counter_Mode TIMER Counter Mode
   * @{
@@ -372,10 +366,10 @@ typedef struct
 #define TIMER_CHANNEL2                        ((uint32_t)0x2)  /*!< Specifies the TIMER channel 3. */
 #define TIMER_CHANNEL3                        ((uint32_t)0x3)  /*!< Specifies the TIMER channel 4. */
 
-#define IS_TIMER_CHANNEL_NUMBER(NUMBER) (((NUMBER) == TIMER_CHANNEL1) || \
+#define IS_TIMER_CHANNEL_NUMBER(NUMBER) (((NUMBER) == TIMER_CHANNEL0) || \
+                                         ((NUMBER) == TIMER_CHANNEL1) || \
                                          ((NUMBER) == TIMER_CHANNEL2) || \
-                                         ((NUMBER) == TIMER_CHANNEL3) || \
-                                         ((NUMBER) == TIMER_CHANNEL4))
+                                         ((NUMBER) == TIMER_CHANNEL3))
 
 /** @} */ /* End of group TIMER_CH_Number */
 

@@ -480,7 +480,6 @@ typedef union {
 #define ETH_PHY_HCLKdiv64                      ((uint32_t)0x0000003F)
 #define ETH_PHY_HCLKdiv128                     ((uint32_t)0x0000007F)
 
-#define IS_ETH_PHY_HCLKdiv(BRG)                (((~BRG) & 0x00070000) == 0)
 
 /** @} */ /* End of group PHY_Clock_HCLKdiv */
 
@@ -558,7 +557,7 @@ typedef union {
 #define PHY_IT_MASKs					30
 #define PHY_ECTR						31
 
-#define IS_ETH_PHYReg(PHYreg)					(((PHYreg >= 0 ) &&  (PHYreg <= 6)) ||\
+#define IS_ETH_PHYReg(PHYreg)					(( (PHYreg <= 6)) ||\
 												 (PHYreg == 18) || (PHYreg == 29)   ||\
 												 (PHYreg == 30) || (PHYreg == 31))
 

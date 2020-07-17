@@ -163,8 +163,8 @@ typedef enum {
   * @{
   */
 
-#define IS_MIL_STD_1553_ALL_PERIPH(PERIPH)		(((PERIPH) == MDR_MIL_STD_15531) ||\
-												 ((PERIPH) == MDR_MIL_STD_15532))
+#define IS_MIL_STD_1553_ALL_PERIPH(PERIPH)		(((PERIPH) == MIL_STD_15531) ||\
+												 ((PERIPH) == MIL_STD_15532))
 
 #define IS_MIL_STD_1553_DEVIDER(DIVIDER)		((DIVIDER) <= 0x7F)
 
