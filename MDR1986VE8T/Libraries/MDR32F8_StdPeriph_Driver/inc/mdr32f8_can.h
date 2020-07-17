@@ -183,8 +183,6 @@ typedef struct
   * @{
   */
 
-#define IS_CAN_ALL_PERIPH(PERIPH)          (((PERIPH) == MDR_CAN1) || \
-                                            ((PERIPH) == MDR_CAN2))
 
 /** @defgroup CAN_Propagation_time CAN Propagation time
   * @{
