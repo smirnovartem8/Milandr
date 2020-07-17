@@ -30,31 +30,39 @@
   * @{
   */
 
-/** @addtogroup SPI_Example
+/** @addtogroup ETH_Example_loopBack_mode
   * @{
   */
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
-#define SIZE 65
-#define COUNT 48
 
-#define ETH_BUF 0x21008000
+
+#define MAX_ETH_TX_DATA_SIZE 1514 / 4
+#define MAX_ETH_RX_DATA_SIZE 1514 / 4
+
+#define FRAME_MAC_SIZE  12
+#define FRAME_LEN_SIZE   2
+#define FRAME_HEAD_SIZE   (FRAME_MAC_SIZE + FRAME_LEN_SIZE)
+
+#define FRAME_SIZE 64
+
 
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 PORT_InitTypeDef PORT_InitStructure;
 ETH_InitTypeDef  ETH_InitStruct;
+ETH_StatusPacketReceptionTypeDef StatusRX;
 
 uint32_t tmp;
 
-uint32_t DstBuf[23];
-uint32_t SrcBuf[23] = {0x00000040, 0xFFFFFFFF, 0xFFFFFFFF, 0x04040405, 0x01010105, 0x01010106, 0x01010107, 0x01010108, 0x01010105, 0x01010106, 
-0x01010107, 0x01010108, 0x01010105, 0x01010106, 0x01010107, 0x01010108, 0x01010105, 0x01010106, 0x01010107, 0x01010108, 
-0x01010105, 0x01010106, 0x0101017};
-	
-uint32_t *DstBuf_p = DstBuf;
-uint32_t *SrcBuf_p = SrcBuf;
+uint8_t MAC[] = {0xAB,0x78,0x56, 0x34, 0x12, 0x00};
+
+uint8_t FrameTX [MAX_ETH_TX_DATA_SIZE];
+uint32_t FrameRX [MAX_ETH_RX_DATA_SIZE];
+
+
+uint8_t* ptrDataTX;
 			
 /* Private function prototypes -----------------------------------------------*/
 void POR_disable(void);
@@ -63,7 +71,8 @@ void BlinkLine(uint32_t Pin);
 void Ini_BUF(uint32_t addr,uint32_t size,uint32_t delta);
 void TestETH(void);
 /* Private functions ---------------------------------------------------------*/
-
+uint8_t* Init_FrameTX(uint8_t *destMAC, uint8_t *srcMAC, uint16_t frameLen, uint16_t *payloadLen);
+void FillFrameTXData(uint32_t frameIndex, uint32_t frameLength);
 /**
   * @brief  Main program.
   * @param  None
@@ -72,8 +81,17 @@ void TestETH(void);
 		
 int main(void)
 {	
-	POR_disable();
-	
+	uint32_t ind=0;
+    
+    /* ONLY REV2 MCU, errata 0015. Disable Power-on-Reset control. Hold the SW4 button down until operation complete */
+    //POR_disable();
+    
+    // Key to access clock control 
+	UNLOCK_UNIT (CLK_CNTR_key);
+	// Key to access fault control
+    UNLOCK_UNIT (FT_CNTR_key); 
+     
+	/* Set CLKCTRL to default */
 	CLKCTRL_DeInit();
 	/* Enable HSE0 clock */
 	CLKCTRL_HSEconfig(CLKCTRL_HSE0_CLK_ON);
@@ -89,8 +107,8 @@ int main(void)
 	CLKCTRL_CPUclkPrescaler (CLKCTRL_CPU_CLK_CPUclkDIV2);
 		
 	CLKCTRL_PER0_CLKcmd(CLKCTRL_PER0_CLK_MDR_PORTC_EN, ENABLE);
-
-	KEY_reg_accs();
+            
+    UNLOCK_UNIT (PORTC_key);
 
 	ETH_ClockDeInit();
 	ETH_PHY_ClockConfig(ETH_PHY_CLOCK_SOURCE_PLL0, ETH_PHY_HCLKdiv1);
@@ -110,14 +128,16 @@ int main(void)
 	ETH_InitStruct.ETH_PHY_A_TRIM = 0x4;
 	ETH_InitStruct.ETH_PHY_A_TRIMR = 0x80;
 		
-	ETH_InitStruct.ETH_Extension_Mode  = ENABLE;
-	ETH_InitStruct.ETH_ColWnd 				 = 0x5;
+	ETH_InitStruct.ETH_Extension_Mode  = DISABLE;
+	ETH_InitStruct.ETH_ColWnd 			= 0x5;
 	ETH_InitStruct.ETH_HalfDuplex_Mode = DISABLE;
-	ETH_InitStruct.ETH_Buffer_Mode 		 = ETH_BUFFER_MODE_FIFO;
+	ETH_InitStruct.ETH_Buffer_Mode 		 = ETH_BUFFER_MODE_AUTOMATIC_CHANGE_POINTERS;
 	ETH_InitStruct.ETH_Register_CLR 	 = DISABLE;
-	ETH_InitStruct.ETH_Loopback_Mode   = DISABLE;
+	ETH_InitStruct.ETH_Loopback_Mode   = ENABLE;
 	ETH_InitStruct.ETH_DBG_XF          = ENABLE;
 	ETH_InitStruct.ETH_DBG_RF          = ENABLE;
+    
+    ETH_InitStruct.ETH_Dilimiter = 0x1000;
 	
 	ETH_InitStruct.ETH_Receive_All_Packets = ENABLE;
 	ETH_InitStruct.ETH_Error_CRC_Frames_Reception = ENABLE;
@@ -138,34 +158,76 @@ int main(void)
 	ETH_PHYCmd(MDR_ETH0, ENABLE);
 
 	ETH_Start(MDR_ETH0);
-
-	TestETH();
-	
-	/*Main cycle*/									
-	while (1);
-
+    
+    /*Main cycle*/
+    while (1)
+    {
+    FillFrameTXData (ind, FRAME_SIZE);
+    ind++;
+    ETH_SendFrame (MDR_ETH0, (uint32_t*) FrameTX, FRAME_SIZE);
+    
+	while(MDR_ETH0->R_HEAD == MDR_ETH0->R_TAIL){}
+        
+    StatusRX.Status = ETH_ReceivedFrame (MDR_ETH0, FrameRX);
+										
+    }
 }
 
-void TestETH(void)
-{
-	int i;
-	uint32_t var;
 
-	  //fill tx buffer
-    for(i=0;i<23;i++)
-    {
-      var = ETH_BUF+4;
-      *((volatile unsigned int *)(var)) = SrcBuf[i];
-    }
-		
-		while(ETH_GetFlagStatus(MDR_ETH0, ETH_MAC_IT_RF_OK) != SET){}
-			
-		//read rx data
-    for(i=0;i<23;i++)
-    {
-      var = ETH_BUF;
-      DstBuf[i] = *((volatile unsigned int *)(var));
-    }		
+void FillFrameTXData(uint32_t frameIndex, uint32_t frameLength)
+{
+  uint16_t dataCount;
+  uint16_t i;
+  
+  // Запись управляющего слова, МАС и Length фрейма
+  ptrDataTX =Init_FrameTX(MAC, MAC, frameLength, &dataCount);
+  
+  //  Запись индекса фрейма
+  ptrDataTX[0] =  frameIndex & 0xFF;
+  ptrDataTX[1] = (frameIndex >> 8)  & 0xFF;
+  ptrDataTX[2] = (frameIndex >> 16) & 0xFF;
+  ptrDataTX[3] = (frameIndex >> 24) & 0xFF;
+  
+  //  Запись данных для отправки
+  for (i = 4; i < dataCount; ++i)
+  {
+    ptrDataTX[i] = i ;
+  }
+  // Маркер конца пакета
+  ptrDataTX[dataCount - 2] = 0xFF;
+  ptrDataTX[dataCount - 1] = frameLength;
+}
+
+uint8_t* Init_FrameTX(uint8_t *destMAC, uint8_t *srcMAC, uint16_t frameLen, uint16_t *payloadLen)
+{
+	uint8_t * ptr_TXFrame = (uint8_t *) &FrameTX[4];
+  *payloadLen = frameLen - FRAME_HEAD_SIZE;
+  
+	//	Count To Send
+	*(uint32_t *)&FrameTX[0] = frameLen;
+	
+	/* Set destanation MAC address */
+	ptr_TXFrame[0] 	= destMAC[0];
+	ptr_TXFrame[1] 	= destMAC[1];
+	ptr_TXFrame[2] 	= destMAC[2];
+	ptr_TXFrame[3] 	= destMAC[3];
+	ptr_TXFrame[4] 	= destMAC[4];
+	ptr_TXFrame[5] 	= destMAC[5];		
+	
+	/* Set our MAC address */
+	ptr_TXFrame[6] 	= srcMAC[0];
+	ptr_TXFrame[7] 	= srcMAC[1];
+	ptr_TXFrame[8] 	= srcMAC[2];
+	ptr_TXFrame[9] 	= srcMAC[3];
+	ptr_TXFrame[10] = srcMAC[4];
+	ptr_TXFrame[11] = srcMAC[5];	
+
+  // Return dataCount  
+	ptr_TXFrame[12] 	= (uint8_t)((*payloadLen) >> 8);
+	ptr_TXFrame[13] 	= (uint8_t)((*payloadLen) & 0xFF);	
+
+  // Return DataPtr
+  return &ptr_TXFrame[FRAME_HEAD_SIZE];
 }
 
 //-----------------------------assert_param--------------------------------
@@ -181,7 +243,7 @@ void assert_failed(uint32_t file_id, uint32_t line)
   }
 }
 #elif (USE_ASSERT_INFO == 2)
-void assert_failed(uint32_t file_id, uint32_t line, const uint8_t* expr);
+void assert_failed(uint32_t file_id, uint32_t line, const uint8_t* expr)
 {
   /* User can add his own implementation to report the source file ID, line number and
      expression text.

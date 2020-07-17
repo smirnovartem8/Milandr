@@ -58,8 +58,14 @@ uint32_t mes_h;
 		
 int main(void)
 {	
-	POR_disable();
-	
+    /* ONLY REV2 MCU, errata 0015. Disable Power-on-Reset control. Hold the SW4 button down until operation complete */
+	//POR_disable();
+	   
+    // Key to access clock control 
+	UNLOCK_UNIT (CLK_CNTR_key);
+	// Key to access fault control
+    UNLOCK_UNIT (FT_CNTR_key);      
+	/* Set CLKCTRL to default */
 	CLKCTRL_DeInit();
 	/* Enable HSE0 clock */
 	CLKCTRL_HSEconfig(CLKCTRL_HSE0_CLK_ON);
@@ -75,59 +81,64 @@ int main(void)
 	CLKCTRL_PER0_CLKcmd(CLKCTRL_PER0_CLK_MDR_PORTE_EN, ENABLE);
 	CLKCTRL_PER0_CLKcmd(CLKCTRL_PER0_CLK_MDR_CAN0_EN, ENABLE);
 
-	KEY_reg_accs();
+	/* Allow write to PORT regs */
+    UNLOCK_UNIT (PORTB_key);
+    UNLOCK_UNIT (PORTC_key);
+    UNLOCK_UNIT (PORTD_key);
+    UNLOCK_UNIT (PORTE_key);
+    
 	
   /* Configure PORTC LED pins [16:23] for output */
 	PORT_InitStructure.PORT_Pin   = (PORT_Pin_16|PORT_Pin_17|PORT_Pin_18|PORT_Pin_19|
 																	 PORT_Pin_20|PORT_Pin_21|PORT_Pin_22|PORT_Pin_23);
 	
-  PORT_InitStructure.PORT_SOE    = PORT_SOE_OUT;
-  PORT_InitStructure.PORT_SANALOG  = PORT_SANALOG_DIGITAL;
+    PORT_InitStructure.PORT_SOE    = PORT_SOE_OUT;
+    PORT_InitStructure.PORT_SANALOG  = PORT_SANALOG_DIGITAL;
 	PORT_InitStructure.PORT_SPD = PORT_SPD_OFF;
 	PORT_InitStructure.PORT_SPWR = PORT_SPWR_10;
 
-  PORT_Init(PORTC, &PORT_InitStructure);
+    PORT_Init(PORTC, &PORT_InitStructure);
 	
 	/*PORT configuration*/
 	PORT_InitStructure.PORT_Pin   = (PORT_Pin_22 | PORT_Pin_21);
 	PORT_InitStructure.PORT_SFUNC  = PORT_SFUNC_4;
-  PORT_InitStructure.PORT_SANALOG  = PORT_SANALOG_DIGITAL;
+    PORT_InitStructure.PORT_SANALOG  = PORT_SANALOG_DIGITAL;
 	PORT_InitStructure.PORT_SPWR = PORT_SPWR_10;
-  PORT_Init(PORTD, &PORT_InitStructure);
+    PORT_Init(PORTD, &PORT_InitStructure);
 	
 	CAN_CLK_en(CAN_CLKdiv1);
 
 	/* CAN register init */
-  CAN_DeInit(MDR_CAN0);
+    CAN_DeInit(MDR_CAN0);
 
-  /* CAN cell init */
-  CAN_StructInit (&CAN_InitStructure);
+    /* CAN cell init */
+    CAN_StructInit (&CAN_InitStructure);
 
-  CAN_InitStructure.CAN_ROP  = ENABLE;
-  CAN_InitStructure.CAN_SAP  = ENABLE;
-  CAN_InitStructure.CAN_STM  = DISABLE;
-  CAN_InitStructure.CAN_ROM  = DISABLE;
-  CAN_InitStructure.CAN_PSEG = CAN_PSEG_Mul_2TQ;
-  CAN_InitStructure.CAN_SEG1 = CAN_SEG1_Mul_5TQ;
-  CAN_InitStructure.CAN_SEG2 = CAN_SEG2_Mul_5TQ;
-  CAN_InitStructure.CAN_SJW  = CAN_SJW_Mul_4TQ;
-  CAN_InitStructure.CAN_SB   = CAN_SB_3_SAMPLE;
-  CAN_InitStructure.CAN_BRP  = 0;//4
+    CAN_InitStructure.CAN_ROP  = ENABLE;
+    CAN_InitStructure.CAN_SAP  = ENABLE;
+    CAN_InitStructure.CAN_STM  = DISABLE;
+    CAN_InitStructure.CAN_ROM  = DISABLE;
+    CAN_InitStructure.CAN_PSEG = CAN_PSEG_Mul_2TQ;
+    CAN_InitStructure.CAN_SEG1 = CAN_SEG1_Mul_5TQ;
+    CAN_InitStructure.CAN_SEG2 = CAN_SEG2_Mul_5TQ;
+    CAN_InitStructure.CAN_SJW  = CAN_SJW_Mul_4TQ;
+    CAN_InitStructure.CAN_SB   = CAN_SB_3_SAMPLE;
+    CAN_InitStructure.CAN_BRP  = 0;//4
 	
 	CAN_Init(MDR_CAN0,&CAN_InitStructure);
 
   /* transmit */
-  TxMsg.IDE     = CAN_ID_EXT;
-  TxMsg.DLC     = 0x08;
-  TxMsg.PRIOR_0 = DISABLE;
-  TxMsg.ID      = 0x12345678;
-  TxMsg.Data[1] = 0x01234567;
-  TxMsg.Data[0] = 0x89ABCDEF;
+    TxMsg.IDE     = CAN_ID_EXT;
+    TxMsg.DLC     = 0x08;
+    TxMsg.PRIOR_0 = DISABLE;
+    TxMsg.ID      = 0x12345678;
+    TxMsg.Data[1] = 0x01234567;
+    TxMsg.Data[0] = 0x89ABCDEF;
 	
-  CAN_Cmd(MDR_CAN0, ENABLE);
+    CAN_Cmd(MDR_CAN0, ENABLE);
 	
-  CAN_Receive(MDR_CAN0, 0, DISABLE);
-	CAN_Transmit(MDR_CAN0, 1, &TxMsg);
+    CAN_Receive(MDR_CAN0, 0, DISABLE);
+    CAN_Transmit(MDR_CAN0, 1, &TxMsg);
 	
 	while((CAN_GetBufferStatus(MDR_CAN0, 0)&CAN_BUF_CON_RX_FULL) == RESET);
 	CAN_GetReceivedData(MDR_CAN0, 0, RecBuf);
@@ -152,7 +163,7 @@ void assert_failed(uint32_t file_id, uint32_t line)
   }
 }
 #elif (USE_ASSERT_INFO == 2)
-void assert_failed(uint32_t file_id, uint32_t line, const uint8_t* expr);
+void assert_failed(uint32_t file_id, uint32_t line, const uint8_t* expr)
 {
   /* User can add his own implementation to report the source file ID, line number and
      expression text.

@@ -28,23 +28,6 @@ extern DMA_CtrlDataInitTypeDef DMA_AltCtrlStr;
 /* Private functions ---------------------------------------------------------*/
 
 
-void INT_UART0_Handler(void)
-{
-	uint32_t temp_1;
-
-  if (UART_GetITStatusMasked(MDR_UART0, UART_IT_RX) == SET)
-  {
-		temp_1 = UART_ReceiveData(MDR_UART0);	
-		
-		UART_ClearITPendingBit(MDR_UART0, UART_IT_RX);
-
-				while (UART_GetFlagStatus (MDR_UART0, UART_FLAG_TXFE)!= SET)
-				{
-				}
-				UART_SendData (MDR_UART0,temp_1);
-  }
-}
-
 void DMA_DONE0_Handler(void)
 {
   if((MDR_DMA->CHNL_PRI_ALT_SET &(1<<DMA_Channel_TIM1)) == (0<<DMA_Channel_TIM1))

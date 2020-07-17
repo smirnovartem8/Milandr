@@ -67,9 +67,14 @@ void TestADC(void);
 int main(void)
 {
 	
-	/* Disable Power-on-Reset control. Hold the RESET button down until operation complete */
-	POR_disable();
-	
+	/* ONLY REV2 MCU, errata 0015. Disable Power-on-Reset control. Hold the SW4 button down until operation complete */
+	//POR_disable();
+    
+    // Key to access clock control 
+	UNLOCK_UNIT (CLK_CNTR_key);
+	// Key to access fault control
+    UNLOCK_UNIT (FT_CNTR_key); 
+     
 	/* Set CLKCTRL to default */
 	CLKCTRL_DeInit();
 	
@@ -89,7 +94,7 @@ int main(void)
 	CLKCTRL_PER1_CLKcmd(CLKCTRL_PER1_CLK_MDR_ADC1_EN, ENABLE);
 
 	/* Allow write to PORT regs */
-	KEY_reg_accs();
+	UNLOCK_UNIT (PORTC_key);
 			
   /* Configure PortC[6:13] for analog input */
 	PORT_InitStructure.PORT_Pin   = (PORT_Pin_6|PORT_Pin_7|PORT_Pin_8|PORT_Pin_9|
@@ -99,12 +104,12 @@ int main(void)
   PORT_Init(PORTC, &PORT_InitStructure);			
 			
 	ADCx_CLK_en(ADC1, ADCx_CLKSRC_MAX_CLK, ADCx_CLKdiv4);			
-	ADC1->KEY = 0x8555AAA1;
+	UNLOCK_UNIT (ADC1_key);
 			
 	ADCx_IS.ADC_RH_MODE = ADCx_CONFIG0_RH_MODE_ADC_POW;
 	ADCx_IS.ADC_SETUP = 5;
 	ADCx_IS.ADC_PAUSE = 5;
-	ADCx_IS.ADC_FIFOEN_0_31 = FIEN0|FIEN1|FIEN2|FIEN3|FIEN4|FIEN5|FIEN6;
+	ADCx_IS.ADC_FIFOEN_0_31 = FIEN0|FIEN1|FIEN2|FIEN3|FIEN4|FIEN5|FIEN6|FIEN7;
 	
 	ADC_Init(ADC1, &ADCx_IS);
 	ADCx_Cmd(ADC1, ENABLE);
@@ -157,7 +162,7 @@ void assert_failed(uint32_t file_id, uint32_t line)
   }
 }
 #elif (USE_ASSERT_INFO == 2)
-void assert_failed(uint32_t file_id, uint32_t line, const uint8_t* expr);
+void assert_failed(uint32_t file_id, uint32_t line, const uint8_t* expr)
 {
   /* User can add his own implementation to report the source file ID, line number and
      expression text.
