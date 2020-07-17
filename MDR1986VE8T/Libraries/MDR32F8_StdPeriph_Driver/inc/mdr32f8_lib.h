@@ -26,9 +26,20 @@
 #define __MDR32F8_LIB_H
 
 
-#define FILEID__MDR32F8_PORT					1
-#define FILEID__MDR32F8_CLKCTRL				2
-#define FILEID__MDR32F8_UART					3
+#define FILEID__MDR32F8_PORT_C					1
+#define FILEID__MDR32F8_CLKCTRL_C				2
+#define FILEID__MDR32F8_UART_C					3
+#define FILEID__MDR32F8_ADC_C                   4
+#define FILEID__MDR32F8_ARINC429R_C             5
+#define FILEID__MDR32F8_ARINC429T_C             6
+#define FILEID__MDR32F8_CAN_C                   7
+#define FILEID__MDR32F8_DAC_C                   8
+#define FILEID__MDR32F8_DMA_C                   9
+#define FILEID__MDR32F8_TIMER_C                10
+#define FILEID__MDR32F8_ETH_C                  11
+#define FILEID__MDR32F8_EBC_C                  12
+#define FILEID__MDR32F8_MIL_STD1553_C          13
+#define FILEID__MDR32F8_SSP_C                  14
 
 
 #define  FILEID__USER_LO                100
