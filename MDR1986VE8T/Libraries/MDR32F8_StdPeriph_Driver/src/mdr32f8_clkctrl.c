@@ -25,7 +25,7 @@
 	#include "MDR1986VE8T.h"
 	
 	
-	#define ASSERT_INFO_FILE_ID FILEID__MDR32F8_CLKCTRL
+	#define ASSERT_INFO_FILE_ID FILEID__MDR32F8_CLKCTRL_C
 	
 	/** @addtogroup MDR32F8_StdPeriph_Driver
   * @{
@@ -369,7 +369,7 @@ void CLKCTRL_PER1_CLKcmd(uint32_t CLKCTRL_PER1_CLK, FunctionalState NewState)
 {
   /* Check the parameters */
   assert_param(IS_FUNCTIONAL_STATE(NewState));
-	assert_param(IS_CLKCTRL_PER1_CLK(CLKCTRL_PER1_CLK));
+assert_param(IS_CLKCTRL_PER1_CLK(CLKCTRL_PER1_CLK));
 	
   if (NewState != DISABLE)
   {
@@ -391,8 +391,6 @@ void CLKCTRL_PER1_CLKcmd(uint32_t CLKCTRL_PER1_CLK, FunctionalState NewState)
   */
 void CLKCTRL_HSEconfig(uint32_t CLKCTRL_HSE)
 {
-  /* Check the parameters */
-  assert_param(IS_CLKCTRL_HSEn_CLK(CLKCTRL_HSE));
   /* Reset HSEON and HSEBYP bits before configuring the HSE */
   /* Configure HSE */
   switch (CLKCTRL_HSE)
@@ -493,8 +491,6 @@ ErrorStatus CLKCTRL_HSEstatus(uint32_t CLKCTRL_HSE)
   */
 void BKPCTRL_REG_63_LSEconfig(uint32_t CLKCTRL_BKPCTRL_LSE)
 {
-  /* Check the parameters */
-  assert_param(IS_BKPCTRL_REG_63_TMR0_LSE(CLKCTRL_BKPCTRK_LSE));
   /* Reset LSEON and LSEBYP bits before configuring the LSE */
   BKP->REG_63_TMR0 &= ~((uint32_t)(BKPCTRL_REG_63_TMR0_LSE_ON | BKPCTRL_REG_63_TMR0_LSE_BYP));
 	BKP->REG_63_TMR1 &= ~((uint32_t)(BKPCTRL_REG_63_TMR1_LSE_ON | BKPCTRL_REG_63_TMR1_LSE_BYP));
@@ -631,29 +627,50 @@ ErrorStatus BKPCTRL_REG_63_LSIstatus(void)
 
 /**
   * @brief  Configures the CPU_PLL clock source and multiplication factor.
-  * @param  RST_CLK_CPU_PLLsource: specifies the PLL entry clock source.
-  *         @arg RST_CLK_CPU_PLLsrcHSIdiv1: HSI oscillator clock is selected as CPU_PLL clock entry
-  *         @arg RST_CLK_CPU_PLLsrcHSIdiv2: HSI oscillator clock divided by 2 is selected as CPU_PLL clock entry
-  *         @arg RST_CLK_CPU_PLLsrcHSEdiv1: HSE oscillator clock is selected as CPU_PLL clock entry
-  *         @arg RST_CLK_CPU_PLLsrcHSEdiv2: HSE oscillator clock divided by 2 is selected as CPU_PLL clock entry
-  * @param  RST_CLK_CPU_PLLmul: specifies the PLL multiplication factor.
-  *         This parameter must be a number between 1 and 16.
-  *           @arg RST_CLK_CPU_PLLmul1
-  *           @arg RST_CLK_CPU_PLLmul2
-  *           @arg RST_CLK_CPU_PLLmul3
-  *           @arg RST_CLK_CPU_PLLmul4
-  *           @arg RST_CLK_CPU_PLLmul5
-  *           @arg RST_CLK_CPU_PLLmul6
-  *           @arg RST_CLK_CPU_PLLmul7
-  *           @arg RST_CLK_CPU_PLLmul8
-  *           @arg RST_CLK_CPU_PLLmul9
-  *           @arg RST_CLK_CPU_PLLmul10
-  *           @arg RST_CLK_CPU_PLLmul11
-  *           @arg RST_CLK_CPU_PLLmul12
-  *           @arg RST_CLK_CPU_PLLmul13
-  *           @arg RST_CLK_CPU_PLLmul14
-  *           @arg RST_CLK_CPU_PLLmul15
-  *           @arg RST_CLK_CPU_PLLmul16
+  * @param  PLLn:
+  *         @arg PLL0: use PLL0
+  *         @arg PLL1: use PLL1
+  *         @arg PLL2: use PLL2
+  * @param  CLKCTRL_CPU_PLLsource: specifies the PLL entry clock source.
+  *         @arg CLKCTRL_PLLn_CLK_SELECT_HSIdiv1: HSI oscillator clock is selected as CPU_PLL clock entry
+  *         @arg CLKCTRL_PLLn_CLK_SELECT_HSIdiv2: HSI oscillator clock divided by 2 is selected as CPU_PLL clock entry
+  *         @arg CLKCTRL_PLLn_CLK_SELECT_HSE0div1: HSE oscillator clock is selected as CPU_PLL clock entry
+  *         @arg CLKCTRL_PLLn_CLK_SELECT_HSE0div2: HSE oscillator clock divided by 2 is selected as CPU_PLL clock entry
+  * @param  CLKCTRL_PLLn_CLK_PLLn_Q: specifies the PLL multiplication factor.
+  *         @arg PLL_DIVQ_Q_1
+  *         @arg PLL_DIVQ_Q_2
+  *         @arg PLL_DIVQ_Q_3
+  *         @arg PLL_DIVQ_Q_4
+  *         @arg PLL_DIVQ_Q_5
+  *         @arg PLL_DIVQ_Q_6
+  *         @arg PLL_DIVQ_Q_7
+  *         @arg PLL_DIVQ_Q_8
+  *         @arg PLL_DIVQ_Q_9
+  *         @arg PLL_DIVQ_Q_10
+  *         @arg PLL_DIVQ_Q_11
+  *         @arg PLL_DIVQ_Q_12
+  *         @arg PLL_DIVQ_Q_13
+  *         @arg PLL_DIVQ_Q_14
+  *         @arg PLL_DIVQ_Q_15
+  *         @arg PLL_DIVQ_Q_16
+  *         @arg PLL_DIVQ_Q_1_DV	
+  *         @arg PLL_DIVQ_Q_2_DV	
+  *         @arg PLL_DIVQ_Q_3_DV	
+  *         @arg PLL_DIVQ_Q_4_DV	
+  *         @arg PLL_DIVQ_Q_5_DV	
+  *         @arg PLL_DIVQ_Q_6_DV	
+  *         @arg PLL_DIVQ_Q_7_DV	
+  *         @arg PLL_DIVQ_Q_8_DV	
+  *         @arg PLL_DIVQ_Q_9_DV	
+  *         @arg PLL_DIVQ_Q_10_DV	
+  *         @arg PLL_DIVQ_Q_11_DV	
+  *         @arg PLL_DIVQ_Q_12_DV	
+  *         @arg PLL_DIVQ_Q_13_DV	
+  *         @arg PLL_DIVQ_Q_14_DV	
+  *         @arg PLL_DIVQ_Q_15_DV	
+  *         @arg PLL_DIVQ_Q_16_DV	
+  * @param  CLKCTRL_PLLn_CLK_PLLn_N:
+  *         This parameter must be a number between 3 and 75.
   * @retval None
   */
 void CLKCTRL_CPU_PLLconfig (uint32_t PLLn, uint32_t CLKCTRL_CPU_PLLsource,
@@ -663,10 +680,6 @@ void CLKCTRL_CPU_PLLconfig (uint32_t PLLn, uint32_t CLKCTRL_CPU_PLLsource,
 	uint32_t PLLON_def;
 	uint32_t PLLPLD_def;
 	
-  /* Check the parameters */
-  assert_param(IS_CLKCTRL_PLLn_CLK_SELECT(CLKCTRL_CPU_PLLsource));
-	assert_param(IS_CLKCTRL_PLLn_CLK_PLLn_N(CLKCTRL_PLLn_CLK_PLLn_N));
-
 	switch (PLLn)
   {
     case PLL0:
@@ -758,5 +771,57 @@ ErrorStatus CLKCTRL_CPU_PLLstatus(uint32_t PLLn)
     state = ERROR;
   }
   return state;
+}
+
+/**
+  * @brief  BKPCNTR_SRILOWconfig - Select the internal voltage regulators (LDOx) mode
+  * @param  SRILOW: specifies the LDO mode.
+  *   This parameter can be one of the following values:
+  *     @arg BKPCNTR_SRILOW_upto_10MHz:  system clock is up to 10 MHz
+  *     @arg BKPCNTR_SRILOW_upto_30MHz:  system clock is up to 30 MHz
+  *     @arg BKPCNTR_SRILOW_upto_50MHz:  system clock is up to 50 MHz
+  *     @arg BKPCNTR_SRILOW_upto_100MHz: system clock is up to 100 MHz
+  *     @arg BKPCNTR_SRILOW_upto_1MHz:   system clock is up to 1 MHz
+  *     @arg BKPCNTR_SRILOW_upto_500kHz: system clock is up to 500 kHz
+  *     @arg BKPCNTR_SRILOW_upto_100kHz: system clock is up to 100 kHz
+  *     @arg BKPCNTR_SRILOW_over_10kHz:  system clock is over 40 kHz (Recommended at system clock over 40 MHz when the MCU is installed in a contact device)
+  * @retval None
+  */
+void BKPCNTR_SRILOWconfig(uint32_t SRILOW)
+{
+    uint32_t tmpreg_TMR0, tmpreg_TMR1, tmpreg_TMR2;
+    /* Check the parameters */
+    assert_param(IS_BKPCNTR_SRILOW(SRILOW));
+    
+    /* Select the LDO0-3 mode (DUcc) */
+    /* Clear SRILOWx[2:0] bits */
+    tmpreg_TMR0 = BKP->REG_61_TMR0 & (~BKPCTRL_REG_61_TMRx_SRILOWx_Msk);
+    tmpreg_TMR1 = BKP->REG_61_TMR1 & (~BKPCTRL_REG_61_TMRx_SRILOWx_Msk);
+    tmpreg_TMR2 = BKP->REG_61_TMR2 & (~BKPCTRL_REG_61_TMRx_SRILOWx_Msk);
+    
+    /* Set SRILOWx[2:0] bits according to SRILOW */
+    tmpreg_TMR0 |= SRILOW<<BKPCTRL_REG_61_TMRx_SRILOW3_Pos | SRILOW<<BKPCTRL_REG_61_TMRx_SRILOW2_Pos |
+                   SRILOW<<BKPCTRL_REG_61_TMRx_SRILOW1_Pos | SRILOW<<BKPCTRL_REG_61_TMRx_SRILOW0_Pos;
+    tmpreg_TMR1 |= SRILOW<<BKPCTRL_REG_61_TMRx_SRILOW3_Pos | SRILOW<<BKPCTRL_REG_61_TMRx_SRILOW2_Pos |
+                   SRILOW<<BKPCTRL_REG_61_TMRx_SRILOW1_Pos | SRILOW<<BKPCTRL_REG_61_TMRx_SRILOW0_Pos; 
+    tmpreg_TMR2 |= SRILOW<<BKPCTRL_REG_61_TMRx_SRILOW3_Pos | SRILOW<<BKPCTRL_REG_61_TMRx_SRILOW2_Pos |
+                   SRILOW<<BKPCTRL_REG_61_TMRx_SRILOW1_Pos | SRILOW<<BKPCTRL_REG_61_TMRx_SRILOW0_Pos;
+    BKP->REG_61_TMR0 = tmpreg_TMR0;
+    BKP->REG_61_TMR1 = tmpreg_TMR1;
+    BKP->REG_61_TMR2 = tmpreg_TMR2;
+    
+    /* Select the LDO4-5 mode (DUccB, DUcc_PLL)*/
+    /* Clear SRILOWx[2:0] bits */
+    tmpreg_TMR0 = BKP->REG_62_TMR0 & (~BKPCTRL_REG_62_TMRx_SRILOWx_Msk);
+    tmpreg_TMR1 = BKP->REG_62_TMR1 & (~BKPCTRL_REG_62_TMRx_SRILOWx_Msk);
+    tmpreg_TMR2 = BKP->REG_62_TMR2 & (~BKPCTRL_REG_62_TMRx_SRILOWx_Msk);
+    
+    /* Set SRILOWx[2:0] bits according to SRILOW */
+    tmpreg_TMR0 |= SRILOW<<BKPCTRL_REG_62_TMRx_SRILOW5_Pos | SRILOW<<BKPCTRL_REG_62_TMRx_SRILOW4_Pos;
+    tmpreg_TMR1 |= SRILOW<<BKPCTRL_REG_62_TMRx_SRILOW5_Pos | SRILOW<<BKPCTRL_REG_62_TMRx_SRILOW4_Pos;
+    tmpreg_TMR2 |= SRILOW<<BKPCTRL_REG_62_TMRx_SRILOW5_Pos | SRILOW<<BKPCTRL_REG_62_TMRx_SRILOW4_Pos;
+    BKP->REG_62_TMR0 = tmpreg_TMR0;
+    BKP->REG_62_TMR1 = tmpreg_TMR1;
+    BKP->REG_62_TMR2 = tmpreg_TMR2;
 }
 
