@@ -64,8 +64,14 @@ void KEY_reg_accs(void);
 		
 int main(void)
 {	
-	POR_disable();
+    /* ONLY REV2 MCU, errata 0015. Disable Power-on-Reset control. Hold the SW4 button down until operation complete */
+    //POR_disable();
 	
+    // Key to access clock control 
+	UNLOCK_UNIT (CLK_CNTR_key);
+	// Key to access fault control
+    UNLOCK_UNIT (FT_CNTR_key); 
+    
 	CLKCTRL_DeInit();
 	/* Enable HSE0 clock */
 	CLKCTRL_HSEconfig(CLKCTRL_HSE0_CLK_ON);
@@ -85,22 +91,22 @@ int main(void)
 	CLKCTRL_PER0_CLKcmd(CLKCTRL_PER0_CLK_MDR_PORTA_EN, ENABLE);
 	CLKCTRL_PER0_CLKcmd(CLKCTRL_PER0_CLK_MDR_TMR1_EN, ENABLE);
 
-	KEY_reg_accs();
+    UNLOCK_UNIT (PORTA_key);
 	
 	
 	/*PORT configuration*/
 	PORT_InitStructure.PORT_Pin   = (PORT_Pin_20 | PORT_Pin_21);//tmr1_ch1p,n
 	PORT_InitStructure.PORT_SFUNC  = PORT_SFUNC_7;
-  PORT_InitStructure.PORT_SANALOG  = PORT_SANALOG_DIGITAL;
+    PORT_InitStructure.PORT_SANALOG  = PORT_SANALOG_DIGITAL;
 	PORT_InitStructure.PORT_SPWR = PORT_SPWR_10;
-  PORT_Init(PORTA, &PORT_InitStructure);
+    PORT_Init(PORTA, &PORT_InitStructure);
 	
   //TIMER_BRGInit(MDR_TMR1,TIMER_HCLKdiv1);
 	TIM_CLK_en(TIM1, TIM_CLKdiv1);
 	
 	/* Initializes the TIMERx Counter ------------------------------------*/
-  sTIM_CntInit.TIMER_Prescaler                = 0;
-  sTIM_CntInit.TIMER_Period                   = 50;
+  sTIM_CntInit.TIMER_Prescaler                = 2;
+  sTIM_CntInit.TIMER_Period                   = 10;
   sTIM_CntInit.TIMER_CounterMode              = TIMER_CntMode_ClkFixedDir;
   sTIM_CntInit.TIMER_CounterDirection         = TIMER_CntDir_Up;
   sTIM_CntInit.TIMER_EventSource              = TIMER_EvSrc_None;
@@ -158,7 +164,7 @@ void assert_failed(uint32_t file_id, uint32_t line)
   }
 }
 #elif (USE_ASSERT_INFO == 2)
-void assert_failed(uint32_t file_id, uint32_t line, const uint8_t* expr);
+void assert_failed(uint32_t file_id, uint32_t line, const uint8_t* expr)
 {
   /* User can add his own implementation to report the source file ID, line number and
      expression text.

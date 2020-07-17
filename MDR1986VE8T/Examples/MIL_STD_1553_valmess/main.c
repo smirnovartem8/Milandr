@@ -62,8 +62,14 @@ void Delay(__IO uint32_t nCount)
 		
 int main(void)
 {	
-	POR_disable();
-	
+    /* ONLY REV2 MCU, errata 0015. Disable Power-on-Reset control. Hold the SW4 button down until operation complete */
+	//POR_disable();
+    
+    // Key to access clock control 
+	UNLOCK_UNIT (CLK_CNTR_key);
+	// Key to access fault control
+    UNLOCK_UNIT (FT_CNTR_key); 
+	/* Set CLKCTRL to default */
 	CLKCTRL_DeInit();
 	/* Enable HSE0 clock */
 	CLKCTRL_HSEconfig(CLKCTRL_HSE0_CLK_ON);
@@ -76,7 +82,7 @@ int main(void)
 		while(CLKCTRL_CPU_PLLstatus(0) != SUCCESS){}
 			CLKCTRL_MAX_CLKSelection(CLKCTRL_MAX_CLK_PLL0);	
 			
-			CLKCTRL_CPUclkPrescaler (CLKCTRL_CPU_CLK_CPUclkDIV2);
+	CLKCTRL_CPUclkPrescaler (CLKCTRL_CPU_CLK_CPUclkDIV2);
 
 	CLKCTRL_PER0_CLKcmd(CLKCTRL_PER0_CLK_MDR_PORTA_EN, ENABLE);
 	CLKCTRL_PER0_CLKcmd(CLKCTRL_PER0_CLK_MDR_PORTB_EN, ENABLE);
@@ -86,63 +92,67 @@ int main(void)
 	CLKCTRL_PER1_CLKcmd(CLKCTRL_PER1_CLK_MDR_MIL0_EN, ENABLE);
 	CLKCTRL_PER1_CLKcmd(CLKCTRL_PER1_CLK_MDR_MIL1_EN, ENABLE);
 
-	KEY_reg_accs();
+    UNLOCK_UNIT (PORTA_key);
+    UNLOCK_UNIT (PORTB_key);
+    UNLOCK_UNIT (PORTC_key);
+    UNLOCK_UNIT (PORTD_key);
+    UNLOCK_UNIT (PORTE_key);
 	
 
   /* Configure PORTC LED pins [16:23] for output */
 	PORT_InitStructure.PORT_Pin   = (PORT_Pin_16|PORT_Pin_17|PORT_Pin_18|PORT_Pin_19|
 																	 PORT_Pin_20|PORT_Pin_21|PORT_Pin_22|PORT_Pin_23);
 	
-  PORT_InitStructure.PORT_SOE    = PORT_SOE_OUT;
-  PORT_InitStructure.PORT_SANALOG  = PORT_SANALOG_DIGITAL;
+    PORT_InitStructure.PORT_SOE    = PORT_SOE_OUT;
+    PORT_InitStructure.PORT_SANALOG  = PORT_SANALOG_DIGITAL;
 	PORT_InitStructure.PORT_SPD = PORT_SPD_OFF;
 	PORT_InitStructure.PORT_SPWR = PORT_SPWR_10;
 
-  PORT_Init(PORTC, &PORT_InitStructure);
+    PORT_Init(PORTC, &PORT_InitStructure);
 	
 	/* PORT configuration */
 	/*****************************XP23*****************************/
 	PORT_InitStructure.PORT_Pin   = (PORT_Pin_28 | PORT_Pin_29 | PORT_Pin_30);
 	PORT_InitStructure.PORT_SFUNC  = PORT_SFUNC_13;
-  PORT_InitStructure.PORT_SANALOG  = PORT_SANALOG_DIGITAL;
+    PORT_InitStructure.PORT_SANALOG  = PORT_SANALOG_DIGITAL;
 	PORT_InitStructure.PORT_SPWR = PORT_SPWR_10;
-  PORT_Init(PORTB, &PORT_InitStructure);	
+    PORT_Init(PORTB, &PORT_InitStructure);	
 		
 	PORT_InitStructure.PORT_Pin   = (PORT_Pin_1 | PORT_Pin_2 | PORT_Pin_3 | PORT_Pin_4 | PORT_Pin_5);
 	PORT_InitStructure.PORT_SFUNC  = PORT_SFUNC_13;
-  PORT_InitStructure.PORT_SANALOG  = PORT_SANALOG_DIGITAL;
+    PORT_InitStructure.PORT_SANALOG  = PORT_SANALOG_DIGITAL;
 	PORT_InitStructure.PORT_SPWR = PORT_SPWR_10;
-  PORT_Init(PORTC, &PORT_InitStructure);	
+    PORT_Init(PORTC, &PORT_InitStructure);	
 		
 	PORT_InitStructure.PORT_Pin   = (PORT_Pin_27 | PORT_Pin_28);
 	PORT_InitStructure.PORT_SFUNC  = PORT_SFUNC_13;
-  PORT_InitStructure.PORT_SANALOG  = PORT_SANALOG_DIGITAL;
+    PORT_InitStructure.PORT_SANALOG  = PORT_SANALOG_DIGITAL;
 	PORT_InitStructure.PORT_SPWR = PORT_SPWR_10;
-  PORT_Init(PORTD, &PORT_InitStructure);	
+    PORT_Init(PORTD, &PORT_InitStructure);	
 	/*****************************XP22*****************************/
 	PORT_InitStructure.PORT_Pin   = (PORT_Pin_1 | PORT_Pin_2);
 	PORT_InitStructure.PORT_SFUNC  = PORT_SFUNC_13;
-  PORT_InitStructure.PORT_SANALOG  = PORT_SANALOG_DIGITAL;
+    PORT_InitStructure.PORT_SANALOG  = PORT_SANALOG_DIGITAL;
 	PORT_InitStructure.PORT_SPWR = PORT_SPWR_10;
-  PORT_Init(PORTB, &PORT_InitStructure);
+    PORT_Init(PORTB, &PORT_InitStructure);
 	
 	PORT_InitStructure.PORT_Pin = (PORT_Pin_25 | PORT_Pin_26 | PORT_Pin_27 | PORT_Pin_28 | PORT_Pin_29);
 	PORT_InitStructure.PORT_SFUNC  = PORT_SFUNC_12;
-  PORT_InitStructure.PORT_SANALOG  = PORT_SANALOG_DIGITAL;
+    PORT_InitStructure.PORT_SANALOG  = PORT_SANALOG_DIGITAL;
 	PORT_InitStructure.PORT_SPWR = PORT_SPWR_10;
-  PORT_Init(PORTA, &PORT_InitStructure);
+    PORT_Init(PORTA, &PORT_InitStructure);
 	
 	PORT_InitStructure.PORT_Pin   = (PORT_Pin_22);
 	PORT_InitStructure.PORT_SFUNC  = PORT_SFUNC_12;
-  PORT_InitStructure.PORT_SANALOG  = PORT_SANALOG_DIGITAL;
+    PORT_InitStructure.PORT_SANALOG  = PORT_SANALOG_DIGITAL;
 	PORT_InitStructure.PORT_SPWR = PORT_SPWR_10;
-  PORT_Init(PORTA, &PORT_InitStructure);
+    PORT_Init(PORTA, &PORT_InitStructure);
 	
 	PORT_InitStructure.PORT_Pin   = (PORT_Pin_30 | PORT_Pin_31);
 	PORT_InitStructure.PORT_SFUNC  = PORT_SFUNC_13;
-  PORT_InitStructure.PORT_SANALOG  = PORT_SANALOG_DIGITAL;
+    PORT_InitStructure.PORT_SANALOG  = PORT_SANALOG_DIGITAL;
 	PORT_InitStructure.PORT_SPWR = PORT_SPWR_10;
-  PORT_Init(PORTA, &PORT_InitStructure);
+    PORT_Init(PORTA, &PORT_InitStructure);
 			
 	/*-- Bus Controller configuration -----------------------------------------*/
 	MIL_STD_1553xStructInit(&MIL_STD_15531_InitStructure);
@@ -194,7 +204,7 @@ int main(void)
 			PORT_ResetBits(PORTC, PORT_Pin_16);
 		}
 				
-		Delay(100000);
+		Delay(20000);
 		
 	}
 }
@@ -225,7 +235,7 @@ void assert_failed(uint32_t file_id, uint32_t line)
   }
 }
 #elif (USE_ASSERT_INFO == 2)
-void assert_failed(uint32_t file_id, uint32_t line, const uint8_t* expr);
+void assert_failed(uint32_t file_id, uint32_t line, const uint8_t* expr)
 {
   /* User can add his own implementation to report the source file ID, line number and
      expression text.

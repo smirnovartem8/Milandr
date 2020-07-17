@@ -68,9 +68,14 @@ void Delay(__IO uint32_t nCount)
   */		
 int main(void)
 {	
-	/* Disable Power-on-Reset control. Hold the RESET button down until operation complete */
-	POR_disable();
+	/* ONLY REV2 MCU, errata 0015. Disable Power-on-Reset control. Hold the SW4 button down until operation complete */
+	//POR_disable();
 	
+    // Key to access clock control 
+	UNLOCK_UNIT (CLK_CNTR_key);
+	// Key to access fault control
+    UNLOCK_UNIT (FT_CNTR_key); 
+    
 	/* Set CLKCTRL to default */
 	CLKCTRL_DeInit();
 	
@@ -90,31 +95,32 @@ int main(void)
 	CLKCTRL_PER0_CLKcmd(CLKCTRL_PER0_CLK_MDR_PORTC_EN, ENABLE);
 
 	/* Allow write to PORT regs */
-	KEY_reg_accs();
+    UNLOCK_UNIT (PORTC_key);
+    UNLOCK_UNIT (PORTE_key);
 
   /* Configure PORTC pins [16:23] for output */
 	PORT_InitStructure.PORT_Pin   = (PORT_Pin_16|PORT_Pin_17|PORT_Pin_18|PORT_Pin_19|
 																	 PORT_Pin_20|PORT_Pin_21|PORT_Pin_22|PORT_Pin_23);
 	
-  PORT_InitStructure.PORT_SOE    = PORT_SOE_OUT;
-  PORT_InitStructure.PORT_SANALOG  = PORT_SANALOG_DIGITAL;
+    PORT_InitStructure.PORT_SOE    = PORT_SOE_OUT;
+    PORT_InitStructure.PORT_SANALOG  = PORT_SANALOG_DIGITAL;
 	PORT_InitStructure.PORT_SPD = PORT_SPD_OFF;
 	PORT_InitStructure.PORT_SPWR = PORT_SPWR_10;
 
-  PORT_Init(PORTC, &PORT_InitStructure);
+    PORT_Init(PORTC, &PORT_InitStructure);
 	
 	/* Configure PORTC pins [18,21,22] for input */	
 	PORT_InitStructure.PORT_Pin   = (PORT_Pin_18|PORT_Pin_21|PORT_Pin_22);
 	
-  PORT_InitStructure.PORT_SOE    = PORT_SOE_IN;
-  PORT_InitStructure.PORT_SANALOG  = PORT_SANALOG_DIGITAL;
+    PORT_InitStructure.PORT_SOE    = PORT_SOE_IN;
+    PORT_InitStructure.PORT_SANALOG  = PORT_SANALOG_DIGITAL;
 	PORT_InitStructure.PORT_SPD = PORT_SPD_OFF;
 	PORT_InitStructure.PORT_SPWR = PORT_SPWR_10;
 	/* irq enable and set active irq level */	
 	PORT_InitStructure.PORT_SIE = PORT_SIE_ON;
 	PORT_InitStructure.PORT_SIT = PORT_SIT_LOW;
 
-  PORT_Init(PORTE, &PORT_InitStructure);
+    PORT_Init(PORTE, &PORT_InitStructure);
 	
 	/* PORTE IRQ enable */	
 	NVIC_EnableIRQ(PORTE_IRQn);
@@ -136,7 +142,7 @@ void Blinky(uint32_t VD)
 
 void IRQ_PORTE_Handler()
 {
-  Blinky(VD7);
+    Blinky(VD7 | VD8 | VD9 | VD10 | VD11 | VD12 | VD13 | VD14);
 	PORTE->CIR=0xFFFFFFFF;
 }
 
@@ -153,7 +159,7 @@ void assert_failed(uint32_t file_id, uint32_t line)
   }
 }
 #elif (USE_ASSERT_INFO == 2)
-void assert_failed(uint32_t file_id, uint32_t line, const uint8_t* expr);
+void assert_failed(uint32_t file_id, uint32_t line, const uint8_t* expr)
 {
   /* User can add his own implementation to report the source file ID, line number and
      expression text.

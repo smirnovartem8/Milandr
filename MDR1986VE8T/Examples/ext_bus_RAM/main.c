@@ -67,9 +67,13 @@ void TestRam_EbcConfig(void);
   */
 int main(void)
 {	
-	/* Disable Power-on-Reset control. Hold the RESET button down until operation complete */
-	POR_disable();
-	
+	/* ONLY REV2 MCU, errata 0015. Disable Power-on-Reset control. Hold the SW4 button down until operation complete */
+	//POR_disable();
+    
+	// Key to access clock control 
+	UNLOCK_UNIT (CLK_CNTR_key);
+	// Key to access fault control
+    UNLOCK_UNIT (FT_CNTR_key); 
 	/* Set CLKCTRL to default */
 	CLKCTRL_DeInit();
 	
@@ -115,7 +119,9 @@ void ExtBus_PortsConfig(void)
 	CLKCTRL_PER0_CLKcmd(CLKCTRL_PER0_CLK_MDR_PORTE_EN, ENABLE);
 
 	/* Allow write to PORT regs */
-	KEY_reg_accs();
+    UNLOCK_UNIT (PORTC_key);
+    UNLOCK_UNIT (PORTD_key);
+    UNLOCK_UNIT (PORTE_key);
 	
 	/*---------- Config DATA Bus of EBC ----------*/
 	/*---------- PortD[31:30] - DATA[1:0]; PortE[5:0] - DATA[7:2] ----------*/	
@@ -159,7 +165,7 @@ void ExtBus_PortsConfig(void)
 
 void TestRam_EbcConfig(void)
 {
-	EXT_BUS_CNTR->KEY = _KEY_;
+	UNLOCK_UNIT (EXT_BUS_CNTR_key);
 	
 	EBC_RGNx_StructInit(&EBC_RGNx_IS);
 	
@@ -188,7 +194,7 @@ void assert_failed(uint32_t file_id, uint32_t line)
   }
 }
 #elif (USE_ASSERT_INFO == 2)
-void assert_failed(uint32_t file_id, uint32_t line, const uint8_t* expr);
+void assert_failed(uint32_t file_id, uint32_t line, const uint8_t* expr)
 {
   /* User can add his own implementation to report the source file ID, line number and
      expression text.

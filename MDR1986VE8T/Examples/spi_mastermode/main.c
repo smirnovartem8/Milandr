@@ -73,13 +73,18 @@ void Delay(__IO uint32_t nCount)
 		
 int main(void)
 {	
-	POR_disable();
-	
+    /* ONLY REV2 MCU, errata 0015. Disable Power-on-Reset control. Hold the SW4 button down until operation complete */
+	//POR_disable();
+    
+    // Key to access clock control 
+	UNLOCK_UNIT (CLK_CNTR_key);
+	// Key to access fault control
+    UNLOCK_UNIT (FT_CNTR_key); 
+	/* Set CLKCTRL to default */
 	CLKCTRL_DeInit();
 	/*HSE0 as the clk source*/
 	CLKCTRL_HSEconfig(CLKCTRL_HSE0_CLK_ON);
 	while(CLKCTRL_HSEstatus(CLKCTRL_HSEn_STAT_HSE0_RDY) != SUCCESS){}
-	
 	/* Select PLL0 clk src, PLL0_N, PLL0_Q to get FINT = FIN*(PLLn_N)/(PLLn_Q+1) */
 	CLKCTRL_CPU_PLLconfig(PLL0, CLKCTRL_PLLn_CLK_SELECT_HSE0div1, PLL_DIVQ_Q_1_DV, 8);//PLLn, SRC, Q, N
 	while(CLKCTRL_CPU_PLLstatus(0) != SUCCESS){}
@@ -92,8 +97,11 @@ int main(void)
 	CLKCTRL_PER0_CLKcmd(CLKCTRL_PER0_CLK_MDR_PORTE_EN, ENABLE);
 	CLKCTRL_PER1_CLKcmd(CLKCTRL_PER1_CLK_MDR_SSP0_EN, ENABLE);
 
-	KEY_reg_accs();
-	
+	UNLOCK_UNIT (PORTB_key);
+    UNLOCK_UNIT (PORTC_key);
+    UNLOCK_UNIT (PORTD_key);
+    UNLOCK_UNIT (PORTE_key);
+        
   /* Configure PORTC LED pins [16:23] for output */
 	PORT_InitStructure.PORT_Pin   = (PORT_Pin_16|PORT_Pin_17|PORT_Pin_18|PORT_Pin_19|
 																	 PORT_Pin_20|PORT_Pin_21|PORT_Pin_22|PORT_Pin_23);
@@ -181,7 +189,7 @@ void assert_failed(uint32_t file_id, uint32_t line)
   }
 }
 #elif (USE_ASSERT_INFO == 2)
-void assert_failed(uint32_t file_id, uint32_t line, const uint8_t* expr);
+void assert_failed(uint32_t file_id, uint32_t line, const uint8_t* expr)
 {
   /* User can add his own implementation to report the source file ID, line number and
      expression text.

@@ -77,35 +77,36 @@ void BlinkLine(uint32_t Pin);
 		
 int main(void)
 {	
-	POR_disable();
+    /* ONLY REV2 MCU, errata 0015. Disable Power-on-Reset control. Hold the SW4 button down until operation complete */
+	//POR_disable();
 	
+    // Key to access clock control 
+	UNLOCK_UNIT (CLK_CNTR_key);
+	// Key to access fault control
+    UNLOCK_UNIT (FT_CNTR_key); 
+	/* Set CLKCTRL to default */
 	CLKCTRL_DeInit();
 	/*HSE0 as the clk source*/
 	/* Enable HSE0 clock */
 	CLKCTRL_HSEconfig(CLKCTRL_HSE0_CLK_ON);
-	
+    
+
 	/* Check HSE success, enable PLL0, check PLL0 success, select MAX_CLK src */
 	while(CLKCTRL_HSEstatus(CLKCTRL_HSEn_STAT_HSE0_RDY) != SUCCESS){}
 		
 	CLKCTRL_MAX_CLKSelection(CLKCTRL_MAX_CLK_HSE0div1);	
 
-	CLKCTRL_PER0_CLKcmd(CLKCTRL_PER0_CLK_MDR_PORTB_EN, ENABLE);
-	CLKCTRL_PER0_CLKcmd(CLKCTRL_PER0_CLK_MDR_PORTC_EN, ENABLE);
+	CLKCTRL_PER0_CLKcmd(CLKCTRL_PER0_CLK_MDR_PORTE_EN, ENABLE);
 	CLKCTRL_PER1_CLKcmd(CLKCTRL_PER1_CLK_MDR_UART0_EN, ENABLE);
 
-	KEY_reg_accs();
+	UNLOCK_UNIT (PORTE_key);
+        
 	/*PORT configuration*/
-	PORT_InitStructure.PORT_Pin   = (PORT_Pin_0);
+	PORT_InitStructure.PORT_Pin   = (PORT_Pin_15 | PORT_Pin_16);
 	PORT_InitStructure.PORT_SFUNC  = PORT_SFUNC_5;
   PORT_InitStructure.PORT_SANALOG  = PORT_SANALOG_DIGITAL;
 	PORT_InitStructure.PORT_SPWR = PORT_SPWR_10;
-  PORT_Init(PORTC, &PORT_InitStructure);
-	
-	PORT_InitStructure.PORT_Pin   = (PORT_Pin_31);
-	PORT_InitStructure.PORT_SFUNC  = PORT_SFUNC_5;
-  PORT_InitStructure.PORT_SANALOG  = PORT_SANALOG_DIGITAL;
-	PORT_InitStructure.PORT_SPWR = PORT_SPWR_10;
-  PORT_Init(PORTB, &PORT_InitStructure);
+  PORT_Init(PORTE, &PORT_InitStructure);
 	
 	UART_CLK_en(MDR_UART0,UART_CLKSRC_HSE0, UART_CLKdiv1);
 	/*UART configuration*/	
@@ -138,7 +139,7 @@ void assert_failed(uint32_t file_id, uint32_t line)
   }
 }
 #elif (USE_ASSERT_INFO == 2)
-void assert_failed(uint32_t file_id, uint32_t line, const uint8_t* expr);
+void assert_failed(uint32_t file_id, uint32_t line, const uint8_t* expr)
 {
   /* User can add his own implementation to report the source file ID, line number and
      expression text.

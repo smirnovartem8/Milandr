@@ -58,12 +58,13 @@ volatile uint32_t c = 0;
 uint32_t dat;
 uint32_t tmpDac0 = 0;
 
-uint16_t SinDAC[32] = { 2047, 2447, 2831, 3185, 3498, 3750, 3939, 4056,
+
+uint32_t SinDAC[32] = { 2047, 2447, 2831, 3185, 3498, 3750, 3939, 4056,
 												4095, 4056, 3939, 3750, 3495, 3185, 2831, 2447,
 												2047, 1647, 1263,  909,  599,  344,  155,   38,
 												   0,   38,  155,  344,  599,  909, 1263, 1647}; 
 
-uint16_t SinDAC2[32] = {4095, 4095, 4095, 4095, 4095, 4095, 4095, 4095,
+uint32_t SinDAC2[32] = {4095, 4095, 4095, 4095, 4095, 4095, 4095, 4095,
 												4095, 4095, 4095, 4095, 4095, 4095, 4095, 4095,
 												4095, 4095, 4095, 4095, 4095, 4095, 4095, 4095,
 												4095, 4095, 4095, 4095, 4095, 4095, 4095, 4095}; 													 
@@ -81,8 +82,14 @@ void KEY_reg_accs(void);
 		
 int main(void)
 {	
-	POR_disable();
-	
+    /* ONLY REV2 MCU, errata 0015. Disable Power-on-Reset control. Hold the SW4 button down until operation complete */
+	//POR_disable();
+    
+     // Key to access clock control 
+	UNLOCK_UNIT (CLK_CNTR_key);
+	// Key to access fault control
+    UNLOCK_UNIT (FT_CNTR_key); 
+	/* Set CLKCTRL to default */
 	CLKCTRL_DeInit();
 	/* Enable HSE0 clock */
 	CLKCTRL_HSEconfig(CLKCTRL_HSE0_CLK_ON);
@@ -97,13 +104,13 @@ int main(void)
 	CLKCTRL_PER1_CLKcmd(CLKCTRL_PER1_CLK_MDR_DAC0_EN, ENABLE);
 	CLKCTRL_PER0_CLKcmd(CLKCTRL_PER0_CLK_MDR_TMR1_EN, ENABLE);
 
-	KEY_reg_accs();
+    UNLOCK_UNIT (PORTC_key);
 	
 	/*PORT configuration*/
 	PORT_InitStructure.PORT_Pin   = (PORT_Pin_25);
 	PORT_InitStructure.PORT_CPULLUP  = PORT_CPULLUP_ON;
-  PORT_InitStructure.PORT_CANALOG  = PORT_CANALOG_DIGITAL;
-  PORT_Init(PORTC, &PORT_InitStructure);
+    PORT_InitStructure.PORT_CANALOG  = PORT_CANALOG_DIGITAL;
+    PORT_Init(PORTC, &PORT_InitStructure);
 		
 	/* DMA Configuration */
   /* Reset all DMA settings */
@@ -112,9 +119,9 @@ int main(void)
   /* Set Primary Control Data */
   DMA_PriCtrlStr.DMA_SourceBaseAddr = (uint32_t)SinDAC;
   DMA_PriCtrlStr.DMA_DestBaseAddr = (uint32_t)(&(DAC0->DATA));
-  DMA_PriCtrlStr.DMA_SourceIncSize = DMA_SourceIncHalfword;
+  DMA_PriCtrlStr.DMA_SourceIncSize = DMA_SourceIncWord;
   DMA_PriCtrlStr.DMA_DestIncSize = DMA_DestIncNo;
-  DMA_PriCtrlStr.DMA_MemoryDataSize = DMA_MemoryDataSize_HalfWord;
+  DMA_PriCtrlStr.DMA_MemoryDataSize = DMA_MemoryDataSize_Word;
   DMA_PriCtrlStr.DMA_Mode = DMA_Mode_PingPong;
   DMA_PriCtrlStr.DMA_CycleSize = 32;
   DMA_PriCtrlStr.DMA_NumContinuous = DMA_Transfers_1;
@@ -123,9 +130,9 @@ int main(void)
   /* Set Alternate Control Data */
   DMA_AltCtrlStr.DMA_SourceBaseAddr = (uint32_t)SinDAC2;
   DMA_AltCtrlStr.DMA_DestBaseAddr   = (uint32_t)(&(DAC0->DATA));
-  DMA_AltCtrlStr.DMA_SourceIncSize = DMA_SourceIncHalfword;
+  DMA_AltCtrlStr.DMA_SourceIncSize = DMA_SourceIncWord;
   DMA_AltCtrlStr.DMA_DestIncSize = DMA_DestIncNo;
-  DMA_AltCtrlStr.DMA_MemoryDataSize = DMA_MemoryDataSize_HalfWord;
+  DMA_AltCtrlStr.DMA_MemoryDataSize = DMA_MemoryDataSize_Word;
   DMA_AltCtrlStr.DMA_Mode = DMA_Mode_PingPong;
   DMA_AltCtrlStr.DMA_CycleSize = 32;
   DMA_AltCtrlStr.DMA_NumContinuous = DMA_Transfers_1;
@@ -148,18 +155,19 @@ int main(void)
   /* Enable DMA_Channel_TIM1 */
   DMA_Cmd(DMA_Channel_TIM1, ENABLE);	
 		
-	DAC_CLK_en(DAC0, DAC_CLKSRC_HSE0, 499);
+  DAC_CLK_en(DAC0, DAC_CLKSRC_HSE0, 499);
 	
-	DAC0->KEY = _KEY_;
+  UNLOCK_UNIT (DAC0_key);
 	
-	DAC_Init(DAC0, 0x1, 0x3);
-	DAC_Cmd(DAC0, ENABLE);	
+  DAC_Init(DAC0, 0x1, 0x3);
+  DAC_Cmd(DAC0, ENABLE);	
 			
-        TIM_CLK_en(TIM1, TIM_CLKdiv1);		
+  TIM_CLK_en(TIM1, TIM_CLKdiv1);		
         /* TIMER1 Configuration */
         /* Time base configuration */
-        TIMER_DeInit(MDR_TMR1);
-        TIM_CLK_en(TIM1, TIM_CLKdiv1);
+  TIMER_DeInit(MDR_TMR1);
+  TIM_CLK_en(TIM1, TIM_CLKdiv1);
+  
   sTIM_CntInit.TIMER_Prescaler                = 0;
   sTIM_CntInit.TIMER_Period                   = 0xFF;
   sTIM_CntInit.TIMER_CounterMode              = TIMER_CntMode_ClkFixedDir;
@@ -179,7 +187,7 @@ int main(void)
   /* TIMER1 enable counter */
   TIMER_Cmd(MDR_TMR1,ENABLE);
 
-	MDR_DMA->CHMUX0 = 9;//Set TMR1_REQ to DMA ch0
+  MDR_DMA->CHMUX0 = 9;//Set TMR1_REQ to DMA ch0
   /* Enable DMA IRQ */
   NVIC_EnableIRQ(DMA_DONE0_IRQn);			
 			
@@ -201,7 +209,7 @@ void assert_failed(uint32_t file_id, uint32_t line)
   }
 }
 #elif (USE_ASSERT_INFO == 2)
-void assert_failed(uint32_t file_id, uint32_t line, const uint8_t* expr);
+void assert_failed(uint32_t file_id, uint32_t line, const uint8_t* expr)
 {
   /* User can add his own implementation to report the source file ID, line number and
      expression text.
