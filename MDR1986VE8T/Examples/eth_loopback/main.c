@@ -95,6 +95,8 @@ int main(void)
 	CLKCTRL_DeInit();
 	/* Enable HSE0 clock */
 	CLKCTRL_HSEconfig(CLKCTRL_HSE0_CLK_ON);
+    
+    BKPCNTR_SRILOWconfig (BKPCNTR_SRILOW_upto_100MHz);
 	
 	/* Check HSE success, enable PLL0, check PLL0 success, select MAX_CLK src */
 	while(CLKCTRL_HSEstatus(CLKCTRL_HSEn_STAT_HSE0_RDY) != SUCCESS){}

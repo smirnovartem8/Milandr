@@ -73,6 +73,9 @@ int main(void)
     UNLOCK_UNIT (FT_CNTR_key); 
     
 	CLKCTRL_DeInit();
+	
+	BKPCNTR_SRILOWconfig (BKPCNTR_SRILOW_upto_50MHz);
+	
 	/* Enable HSE0 clock */
 	CLKCTRL_HSEconfig(CLKCTRL_HSE0_CLK_ON);
 	

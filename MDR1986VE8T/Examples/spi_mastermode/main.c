@@ -82,6 +82,9 @@ int main(void)
     UNLOCK_UNIT (FT_CNTR_key); 
 	/* Set CLKCTRL to default */
 	CLKCTRL_DeInit();
+	
+	BKPCNTR_SRILOWconfig (BKPCNTR_SRILOW_upto_50MHz);
+	
 	/*HSE0 as the clk source*/
 	CLKCTRL_HSEconfig(CLKCTRL_HSE0_CLK_ON);
 	while(CLKCTRL_HSEstatus(CLKCTRL_HSEn_STAT_HSE0_RDY) != SUCCESS){}
