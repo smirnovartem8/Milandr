@@ -393,7 +393,8 @@ uint32_t EBC_RGNx_GetErrorCount (uint32_t RGNx, Cnt_type CNT)
   */
 void EBC_RGNx_WSConfig(uint32_t RGNx, uint32_t RGN_WS_SETUP, uint32_t RGN_WS_ACTIVE, uint32_t RGN_WS_HOLD)
 {
-    uint32_t tmpreg_CNTRL, *EBC_RGNx_CNTRL_ptr;
+    uint32_t tmpreg_CNTRL;
+    __IO uint32_t *EBC_RGNx_CNTRL_ptr;
     /* Check the parameters */
     assert_param(IS_EBC_RGNx(RGNx));
     assert_param(IS_EBC_RGNx_WS_SETUP(RGN_WS_SETUP));
