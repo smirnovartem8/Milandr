@@ -70,7 +70,9 @@ int main(void)
     // Key to access clock control 
 	UNLOCK_UNIT (CLK_CNTR_key);
 	// Key to access fault control
-    UNLOCK_UNIT (FT_CNTR_key); 
+    UNLOCK_UNIT (FT_CNTR_key);
+	// Key to access BKP control
+	UNLOCK_UNIT (BKP_key); 	
     
 	CLKCTRL_DeInit();
 	
