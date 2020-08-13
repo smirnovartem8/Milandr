@@ -6,7 +6,7 @@
   <description>Milandr MDR1986VE8T Series Device Support, Drivers and Examples</description>
 
   <releases>
-    <release version="0.4">
+    <release version="0.4.1">
       1/08/2020, Initial version
     </release>
   </releases>
