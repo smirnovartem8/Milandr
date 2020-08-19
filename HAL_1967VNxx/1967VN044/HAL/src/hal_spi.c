@@ -26,11 +26,11 @@ struct
 	uint8_t Spi2_Mode;
 }SPI_CurrentMode;
 
-#pragma interrupt
+__attribute((interrupt))
 static void HAL_SPI0_DmaIrqHandler( void );
-#pragma interrupt
+__attribute((interrupt))
 static void HAL_SPI1_DmaIrqHandler( void );
-#pragma interrupt
+__attribute((interrupt))
 static void HAL_SPI2_DmaIrqHandler( void );
 
 // SPI initialization/Инициализация SPI:

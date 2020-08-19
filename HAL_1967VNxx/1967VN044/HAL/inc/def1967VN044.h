@@ -55,11 +55,11 @@
 #define base_UDDC3     		0x800002C0
 #define base_I2C			0x800002E0
 #define base_INTCTL			0x80000300
-#define base_GPTIMER		0x8000034E
+#define base_TIMER			0x8000034E
 #define base_SPI1    		0x80000360
 #define base_SPI2   		0x80000380
-#define base_TIMER0			0x80000400
-#define base_TIMER1			0x80000440
+#define base_GTIMER0		0x80000400
+#define base_GTIMER1		0x80000440
 #define base_GPA      		0x80001000
 #define base_GPB      		0x80001040
 #define base_GPC      		0x80001080

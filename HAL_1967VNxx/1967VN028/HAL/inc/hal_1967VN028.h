@@ -1,4 +1,5 @@
-﻿/**********************************************************************************************************************
+﻿
+/**********************************************************************************************************************
   Copyright (c) 2016 Milandr Corporation. All rights reserved.
 
   History:
@@ -14,6 +15,6 @@
 #include "hal_interrupt.h"
 #include "hal_sys.h"
 #include "hal_link.h"
-#include "hal_gptimer.h"
+#include "hal_timer.h"
 
 #endif

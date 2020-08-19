@@ -1,15 +1,18 @@
 ﻿/*
  *
- *	‘айл: 		hal_interrupt.h
- *	ќписание: 	HAL дл¤ контроллера прерываний
+ *	Файл: 		hal_interrupt.h
+ *	Описание: 	HAL для контроллера прерываний
  *
- *	»стори¤:
+ *	История:
  *	 			Zatonsky Pavel 		- 	создан
  */
 #ifndef __HAL_INTERRUPT_H__
 #define __HAL_INTERRUPT_H__
 
 #include <stdint.h>
+
+#define intTIM0   intGTMR0  //because renamed in spec from TIM to GTMR
+#define intTIM1   intGTMR1  //because renamed in spec from TIM to GTMR
 
 typedef enum
 {
@@ -38,8 +41,8 @@ typedef enum
 	intDMA6,
 	intDMA7,
 	intI2C,
-	intTIM0,
-	intTIM1,
+	intGTMR0,
+	intGTMR1,
 	intDMA8,
 	intDMA9,
 	intDMA10,

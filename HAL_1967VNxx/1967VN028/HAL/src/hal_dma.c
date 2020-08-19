@@ -240,11 +240,11 @@ void HAL_DMA_CreateChannelDest(int channel, void *tcb_current, void *tcb_next ){
 
 //-------------------------------------------------------//
 // Returns DMA channel status and clears dma errors
-// by reading DSTATC register
+// by reading DSTATCL register
 //-------------------------------------------------------//
 int HAL_DMA_GetChannelStatusClear(int channel)
 {
-	long long int dmaStatus = __builtin_sysreg_read2(__DSTATC);
+	long long int dmaStatus = __builtin_sysreg_read2(__DSTATCL);
 	return HAL_DMA_DecodeStatus(dmaStatus, channel);
 }
 

@@ -25,10 +25,10 @@ static volatile struct
 	uint8_t *Buff[ UART_NUMS ];																		// Pointer to the buffer/Указатель на буфер
 } UART_RX_Data;
 
-#pragma interrupt
+__attribute((interrupt))
 static void vUART0_IrqHandler( void );
 
-#pragma interrupt
+__attribute((interrupt))
 static void vUART1_IrqHandler( void );
 
 // Настройка UART

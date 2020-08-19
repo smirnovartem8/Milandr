@@ -1,4 +1,4 @@
-﻿#ifndef __MDR1636X_BUS_H_
+#ifndef __MDR1636X_BUS_H_
 #define __MDR1636X_BUS_H_
 
 #include "stdint.h"

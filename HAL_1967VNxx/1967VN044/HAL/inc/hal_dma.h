@@ -42,16 +42,16 @@ typedef enum
 	dmaDMAR_5_9,
 	dmaDMAR_6_10,
 	dmaDMAR_7_11,
-	dmaTIMER0_PWM0,																					// Запрос от DMA_RE таймера 0
-	dmaTIMER0_PWM1,																					// Запрос от DMA_RE1 таймера 0
-	dmaTIMER0_PWM2,																					// Запрос от DMA_RE2 таймера 0
-	dmaTIMER0_PWM3,																					// Запрос от DMA_RE3 таймера 0
-	dmaTIMER0_PWM4,																					// Запрос от DMA_RE4 таймера 0
-	dmaTIMER1_PWM0,																					// Запрос от DMA_RE таймера 1
-	dmaTIMER1_PWM1,																					// Запрос от DMA_RE1 таймера 1
-	dmaTIMER1_PWM2,																					// Запрос от DMA_RE2 таймера 1
-	dmaTIMER1_PWM3,																					// Запрос от DMA_RE3 таймера 1
-	dmaTIMER1_PWM4,																					// Запрос от DMA_RE4 таймера 1
+	dmaGTIMER0_REQ,																					    // Запрос от DMA_RE таймера 0
+	dmaGTIMER0_REQ1,																					// Запрос от DMA_RE1 таймера 0
+	dmaGTIMER0_REQ2,																					// Запрос от DMA_RE2 таймера 0
+	dmaGTIMER0_REQ3,																					// Запрос от DMA_RE3 таймера 0
+	dmaGTIMER0_REQ4,																					// Запрос от DMA_RE4 таймера 0
+	dmaGTIMER1_REQ,																				    	// Запрос от DMA_RE таймера 1
+	dmaGTIMER1_REQ1,																					// Запрос от DMA_RE1 таймера 1
+	dmaGTIMER1_REQ2,																					// Запрос от DMA_RE2 таймера 1
+	dmaGTIMER1_REQ3,																					// Запрос от DMA_RE3 таймера 1
+	dmaGTIMER1_REQ4,																					// Запрос от DMA_RE4 таймера 1
 	dmaTIMER0,
 	dmaTIMER1,
 } DMA_Requester_type;

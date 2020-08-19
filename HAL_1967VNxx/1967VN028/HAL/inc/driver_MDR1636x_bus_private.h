@@ -1,4 +1,4 @@
-﻿#ifndef __MDR1636X_BUS_DEF_H__
+#ifndef __MDR1636X_BUS_DEF_H__
 #define __MDR1636X_BUS_DEF_H__
 
 //------ Command data definitions -------//

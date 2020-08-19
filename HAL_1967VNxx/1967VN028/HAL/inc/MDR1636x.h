@@ -1,4 +1,4 @@
-﻿#ifndef __MDR1636X_H__
+#ifndef __MDR1636X_H__
 #define __MDR1636X_H__
 
 #define MDR1636PP1_SECTOR_SIZE		0x10000		

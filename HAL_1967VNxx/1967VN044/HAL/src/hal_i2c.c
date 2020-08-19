@@ -11,7 +11,7 @@
 
 volatile I2C_Struct_type I2C_Struct;
 
-#pragma interrupt
+__attribute((interrupt))
 static void HAL_I2C_IrqHandler( void );
 
 // I2C initialization/Инициализация I2C

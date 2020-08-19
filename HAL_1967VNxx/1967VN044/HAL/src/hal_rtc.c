@@ -9,6 +9,7 @@
  */
 #include "hal_1967VN044.h"
 #include <math.h>
+#include <stdlib.h>
 
 uint32_t HAL_RTC_RegRead( RTC_Reg_type RTCReg )
 {

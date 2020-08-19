@@ -13,10 +13,10 @@
 
 #include "def1967VN044.h"
 
-#define GTMR0_DIS	TMR0_DIS	//because renamed in spec from GTMR to TMR in CFG1 and CFG 8
-#define GTMR1_DIS	TMR1_DIS	//because renamed in spec from GTMR to TMR in CFG1 and CFG 8
-#define GTMR0_EN	TMR0_EN		//because renamed in spec from GTMR to TMR in CFG1 and CFG 8
-#define GTMR1_EN	TMR1_EN		//because renamed in spec from GTMR to TMR in CFG1 and CFG 8
+#define TMR0_DIS    GTMR0_DIS		//because renamed in spec from TMR to GTMR in CFG1 and CFG8
+#define TMR1_DIS    GTMR1_DIS		//because renamed in spec from TMR to GTMR in CFG1 and CFG8
+#define TMR0_EN     GTMR0_EN		//because renamed in spec from TMR to GTMR in CFG1 and CFG8
+#define TMR1_EN     GTMR1_EN		//because renamed in spec from TMR to GTMR in CFG1 and CFG8
 
 /* ----------------------------------------- Типы регистров ------------------------------------- */
 typedef union
@@ -39,8 +39,8 @@ typedef union
 		uint32_t SPI2_EN 		:1;
 		uint32_t I2C_ALT 		:1;
 		uint32_t NAND_ALT 		:2;
-		uint32_t TMR0_EN 		:1;
-		uint32_t TMR1_EN 		:1;
+		uint32_t GTMR0_EN 		:1;
+		uint32_t GTMR1_EN 		:1;
 		uint32_t RSV2 			:11;
 	} b;
 } CMU_CFG1_type;
@@ -117,8 +117,8 @@ typedef union
 		uint32_t UART1_DIS 		:1;
 		uint32_t SPI1_DIS 		:1;
 		uint32_t SPI2_DIS 		:1;
-		uint32_t TMR0_DIS 		:1;
-		uint32_t TMR1_DIS 		:1;
+		uint32_t GTMR0_DIS 		:1;
+		uint32_t GTMR1_DIS 		:1;
 		uint32_t I2C_DIS 		:1;
 		uint32_t RSV 			:10;
 	} b;

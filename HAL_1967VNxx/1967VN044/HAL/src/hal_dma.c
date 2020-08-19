@@ -283,7 +283,7 @@ void HAL_DMA_CreateChannelDest( uint32_t channel, void *tcb_current, void *tcb_n
 // Reading of the channel status and its setting to the state 'OFF'/ Чтение статуса канала и его сброс в состояние выключено
 uint32_t HAL_DMA_GetChannelStatusClear( uint32_t channel )
 {
-	uint64_t dmaStatus = __builtin_sysreg_read2( __DSTATC );
+	uint64_t dmaStatus = __builtin_sysreg_read2( __DSTATCL );
 	return HAL_DMA_DecodeStatus( dmaStatus, channel );
 }
 
