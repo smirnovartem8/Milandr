@@ -82,8 +82,10 @@ void TIMER_DeInit ( MDR_TMR_TypeDef* TIMERx ) {
 	TIMERx->STATUS = 0;
 	TIMERx->IE = 0;
 	TIMERx->DMA_RE = 0;
-	TIMERx->DMA_REChx[0] = TIMERx->DMA_REChx[1] =
-			TIMERx->DMA_REChx[2] = TIMERx->DMA_REChx[3] = 0;
+	TIMERx->DMA_RECh1 = 0;
+    TIMERx->DMA_RECh2 = 0;
+	TIMERx->DMA_RECh3 = 0;
+    TIMERx->DMA_RECh4 = 0;
 }
 
 /**
