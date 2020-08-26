@@ -939,6 +939,7 @@ typedef struct
 #define ADCx_CONFIG2_REFSEL_Pos              8
 #define ADCx_CONFIG2_REFTRIMR_Pos            16
 #define ADCx_CONFIG2_DT_MODE_Pos             24
+#define ADCx_CONFIG2_SELR_Pos                25
 
 /* Bit field masks: */
 #define ADCx_CONFIG2_IE_NE               ((uint32_t)0x00000001)
@@ -950,6 +951,7 @@ typedef struct
 #define ADCx_CONFIG2_REFSEL              ((uint32_t)0x0000FF00)
 #define ADCx_CONFIG2_REFTRIMR            ((uint32_t)0x00FF0000)
 #define ADCx_CONFIG2_DT_MODE             ((uint32_t)0x01000000)
+#define ADCx_CONFIG2_SELR                ((uint32_t)0x02000000)
 
 /** @} */ /* End of group CONFIG2 */
 

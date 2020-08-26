@@ -38,38 +38,38 @@
   * @{
   */
 
-void ADC_StructInit(ADCx_InitTypeDef* ADC_InitStruct)
-{
-  //  reg CONFIG0
-  ADC_InitStruct->ADC_WORKMODE   = 0;   // Run by GO bit
-	ADC_InitStruct->ADC_REFMODE    = 0;   // Ref by ADUcc and ADGND
-	ADC_InitStruct->ADC_RH_MODE    = 0;   // Iref from REF25 
-	ADC_InitStruct->ADC_SELMODE    = 0;   // Channel's switching Off
-	ADC_InitStruct->ADC_EXT_GO_INV = 0;   // EXT_GO Invertion Off
-	ADC_InitStruct->ADC_EXT_GO_SEL = 0;   // EXT_GO Disabled
-  
-  //  reg CONFIG1
-  ADC_InitStruct->ADC_ADCTRIM    = 0;   // No correction  
-	ADC_InitStruct->ADC_SETUP      = 5;   // ADCCLK ticks
-	ADC_InitStruct->ADC_PAUSE      = 5;   // ADCCLK ticks 
-  ADC_InitStruct->ADC_REFTRIM    = 0;   // Trim by Default
+//void ADC_StructInit(ADCx_InitTypeDef* ADC_InitStruct)
+//{
+//  //  reg CONFIG0
+//  ADC_InitStruct->ADC_WORKMODE   = 0;   // Run by GO bit
+//	ADC_InitStruct->ADC_REFMODE    = 0;   // Ref by ADUcc and ADGND
+//	ADC_InitStruct->ADC_RH_MODE    = 0;   // Iref from REF25 
+//	ADC_InitStruct->ADC_SELMODE    = 0;   // Channel's switching Off
+//	ADC_InitStruct->ADC_EXT_GO_INV = 0;   // EXT_GO Invertion Off
+//	ADC_InitStruct->ADC_EXT_GO_SEL = 0;   // EXT_GO Disabled
+//  
+//  //  reg CONFIG1
+//  ADC_InitStruct->ADC_ADCTRIM    = 0;   // No correction  
+//	ADC_InitStruct->ADC_SETUP      = 5;   // ADCCLK ticks
+//	ADC_InitStruct->ADC_PAUSE      = 5;   // ADCCLK ticks 
+//  ADC_InitStruct->ADC_REFTRIM    = 0;   // Trim by Default
 
-  //  reg CONFIG2
-	ADC_InitStruct->ADC_IE_NE    = DISABLE;  
-	ADC_InitStruct->ADC_IE_OF    = DISABLE;
-	ADC_InitStruct->ADC_IE_NAE   = DISABLE;
-	ADC_InitStruct->ADC_IE_AF    = DISABLE;
-	ADC_InitStruct->ADC_IE_ERFIN = DISABLE;
-  
-	ADC_InitStruct->ADC_LEVLCNTRL    = 0;    //  Min_Level / Max_Level disabled
-	ADC_InitStruct->ADC_REFSEL       = 0;    //  unused with ADC_REFMODE = 0
-	ADC_InitStruct->ADC_REF_TRIMR    = 0x7F; //  Middle value
-	ADC_InitStruct->ADC_DT_MODE      = 0;    //  Temperature sensor 
-	ADC_InitStruct->ADC_FIFOEN_0_31  = 0;    //  FIFO no channel selected
-	ADC_InitStruct->ADC_FIFOEN_32_63 = 0;    //  FIFO no channel selected
-  
-	//ADC_InitStruct->ADC_FIFOEN = 0;
-}  
+//  //  reg CONFIG2
+//	ADC_InitStruct->ADC_IE_NE    = DISABLE;  
+//	ADC_InitStruct->ADC_IE_OF    = DISABLE;
+//	ADC_InitStruct->ADC_IE_NAE   = DISABLE;
+//	ADC_InitStruct->ADC_IE_AF    = DISABLE;
+//	ADC_InitStruct->ADC_IE_ERFIN = DISABLE;
+//  
+//	ADC_InitStruct->ADC_LEVLCNTRL    = 0;    //  Min_Level / Max_Level disabled
+//	ADC_InitStruct->ADC_REFSEL       = 0;    //  unused with ADC_REFMODE = 0
+//	ADC_InitStruct->ADC_REF_TRIMR    = 0x7F; //  Middle value
+//	ADC_InitStruct->ADC_DT_MODE      = 0;    //  Temperature sensor 
+//	ADC_InitStruct->ADC_FIFOEN_0_31  = 0;    //  FIFO no channel selected
+//	ADC_InitStruct->ADC_FIFOEN_32_63 = 0;    //  FIFO no channel selected
+//  
+//	//ADC_InitStruct->ADC_FIFOEN = 0;
+//}  
 
 
 /**
@@ -183,6 +183,9 @@ ADCx_InitStruct->ADC_LEVLCNTRL = 0;
 ADCx_InitStruct->ADC_REFSEL = 0;
 ADCx_InitStruct->ADC_REF_TRIMR = 0;
 ADCx_InitStruct->ADC_DT_MODE = 0;
+
+ADCx_InitStruct->ADC_FIFOEN_0_31 = 0;
+ADCx_InitStruct->ADC_FIFOEN_32_63= 0;
 }
 
 /**

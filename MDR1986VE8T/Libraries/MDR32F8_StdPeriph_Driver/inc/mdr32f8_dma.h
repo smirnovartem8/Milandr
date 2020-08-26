@@ -186,7 +186,7 @@ typedef struct
 /** @defgroup DMA_valid_channels DMA valid channels
   * @{
   */
-#if defined (USE_MDR1986VE9x)
+
 
 #define DMA_Channel_UART1_TX    ((uint8_t)(0))
 #define DMA_Channel_UART1_RX    ((uint8_t)(1))
@@ -611,7 +611,6 @@ void DMA_CtrlDataInit(DMA_CtrlDataInitTypeDef *DMA_ctrl_data_ptr, DMA_CtrlDataTy
 } // extern "C" block end
 #endif
 
-#endif /* __MDR32F9Qx_DMA_H */
 
 /******************* (C) COPYRIGHT 2010 Phyton *********************************
 *

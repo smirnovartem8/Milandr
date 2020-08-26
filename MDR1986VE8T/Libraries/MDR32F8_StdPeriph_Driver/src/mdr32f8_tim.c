@@ -82,10 +82,8 @@ void TIMER_DeInit ( MDR_TMR_TypeDef* TIMERx ) {
 	TIMERx->STATUS = 0;
 	TIMERx->IE = 0;
 	TIMERx->DMA_RE = 0;
-#if defined(USE_MDR1986VE3) || defined (USE_MDR1986VE1T) /* For Cortex M1 */
 	TIMERx->DMA_REChx[0] = TIMERx->DMA_REChx[1] =
 			TIMERx->DMA_REChx[2] = TIMERx->DMA_REChx[3] = 0;
-#endif
 }
 
 /**
@@ -200,11 +198,9 @@ void TIMER_Cmd(MDR_TMR_TypeDef* TIMERx, FunctionalState NewState)
   * @param  Counter: specifies the Counter register new value.
   * @retval None
   */
-#if defined (USE_MDR1986VE1T) || defined (USE_MDR1986VE3)
-void TIMER_SetCounter(MDR_TIMER_TypeDef* TIMERx, uint32_t Counter)
-#elif defined (USE_MDR1986VE9x)
-void TIMER_SetCounter(MDR_TMR_TypeDef* TIMERx, uint16_t Counter)
-#endif
+
+void TIMER_SetCounter(MDR_TMR_TypeDef* TIMERx, uint32_t Counter)
+
 {
   /* Check the parameters */
   assert_param(IS_TIMER_ALL_PERIPH(TIMERx));
@@ -232,11 +228,8 @@ void TIMER_SetCntPrescaler(MDR_TMR_TypeDef* TIMERx, uint16_t Prescaler)
   * @param  Autoreload: specifies the Autoreload Register value.
   * @retval None
   */
-#if defined (USE_MDR1986VE1T) || defined (USE_MDR1986VE3)
-void TIMER_SetCntAutoreload(MDR_TIMER_TypeDef* TIMERx, uint32_t Autoreload)
-#elif defined (USE_MDR1986VE9x)
-void TIMER_SetCntAutoreload(MDR_TMR_TypeDef* TIMERx, uint16_t Autoreload)
-#endif
+
+void TIMER_SetCntAutoreload(MDR_TMR_TypeDef* TIMERx, uint32_t Autoreload)
 {
   /* Check the parameters */
   assert_param(IS_TIMER_ALL_PERIPH(TIMERx));
@@ -254,11 +247,8 @@ void TIMER_SetCntAutoreload(MDR_TMR_TypeDef* TIMERx, uint16_t Autoreload)
   *           @arg TIMER_ARR_Update_On_CNT_Overflow: the ARR register is updated at CNT count end.
   * @retval None
   */
-#if defined (USE_MDR1986VE1T) || defined (USE_MDR1986VE3)
-void TIMER_CntAutoreloadConfig(MDR_TIMER_TypeDef* TIMERx, uint32_t Autoreload, uint32_t UpdateMode)
-#elif defined (USE_MDR1986VE9x)
-void TIMER_CntAutoreloadConfig(MDR_TMR_TypeDef* TIMERx, uint16_t Autoreload, uint32_t UpdateMode)
-#endif
+
+void TIMER_CntAutoreloadConfig(MDR_TMR_TypeDef* TIMERx, uint32_t Autoreload, uint32_t UpdateMode)
 {
   uint32_t tmpreg_CNTRL;
 
@@ -279,11 +269,9 @@ void TIMER_CntAutoreloadConfig(MDR_TMR_TypeDef* TIMERx, uint16_t Autoreload, uin
   * @param  TIMERx: where x can be 1 to 3 to select the TIMER peripheral.
   * @retval Counter Register value.
   */
-#if defined (USE_MDR1986VE1T) || defined (USE_MDR1986VE3)
-uint32_t TIMER_GetCounter(MDR_TIMER_TypeDef* TIMERx)
-#elif defined (USE_MDR1986VE9x)
-uint16_t TIMER_GetCounter(MDR_TMR_TypeDef* TIMERx)
-#endif
+
+uint32_t TIMER_GetCounter(MDR_TMR_TypeDef* TIMERx)
+
 {
   /* Check the parameters */
   assert_param(IS_TIMER_ALL_PERIPH(TIMERx));
@@ -691,11 +679,8 @@ void TIMER_ChnStructInit(TIMER_ChnInitTypeDef* TIMER_ChnInitStruct)
   * @param  Compare: specifies the Capture Compare Register (CCR) new value.
   * @retval None
   */
-#if defined (USE_MDR1986VE1T) || defined (USE_MDR1986VE3)
-void TIMER_SetChnCompare(MDR_TIMER_TypeDef* TIMERx, uint32_t Channel, uint32_t Compare)
-#elif defined (USE_MDR1986VE9x)
-void TIMER_SetChnCompare(MDR_TMR_TypeDef* TIMERx, uint32_t Channel, uint16_t Compare)
-#endif
+
+void TIMER_SetChnCompare(MDR_TMR_TypeDef* TIMERx, uint32_t Channel, uint32_t Compare)
 {
   __IO uint32_t *tmpreg_CCRx;
 
@@ -719,11 +704,7 @@ void TIMER_SetChnCompare(MDR_TMR_TypeDef* TIMERx, uint32_t Channel, uint16_t Com
   * @param  Compare: specifies the Capture Compare Register1 (CCR1) new value.
   * @retval None
   */
-#if defined (USE_MDR1986VE1T) || defined (USE_MDR1986VE3)
-void TIMER_SetChnCompare1(MDR_TIMER_TypeDef* TIMERx, uint32_t Channel, uint32_t Compare)
-#elif defined (USE_MDR1986VE9x)
-void TIMER_SetChnCompare1(MDR_TMR_TypeDef* TIMERx, uint32_t Channel, uint16_t Compare)
-#endif
+void TIMER_SetChnCompare1(MDR_TMR_TypeDef* TIMERx, uint32_t Channel, uint32_t Compare)
 {
   __IO uint32_t *tmpreg_CCR1x;
 
@@ -751,11 +732,8 @@ void TIMER_SetChnCompare1(MDR_TMR_TypeDef* TIMERx, uint32_t Channel, uint16_t Co
   *           @arg TIMER_CH_CCR_Update_On_CNT_eq_0: the CCR register is updated at (CNT == 0) condition.
   * @retval None
   */
-#if defined (USE_MDR1986VE1T) || defined (USE_MDR1986VE3)
-void TIMER_ChnCompareConfig(MDR_TIMER_TypeDef* TIMERx, uint32_t Channel, uint32_t Compare, uint32_t UpdateMode)
-#elif defined (USE_MDR1986VE9x)
-void TIMER_ChnCompareConfig(MDR_TMR_TypeDef* TIMERx, uint32_t Channel, uint16_t Compare, uint32_t UpdateMode)
-#endif
+
+void TIMER_ChnCompareConfig(MDR_TMR_TypeDef* TIMERx, uint32_t Channel, uint32_t Compare, uint32_t UpdateMode)
 {
   __IO uint32_t *tmpreg_CNTRL2x;
   __IO uint32_t *tmpreg_CCRx;
@@ -794,11 +772,7 @@ void TIMER_ChnCompareConfig(MDR_TMR_TypeDef* TIMERx, uint32_t Channel, uint16_t 
   *           @arg TIMER_CH_CCR_Update_On_CNT_eq_0: the CCR1 register is updated at (CNT == 0) condition.
   * @retval None
   */
-#if defined (USE_MDR1986VE1T) || defined (USE_MDR1986VE3)
-void TIMER_ChnCompare1Config(MDR_TIMER_TypeDef* TIMERx, uint32_t Channel, uint32_t Compare, uint32_t UpdateMode)
-#elif defined (USE_MDR1986VE9x)
-void TIMER_ChnCompare1Config(MDR_TMR_TypeDef* TIMERx, uint32_t Channel, uint16_t Compare, uint32_t UpdateMode)
-#endif
+void TIMER_ChnCompare1Config(MDR_TMR_TypeDef* TIMERx, uint32_t Channel, uint32_t Compare, uint32_t UpdateMode)
 {
   __IO uint32_t *tmpreg_CNTRL2x;
   __IO uint32_t *tmpreg_CCR1x;
@@ -832,11 +806,8 @@ void TIMER_ChnCompare1Config(MDR_TMR_TypeDef* TIMERx, uint32_t Channel, uint16_t
   *           @arg TIMER_CHANNEL4: specifies TIMERx Channel 4.
   * @retval Capture Compare Register (CCR) value.
   */
-#if defined (USE_MDR1986VE1T) || defined (USE_MDR1986VE3)
-uint32_t TIMER_GetChnCapture(MDR_TIMER_TypeDef* TIMERx, uint32_t Channel)
-#elif defined (USE_MDR1986VE9x)
-uint16_t TIMER_GetChnCapture(MDR_TMR_TypeDef* TIMERx, uint32_t Channel)
-#endif
+
+uint32_t TIMER_GetChnCapture(MDR_TMR_TypeDef* TIMERx, uint32_t Channel)
 {
   __IO uint32_t *tmpreg_CCRx;
   uint32_t tmpreg;
@@ -862,11 +833,8 @@ uint16_t TIMER_GetChnCapture(MDR_TMR_TypeDef* TIMERx, uint32_t Channel)
   *           @arg TIMER_CHANNEL4: specifies TIMERx Channel 4.
   * @retval Capture Compare Register1 (CCR1) value.
   */
-#if defined (USE_MDR1986VE1T) || defined (USE_MDR1986VE3)
-uint32_t TIMER_GetChnCapture1(MDR_TIMER_TypeDef* TIMERx, uint32_t Channel)
-#elif defined (USE_MDR1986VE9x)
-uint16_t TIMER_GetChnCapture1(MDR_TMR_TypeDef* TIMERx, uint32_t Channel)
-#endif
+
+uint32_t TIMER_GetChnCapture1(MDR_TMR_TypeDef* TIMERx, uint32_t Channel)
 {
   __IO uint32_t *tmpreg_CCR1x;
   uint32_t tmpreg;
@@ -1781,12 +1749,8 @@ void TIMER_ClearFlag(MDR_TMR_TypeDef* TIMERx, uint32_t Flags)
   *         This parameter can be: ENABLE or DISABLE.
   * @retval None
   */
-#if defined (USE_MDR1986VE1T) || defined (USE_MDR1986VE3)
-void TIMER_DMACmd(MDR_TIMER_TypeDef* TIMERx, uint32_t TIMER_DMASource, uint32_t TIMER_DMAChannel, FunctionalState NewState)
-#endif
-#if defined (USE_MDR1986VE9x)
+
 void TIMER_DMACmd(MDR_TMR_TypeDef* TIMERx, uint32_t TIMER_DMASource, FunctionalState NewState)
-#endif
 {
   uint32_t tmpreg_DMA_RE;
 

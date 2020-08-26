@@ -88,6 +88,8 @@ typedef struct {
 	FunctionalState ADC_IE_AF;
 	
 	FunctionalState ADC_IE_ERFIN;
+    
+    FunctionalState ADC_SELR;
 
 	uint32_t ADC_LEVLCNTRL; 
 
@@ -197,6 +199,8 @@ typedef struct {
 #define ADCx_CLKdiv2                        ((uint32_t)0x00000001)
 #define ADCx_CLKdiv4                        ((uint32_t)0x00000003)
 #define ADCx_CLKdiv8                        ((uint32_t)0x00000007)
+#define ADCx_CLKdiv16                       ((uint32_t)0x0000000F)
+#define ADCx_CLKdiv32                       ((uint32_t)0x0000001F)
 /** @} */ /* End of group ADC_Exported_Types */
 
 #define ADC_FLAG_NE													((uint32_t)0x00000001)
@@ -242,7 +246,8 @@ typedef struct {
   */
 
 void ADC_Init(ADCxControl* ADCx, const ADCx_InitTypeDef* ADC_InitStruct);
-void ADC_StructInit(ADCx_InitTypeDef* ADC_InitStruct);
+//void ADC_StructInit(ADCx_InitTypeDef* ADC_InitStruct);
+void ADCx_StructInit(ADCx_InitTypeDef* ADCx_InitStruct);
 void ADCx_Cmd(ADCxControl* ADCx, FunctionalState NewState);
 void ADCx_SetChannel(ADCxControl* ADCx, uint32_t Channel);
 void ADCx_SetChannels0(ADCxControl* ADCx, uint32_t ChannelMask);
