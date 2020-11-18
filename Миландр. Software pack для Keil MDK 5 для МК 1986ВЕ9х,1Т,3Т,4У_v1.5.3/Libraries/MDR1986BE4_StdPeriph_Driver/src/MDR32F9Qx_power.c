@@ -336,29 +336,45 @@ void POWER_PVD_INVconfig(uint32_t POWER_INV, FunctionalState NewState)
   */
 void POWER_EnterSTOPMode(FunctionalState POWER_Regulator_state, uint8_t POWER_STOPentry)
 {
-	/* Check the parameters */
-	assert_param(IS_FUNCTIONAL_STATE(POWER_Regulator_state));
-	assert_param(IS_POWER_STOP_ENTRY(POWER_STOPentry));
+  /* Check the parameters */
+  assert_param(IS_FUNCTIONAL_STATE(POWER_Regulator_state));
+  assert_param(IS_POWER_STOP_ENTRY(POWER_STOPentry));
 
-	/* Set UDcc stanby status */
-	/* Set SLEEPDEEP bit of Cortex System Control Register */
-	*(__IO uint32_t *) SCB ->SCR |= SCB_SCR_SLEEPDEEP_Msk;
+  if(POWER_Regulator_state == DISABLE)
+  {
+    MDR_BKP->REG_0F |= BKP_REG_0F_STANDBY;
+  }
+  else
+  {
+    /* Set SLEEPDEEP bit of Cortex System Control Register */
+    SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
 
-	if (POWER_Regulator_state == ENABLE) {
-		MDR_BKP ->REG_0F &= ~BKP_REG_0F_STANDBY;
-	}
-	else {
-		MDR_BKP ->REG_0F |= BKP_REG_0F_STANDBY;
-	}
-	/* Select STOP mode entry --------------------------------------------------*/
-	if (POWER_STOPentry == POWER_STOPentry_WFI ) {
-		/* Request Wait For Interrupt */
-		__WFI();
-	}
-	else {
-		/* Request Wait For Event */
-		__WFE();
-	}
+    /* Select STOP mode entry --------------------------------------------------*/
+    if(POWER_STOPentry == POWER_STOPentry_WFI)
+    {
+      /* Request Wait For Interrupt */
+      __WFI();
+    }
+    else
+    {
+      /* Request Wait For Event */
+      __WFE();
+    }
+  }
+}
+
+
+/**
+  * @brief	Shifting core controller into a low power consumption. In this mode,
+  * 		the clock frequency is applied only to the selected peripheral
+  * 		blocks, which interrupt the supply resumes clock on the core.
+  * @param	None
+  * @retval None
+  */
+void POWER_EnterSLEEPMode(void)
+{
+	/* Enter in SLEEP mode */
+	MDR_RST_CLK->ETH_CLOCK |= 1 << RST_CLK_ETH_CLOCK_SLEEP_Pos;
 }
 /**
   * @brief  Enters STANDBY mode.

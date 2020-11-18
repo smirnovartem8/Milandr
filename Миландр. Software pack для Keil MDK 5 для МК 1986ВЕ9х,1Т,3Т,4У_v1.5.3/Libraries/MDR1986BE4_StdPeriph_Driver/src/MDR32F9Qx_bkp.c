@@ -292,6 +292,28 @@ FlagStatus BKP_RTC_GetFlagStatus(uint32_t BKP_RTC_FLAG)
   return status;
 }
 
+/**
+  * @brief  BKP_RTC_ClearFlagStatus - Clears the specified RTC flag.
+  * @param  BKP_RTC_FLAG: specifies the flag to clear.
+  *   This parameter can be any combination of the following values:
+  *     @arg BKP_RTC_FLAG_OWF : Overflow flag
+  *     @arg BKP_RTC_FLAG_ALRF: Alarm flag
+  *     @arg BKP_RTC_FLAG_SECF: Second flag
+  * @retval None.
+  */
+void BKP_RTC_ClearFlagStatus(uint32_t BKP_RTC_FLAG)
+{
+  uint32_t tmpreg;
+	
+  /* Check the parameters */
+  assert_param(IS_BKP_RTC_CLAER_FLAG(BKP_RTC_FLAG));
+	
+  tmpreg = MDR_BKP->RTC_CS & (~BKP_RTC_CS_Msk);
+  tmpreg |= BKP_RTC_FLAG;
+
+  MDR_BKP->RTC_CS = tmpreg;
+}
+
 /** @} */ /* End of group BKP_Private_Functions */
 
 /** @} */ /* End of group BKP */
