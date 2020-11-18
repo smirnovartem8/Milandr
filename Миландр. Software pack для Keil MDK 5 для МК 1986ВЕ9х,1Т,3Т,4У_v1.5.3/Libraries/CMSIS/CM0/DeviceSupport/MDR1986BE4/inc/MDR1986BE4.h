@@ -788,7 +788,7 @@ typedef struct {
 	__IO uint32_t	HS_CONTROL;             /*!<HS Control Register */
 	__IO uint32_t	CPU_CLOCK;              /*!<CPU Clock Register */
 	__IO uint32_t	PER1_CLOCK;             /*!<PER1 Clock Register */
-	__IO uint32_t	ADC_MCO_CLOCK;          /*!<ADC Clock Register */
+	__IO uint32_t	ADC_CLOCK;          /*!<ADC Clock Register */
 	__IO uint32_t	RTC_CLOCK;              /*!<RTC Clock Register */
 	__IO uint32_t	PER2_CLOCK;             /*!<Peripheral Clock Enable Register */
 	__I  uint32_t	RESERVED0;
@@ -887,29 +887,29 @@ typedef struct {
 
 /** @} */ /* End of group RST_CLK_PER1_CLOCK */
 
-/** @defgroup Periph_RST_CLK_ADC_MCO_CLOCK RST_CLK ADC_MCO_CLOCK
+/** @defgroup Periph_RST_CLK_ADC_CLOCK RST_CLK ADC_CLOCK
   * @{
   */
 
-/*-- RST_CLK_ADC_MCO_CLOCK:RST_CLK ADC_MCO_CLOCK Register -----*/
+/*-- RST_CLK_ADC_CLOCK:RST_CLK ADC_CLOCK Register -----*/
 
 /* Bit field positions: */
-#define RST_CLK_ADC_MCO_CLOCK_ADC_C1_SEL_Pos               0
-#define RST_CLK_ADC_MCO_CLOCK_ADCIU_C1_SEL_Pos             2
-#define RST_CLK_ADC_MCO_CLOCK_ADCIU_C3_SEL_Pos             4
-#define RST_CLK_ADC_MCO_CLOCK_ADC_C3_SEL_Pos               8
-#define RST_CLK_ADC_MCO_CLOCK_ADCIU_CLK_EN_Pos             12
-#define RST_CLK_ADC_MCO_CLOCK_ADC_CLK_EN_Pos               13
+#define RST_CLK_ADC_CLOCK_ADC_C1_SEL_Pos               0
+#define RST_CLK_ADC_CLOCK_ADCIU_C1_SEL_Pos             2
+#define RST_CLK_ADC_CLOCK_ADCIU_C3_SEL_Pos             4
+#define RST_CLK_ADC_CLOCK_ADC_C3_SEL_Pos               8
+#define RST_CLK_ADC_CLOCK_ADCIU_CLK_EN_Pos             12
+#define RST_CLK_ADC_CLOCK_ADC_CLK_EN_Pos               13
 
 /* Bit field masks: */
-#define RST_CLK_ADC_MCO_CLOCK_ADC_C1_SEL_Msk               ((uint32_t)0x00000003)
-#define RST_CLK_ADC_MCO_CLOCK_ADCIU_C1_SEL_Msk             ((uint32_t)0x0000000C)
-#define RST_CLK_ADC_MCO_CLOCK_ADCIU_C3_SEL_Msk             ((uint32_t)0x000000F0)
-#define RST_CLK_ADC_MCO_CLOCK_ADC_C3_SEL_Msk               ((uint32_t)0x00000F00)
-#define RST_CLK_ADC_MCO_CLOCK_ADCIU_CLK_EN                 ((uint32_t)0x00001000)
-#define RST_CLK_ADC_MCO_CLOCK_ADC_CLK_EN                   ((uint32_t)0x00002000)
+#define RST_CLK_ADC_CLOCK_ADC_C1_SEL_Msk               ((uint32_t)0x00000003)
+#define RST_CLK_ADC_CLOCK_ADCIU_C1_SEL_Msk             ((uint32_t)0x0000000C)
+#define RST_CLK_ADC_CLOCK_ADCIU_C3_SEL_Msk             ((uint32_t)0x000000F0)
+#define RST_CLK_ADC_CLOCK_ADC_C3_SEL_Msk               ((uint32_t)0x00000F00)
+#define RST_CLK_ADC_CLOCK_ADCIU_CLK_EN                 ((uint32_t)0x00001000)
+#define RST_CLK_ADC_CLOCK_ADC_CLK_EN                   ((uint32_t)0x00002000)
 
-/** @} */ /* End of group RST_CLK_ADC_MCO_CLOCK */
+/** @} */ /* End of group RST_CLK_ADC_CLOCK */
 
 /** @defgroup Periph_RST_CLK_RTC_CLOCK RST_CLK RTC_CLOCK
   * @{
@@ -2203,9 +2203,11 @@ typedef struct {
 #define BKP_RTC_CS_OWF                                     ((uint32_t)0x00000001)
 #define BKP_RTC_CS_SECF                                    ((uint32_t)0x00000002)
 #define BKP_RTC_CS_ALRF                                    ((uint32_t)0x00000004)
+#define BKP_RTC_CS_Msk                                     ((uint32_t)0x00000007)
 #define BKP_RTC_CS_OWF_IE                                  ((uint32_t)0x00000008)
 #define BKP_RTC_CS_SECF_IE                                 ((uint32_t)0x00000010)
 #define BKP_RTC_CS_ALRF_IE                                 ((uint32_t)0x00000020)
+#define BKP_RTC_CS_IE_Msk                                  ((uint32_t)0x00000038)
 #define BKP_RTC_CS_WEC                                     ((uint32_t)0x00000040)
 
 /** @} */ /* End of group BKP_RTC_CS */

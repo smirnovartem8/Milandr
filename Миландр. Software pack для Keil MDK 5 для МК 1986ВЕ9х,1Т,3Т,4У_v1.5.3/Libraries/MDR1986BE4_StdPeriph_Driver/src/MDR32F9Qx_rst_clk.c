@@ -110,8 +110,8 @@ void RST_CLK_WarmDeInit(void)
   /* Reset HSEON and HSEBYP bits */
   MDR_RST_CLK->HS_CONTROL  &= (uint32_t)0x00000000;
 
-  /* Reset ADC_MCO_CLOCK bits */
-  MDR_RST_CLK->ADC_MCO_CLOCK   &= (uint32_t)0x00000000;
+  /* Reset ADC_CLOCK bits */
+  MDR_RST_CLK->ADC_CLOCK   &= (uint32_t)0x00000000;
 
   /* Reset RTC_CLOCK bits */
   MDR_RST_CLK->RTC_CLOCK   &= (uint32_t)0x00000000;
@@ -615,13 +615,13 @@ void RST_CLK_ADCclkSelection(uint32_t ADC_CLK)
   assert_param(IS_RST_CLK_ADCclk(ADC_CLK));
 
   /* Select ADC_CLK source */
-  temp = MDR_RST_CLK->ADC_MCO_CLOCK;
+  temp = MDR_RST_CLK->ADC_CLOCK;
   /* Clear ADC_C1,C2 SEL bits */
-  temp &= ~(RST_CLK_ADC_MCO_CLOCK_ADC_C1_SEL_Msk);
+  temp &= ~(RST_CLK_ADC_CLOCK_ADC_C1_SEL_Msk);
   /* Set the ADC_C1, SEL bits */
   temp |= ADC_CLK;
   /* Store the new value */
-  MDR_RST_CLK->ADC_MCO_CLOCK = temp;
+  MDR_RST_CLK->ADC_CLOCK = temp;
 }
 
 /**
@@ -646,13 +646,13 @@ void RST_CLK_ADCclkPrescaler(uint32_t ADCclkDivValue)
   /* Check the parameters */
   assert_param(IS_RST_CLK_ADCclkDivValue(ADCclkDivValue));
 
-  temp = MDR_RST_CLK->ADC_MCO_CLOCK;
+  temp = MDR_RST_CLK->ADC_CLOCK;
   /* Clear ADC_C3_SEL bits */
-  temp &= ~RST_CLK_ADC_MCO_CLOCK_ADC_C3_SEL_Msk;
+  temp &= ~RST_CLK_ADC_CLOCK_ADC_C3_SEL_Msk;
   /* Set the ADC_C3_SEL bits */
-  temp |= ADCclkDivValue << RST_CLK_ADC_MCO_CLOCK_ADC_C3_SEL_Pos;
+  temp |= ADCclkDivValue << RST_CLK_ADC_CLOCK_ADC_C3_SEL_Pos;
   /* Store the new value */
-  MDR_RST_CLK->ADC_MCO_CLOCK = temp;
+  MDR_RST_CLK->ADC_CLOCK = temp;
 }
 
 /**
@@ -668,18 +668,18 @@ void RST_CLK_ADCclkEnable ( FunctionalState NewState )
   /* Check the parameters */
   assert_param(IS_FUNCTIONAL_STATE(NewState));
 
-  temp = MDR_RST_CLK->ADC_MCO_CLOCK;
+  temp = MDR_RST_CLK->ADC_CLOCK;
   /* Form new value */
   if (NewState != DISABLE){
-    /* Enable the ADC CLK by setting the ADC_CLK_EN bit in the ADC_MCO_CLOCK register */
-    temp |= RST_CLK_ADC_MCO_CLOCK_ADC_CLK_EN;
+    /* Enable the ADC CLK by setting the ADC_CLK_EN bit in the ADC_CLOCK register */
+    temp |= RST_CLK_ADC_CLOCK_ADC_CLK_EN;
   }
   else{
-    /* Disable the ADC CLK by resetting the ADC_CLK_EN bit in the ADC_MCO_CLOCK register */
-    temp &= ~RST_CLK_ADC_MCO_CLOCK_ADC_CLK_EN;
+    /* Disable the ADC CLK by resetting the ADC_CLK_EN bit in the ADC_CLOCK register */
+    temp &= ~RST_CLK_ADC_CLOCK_ADC_CLK_EN;
   }
   /* Configure CPU_CLOCK register with new value */
-  MDR_RST_CLK->ADC_MCO_CLOCK = temp;
+  MDR_RST_CLK->ADC_CLOCK = temp;
 }
 
 
@@ -691,9 +691,9 @@ void RST_CLK_ADCclkEnable ( FunctionalState NewState )
 void RST_CLK_ADCIUclkDeInit(void)
 {
 
-  MDR_RST_CLK->ADC_MCO_CLOCK &= ~(RST_CLK_ADC_MCO_CLOCK_ADCIU_C1_SEL_Msk |
-                              	  RST_CLK_ADC_MCO_CLOCK_ADCIU_C3_SEL_Msk |
-                              	  RST_CLK_ADC_MCO_CLOCK_ADCIU_CLK_EN);
+  MDR_RST_CLK->ADC_CLOCK &= ~(RST_CLK_ADC_CLOCK_ADCIU_C1_SEL_Msk |
+                              	  RST_CLK_ADC_CLOCK_ADCIU_C3_SEL_Msk |
+                              	  RST_CLK_ADC_CLOCK_ADCIU_CLK_EN);
 
 }
 /**
@@ -714,13 +714,13 @@ void RST_CLK_ADCIUclkSelection(uint32_t ADCIU_CLK_C1)
   assert_param(IS_RST_CLK_ADCIUclk(ADCIU_CLK_C1));
 
   /* Select ADC_CLK source */
-  temp = MDR_RST_CLK->ADC_MCO_CLOCK;
+  temp = MDR_RST_CLK->ADC_CLOCK;
   /* Clear ADCIU_C1,C2 SEL bits */
-  temp &= ~RST_CLK_ADC_MCO_CLOCK_ADCIU_C1_SEL_Msk;
+  temp &= ~RST_CLK_ADC_CLOCK_ADCIU_C1_SEL_Msk;
   /* Set the ADCIU_C1 SEL bits */
   temp |= ADCIU_CLK_C1;
   /* Store the new value */
-  MDR_RST_CLK->ADC_MCO_CLOCK = temp;
+  MDR_RST_CLK->ADC_CLOCK = temp;
 }
 
 /**
@@ -744,13 +744,13 @@ void RST_CLK_ADCIUclkPrescaler(uint32_t ADCIUclkDIVValue)
   /* Check the parameters */
   assert_param(IS_RST_CLK_ADCIUclkDIV(ADCIUclkDIVValue));
 
-  temp = MDR_RST_CLK->ADC_MCO_CLOCK;
+  temp = MDR_RST_CLK->ADC_CLOCK;
   /* Clear ADCIU_C3_SEL bits */
-  temp &= ~RST_CLK_ADC_MCO_CLOCK_ADCIU_C3_SEL_Msk;
+  temp &= ~RST_CLK_ADC_CLOCK_ADCIU_C3_SEL_Msk;
   /* Set the ADCIU_C3_SEL bits */
   temp |= ADCIUclkDIVValue;
   /* Store the new value */
-  MDR_RST_CLK->ADC_MCO_CLOCK = temp;
+  MDR_RST_CLK->ADC_CLOCK = temp;
 }
 
 /**
@@ -766,19 +766,19 @@ void RST_CLK_ADCIUclkCMD(FunctionalState NewState)
   /* Check the parameters */
   assert_param(IS_FUNCTIONAL_STATE(NewState));
 
-  temp = MDR_RST_CLK->ADC_MCO_CLOCK;
+  temp = MDR_RST_CLK->ADC_CLOCK;
 
   /* Form new value */
   if (NewState != DISABLE){
-    /* Enable ADCIU clk by setting the ADCIU_CLK_EN bit in the ADC_MCO_CLOCK register */
-    temp |= RST_CLK_ADC_MCO_CLOCK_ADCIU_CLK_EN;
+    /* Enable ADCIU clk by setting the ADCIU_CLK_EN bit in the ADC_CLOCK register */
+    temp |= RST_CLK_ADC_CLOCK_ADCIU_CLK_EN;
   }
   else{
-    /* Disable ADCIU clk by resetting the ADCIU_CLK_EN bit in the ADC_MCO_CLOCK register */
-    temp &= ~RST_CLK_ADC_MCO_CLOCK_ADCIU_CLK_EN;
+    /* Disable ADCIU clk by resetting the ADCIU_CLK_EN bit in the ADC_CLOCK register */
+    temp &= ~RST_CLK_ADC_CLOCK_ADCIU_CLK_EN;
   }
-  /* Configure ADC_MCO_CLOCK register with new value */
-  MDR_RST_CLK->ADC_MCO_CLOCK = temp;
+  /* Configure ADC_CLOCK register with new value */
+  MDR_RST_CLK->ADC_CLOCK = temp;
 }
 
 
@@ -1093,7 +1093,7 @@ void RST_CLK_GetClocksFreq(RST_CLK_FreqTypeDef* RST_CLK_Clocks)
   /* Compute ADC_CLK frequency */
 
   /* Select ADC_C1 from cpu_c1, per_c1_freq, cpu_c2_freq, HSI_Value cases */
-  switch ((MDR_RST_CLK->ADC_MCO_CLOCK >> RST_CLK_ADC_MCO_CLOCK_ADC_C1_SEL_Pos)
+  switch ((MDR_RST_CLK->ADC_CLOCK >> RST_CLK_ADC_CLOCK_ADC_C1_SEL_Pos)
       & (uint32_t) 0x03) {
     case 0:
       /* ADC_C1 */
@@ -1114,7 +1114,7 @@ void RST_CLK_GetClocksFreq(RST_CLK_FreqTypeDef* RST_CLK_Clocks)
   }
 
 
-  temp = MDR_RST_CLK->ADC_MCO_CLOCK >> RST_CLK_ADC_MCO_CLOCK_ADC_C3_SEL_Pos;
+  temp = MDR_RST_CLK->ADC_CLOCK >> RST_CLK_ADC_CLOCK_ADC_C3_SEL_Pos;
   if ((temp & 0x08U) == 0) {
     adc_c3_freq = adc_c1_freq;
   }
@@ -1128,7 +1128,7 @@ void RST_CLK_GetClocksFreq(RST_CLK_FreqTypeDef* RST_CLK_Clocks)
   /* Compute ADCIU_CLK frequency */
 
   /* Select ADCIU_C1 from cpu_c1, per_c1_freq, cpu_c2_freq, HSI_Value cases */
-  switch ((MDR_RST_CLK->ADC_MCO_CLOCK >> RST_CLK_ADC_MCO_CLOCK_ADCIU_C1_SEL_Pos)
+  switch ((MDR_RST_CLK->ADC_CLOCK >> RST_CLK_ADC_CLOCK_ADCIU_C1_SEL_Pos)
       & (uint32_t) 0x03) {
     case 0:
       /* ADCIU_C1 */
@@ -1149,7 +1149,7 @@ void RST_CLK_GetClocksFreq(RST_CLK_FreqTypeDef* RST_CLK_Clocks)
   }
 
 
-  temp = MDR_RST_CLK->ADC_MCO_CLOCK >> RST_CLK_ADC_MCO_CLOCK_ADCIU_C3_SEL_Pos;
+  temp = MDR_RST_CLK->ADC_CLOCK >> RST_CLK_ADC_CLOCK_ADCIU_C3_SEL_Pos;
   if ((temp & 0x08U) == 0) {
     adciu_c3_freq = adciu_c1_freq;
   }
