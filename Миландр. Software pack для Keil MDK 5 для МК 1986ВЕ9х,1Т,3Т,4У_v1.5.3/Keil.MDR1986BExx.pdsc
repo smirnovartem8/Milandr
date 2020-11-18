@@ -371,13 +371,13 @@
         <device Dname="MDR1901VC1">
           <processor Dcore="Cortex-M3" DcoreVersion="r2p0" Dfpu="NO_FPU" Dmpu="MPU" Dendian="Little-endian" Dclock="100000000"/>
           <compile    header="Libraries/CMSIS/CM3/DeviceSupport/MDR1901VC1T/inc/MDR1901VC1T.h" define="USE_MDR1901VC1T"/>
-          <debug      svd="IDE/keil/SVD/MDR1986VE91.svd"/>
+          <debug      svd="IDE/keil/SVD/MDR1901VC1T.svd"/>
           <memory     id="IROM1"                          start="0x08000000"  size="0x20000"    startup="1"   default="1"/>
           <memory     id="IRAM1"                          start="0x20000000"  size="0x8000"     init   ="0"   default="1"/>
           <algorithm  name="Flash/1986BE9x.FLM"           start="0x08000000"  size="0x20000" RAMstart="0x20000000" RAMsize="0x8000" default="1"/>
 
           <description>
-            (11901VC1 RUS)
+            (1901VC1 RUS)
             Core:
              - 32-bit ARM Cortex-M3 processor, running at frequencies of up to 100 MHz
              - 1.25 DMIPS/MHz (Dhrystone 2.1) performance at 0 wait state memory access
