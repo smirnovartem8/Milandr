@@ -191,7 +191,7 @@ void PORT_SetBits ( MDR_PORT_TypeDef* PORTx, uint32_t PORT_Pin )
 	assert_param(IS_NOT_JTAG_PIN(PORTx, PORT_Pin));
 
 
-	PORTx->RXTX = PORT_Pin | (PORTx->RXTX & (~JTAG_PINS(PORTx)));
+	PORTx->RXTX = (PORT_Pin | PORTx->RXTX) & (~JTAG_PINS(PORTx));
 }
 
 /**
@@ -231,10 +231,9 @@ void PORT_WriteBit(MDR_PORT_TypeDef* PORTx, uint32_t PORT_Pin, BitAction BitVal)
   assert_param(IS_PORT_BIT_ACTION(BitVal));
   assert_param(IS_NOT_JTAG_PIN(PORTx, PORT_Pin));
 
-  portdata = PORTx->RXTX & (~JTAG_PINS(PORTx));
   if (BitVal != Bit_RESET)
   {
-    PORTx->RXTX = portdata | PORT_Pin;
+    PORTx->RXTX = (PORTx->RXTX | PORT_Pin) & (~JTAG_PINS(PORTx));
   }
   else
   {

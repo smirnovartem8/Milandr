@@ -168,12 +168,13 @@ void ADC1_Init(const ADCx_InitTypeDef* ADCx_InitStruct)
   tmpreg_CFG2 &= ~ADC2_CFG_ADC1_OP;
   tmpreg_CFG2 += ADCx_InitStruct->ADC_IntVRefSource << ADC2_CFG_ADC1_OP_Pos;
 
-  MDR_ADC->ADC1_CFG = tmpreg_CFG1;
-  MDR_ADC->ADC2_CFG = tmpreg_CFG2;
 
   MDR_ADC->ADC1_L_LEVEL = ADCx_InitStruct->ADC_LowLevel;
   MDR_ADC->ADC1_H_LEVEL = ADCx_InitStruct->ADC_HighLevel;
   MDR_ADC->ADC1_CHSEL   = ADCx_InitStruct->ADC_Channels;
+  
+  MDR_ADC->ADC1_CFG = tmpreg_CFG1;
+  MDR_ADC->ADC2_CFG = tmpreg_CFG2;
 }
 
 /**

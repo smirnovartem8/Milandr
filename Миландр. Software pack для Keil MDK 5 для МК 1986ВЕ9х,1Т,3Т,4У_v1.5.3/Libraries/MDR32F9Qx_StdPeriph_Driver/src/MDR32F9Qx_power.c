@@ -379,28 +379,26 @@ void POWER_EnterSTOPMode(FunctionalState POWER_Regulator_state, uint8_t POWER_ST
   assert_param(IS_FUNCTIONAL_STATE(POWER_Regulator_state));
   assert_param(IS_POWER_STOP_ENTRY(POWER_STOPentry));
 
-  /* Set UDcc stanby status */
-
-   *(__IO uint32_t *) BKP_STANDBY_BB = (uint32_t) (!POWER_Regulator_state);
-   /* Set SLEEPDEEP bit of Cortex System Control Register */
-   *(__IO uint32_t *) SCB -> SCR |= SCB_SCR_SLEEPDEEP_Msk;
-
-   if(POWER_Regulator_state == ENABLE){
-	   MDR_BKP->REG_0F &= ~BKP_REG_0F_STANDBY;
-   }
-   else{
-	   MDR_BKP->REG_0F |= BKP_REG_0F_STANDBY;
-   }
-  /* Select STOP mode entry --------------------------------------------------*/
-  if(POWER_STOPentry == POWER_STOPentry_WFI)
+  if(POWER_Regulator_state == DISABLE)
   {
-    /* Request Wait For Interrupt */
-    __WFI();
+    MDR_BKP->REG_0F |= BKP_REG_0F_STANDBY;
   }
   else
   {
-    /* Request Wait For Event */
-    __WFE();
+    /* Set SLEEPDEEP bit of Cortex System Control Register */
+    SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
+
+    /* Select STOP mode entry --------------------------------------------------*/
+    if(POWER_STOPentry == POWER_STOPentry_WFI)
+    {
+      /* Request Wait For Interrupt */
+      __WFI();
+    }
+    else
+    {
+      /* Request Wait For Event */
+      __WFE();
+    }
   }
 }
 #elif defined (USE_MDR1986VE1T) || defined (USE_MDR1986VE3)
@@ -430,13 +428,9 @@ void POWER_EnterSTANDBYMode ( void )
 	/* Select STANDBY mode */
 #if defined (USE_MDR1986VE9x) || defined (USE_MDR1901VC1T)
 	*(__IO uint32_t *) BKP_STANDBY_BB = (uint32_t) 0x01;
-	/* Set SLEEPDEEP bit of Cortex System Control Register */
-	*(__IO uint32_t *) SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
 #elif defined (USE_MDR1986VE3) || defined (USE_MDR1986VE1T)
 	MDR_BKP->REG_0F |= BKP_REG_0F_STANDBY;
 #endif
-	/* Request Wait For Interrupt */
-	__WFI();
 }
 
 #if defined (USE_MDR1986VE1T) || defined (USE_MDR1986VE3)

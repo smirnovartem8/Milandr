@@ -207,12 +207,13 @@ void ADC1_Init(const ADCx_InitTypeDef* ADCx_InitStruct)
   tmpreg_CFG2 &= ~ADC2_CFG_ADC1_OP;
   tmpreg_CFG2 += ADCx_InitStruct->ADC_IntVRefSource << ADC2_CFG_ADC1_OP_Pos;
 
-  MDR_ADC->ADC1_CFG = tmpreg_CFG1;
-  MDR_ADC->ADC2_CFG = tmpreg_CFG2;
 
   MDR_ADC->ADC1_L_LEVEL = ADCx_InitStruct->ADC_LowLevel;
   MDR_ADC->ADC1_H_LEVEL = ADCx_InitStruct->ADC_HighLevel;
   MDR_ADC->ADC1_CHSEL   = ADCx_InitStruct->ADC_Channels;
+  
+  MDR_ADC->ADC1_CFG = tmpreg_CFG1;
+  MDR_ADC->ADC2_CFG = tmpreg_CFG2;
 }
 
 #if defined  (USE_MDR1986VE9x) || defined (USE_MDR1901VC1T)
@@ -266,10 +267,11 @@ void ADC2_Init(const ADCx_InitTypeDef* ADCx_InitStruct)
                + ADCx_InitStruct->ADC_Prescaler
                + (ADCx_InitStruct->ADC_DelayGo << ADC2_CFG_DELAY_GO_Pos);
 
-  MDR_ADC->ADC2_CFG = tmpreg_CFG2;
   MDR_ADC->ADC2_L_LEVEL = ADCx_InitStruct->ADC_LowLevel;
   MDR_ADC->ADC2_H_LEVEL = ADCx_InitStruct->ADC_HighLevel;
   MDR_ADC->ADC2_CHSEL   = ADCx_InitStruct->ADC_Channels;
+  
+  MDR_ADC->ADC2_CFG = tmpreg_CFG2;
 }
 
 #endif /* #if defined  (USE_MDR1986VE9x) */

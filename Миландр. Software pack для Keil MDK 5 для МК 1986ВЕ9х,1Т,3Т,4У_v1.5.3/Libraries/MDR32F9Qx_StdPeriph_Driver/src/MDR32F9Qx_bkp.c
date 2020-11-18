@@ -100,9 +100,9 @@ void BKP_DeInit(void)
     _bkp[i] = 0;
   }
 
-  MDR_BKP -> REG_0E |= (uint32_t) (BKP_REG_0E_ON);
-  MDR_BKP -> REG_0E &= (uint32_t) (BKP_REG_0E_OFF);
-  MDR_BKP -> REG_0F = (uint32_t) (BKP_REG_0F_LSI_ON | BKP_REG_0F_HSI_ON);
+  MDR_BKP->REG_0E |= (uint32_t) (BKP_REG_0E_ON);
+  MDR_BKP->REG_0E &= (uint32_t) (BKP_REG_0E_OFF);
+  MDR_BKP->REG_0F = (uint32_t) (BKP_REG_0F_LSI_ON | BKP_REG_0F_HSI_ON);
 }
 
 #if defined (USE_MDR1986VE9x) || defined (USE_MDR1901VC1T)
@@ -154,7 +154,7 @@ void BKP_RTCclkSource(uint32_t RTC_CLK)
 	/* Check the parameters */
 	assert_param(IS_RTC_CLK_SOURCE(RTC_CLK));
 	/* Clear BKP_REG0F[3:2] bits */
-	tmpreg = MDR_BKP ->REG_0F & (uint32_t) (~BKP_REG_0F_RTC_SEL_Msk );
+	tmpreg = MDR_BKP->REG_0F & (uint32_t) (~BKP_REG_0F_RTC_SEL_Msk );
 	/* Set BKP_REG0F[3:2] bits according to RTC clock source*/
 	tmpreg |= BKP_REG_0F_RTC_SEL_Msk & RTC_CLK;
 	MDR_BKP ->REG_0F = tmpreg;
@@ -344,7 +344,7 @@ FlagStatus BKP_RTC_GetFlagStatus(uint32_t BKP_RTC_FLAG)
   /* Check the parameters */
   assert_param(IS_BKP_RTC_GET_FLAG(BKP_RTC_FLAG));
 
-  if ((MDR_BKP -> RTC_CS & BKP_RTC_FLAG) != 0)
+  if ((MDR_BKP->RTC_CS & BKP_RTC_FLAG) != 0)
   {
     status = SET;
   }
@@ -353,6 +353,28 @@ FlagStatus BKP_RTC_GetFlagStatus(uint32_t BKP_RTC_FLAG)
     status = RESET;
   }
   return status;
+}
+
+/**
+  * @brief  BKP_RTC_ClearFlagStatus - Clears the specified RTC flag.
+  * @param  BKP_RTC_FLAG: specifies the flag to clear.
+  *   This parameter can be any combination of the following values:
+  *     @arg BKP_RTC_FLAG_OWF : Overflow flag
+  *     @arg BKP_RTC_FLAG_ALRF: Alarm flag
+  *     @arg BKP_RTC_FLAG_SECF: Second flag
+  * @retval None.
+  */
+void BKP_RTC_ClearFlagStatus(uint32_t BKP_RTC_FLAG)
+{
+  uint32_t tmpreg;
+	
+  /* Check the parameters */
+  assert_param(IS_BKP_RTC_CLAER_FLAG(BKP_RTC_FLAG));
+	
+  tmpreg = MDR_BKP->RTC_CS & (~BKP_RTC_CS_Msk);
+  tmpreg |= BKP_RTC_FLAG;
+
+  MDR_BKP->RTC_CS = tmpreg;
 }
 
 /** @} */ /* End of group BKP_Private_Functions */

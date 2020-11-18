@@ -189,7 +189,7 @@ typedef struct
   * @{
   */
 
-#define TIMER_EvSrc_None                      (((uint32_t)0x0) << TIMER_CNTRL_EVENT_SEL_Pos)  /*!< No events. */
+#define TIMER_EvSrc_TIM_CLK                   (((uint32_t)0x0) << TIMER_CNTRL_EVENT_SEL_Pos)  /*!< Selects rising edge TIM_CLK event. */
 #define TIMER_EvSrc_TM1                       (((uint32_t)0x1) << TIMER_CNTRL_EVENT_SEL_Pos)  /*!< Selects TIMER1 (CNT == ARR) event. */
 #define TIMER_EvSrc_TM2                       (((uint32_t)0x2) << TIMER_CNTRL_EVENT_SEL_Pos)  /*!< Selects TIMER2 (CNT == ARR) event. */
 #define TIMER_EvSrc_TM3                       (((uint32_t)0x3) << TIMER_CNTRL_EVENT_SEL_Pos)  /*!< Selects TIMER3 (CNT == ARR) event. */
@@ -199,7 +199,7 @@ typedef struct
 #define TIMER_EvSrc_CH4                       (((uint32_t)0x7) << TIMER_CNTRL_EVENT_SEL_Pos)  /*!< Selects Channel 4 event. */
 #define TIMER_EvSrc_ETR                       (((uint32_t)0x8) << TIMER_CNTRL_EVENT_SEL_Pos)  /*!< Selects ETR event. */
 
-#define IS_TIMER_EVENT_SOURCE(SOURCE) (((SOURCE) == TIMER_EvSrc_None) || \
+#define IS_TIMER_EVENT_SOURCE(SOURCE) (((SOURCE) == TIMER_EvSrc_TIM_CLK) || \
                                        ((SOURCE) == TIMER_EvSrc_TM1 ) || \
                                        ((SOURCE) == TIMER_EvSrc_TM2 ) || \
                                        ((SOURCE) == TIMER_EvSrc_TM3 ) || \
@@ -391,11 +391,11 @@ typedef struct
 #define TIMER_CH_REF_Format5                  (((uint32_t)0x5) << TIMER_CH_CNTRL_OCCM_Pos)  /*!< REF is equal to 1. */
 #define TIMER_CH_REF_Format6                  (((uint32_t)0x6) << TIMER_CH_CNTRL_OCCM_Pos)  /*!< REF is equal to inverted DIR state if:
                                                                                                    (CCR1 disabled and (CNT < CCR)) or
-                                                                                                   (CCR1 enabled  and (CCR1 < CNT < CCR)),
+                                                                                                   (CCR1 enabled  and (CCR < CNT < CCR1 ) (if CCR1 > CCR)),
                                                                                                  else REF is equal to DIR state. */
 #define TIMER_CH_REF_Format7                  (((uint32_t)0x7) << TIMER_CH_CNTRL_OCCM_Pos)  /*!< REF is equal to DIR state if:
                                                                                                    (CCR1 disabled and (CNT < CCR)) or
-                                                                                                   (CCR1 enabled  and (CCR1 < CNT < CCR)),
+                                                                                                   (CCR1 enabled  and (CCR < CNT < CCR1 ) (if CCR1 > CCR)),
                                                                                                  else REF is equal to inverted DIR state. */
 
 #define IS_TIMER_CHANNEL_REF_FORMAT(FORMAT) (((FORMAT) == TIMER_CH_REF_Format0) || \

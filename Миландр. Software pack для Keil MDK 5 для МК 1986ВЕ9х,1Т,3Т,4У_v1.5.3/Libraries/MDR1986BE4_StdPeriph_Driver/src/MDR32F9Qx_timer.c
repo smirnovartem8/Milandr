@@ -128,7 +128,7 @@ void TIMER_CntStructInit(TIMER_CntInitTypeDef* TIMER_CntInitStruct)
   TIMER_CntInitStruct->TIMER_Period     = 0;
   TIMER_CntInitStruct->TIMER_CounterMode      = TIMER_CntMode_ClkFixedDir;
   TIMER_CntInitStruct->TIMER_CounterDirection = TIMER_CntDir_Up;
-  TIMER_CntInitStruct->TIMER_EventSource      = TIMER_EvSrc_None;
+  TIMER_CntInitStruct->TIMER_EventSource      = TIMER_EvSrc_TIM_CLK;
   TIMER_CntInitStruct->TIMER_FilterSampling   = TIMER_FDTS_TIMER_CLK_div_1;
   TIMER_CntInitStruct->TIMER_ARR_UpdateMode   = TIMER_ARR_Update_Immediately;
   TIMER_CntInitStruct->TIMER_ETR_FilterConf   = TIMER_Filter_1FF_at_TIMER_CLK;
@@ -256,7 +256,7 @@ uint16_t TIMER_GetCounter(MDR_TIMER_TypeDef* TIMERx)
   * @param  TIMERx: where x can be 1 to 3 to select the TIMER peripheral.
   * @param  EventSource: specifies the Event source.
   *         This parameter can be one of the following values:
-  *           @arg TIMER_EvSrc_None: no events;
+  *           @arg TIMER_EvSrc_TIM_CLK: Selects rising edge TIM_CLK event;
   *           @arg TIMER_EvSrc_TM1:  selects TIMER1 (CNT == ARR) event;
   *           @arg TIMER_EvSrc_TM2:  selects TIMER2 (CNT == ARR) event;
   *           @arg TIMER_EvSrc_TM3:  selects TIMER3 (CNT == ARR) event;
@@ -1687,7 +1687,7 @@ void TIMER_ClearFlag(MDR_TIMER_TypeDef* TIMERx, uint32_t Flags)
   * @brief  Enables or disables the TIMERx’s DMA Requests.
   * @param  TIMERx: where x can be 1 to 3 to select the TIMER peripheral.
   * @param  TIMER_DMASource: specifies the DMA Request sources.
-  *         This parameter can be any combination of the following values:
+  *         This parameter can be can be one of the following values:
   *           @arg TIMER_STATUS_CNT_ZERO:         the (CNT == 0) condition occured;
   *           @arg TIMER_STATUS_CNT_ARR:          the (CNT == ARR) condition occured;
   *           @arg TIMER_STATUS_ETR_RISING_EDGE:  the ETR rising edge occured;

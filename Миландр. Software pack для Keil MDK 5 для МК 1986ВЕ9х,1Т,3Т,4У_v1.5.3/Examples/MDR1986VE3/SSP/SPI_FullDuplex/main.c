@@ -90,6 +90,9 @@ void main ( void )
 	PORT_DeInit(MDR_PORTC);
 	/* Reset PORTI settings */
 	PORT_DeInit(MDR_PORTI);
+	
+	  /*Init structure*/
+    PORT_StructInit (&PORT_InitStructure);
 
 	/* Configure SSP4 pins: FSS, CLK, RXD, TXD */
 

@@ -74,8 +74,9 @@
   */
 void WWDG_DeInit(void)
 {
-  RST_CLK_PCLKcmd(RST_CLK_PCLK_WWDG, ENABLE);
-  RST_CLK_PCLKcmd(RST_CLK_PCLK_WWDG, DISABLE);
+  MDR_WWDG->CR = 0;
+  MDR_WWDG->CFR = 0;
+  MDR_WWDG->SR = 0;
 }
 
 /**

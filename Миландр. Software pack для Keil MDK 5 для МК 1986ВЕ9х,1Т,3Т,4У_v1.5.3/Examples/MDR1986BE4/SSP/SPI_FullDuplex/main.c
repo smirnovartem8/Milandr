@@ -79,11 +79,14 @@ void main(void)
   /* Reset PORTA settings */
   PORT_DeInit(MDR_PORTA);
 
-  /* Configure SSP1 pins: FSS, CLK, RXD, TXD */
+  /*Init structure*/
+  PORT_StructInit (&PORT_InitStructure);
 
+  /* Configure SSP1 pins: FSS, CLK, RXD, TXD */
   /* Configure PORTA pins 12, 13, 15 */
   PORT_InitStructure.PORT_FUNC  = PORT_FUNC_MAIN;
-  PORT_InitStructure.PORT_Pin   = (PORT_Pin_11 | PORT_Pin_13 | PORT_Pin_15);
+  PORT_InitStructure.PORT_Pin   = (PORT_Pin_12 | PORT_Pin_13 | PORT_Pin_15);
+  PORT_InitStructure.PORT_MODE 	= PORT_MODE_DIGITAL;
   PORT_InitStructure.PORT_OE    = PORT_OE_OUT;
   PORT_Init(MDR_PORTA, &PORT_InitStructure);
 

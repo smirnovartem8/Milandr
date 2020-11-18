@@ -2700,9 +2700,11 @@ typedef struct
 #define BKP_RTC_CS_OWF                          ((uint32_t)0x00000001)
 #define BKP_RTC_CS_SECF                         ((uint32_t)0x00000002)
 #define BKP_RTC_CS_ALRF                         ((uint32_t)0x00000004)
+#define BKP_RTC_CS_Msk                          ((uint32_t)0x00000007)
 #define BKP_RTC_CS_OWF_IE                       ((uint32_t)0x00000008)
 #define BKP_RTC_CS_SECF_IE                      ((uint32_t)0x00000010)
 #define BKP_RTC_CS_ALRF_IE                      ((uint32_t)0x00000020)
+#define BKP_RTC_CS_IE_Msk                       ((uint32_t)0x00000038)
 #define BKP_RTC_CS_WEC                          ((uint32_t)0x00000040)
 
 /** @} */ /* End of group BKP_RTC_CS */

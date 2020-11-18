@@ -139,6 +139,10 @@ extern "C" {
                                 ((F) == BKP_RTC_CS_ALRF) || \
                                 ((F) == BKP_RTC_CS_SECF))
 
+#define IS_BKP_RTC_CLAER_FLAG(F) (((F) == BKP_RTC_CS_OWF)  || \
+                                  ((F) == BKP_RTC_CS_ALRF) || \
+                                  ((F) == BKP_RTC_CS_SECF))
+
 /** @} */ /* End of group BKP_RTC_FLAG */
 
 /** @} */ /* End of group BKP_Exported_Constants */
@@ -163,6 +167,7 @@ uint32_t  BKP_RTC_GetDivider(void);
 void BKP_RTC_SetPrescaler(uint32_t PrescalerValue);
 void BKP_RTC_WaitForUpdate(void);
 FlagStatus BKP_RTC_GetFlagStatus(uint32_t RTC_FLAG);
+void BKP_RTC_ClearFlagStatus(uint32_t BKP_RTC_FLAG);
 
 /** @} */ /* End of group BKP_Exported_Functions */
 
