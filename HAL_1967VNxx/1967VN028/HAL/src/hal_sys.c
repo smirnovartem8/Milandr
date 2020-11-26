@@ -1,8 +1,9 @@
 ﻿/**********************************************************************************************************************
-  Copyright (c) 2016 Milandr Corporation. All rights reserved.
+  Copyright (C) 2016-2020 JSC "ICC Milandr" 
 
   History:
   	  Zatonsky Pavel - Created.
+  	  Zatonsky Pavel - Corrected.
 **********************************************************************************************************************/
 #include "hal_1967VN028.h"
 #include <sysreg.h>

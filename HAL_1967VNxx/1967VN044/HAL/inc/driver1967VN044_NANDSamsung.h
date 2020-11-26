@@ -1,9 +1,8 @@
 ﻿/**********************************************************************************************************************
-  Copyright (c) 2017 Milandr Corporation. All rights reserved.
+  Copyright (C) 2016-2020 JSC "ICC Milandr" 
 
-  History:
-  	  Zatonsky Pavel - Created.
 **********************************************************************************************************************/
+
 #ifndef __HAL_NAND_SAMSUNG_K9F8G08UXM_H__
 #define __HAL_NAND_SAMSUNG_K9F8G08UXM_H__
 

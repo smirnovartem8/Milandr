@@ -1,4 +1,11 @@
-﻿#include "hal_PU.h"
+﻿/**********************************************************************************************************************
+  Copyright (C) 2016-2020 JSC "ICC Milandr" 
+
+  History:
+  	  Zatonsky Pavel - Created.
+  	  Zatonsky Pavel - Corrected.
+**********************************************************************************************************************/
+#include "hal_PU.h"
 #include <stdint.h>
 
 void HAL_PUx_Write(PUx_Write Reg_Name, uint32_t Value){

@@ -1,8 +1,9 @@
 ﻿/**********************************************************************************************************************
-  Copyright (c) 2016 Milandr Corporation. All rights reserved.
+  Copyright (C) 2016-2020 JSC "ICC Milandr" 
 
   History:
   	  Zatonsky Pavel - Created.
+  	  Zatonsky Pavel - Corrected.
 **********************************************************************************************************************/
 #ifndef __HAL_DMA_H__
 #define __HAL_DMA_H__

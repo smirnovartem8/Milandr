@@ -1,4 +1,9 @@
-﻿/*
+﻿/**********************************************************************************************************************
+  Copyright (C) 2016-2020 JSC "ICC Milandr" 
+
+**********************************************************************************************************************/
+
+/*
  *
  *	File/Файл: 		hal_dma.c
  *	Description/Описание: 	HAL for the DMA unit/HAL для модуля прямого доступа к памяти
@@ -300,8 +305,8 @@ uint32_t HAL_DMA_GetChannelStatusClear( uint32_t channel )
 // Copying of the data array with the use of DMA channels 0-3/ Копирование массива данных с использованием DMA канала, 0 - 3
 DMA_Return_type HAL_DMA_MemCopy32( uint32_t ch_number, const void *src, const void *dst, uint32_t size )
 {
-	uint32_t __attribute((aligned(4))) tcb_dcs[4];
-	uint32_t __attribute((aligned(4))) tcb_dcd[4];
+	uint32_t __attribute((aligned(4 * (32/__CHAR_BIT__)))) tcb_dcs[4];
+	uint32_t __attribute((aligned(4 * (32/__CHAR_BIT__)))) tcb_dcd[4];
 	uint32_t chStat;
 
 	if ( size > 0xFFFF ) return dmaCopyLengthErr;													// Check of the array dimension

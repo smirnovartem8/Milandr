@@ -1,4 +1,11 @@
-﻿#ifndef __FLASH_DEV_H_
+﻿/**********************************************************************************************************************
+  Copyright (C) 2016-2020 JSC "ICC Milandr" 
+
+  History:
+  	  Zatonsky Pavel - Created.
+  	  Zatonsky Pavel - Corrected.
+**********************************************************************************************************************/
+#ifndef __FLASH_DEV_H_
 #define __FLASH_DEV_H_
 
 #include "stdint.h"

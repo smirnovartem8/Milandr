@@ -1,8 +1,9 @@
 ﻿/**********************************************************************************************************************
-  Copyright (c) 2016 Milandr Corporation. All rights reserved.
+  Copyright (C) 2016-2020 JSC "ICC Milandr" 
 
   History:
   	  Zatonsky Pavel - Created.
+  	  Zatonsky Pavel - Corrected.
 **********************************************************************************************************************/
 #include "hal_1967VN028.h"
 #include <sysreg.h>
@@ -260,8 +261,8 @@ int HAL_DMA_GetChannelStatusClear(int channel)
 	else return dmaCopyAddrErr
 
 DMAReturnType HAL_DMA_MemCopy32(int ch_number, const void *src, const void *dst, int size){
-	unsigned int __attribute((aligned(4))) tcb_dcs[4];
-	unsigned int __attribute((aligned(4))) tcb_dcd[4];
+	unsigned int __attribute((aligned(4 * (32/__CHAR_BIT__)))) tcb_dcs[4];
+	unsigned int __attribute((aligned(4 * (32/__CHAR_BIT__)))) tcb_dcd[4];
 	long int chStat;
 	//check size
 	if (size > 0xFFFF) return dmaCopyLengthErr;

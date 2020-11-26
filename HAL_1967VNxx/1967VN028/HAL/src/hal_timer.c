@@ -1,5 +1,5 @@
 ﻿/**********************************************************************************************************************
-  Copyright (c) 2017 Milandr Corporation. All rights reserved.
+  Copyright (C) 2016-2020 JSC "ICC Milandr" 
 
   History:
   	  27-Feb-2017 Ivan Osadchy   - Created
