@@ -1,6 +1,6 @@
 
-#include "spec.h"
-#include "MDR1986VE8T.h"
+//#include "spec.h"
+//#include "MDR1986VE8T.h"
 
 #define JTAG_DELAY_EBC 1000
 #define JTAG_DELAY_RAM 1000000
