@@ -18,6 +18,7 @@
 #ifndef __SYSTEM_MDR32F9Qx_H
 #define __SYSTEM_MDR32F9Qx_H
 
+#include <stdint.h>                      /* standard types definitions                      */
 /** @addtogroup __MDR32F9QX_System_Exported_Variables MDR32F9QX System Exported Variables
   * @{
   */

@@ -18,6 +18,8 @@
 #ifndef __SYSTEM_MDR1986VE3_H
 #define __SYSTEM_MDR1986VE3_H
 
+#include <stdint.h>                      /* standard types definitions                      */
+
 /** @addtogroup __MDR1986VE3_System_Exported_Variables MDR1986VE3 System Exported Variables
   * @{
   */

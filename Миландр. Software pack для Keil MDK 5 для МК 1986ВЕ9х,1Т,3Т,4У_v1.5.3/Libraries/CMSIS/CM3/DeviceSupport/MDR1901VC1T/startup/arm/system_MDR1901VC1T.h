@@ -18,6 +18,8 @@
 #ifndef __SYSTEM_MDR1901VC1T_H
 #define __SYSTEM_MDR1901VC1T_H
 
+#include <stdint.h>                      /* standard types definitions                      */
+
 /** @addtogroup __MDR1901VC1T_System_Exported_Variables MDR1901VC1T System Exported Variables
   * @{
   */
