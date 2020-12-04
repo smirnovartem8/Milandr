@@ -77,10 +77,10 @@ typedef enum IRQn
   * @{
   */
 
-/* Configuration of the Cortex-M1 Processor and Core Peripherals */
-#define __CM1_REV              0x0102   /*!< Cortex-M1 Core Revision                      */
-#define __MPU_PRESENT             0     /*!< MPU present or not                           */
-#define __NVIC_PRIO_BITS          2     /*!< Number of Bits used for Priority Levels      */
+/* Configuration of the Cortex-M3 Processor and Core Peripherals */
+#define __CM1_REV              0x0102   /*!< Cortex-M3 Core Revision                      */
+#define __MPU_PRESENT             1     /*!< MPU present or not                           */
+#define __NVIC_PRIO_BITS          3     /*!< Number of Bits used for Priority Levels      */
 #define __Vendor_SysTickConfig    0     /*!< Set to 1 if different SysTick Config is used */
 
 /** @} */ /* __Configuration_of_CMSIS */
@@ -1804,6 +1804,13 @@ typedef struct {
 #define MIL_STD_1553_CONTROL_RTA_Pos           6
 #define MIL_STD_1553_CONTROL_DIV_Pos           11
 #define MIL_STD_1553_CONTROL_RERR_Pos          18
+#define MIL_STD_1553_CONTROL_INVTR_Pos		   19
+#define MIL_STD_1553_CONTROL_ENFILTER_Pos	   20
+#define MIL_STD_1553_CONTROL_AUTOTUNE_Pos	   21
+#define MIL_STD_1553_CONTROL_EN_FLT_Pos        20
+#define MIL_STD_1553_CONTROL_DIV7_Pos          21
+#define MIL_STD_1553_CONTROL_INPINV_Pos        22
+#define MIL_STD_1553_CONTROL_RT_HW_Pos         23
 
 /* Bit field masks: */
 #define MIL_STD_1553_CONTROL_MR                 ((uint32_t)0x00000001)
@@ -1815,7 +1822,9 @@ typedef struct {
 #define MIL_STD_1553_CONTROL_RTA_Msk            ((uint32_t)0x000007C0)
 #define MIL_STD_1553_CONTROL_DIV_Msk            ((uint32_t)0x0003F800)
 #define MIL_STD_1553_CONTROL_RERR               ((uint32_t)0x00040000)
-
+#define MIL_STD_1553_CONTROL_INVTR				((uint32_t)0x00080000)
+#define MIL_STD_1553_CONTROL_ENFILTER		    ((uint32_t)0x00100000)
+#define MIL_STD_1553_CONTROL_AUTOTUNE		    ((uint32_t)0x00200000)
 /** @} */ /* End of group MIL_STD_1553_CONTROL */
 
 /** @defgroup __VE3_Periph_MIL_STD_1553_STATUS	MIL STD 1553 STATUS

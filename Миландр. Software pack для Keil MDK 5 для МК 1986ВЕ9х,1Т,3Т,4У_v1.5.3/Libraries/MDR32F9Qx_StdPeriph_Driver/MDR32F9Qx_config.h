@@ -48,10 +48,19 @@
 
 /* Uncomment the line corresponding to the target microcontroller */
 /* #define USE_MDR1986VE9x */
-/* #define USE_MDR1986VE1T */
-/* #define USE_MDR1986VE3 */
+//#define USE_MDR1986VE1T_REV3_4
+ #define USE_MDR1986VE1T_REV6
+ //#define USE_MDR1986VE3T_REV2
+ //#define USE_MDR1986VE3T_REV3
 /* #define USE_MDR1901VC1T */
 
+#if defined (USE_MDR1986VE1T_REV3_4) || defined (USE_MDR1986VE1T_REV6)
+#define USE_MDR1986VE1T
+#endif
+
+#if defined (USE_MDR1986VE3T_REV2) || defined (USE_MDR1986VE3T_REV3)
+#define USE_MDR1986VE3 
+#endif
 /* Select the header file for target microcontroller */
 #if defined ( USE_MDR1986VE9x )
 	#include "MDR32Fx.h"
@@ -64,6 +73,11 @@
 #else
     #error "Microcontroller not selected in MDR32F9Qx_config.h file"
 #endif
+
+
+
+
+
 
 /* Uncomment the line(s) below to define used JTAG port(s). Leave all commented
  * if there is no JTAG ports */

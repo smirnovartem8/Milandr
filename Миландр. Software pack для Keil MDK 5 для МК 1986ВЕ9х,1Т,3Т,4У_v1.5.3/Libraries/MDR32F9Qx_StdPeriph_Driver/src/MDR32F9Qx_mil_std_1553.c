@@ -110,11 +110,16 @@ void MIL_STD_1553_Init(MDR_MIL_STD_1553_TypeDef * MIL_STD_1553x, MIL_STD_1553_In
 	assert_param(IS_FUNCTIONAL_STATE(MIL_STD_1553_InitStruct->MIL_STD_1553_RERR));
 	assert_param(IS_FUNCTIONAL_STATE(MIL_STD_1553_InitStruct->MIL_STD_1553_TRA));
 	assert_param(IS_FUNCTIONAL_STATE(MIL_STD_1553_InitStruct->MIL_STD_1553_TRB));
-#if defined (USE_MDR1986VE1T)
-	assert_param(IS_FUNCTIONAL_STATE(MIL_STD_1553_InitStruct->MIL_STD_1553_Inversion_Signals));
+    assert_param(IS_FUNCTIONAL_STATE(MIL_STD_1553_InitStruct->MIL_STD_1553_Inversion_Signals));
+#if defined  (USE_MDR1986VE1T_REV3_4) || defined (USE_MDR1986VE3T_REV2)
 	assert_param(IS_FUNCTIONAL_STATE(MIL_STD_1553_InitStruct->MIL_STD_1553_Filtration_Flow));
 	assert_param(IS_FUNCTIONAL_STATE(MIL_STD_1553_InitStruct->MIL_STD_1553_Automatic_Adjustment));
-#endif /* #if defined (USE_MDR1986VE1T) */
+#elif defined (USE_MDR1986VE1T_REV6) || defined (USE_MDR1986VE3T_REV3)
+    assert_param(IS_FUNCTIONAL_STATE(MIL_STD_1553_InitStruct->MIL_STD_1553_EN_FLT));
+	assert_param(IS_FUNCTIONAL_STATE(MIL_STD_1553_InitStruct->MIL_STD_1553_DIV7));
+    assert_param(IS_FUNCTIONAL_STATE(MIL_STD_1553_InitStruct->MIL_STD_1553_INPINV));
+    assert_param(IS_FUNCTIONAL_STATE(MIL_STD_1553_InitStruct->MIL_STD_1553_RT_HW));
+#endif /* #if defined (USE_MDR1986VE1T_REV3_4) || defined (USE_MDR1986VE3T_REV2) */
 
 	/* MIL_STD_1553x CONTROL Configuration */
 	tmpreg = (MIL_STD_1553_InitStruct->MIL_STD_1553_RERR << MIL_STD_1553_CONTROL_RERR_Pos)
@@ -122,12 +127,19 @@ void MIL_STD_1553_Init(MDR_MIL_STD_1553_TypeDef * MIL_STD_1553x, MIL_STD_1553_In
 		   | (MIL_STD_1553_InitStruct->MIL_STD_1553_DIV << MIL_STD_1553_CONTROL_DIV_Pos)
 		   | (MIL_STD_1553_InitStruct->MIL_STD_1553_RTA << MIL_STD_1553_CONTROL_RTA_Pos)
 		   | (MIL_STD_1553_InitStruct->MIL_STD_1553_TRA << MIL_STD_1553_CONTROL_TRA_Pos)
-		   | (MIL_STD_1553_InitStruct->MIL_STD_1553_TRB << MIL_STD_1553_CONTROL_TRB_Pos);
+		   | (MIL_STD_1553_InitStruct->MIL_STD_1553_TRB << MIL_STD_1553_CONTROL_TRB_Pos)
+           | (MIL_STD_1553_InitStruct->MIL_STD_1553_Inversion_Signals << MIL_STD_1553_CONTROL_INVTR_Pos);
 
-#if defined (USE_MDR1986VE1T)
-	tmpreg |= MIL_STD_1553_InitStruct->MIL_STD_1553_Automatic_Adjustment << MIL_STD_1553_CONTROL_AUTOTUNE_Pos
-		   |  MIL_STD_1553_InitStruct->MIL_STD_1553_Filtration_Flow << MIL_STD_1553_CONTROL_ENFILTER_Pos
-		   |  MIL_STD_1553_InitStruct->MIL_STD_1553_Inversion_Signals << MIL_STD_1553_CONTROL_INVTR_Pos;
+#if defined  (USE_MDR1986VE1T_REV3_4) || defined (USE_MDR1986VE3T_REV2)
+	tmpreg |= (MIL_STD_1553_InitStruct->MIL_STD_1553_Automatic_Adjustment << MIL_STD_1553_CONTROL_AUTOTUNE_Pos)
+		   |  (MIL_STD_1553_InitStruct->MIL_STD_1553_Filtration_Flow << MIL_STD_1553_CONTROL_ENFILTER_Pos);
+           
+#elif defined (USE_MDR1986VE1T_REV6) || defined (USE_MDR1986VE3T_REV3)
+     tmpreg |= (MIL_STD_1553_InitStruct->MIL_STD_1553_EN_FLT << MIL_STD_1553_CONTROL_EN_FLT_Pos)
+            | (MIL_STD_1553_InitStruct->MIL_STD_1553_DIV7 << MIL_STD_1553_CONTROL_DIV7_Pos)
+            | (MIL_STD_1553_InitStruct->MIL_STD_1553_INPINV << MIL_STD_1553_CONTROL_INPINV_Pos)
+            | (MIL_STD_1553_InitStruct->MIL_STD_1553_RT_HW << MIL_STD_1553_CONTROL_RT_HW_Pos);
+    
 #endif /* #if defined (USE_MDR1986VE1T) */
 
 	tmpreg |= MIL_STD_1553_CONTROL_MR;
@@ -156,13 +168,20 @@ void MIL_STD_1553xStructInit(MIL_STD_1553_InitTypeDef * MIL_STD_1553_InitStruct)
 	MIL_STD_1553_InitStruct->MIL_STD_1553_TRA = DISABLE;
 	/* Initialize the MIL_STD_1553_TRB member */
 	MIL_STD_1553_InitStruct->MIL_STD_1553_TRB = DISABLE;
-#if defined (USE_MDR1986VE1T)
-	/* Initialize the MIL_STD_1553_Inversion_Signals member */
+    /* Initialize the MIL_STD_1553_Inversion_Signals member */
 	MIL_STD_1553_InitStruct->MIL_STD_1553_Inversion_Signals = DISABLE;
+    
+#if defined  (USE_MDR1986VE1T_REV3_4) || defined (USE_MDR1986VE3T_REV2)
 	/* Initialize the MIL_STD_1553_Filtration_Flow member */
 	MIL_STD_1553_InitStruct->MIL_STD_1553_Filtration_Flow = DISABLE;
 	/* Initialize the MIL_STD_1553_Automatic_Adjustment member */
 	MIL_STD_1553_InitStruct->MIL_STD_1553_Automatic_Adjustment = DISABLE;
+#elif defined (USE_MDR1986VE1T_REV6) || defined (USE_MDR1986VE3T_REV3)
+    MIL_STD_1553_InitStruct->MIL_STD_1553_EN_FLT = DISABLE;
+    MIL_STD_1553_InitStruct->MIL_STD_1553_DIV7 = DISABLE;
+    MIL_STD_1553_InitStruct->MIL_STD_1553_INPINV = DISABLE;
+    MIL_STD_1553_InitStruct->MIL_STD_1553_RT_HW = DISABLE;
+    
 #endif /* #if defined (USE_MDR1986VE1T) */
 }
 

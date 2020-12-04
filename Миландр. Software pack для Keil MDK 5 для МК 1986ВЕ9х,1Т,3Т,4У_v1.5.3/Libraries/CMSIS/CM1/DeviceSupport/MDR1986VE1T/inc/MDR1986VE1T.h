@@ -1819,6 +1819,10 @@ typedef struct {
 #define MIL_STD_1553_CONTROL_INVTR_Pos		   19
 #define MIL_STD_1553_CONTROL_ENFILTER_Pos	   20
 #define MIL_STD_1553_CONTROL_AUTOTUNE_Pos	   21
+#define MIL_STD_1553_CONTROL_EN_FLT_Pos        20
+#define MIL_STD_1553_CONTROL_DIV7_Pos          21
+#define MIL_STD_1553_CONTROL_INPINV_Pos        22
+#define MIL_STD_1553_CONTROL_RT_HW_Pos         23
 
 /* Bit field masks: */
 #define MIL_STD_1553_CONTROL_MR                 ((uint32_t)0x00000001)

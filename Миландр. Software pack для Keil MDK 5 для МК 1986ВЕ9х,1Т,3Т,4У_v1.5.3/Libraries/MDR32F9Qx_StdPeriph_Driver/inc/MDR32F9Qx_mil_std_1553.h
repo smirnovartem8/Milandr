@@ -45,18 +45,29 @@ typedef struct {
 	 	 	 	 	 	 	 	 	 	 	 	 	 	 This parameter can be: ENABLE or DISABLE. */
 	uint32_t MIL_STD_1553_TRA;						/*!< This member configures the Transmission block the main channel.
 	 	 	 	 	 	 	 	 	 	 	 	 	 	 This parameter can be: ENABLE or DISABLE. */
-#if defined (USE_MDR1986VE1T)
+    FunctionalState	MIL_STD_1553_Inversion_Signals; /*!< This member enables or disables the inversion signals
+														 	 PRD_PRMA, PRD_PRMB, PRD_PRMC, PRD_PRMD.
+														 	 This parameter can be: ENABLE or DISABLE. */
+    
+#if defined  (USE_MDR1986VE1T_REV3_4) || defined (USE_MDR1986VE3T_REV2)
 	/**
 	 * @note This member may be used only for MDR1986VE1T microcontroller the third revision.
 	 */
-	FunctionalState	MIL_STD_1553_Inversion_Signals;		/*!< This member enables or disables the inversion signals
-														 	 PRD_PRMA, PRD_PRMB, PRD_PRMC, PRD_PRMD.
-														 	 This parameter can be: ENABLE or DISABLE. */
+	
 	FunctionalState MIL_STD_1553_Filtration_Flow;		/*!< This option enables or disables the filtering flow NRZ, in the case
 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 of drivers with nekkorektno duty cycle and pulse width of NRZ code.
 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 This parameter can be: ENABLE or DISABLE. */
 	FunctionalState MIL_STD_1553_Automatic_Adjustment;	/*!< This member enables or disables the automatic adjustment of the mid bit intervals.
 														 	 This parameter can be: ENABLE or DISABLE. */
+#elif defined (USE_MDR1986VE1T_REV6) || defined (USE_MDR1986VE3T_REV3)
+
+    FunctionalState MIL_STD_1553_EN_FLT;
+    
+    FunctionalState MIL_STD_1553_DIV7;
+    
+    FunctionalState MIL_STD_1553_INPINV;
+    
+    FunctionalState MIL_STD_1553_RT_HW;
 
 #endif /* #if defined (USE_MDR1986VE1T) */
 } MIL_STD_1553_InitTypeDef;
