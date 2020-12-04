@@ -185,7 +185,7 @@ typedef USB_Result (*USB_EP_Error_Handler)(USB_EP_TypeDef EPx, uint32_t STS, uin
   * @{
   */
 
-#define MAX_PACKET_SIZE                      32
+#define MAX_PACKET_SIZE                      64
 
 /** @} */ /* End of group USB_EndPoint_Exported_Constants */
 

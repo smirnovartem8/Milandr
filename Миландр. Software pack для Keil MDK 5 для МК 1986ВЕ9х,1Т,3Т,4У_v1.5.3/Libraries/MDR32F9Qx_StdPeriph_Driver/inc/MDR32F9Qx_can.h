@@ -375,7 +375,7 @@ typedef struct
 #define CAN_STATUS_RTR_EN          (((uint32_t)0x1) <<  3) /*!< RTR answer mode
                                                                 0 - don't answer, 1 - answer when RTR is received into buffer */
 #define CAN_STATUS_PRIOR_0         (((uint32_t)0x1) <<  4) /*!< Sending priority
-                                                                0 - without priority, 1 - with priority */
+                                                                0 - with priority, 1 - without priority */
 #define CAN_STATUS_TX_REQ          (((uint32_t)0x1) <<  5) /*!< Message sending request
                                                                 0 - no request or already sent, 1 - request pending */
 /* Flags */

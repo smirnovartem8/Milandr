@@ -77,10 +77,10 @@ typedef enum IRQn
   * @{
   */
 
-/* Configuration of the Cortex-M3 Processor and Core Peripherals */
-#define __CM1_REV              0x0102   /*!< Cortex-M3 Core Revision                      */
-#define __MPU_PRESENT             1     /*!< MPU present or not                           */
-#define __NVIC_PRIO_BITS          3     /*!< Number of Bits used for Priority Levels      */
+/* Configuration of the Cortex-M1 Processor and Core Peripherals */
+#define __CM1_REV              0x0102   /*!< Cortex-M1 Core Revision                      */
+#define __MPU_PRESENT             0     /*!< MPU present or not                           */
+#define __NVIC_PRIO_BITS          2     /*!< Number of Bits used for Priority Levels      */
 #define __Vendor_SysTickConfig    0     /*!< Set to 1 if different SysTick Config is used */
 
 /** @} */ /* __Configuration_of_CMSIS */
