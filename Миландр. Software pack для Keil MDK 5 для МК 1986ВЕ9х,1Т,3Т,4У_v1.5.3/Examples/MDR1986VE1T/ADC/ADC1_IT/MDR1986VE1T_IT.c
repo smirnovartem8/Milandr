@@ -285,35 +285,35 @@ void TIMER4_IRQHandler(void)
 }
 
 /*******************************************************************************
-* Function Name  : Timer1_IRQHandler
+* Function Name  : TIMER1_IRQHandler
 * Description    : This function handles Timer1 global interrupt request.
 * Input          : None
 * Output         : None
 * Return         : None
 *******************************************************************************/
-void Timer1_IRQHandler(void)
+void TIMER1_IRQHandler(void)
 {
 }
 
 /*******************************************************************************
-* Function Name  : Timer2_IRQHandler
+* Function Name  : TIMER2_IRQHandler
 * Description    : This function handles Timer2 global interrupt request.
 * Input          : None
 * Output         : None
 * Return         : None
 *******************************************************************************/
-void Timer2_IRQHandler(void)
+void TIMER2_IRQHandler(void)
 {
 }
 
 /*******************************************************************************
-* Function Name  : Timer3_IRQHandler
+* Function Name  : TIMER3_IRQHandler
 * Description    : This function handles Timer3 global interrupt request.
 * Input          : None
 * Output         : None
 * Return         : None
 *******************************************************************************/
-void Timer3_IRQHandler(void)
+void TIMER3_IRQHandler(void)
 {
 }
 

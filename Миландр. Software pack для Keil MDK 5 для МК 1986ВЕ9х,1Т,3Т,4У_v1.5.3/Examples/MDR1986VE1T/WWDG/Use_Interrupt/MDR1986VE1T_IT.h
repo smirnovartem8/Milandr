@@ -23,8 +23,6 @@
 #ifndef __MDR1986VE1T_IT_H
 #define __MDR1986VE1T_IT_H
 
-#include "MDR32F9Qx_wwdg.h"
-
 /* Function prototypes -----------------------------------------------*/
 
 void NMI_Handler(void);
@@ -46,9 +44,9 @@ void ARINC429R_IRQHandler(void);
 void POWER_IRQHandler(void);
 void WWDG_IRQHandler(void);
 void TIMER4_IRQHandler(void);
-void Timer1_IRQHandler(void);
-void Timer2_IRQHandler(void);
-void Timer3_IRQHandler(void);
+void TIMER1_IRQHandler(void);
+void TIMER2_IRQHandler(void);
+void TIMER3_IRQHandler(void);
 void ADC_IRQHandler(void);
 void ETHERNET_IRQHandler(void);
 void SSP3_IRQHandler(void);
