@@ -17,7 +17,7 @@
         <!-- MDR1986BE91 -->
         <device Dname="MDR1986BE91">
           <processor  Dcore="Cortex-M3" DcoreVersion="r2p0" Dfpu="NO_FPU" Dmpu="MPU" Dendian="Little-endian" Dclock="80000000"/>
-          <compile    header="Libraries/CMSIS/CM3/DeviceSupport/MDR32F9Qx/inc/MDR32Fx.h" define="USE_MDR32F9Q1_Rev1"/>
+          <compile    header="Libraries/CMSIS/CM3/DeviceSupport/MDR32F9Qx/inc/MDR32Fx.h"/>
           <debug      svd="IDE/keil/SVD/MDR1986VE91.svd"/>
           <memory     id="IROM1"                          start="0x08000000"  size="0x20000"    startup="1"   default="1"/>
           <memory     id="IRAM1"                          start="0x20000000"  size="0x8000"     init   ="0"   default="1"/>
@@ -75,7 +75,7 @@
         <!-- MDR1986BE92 -->
         <device Dname="MDR1986BE92">
           <processor  Dcore="Cortex-M3" DcoreVersion="r2p0" Dfpu="NO_FPU" Dmpu="MPU" Dendian="Little-endian" Dclock="80000000"/>
-          <compile    header="Libraries/CMSIS/CM3/DeviceSupport/MDR32F9Qx/inc/MDR32Fx.h" define="USE_MDR32F9Q2_Rev1"/>
+          <compile    header="Libraries/CMSIS/CM3/DeviceSupport/MDR32F9Qx/inc/MDR32Fx.h"/>
           <debug      svd="IDE/keil/SVD/MDR1986VE92.svd"/>
           <memory     id="IROM1"                          start="0x08000000"  size="0x20000"    startup="1"   default="1"/>
           <memory     id="IRAM1"                          start="0x20000000"  size="0x8000"     init   ="0"   default="1"/>
@@ -133,7 +133,7 @@
         <!-- MDR1986BE93 -->
         <device Dname="MDR1986BE93">
           <processor Dcore="Cortex-M3" DcoreVersion="r2p0" Dfpu="NO_FPU" Dmpu="MPU" Dendian="Little-endian" Dclock="80000000"/>
-          <compile header="Libraries/CMSIS/CM3/DeviceSupport/MDR32F9Qx/inc/MDR32Fx.h" define="USE_MDR32F9Q3_Rev1"/>
+          <compile header="Libraries/CMSIS/CM3/DeviceSupport/MDR32F9Qx/inc/MDR32Fx.h"/>
           <debug      svd="IDE/keil/SVD/MDR1986VE93.svd"/>
           <memory     id="IROM1"                          start="0x08000000"  size="0x20000"    startup="1"   default="1"/>
           <memory     id="IRAM1"                          start="0x20000000"  size="0x8000"     init   ="0"   default="1"/>
@@ -191,7 +191,7 @@
         <!-- MDR1986BE1T -->
         <device Dname="MDR1986BE1T">
           <processor Dcore="Cortex-M1" DcoreVersion="r1p0" Dfpu="NO_FPU" Dmpu="MPU" Dendian="Little-endian" Dclock="144000000"/>
-          <compile header="Libraries/CMSIS/CM1/DeviceSupport/MDR1986VE1T/inc/MDR1986VE1T.h" define="USE_MDR1986VE1T"/>
+          <compile header="Libraries/CMSIS/CM1/DeviceSupport/MDR1986VE1T/inc/MDR1986VE1T.h"/>
           <debug      svd="IDE/keil/SVD/MDR1986VE1T.svd"/>
           <memory     id="IROM1"                          start="0x00000000"  size="0x20000"    startup="1"   default="1"/>
           <memory     id="IRAM1"                          start="0x20000000"  size="0x8000"     init   ="0"   default="1"/>
@@ -252,7 +252,7 @@
         <!-- MDR1986BE3T -->
         <device Dname="MDR1986BE3T">
           <processor Dcore="Cortex-M1" DcoreVersion="r1p0" Dfpu="NO_FPU" Dmpu="NO_MPU" Dendian="Little-endian" Dclock="80000000"/>
-          <compile header="Libraries/CMSIS/CM1/DeviceSupport/MDR1986VE3/inc/MDR1986VE3.h" define="USE_MDR1986VE3"/>
+          <compile header="Libraries/CMSIS/CM1/DeviceSupport/MDR1986VE3/inc/MDR1986VE3.h"/>
           <debug      svd="IDE/keil/SVD/MDR1986VE3T.svd"/>
           <memory     id="IROM1"                          start="0x00000000"  size="0x20000"    startup="1"   default="1"/>
           <memory     id="IRAM1"                          start="0x20000000"  size="0x8000"     init   ="0"   default="1"/>
@@ -314,7 +314,7 @@
         <!-- MDR1986BE4 -->
         <device Dname="MDR1986BE4">
           <processor  Dcore="Cortex-M0" DcoreVersion="r0p0" Dfpu="NO_FPU" Dmpu="NO_MPU" Dendian="Little-endian" Dclock="36000000"/>
-          <compile    header="Libraries/CMSIS/CM0/DeviceSupport/MDR1986BE4/inc/MDR1986BE4.h" define="USE_MDR1986BE4"/>
+          <compile    header="Libraries/CMSIS/CM0/DeviceSupport/MDR1986BE4/inc/MDR1986BE4.h"/>
           <debug      svd="IDE/keil/SVD/MDR1986VE4.svd"/>
           <memory     id="IROM1"                          start="0x00000000"  size="0x20000"    startup="1"   default="1"/>
           <memory     id="IRAM1"                          start="0x20000000"  size="0x4000"     init   ="0"   default="1"/>
@@ -493,7 +493,7 @@
         <!-- header file-->
         <file category="header" name="Libraries/CMSIS/CM3/CoreSupport/core_cm3.h"/>
         <!-- header file-->
-        <file category="header" name="Config/MDR32F9Qx_config.h" attr="config"/>
+        <file category="header" name="Libraries/MDR32F9Qx_StdPeriph_Driver/MDR32F9Qx_config.h" attr="config"/>
       </files>
     </component>
 
@@ -509,7 +509,7 @@
         <!-- header file-->
         <file category="header" name="Libraries/CMSIS/CM3/CoreSupport/core_cm3.h"/>
         <!-- header file-->
-        <file category="header" name="Config/MDR32F9Qx_config.h" attr="config"/>
+        <file category="header" name="Libraries/MDR32F9Qx_StdPeriph_Driver/MDR32F9Qx_config.h" attr="config"/>
       </files>
     </component>    
     
@@ -526,7 +526,7 @@
         <file category="header" name="Libraries/CMSIS/CM1/CoreSupport/core_cm1.h"/>
         <!-- system file -->
         <!-- header file-->
-        <file category="header" name="Config/MDR32F9Qx_config.h" attr="config"/>
+        <file category="header" name="Libraries/MDR32F9Qx_StdPeriph_Driver/MDR32F9Qx_config.h" attr="config"/>
       </files>
     </component>
     
@@ -542,7 +542,7 @@
         <!-- header file-->
         <file category="header" name="Libraries/CMSIS/CM1/CoreSupport/core_cm1.h"/>
         <!-- header file-->
-        <file category="header" name="Config/MDR32F9Qx_config.h" attr="config"/>
+        <file category="header" name="Libraries/MDR32F9Qx_StdPeriph_Driver/MDR32F9Qx_config.h" attr="config"/>
       </files>
     </component>
     
@@ -558,7 +558,7 @@
         <!-- header file-->
         <file category="header" name="Libraries/CMSIS/CM0/CoreSupport/core_cm0.h"/>
         <!-- header file-->
-        <file category="header" name="Config/MDR32F9Qx_config.h" attr="config"/>
+        <file category="header" name="Libraries/MDR1986BE4_StdPeriph_Driver/MDR32F9Qx_config.h" attr="config"/>
       </files>
     </component>
             
