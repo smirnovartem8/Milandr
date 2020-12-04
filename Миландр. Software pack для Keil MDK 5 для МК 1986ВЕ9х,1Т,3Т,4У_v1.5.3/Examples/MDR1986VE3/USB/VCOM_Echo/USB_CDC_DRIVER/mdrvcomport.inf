@@ -1,99 +1,49 @@
 ; MDRVComPort.inf - Virtual COM Port to USB
 ; Driver for Windows NT family
 ;
-; Copyright 2013 Milandr
+; Copyright 2011 Milandr
 ;
+
 [Version]
 Signature="$Windows NT$"
 Class=Ports
-ClassGuid={4D36E978-E325-11CE-BFC1-08002BE10318}
+ClassGUID={4d36e978-e325-11ce-bfc1-08002be10318}
 Provider=%MDR%
-LayoutFile=layout.inf
-;CatalogFile=%MFGFILENAME%.cat
-DriverVer=19/06/2013,1.1.0.0
-
-[Manufacturer]
-%MDR%=DeviceList, NTamd64
-;------------------------------------------------------------------------------
-; Windows 2000/XP/Vista-32bit Sections
-;------------------------------------------------------------------------------
-
-[DriverInstall.nt]
-include=mdmcpq.inf
-CopyFiles=DriverCopyFiles.nt
-AddReg=DriverInstall.nt.AddReg
-
-[DriverCopyFiles.nt]
-usbser.sys,,,0x20
-
-[DriverInstall.nt.AddReg]
-HKR,,DevLoader,,*ntkern
-HKR,,NTMPDriver,,%DRIVERFILENAME%.sys
-HKR,,EnumPropPages32,,"MsPorts.dll,SerialPortPropPageProvider"
-
-[DriverInstall.nt.Services]
-AddService=usbser, 0x00000002, DriverService.nt
-
-[DriverService.nt]
-DisplayName=%SERVICE%
-ServiceType=1
-StartType=3
-ErrorControl=1
-ServiceBinary=%12%\%DRIVERFILENAME%.sys
+DriverVer=01/06/2011,1.0.0
 
 [DestinationDirs]
 DefaultDestDir=12
-;------------------------------------------------------------------------------
-; Vista-64bit Sections
-;------------------------------------------------------------------------------
 
-[DriverInstall.NTamd64]
-CopyFiles=DriverCopyFiles.NTamd64
-AddReg=DriverInstall.NTamd64.AddReg
+[Manufacturer]
+%MDR%=Milandr
 
-[DriverCopyFiles.NTamd64]
-usbser.sys,,,0x20
+[Milandr]
+%MDR_CDC&VID_0483&PID_F125.DeviceDesc%=MDRVCom,USB\VID_0483&PID_F125
 
-[DriverInstall.NTamd64.AddReg]
+[MDRVCom.NT]
+CopyFiles=MDRVCom.NT.Copy
+AddReg=MDRVCom.NT.AddReg
+
+[MDRVCom.NT.Copy]
+usbser.sys
+
+[MDRVCom.NT.AddReg]
 HKR,,DevLoader,,*ntkern
 HKR,,NTMPDriver,,usbser.sys
 HKR,,EnumPropPages32,,"MsPorts.dll,SerialPortPropPageProvider"
 
-[DriverInstall.NTamd64.Services]
-AddService=usbser, 0x00000002, DriverService.NTamd64
+[MDRVCom.NT.Services]
+AddService=usbser, 0x00000002, Service_Inst
 
-[DriverService.NTamd64]
-DisplayName=%SERVICE%
+[Service_Inst]
+DisplayName=%MDRVCom.SvcDesc%
 ServiceType=1
 StartType=3
 ErrorControl=1
 ServiceBinary=%12%\usbser.sys
-;------------------------------------------------------------------------------
-; Vendor and Product ID Definitions
-;------------------------------------------------------------------------------
-; When developing your USB device, the VID and PID used in the PC side
-; application program and the firmware on the microcontroller must match.
-; Modify the below line to use your VID and PID. Use the format as shown below.
-; Note: One INF file can be used for multiple devices with different
-VID and PIDs.
-; For each supported device, append ",USB\VID_xxxx&PID_yyyy" to the
-end of the line.
-;------------------------------------------------------------------------------
-[SourceDisksFiles]
-[SourceDisksNames]
-[DeviceList]
-%DESCRIPTION%=DriverInstall, USB\VID_0483&PID_F125 
+LoadOrderGroup=Base
 
-[DeviceList.NTamd64]
-%DESCRIPTION%=DriverInstall, USB\VID_0483&PID_F125 
-;------------------------------------------------------------------------------
-; String Definitions
-;------------------------------------------------------------------------------
-;Modify these strings to customize your device
-;------------------------------------------------------------------------------
 [Strings]
-;MFGFILENAME="mchpcdc"
-DRIVERFILENAME ="usbser"
-MDR="Milandr."
-DESCRIPTION="Milandr USB RS-232 Emulation Driver"
-SERVICE="USB RS-232 Emulation Driver"
+MDR="Milandr"
+MDR_CDC&VID_0483&PID_F125.DeviceDesc="Milandr Virtual COM port"
+MDRVCom.SvcDesc="Milandr Virtual COM port"
