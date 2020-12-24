@@ -1,0 +1,599 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package schemaVersion="1.2" xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" xs:noNamespaceSchemaLocation="PACK.xsd">
+  <vendor>Keil</vendor>
+  <url>http://www.keil.com/pack/</url>
+  <name>MDR1986VK01</name>
+  <description>Milandr MDR1986VK01 Series Device Support, Drivers and Examples</description>
+
+  <releases>
+    <release version="1.0.1">
+      10/10/2020, V1.0.0 Initial version
+	  11/11/2020, V1.0.1 SVD file added
+    </release>
+  </releases>
+<!-- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ -->   
+  <devices>
+    <family Dfamily="Milandr" Dvendor="Milandr:99">    
+      <subFamily DsubFamily="Cortex-M4F">         
+        <!-- MDR1986VK01 -->
+        <device Dname="MDR1986VK01">
+          <processor  Dcore="Cortex-M4" DcoreVersion="r0p0" Dfpu="NO_FPU" Dmpu="NO_MPU" Dendian="Little-endian" Dclock="160000000"/>
+          <compile    header="Libraries\CMSIS\CM4\DeviceSupport\MDR1986VK01\inc\" define="USE_MDR1986VK01"/>
+          <debug      svd="IDE\Keil\SVD\MDR1986VK01.svd"/>
+          <memory     id="IROM1"                          start="0x2000000"  size="0x20000"    startup="1"   default="1"/>
+          <memory     id="IRAM1"                          start="0x20000000"  size="0x20000"    init   ="1"   default="1"/>
+          <!-- <algorithm  name="Flash\"           start="0x08000000"  size="0x20000" RAMstart="0x20000000" RAMsize="0x8000" default="1"/> -->
+          <description>
+            (MDR1986VK01 RUS)
+             Core:
+             - two 32-bit ARM Cortex-M4F cores, running at frequencies of up to 160 MHz
+             - 32-bit ARM Cortex-M0 Cryptographic core
+             - memory Protection Unit (MPU)
+             - 24-bit SysTick Timer
+
+            Memory:
+             - 1 MByte of EEPROM program memory w\ECC(SEC-DEC)
+             - Built-in program memory type RAM 128 KB
+             - Built-in data memory type RAM 128 KB
+             - external system bus controller w\ECC(SEC-DEC)
+
+            Supply and Clock rate:
+             - internal regulator for core voltage supply
+             - built-in power control system
+             - internal battery domain
+             - internal 8 MHz RC clock generator with calibration
+             - internal 40 kHz RC clockgenerator with calibration
+             - 2x external oscillator 1 .. 30 MHz
+             - 4x on-board PLL for clock frequency 
+
+            Low power consumption modes:
+             - Sleep, Stop and Standby
+             - battery domain with RTC and backup registers 
+
+            Analog features:
+             - 6x 12-bit ADC (8 channels)
+             - 4x 12-bit DAC
+             - 4x CMP
+
+            Peripheral features:
+             - EthernetMAC 10/100
+             - USB 2.0 full-speed OTG controller
+             - SpaceWire
+             - MILSTD
+             - 2xCAN, 2xSSP, 4xUART, 2xDMA, 4xTimer, 2xI2C
+             - RTC
+             - WDG
+             - 96x GPIO
+
+            Debug mode:
+             - 2x JTAG and SWD
+          </description>
+        </device>
+      </subFamily>
+    </family>
+  </devices>
+<!-- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ -->  
+<examples>
+
+      <example name="adc_potentiometer" doc="readme.txt" folder="Examples/adc_potentiometer">
+    <description>Work with ADC using potentiometer</description>
+    <board name="EVAL-BOARDMDR1986VK01" vendor="Milandr"/>
+    <project>
+      <environment name="uv" load="adc_potentiometer.uvprojx"/>
+    </project>
+    <attributes>
+      <component Cclass="CMSIS"     Cgroup="CORE"/>
+      <component Cclass="Device"    Cgroup="Startup"/>
+    </attributes>
+  </example>
+
+        <example name="can_transceive" doc="readme.txt" folder="Examples/can_transceive">
+    <description>Work with CAN</description>
+    <board name="EVAL-BOARDMDR1986VK01" vendor="Milandr"/>
+    <project>
+      <environment name="uv" load="can_transceive.uvprojx"/>
+    </project>
+    <attributes>
+      <component Cclass="CMSIS"     Cgroup="CORE"/>
+      <component Cclass="Device"    Cgroup="Startup"/>
+    </attributes>
+  </example>
+
+        <example name="canfd_transceive" doc="readme.txt" folder="Examples/canfd_transceive">
+    <description>Work with CAN FD</description>
+    <board name="EVAL-BOARDMDR1986VK01" vendor="Milandr"/>
+    <project>
+      <environment name="uv" load="canfd_transceive.uvprojx"/>
+    </project>
+    <attributes>
+      <component Cclass="CMSIS"     Cgroup="CORE"/>
+      <component Cclass="Device"    Cgroup="Startup"/>
+    </attributes>
+  </example>  
+
+        <example name="dac_sine" doc="readme.txt" folder="Examples/dac_sine">
+    <description>Work with DAC</description>
+    <board name="EVAL-BOARDMDR1986VK01" vendor="Milandr"/>
+    <project>
+      <environment name="uv" load="dac_sine.uvprojx"/>
+    </project>
+    <attributes>
+      <component Cclass="CMSIS"     Cgroup="CORE"/>
+      <component Cclass="Device"    Cgroup="Startup"/>
+    </attributes>
+  </example>
+
+          <example name="encoder" doc="readme.txt" folder="Examples/encoder">
+    <description>Work with encoder</description>
+    <board name="EVAL-BOARDMDR1986VK01" vendor="Milandr"/>
+    <project>
+      <environment name="uv" load="encoder.uvprojx"/>
+    </project>
+    <attributes>
+      <component Cclass="CMSIS"     Cgroup="CORE"/>
+      <component Cclass="Device"    Cgroup="Startup"/>
+    </attributes>
+  </example>
+
+    <example name="eth_icmp" doc="readme.txt" folder="Examples/eth_icmp">
+    <description>Work with ethernet</description>
+    <board name="EVAL-BOARDMDR1986VK01" vendor="Milandr"/>
+    <project>
+      <environment name="uv" load="eth_icmp.uvprojx"/>
+    </project>
+    <attributes>
+      <component Cclass="CMSIS"     Cgroup="CORE"/>
+      <component Cclass="Device"    Cgroup="Startup"/>
+    </attributes>
+  </example>
+
+      <example name="i2c_eeprom" doc="readme.txt" folder="Examples/i2c_eeprom">
+    <description>Work with on board eeprom</description>
+    <board name="EVAL-BOARDMDR1986VK01" vendor="Milandr"/>
+    <project>
+      <environment name="uv" load="i2c_eeprom.uvprojx"/>
+    </project>
+    <attributes>
+      <component Cclass="CMSIS"     Cgroup="CORE"/>
+      <component Cclass="Device"    Cgroup="Startup"/>
+    </attributes>
+  </example>
+
+        <example name="milstd_transceive" doc="readme.txt" folder="Examples/milstd_transceive">
+    <description>Work with milstd</description>
+    <board name="EVAL-BOARDMDR1986VK01" vendor="Milandr"/>
+    <project>
+      <environment name="uv" load="milstd_transceive.uvprojx"/>
+    </project>
+    <attributes>
+      <component Cclass="CMSIS"     Cgroup="CORE"/>
+      <component Cclass="Device"    Cgroup="Startup"/>
+    </attributes>
+  </example>
+
+  <example name="pwm_rgb" doc="readme.txt" folder="Examples/pwm_rgb">
+    <description>Work with PWM channels connected with RGB lamp</description>
+    <board name="EVAL-BOARDMDR1986VK01" vendor="Milandr"/>
+    <project>
+      <environment name="uv" load="pwm_rgb.uvprojx"/>
+    </project>
+    <attributes>
+      <component Cclass="CMSIS"     Cgroup="CORE"/>
+      <component Cclass="Device"    Cgroup="Startup"/>
+    </attributes>
+  </example>
+
+      <example name="pwm_sync_adc" doc="readme.txt" folder="Examples/pwm_sync_adc">
+    <description>Work with pwm kicking adc conversation</description>
+    <board name="EVAL-BOARDMDR1986VK01" vendor="Milandr"/>
+    <project>
+      <environment name="uv" load="pwm_sync_adc.uvprojx"/>
+    </project>
+    <attributes>
+      <component Cclass="CMSIS"     Cgroup="CORE"/>
+      <component Cclass="Device"    Cgroup="Startup"/>
+    </attributes>
+  </example>
+
+      <example name="rs485_ping_pong" doc="readme.txt" folder="Examples/rs485_ping_pong">
+    <description>Work with rs485</description>
+    <board name="EVAL-BOARDMDR1986VK01" vendor="Milandr"/>
+    <project>
+      <environment name="uv" load="rs485_ping_pong.uvprojx"/>
+    </project>
+    <attributes>
+      <component Cclass="CMSIS"     Cgroup="CORE"/>
+      <component Cclass="Device"    Cgroup="Startup"/>
+    </attributes>
+  </example>    
+
+        <example name="rtc" doc="readme.txt" folder="Examples/rtc">
+    <description>Work with rtc</description>
+    <board name="EVAL-BOARDMDR1986VK01" vendor="Milandr"/>
+    <project>
+      <environment name="uv" load="rtc.uvprojx"/>
+    </project>
+    <attributes>
+      <component Cclass="CMSIS"     Cgroup="CORE"/>
+      <component Cclass="Device"    Cgroup="Startup"/>
+    </attributes>
+  </example>    
+
+        <example name="spi_flash1636" doc="readme.txt" folder="Examples/spi_flash1636">
+    <description>Work with 1636 flash</description>
+    <board name="EVAL-BOARDMDR1986VK01" vendor="Milandr"/>
+    <project>
+      <environment name="uv" load="spi_flash1636.uvprojx"/>
+    </project>
+    <attributes>
+      <component Cclass="CMSIS"     Cgroup="CORE"/>
+      <component Cclass="Device"    Cgroup="Startup"/>
+    </attributes>
+  </example>    
+
+        <example name="uart_echo" doc="readme.txt" folder="Examples/uart_echo">
+    <description>Work with uart</description>
+    <board name="EVAL-BOARDMDR1986VK01" vendor="Milandr"/>
+    <project>
+      <environment name="uv" load="uart_echo.uvprojx"/>
+    </project>
+    <attributes>
+      <component Cclass="CMSIS"     Cgroup="CORE"/>
+      <component Cclass="Device"    Cgroup="Startup"/>
+    </attributes>
+  </example>    
+
+        <example name="sdio" doc="readme.txt" folder="Examples/sdio">
+    <description>Work with SDIO</description>
+    <board name="EVAL-BOARDMDR1986VK01" vendor="Milandr"/>
+    <project>
+      <environment name="uv" load="sdio.uvprojx"/>
+    </project>
+    <attributes>
+      <component Cclass="CMSIS"     Cgroup="CORE"/>
+      <component Cclass="Device"    Cgroup="Startup"/>
+    </attributes>
+  </example>      
+
+        <example name="dma_pingpong" doc="readme.txt" folder="Examples/dma_pingpong">
+    <description>Work with DMA</description>
+    <board name="EVAL-BOARDMDR1986VK01" vendor="Milandr"/>
+    <project>
+      <environment name="uv" load="dma_pingpong.uvprojx"/>
+    </project>
+    <attributes>
+      <component Cclass="CMSIS"     Cgroup="CORE"/>
+      <component Cclass="Device"    Cgroup="Startup"/>
+    </attributes>
+  </example>        
+
+        <example name="usb_cdc_echo" doc="readme.txt" folder="Examples/usb_cdc_echo">
+    <description>Work with USB</description>
+    <board name="EVAL-BOARDMDR1986VK01" vendor="Milandr"/>
+    <project>
+      <environment name="uv" load="usb_cdc_echo.uvprojx"/>
+    </project>
+    <attributes>
+      <component Cclass="CMSIS"     Cgroup="CORE"/>
+      <component Cclass="Device"    Cgroup="Startup"/>
+    </attributes>
+  </example>          
+
+</examples>
+<!-- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ -->
+<boards>
+  <board vendor="Milandr" name="EVAL-BOARDMDR1986VK01" revision="V1" salesContact="sales@keil.com" orderForm="http://www.keil.com">
+    <description>Milandr EVAL-BOARDMDR1986VK01 Board Description</description>
+    <book category="setup"     name="Docs/MyDevBoard/MyDevBoard_setup.pdf"      title="Getting Started"/>
+    <book category="schematic" name="Docs/MyDevBoard/MyDevBoard_schematics.pdf" title="Schematics"/>
+    <book category="manual"    name="Docs/MyDevBoard/MyDevBoard_um.pdf"         title="User Manual"/>
+    <mountedDevice             deviceIndex="0" Dvendor="Milandr:99" Dname="MDR32F2C10"/>
+    <compatibleDevice          deviceIndex="0" Dvendor="Milandr:99" Dfamily="Milandr"/>
+    <feature type="ODbg"       n="1"           name="On-board J-LINK Lite"/>
+    <feature type="PWR"        n="5"           name="USB Powered"/>
+    <feature type="DIO"        n="8"/>
+    <feature type="SPI"        n="1"/>
+    <feature type="LED"        n="6"           name="User LEDs"/>
+    <feature type="ArduinoFF"  n="1"/>
+    <debugInterface adapter="J-Link Lite"      connector="Mini-USB"/>
+  </board>
+</boards>
+<!-- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ -->
+<conditions>
+<condition id="MCU Series">
+  <description>ARM Cortex M4 device required</description>
+  <require Dfamily="Milandr" Dvendor="Milandr:99"/>
+</condition>
+<condition id="EVAL-BOARDMDR1986VK01 Setup">
+  <description>Board Setup Code required</description>
+  <require condition="MCU Series"/>
+  <require Cclass="Board Support" Cgroup="Board Setup"/>
+</condition>
+  <condition id="CON_MDR1986VK01">
+    <description>MDR1986VK01 device</description>
+    <accept Dname="MDR1986VK01"/>
+    <require Cclass="Board Support" Cgroup="Board Setup"/>
+  </condition>
+</conditions>
+<!-- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ -->
+  <!-- component section (optional for all Software Packs)-->
+  <components>
+  <bundle Cbundle="EVAL-BOARDMDR1986VK01 Support" Cclass="Board Support" Cversion="1.0">
+  <description>EVAL-BOARDMDR1986VK01 custom board support package</description>
+  <doc>Docs/BSP/MyBSP.htm</doc>
+  <component Cgroup="Board Setup" condition="MCU Series">
+    <description>Custom board setup code</description>
+<!--     <files>
+      <file category="header" name="Libraries\spec.h"/>
+      <file category="header" name="Libraries\mdr32f8_it.h"/>
+      <file category="source" name="Libraries\spec.c"/>
+    </files> -->
+  </component>
+</bundle>	
+<!-- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ -->
+    <component Cclass="Device" Cgroup="Startup" Cversion="1.0" condition="CON_MDR1986VK01">
+      <description>System Startup for MDR1986VK01 device series</description>
+      <files>
+      <file category="source" name="Libraries\CMSIS\CM4\DeviceSupport\MDR1986VK01\startup\arm\startup_MDR32F2C10.s" attr="config"/>
+	      <file category="source" name="Libraries\CMSIS\CM4\DeviceSupport\MDR1986VK01\startup\arm\system_MDR32F2C10.c" attr="config"/>
+	      <file category="header" name="Libraries\CMSIS\CM4\DeviceSupport\MDR1986VK01\startup\arm\system_MDR32F2C10.h" attr="config"/>
+      </files>
+    </component>
+
+    <component Cclass="Device" Cgroup="ADC" Cversion="1.0" condition="CON_MDR1986VK01">
+      <description>ADC for MDR1986VK01 device series</description>
+      <files>
+        <file category="source" name="BSP\Device\src\adc.c" attr="config"/>
+        <file category="header" name="BSP\Device\inc\adc.h" attr="config"/>
+      </files>
+    </component>        
+
+    <component Cclass="Device" Cgroup="ADCSYNC" Cversion="1.0" condition="CON_MDR1986VK01">
+      <description>ADCSYNC for MDR1986VK01 device series</description>
+      <files>
+        <file category="source" name="BSP\Device\src\adcsync.c" attr="config"/>
+        <file category="header" name="BSP\Device\inc\adcsync.h" attr="config"/>
+      </files>
+    </component>            
+
+    <component Cclass="Device" Cgroup="CAN" Cversion="1.0" condition="CON_MDR1986VK01">
+      <description>CAN for MDR1986VK01 device series</description>
+      <files>
+        <file category="source" name="BSP\Device\src\can.c" attr="config"/>
+        <file category="header" name="BSP\Device\inc\can.h" attr="config"/>
+      </files>
+    </component>            
+
+    <component Cclass="Device" Cgroup="DAC" Cversion="1.0" condition="CON_MDR1986VK01">
+      <description>DAC for MDR1986VK01 device series</description>
+      <files>
+        <file category="source" name="BSP\Device\src\dac.c" attr="config"/>
+        <file category="header" name="BSP\Device\inc\dac.h" attr="config"/>
+      </files>
+    </component>            
+
+    <component Cclass="Device" Cgroup="ENC" Cversion="1.0" condition="CON_MDR1986VK01">
+      <description>ENC for MDR1986VK01 device series</description>
+      <files>
+        <file category="source" name="BSP\Device\src\encoder.c" attr="config"/>
+        <file category="header" name="BSP\Device\inc\encoder.h" attr="config"/>
+      </files>
+    </component>            
+
+    <component Cclass="Device" Cgroup="ETH" Cversion="1.0" condition="CON_MDR1986VK01">
+      <description>ETH for MDR1986VK01 device series</description>
+      <files>
+        <file category="source" name="BSP\Device\src\eth.c" attr="config"/>
+        <file category="header" name="BSP\Device\inc\eth.h" attr="config"/>
+      </files>
+    </component>            
+
+    <component Cclass="Device" Cgroup="I2C" Cversion="1.0" condition="CON_MDR1986VK01">
+      <description>I2C for MDR1986VK01 device series</description>
+      <files>
+        <file category="source" name="BSP\Device\src\i2c.c" attr="config"/>
+        <file category="header" name="BSP\Device\inc\i2c.h" attr="config"/>
+      </files>
+    </component>                
+
+    <component Cclass="Device" Cgroup="I2C_EEPROM" Cversion="1.0" condition="CON_MDR1986VK01">
+      <description>I2C_EEPROM for MDR1986VK01 device series</description>
+      <files>
+        <file category="source" name="BSP\Device\src\i2c_eeprom.c" attr="config"/>
+        <file category="header" name="BSP\Device\inc\i2c_eeprom.h" attr="config"/>
+      </files>
+    </component>                
+
+    <component Cclass="Device" Cgroup="Leds" Cversion="1.0" condition="CON_MDR1986VK01">
+      <description>Leds for MDR1986VK01 device series</description>
+      <files>
+        <file category="source" name="BSP\Device\src\leds.c" attr="config"/>
+        <file category="header" name="BSP\Device\inc\leds.h" attr="config"/>
+      </files>
+    </component>    
+
+    <component Cclass="Device" Cgroup="MILSTD" Cversion="1.0" condition="CON_MDR1986VK01">
+      <description>MILSTD for MDR1986VK01 device series</description>
+      <files>
+        <file category="source" name="BSP\Device\src\milstd.c" attr="config"/>
+        <file category="header" name="BSP\Device\inc\milstd.h" attr="config"/>
+      </files>
+    </component>    
+
+    <component Cclass="Device" Cgroup="PWM" Cversion="1.0" condition="CON_MDR1986VK01">
+      <description>PWM for MDR1986VK01 device series</description>
+      <files>
+        <file category="source" name="BSP\Device\src\pwm.c" attr="config"/>
+        <file category="header" name="BSP\Device\inc\pwm.h" attr="config"/>
+      </files>
+    </component>    
+
+    <component Cclass="Device" Cgroup="RS485" Cversion="1.0" condition="CON_MDR1986VK01">
+      <description>RS485 for MDR1986VK01 device series</description>
+      <files>
+        <file category="source" name="BSP\Device\src\rs485.c" attr="config"/>
+        <file category="header" name="BSP\Device\inc\rs485.h" attr="config"/>
+      </files>
+    </component>    
+
+    <component Cclass="Device" Cgroup="RTC" Cversion="1.0" condition="CON_MDR1986VK01">
+      <description>RTC for MDR1986VK01 device series</description>
+      <files>
+        <file category="source" name="BSP\Device\src\rtc.c" attr="config"/>
+        <file category="header" name="BSP\Device\inc\rtc.h" attr="config"/>
+      </files>
+    </component>    
+
+    <component Cclass="Device" Cgroup="SPI" Cversion="1.0" condition="CON_MDR1986VK01">
+      <description>SPI for MDR1986VK01 device series</description>
+      <files>
+        <file category="source" name="BSP\Device\src\spi.c" attr="config"/>
+        <file category="header" name="BSP\Device\inc\spi.h" attr="config"/>
+      </files>
+    </component>    
+
+    <component Cclass="Device" Cgroup="CONFIG" Cversion="1.0" condition="CON_MDR1986VK01">
+      <description>CONFIG for MDR1986VK01 device series</description>
+      <files>
+        <file category="header" name="BSP\Device\inc\MDR32F2C10_config.h" attr="config"/>
+      </files>
+    </component>    
+
+    <component Cclass="Device" Cgroup="DEMOBOARD" Cversion="1.0" condition="CON_MDR1986VK01">
+      <description>DEMOBOARD for MDR1986VK01 device series</description>
+      <files>
+        <file category="header" name="BSP\Device\inc\demoboard.h" attr="config"/>
+      </files>
+    </component>        
+
+    <component Cclass="Device" Cgroup="SDIO" Cversion="1.0" condition="CON_MDR1986VK01">
+      <description>SDIO for MDR1986VK01 device series</description>
+      <files>
+        <file category="header" name="BSP\Device\inc\sdio.h" attr="config"/>
+      </files>
+    </component>        
+
+    <component Cclass="Drivers" Cgroup="PORT" Cversion="1.0" condition="CON_MDR1986VK01">
+      <description>PORT driver for MDR1986VK01 Series</description>
+      <files>
+        <file category="header" name="Libraries\MDR32F2C10_StdPeriph_Driver\inc\MDR32F2C10_port.h"/>
+        <file category="source" name="Libraries\MDR32F2C10_StdPeriph_Driver\src\MDR32F2C10_port.c"/>
+      </files>
+    </component>
+
+    <component Cclass="Drivers" Cgroup="CLK" Cversion="1.0" condition="CON_MDR1986VK01">
+      <description>CLK driver for MDR1986VK01 Series</description>
+      <files>
+        <file category="header" name="Libraries\MDR32F2C10_StdPeriph_Driver\inc\MDR32F2C10_clk.h"/>
+        <file category="source" name="Libraries\MDR32F2C10_StdPeriph_Driver\src\MDR32F2C10_clk.c"/>
+      </files>
+    </component>
+
+    <component Cclass="Drivers" Cgroup="UART" Cversion="1.0" condition="CON_MDR1986VK01">
+      <description>UART driver for MDR1986VK01 Series</description>
+      <files>
+        <file category="header" name="Libraries\MDR32F2C10_StdPeriph_Driver\inc\MDR32F2C10_uart.h"/>
+        <file category="source" name="Libraries\MDR32F2C10_StdPeriph_Driver\src\MDR32F2C10_uart.c"/>
+      </files>
+    </component>
+
+    <component Cclass="Drivers" Cgroup="SSP" Cversion="1.0" condition="CON_MDR1986VK01">
+      <description>SSP driver for MDR1986VK01 Series</description>
+      <files>
+        <file category="header" name="Libraries\MDR32F2C10_StdPeriph_Driver\inc\MDR32F2C10_ssp.h"/>
+        <file category="source" name="Libraries\MDR32F2C10_StdPeriph_Driver\src\MDR32F2C10_ssp.c"/>
+      </files>
+    </component>
+
+    <component Cclass="Drivers" Cgroup="SDIO" Cversion="1.0" condition="CON_MDR1986VK01">
+      <description>SDIO driver for MDR1986VK01 Series</description>
+      <files>
+        <file category="header" name="Libraries\MDR32F2C10_StdPeriph_Driver\inc\MDR32F2C10_sdio.h"/>
+        <file category="source" name="Libraries\MDR32F2C10_StdPeriph_Driver\src\MDR32F2C10_sdio.c"/>
+      </files>
+    </component>
+
+    <component Cclass="Drivers" Cgroup="CAN" Cversion="1.0" condition="CON_MDR1986VK01">
+      <description>CAN driver for MDR1986VK01 Series</description>
+      <files>
+        <file category="header" name="Libraries\MDR32F2C10_StdPeriph_Driver\inc\MDR32F2C10_can.h"/>
+        <file category="source" name="Libraries\MDR32F2C10_StdPeriph_Driver\src\MDR32F2C10_can.c"/>
+      </files>
+    </component>
+
+    <component Cclass="Drivers" Cgroup="CAN_FD" Cversion="1.0" condition="CON_MDR1986VK01">
+      <description>CAN FD driver for MDR1986VK01 Series</description>
+      <files>
+        <file category="header" name="Libraries\MDR32F2C10_StdPeriph_Driver\inc\MDR32F2C10_canfd.h"/>
+        <file category="source" name="Libraries\MDR32F2C10_StdPeriph_Driver\src\MDR32F2C10_canfd.c"/>
+      </files>
+    </component>    
+
+    <component Cclass="Drivers" Cgroup="TIM" Cversion="1.0" condition="CON_MDR1986VK01">
+      <description>TIM driver for MDR1986VK01 Series</description>
+      <files>
+        <file category="header" name="Libraries\MDR32F2C10_StdPeriph_Driver\inc\MDR32F2C10_timer.h"/>
+        <file category="source" name="Libraries\MDR32F2C10_StdPeriph_Driver\src\MDR32F2C10_timer.c"/>
+      </files>
+    </component>
+
+    <component Cclass="Drivers" Cgroup="DMA" Cversion="1.0" condition="CON_MDR1986VK01">
+      <description>DMA driver for MDR1986VK01 Series</description>
+      <files>
+        <file category="header" name="Libraries\MDR32F2C10_StdPeriph_Driver\inc\MDR32F2C10_dma.h"/>
+        <file category="source" name="Libraries\MDR32F2C10_StdPeriph_Driver\src\MDR32F2C10_dma.c"/>
+      </files>
+    </component>
+
+    <component Cclass="Drivers" Cgroup="MIL_STD_1553" Cversion="1.0" condition="CON_MDR1986VK01">
+      <description>MIL_STD_1553 driver for MDR1986VK01 Series</description>
+      <files>
+        <file category="header" name="Libraries\MDR32F2C10_StdPeriph_Driver\inc\MDR32F2C10_milstd.h"/>
+        <file category="source" name="Libraries\MDR32F2C10_StdPeriph_Driver\src\MDR32F2C10_milstd.c"/>
+      </files>
+    </component>   
+
+    <component Cclass="Drivers" Cgroup="ETH" Cversion="1.0" condition="CON_MDR1986VK01">
+      <description>ETHERNET driver for MDR1986VK01 Series</description>
+      <files>
+        <file category="header" name="Libraries\MDR32F2C10_StdPeriph_Driver\inc\MDR32F2C10_eth.h"/>
+        <file category="source" name="Libraries\MDR32F2C10_StdPeriph_Driver\src\MDR32F2C10_eth.c"/>
+      </files>
+    </component>   
+
+    <component Cclass="Drivers" Cgroup="EBC" Cversion="1.0" condition="CON_MDR1986VK01">
+      <description>EBC driver for MDR1986VK01 Series</description>
+      <files>
+        <file category="header" name="Libraries\MDR32F2C10_StdPeriph_Driver\inc\MDR32F2C10_ebc.h"/>
+        <file category="source" name="Libraries\MDR32F2C10_StdPeriph_Driver\src\MDR32F2C10_ebc.c"/>
+      </files>
+    </component>         
+
+    <component Cclass="Drivers" Cgroup="I2C" Cversion="1.0" condition="CON_MDR1986VK01">
+      <description>I2C driver for MDR1986VK01 Series</description>
+      <files>
+        <file category="header" name="Libraries\MDR32F2C10_StdPeriph_Driver\inc\MDR32F2C10_i2c.h"/>
+        <file category="source" name="Libraries\MDR32F2C10_StdPeriph_Driver\src\MDR32F2C10_i2c.c"/>
+      </files>
+    </component>             
+
+    <component Cclass="Drivers" Cgroup="DELAY" Cversion="1.0" condition="CON_MDR1986VK01">
+      <description>I2C driver for MDR1986VK01 Series</description>
+      <files>
+        <file category="header" name="Libraries\MDR32F2C10_StdPeriph_Driver\inc\MDR32F2C10_delay.h"/>
+        <file category="source" name="Libraries\MDR32F2C10_StdPeriph_Driver\src\MDR32F2C10_delay.c"/>
+      </files>
+    </component>                 
+
+    <component Cclass="Drivers" Cgroup="USB" Cversion="1.0" condition="CON_MDR1986VK01">
+      <description>USB driver for MDR1986VK01 Series</description>
+      <files>
+        <file category="header" name="Libraries\MDR32F2C10_StdPeriph_Driver\inc\MDR32F2C10_usb.h"/>
+        <file category="source" name="Libraries\MDR32F2C10_StdPeriph_Driver\src\MDR32F2C10_usb.c"/>
+      </files>
+    </component>                     
+
+  </components>
+<!-- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ -->
+
+</package>
