@@ -159,6 +159,11 @@ void DMA_DeInit(void)
   MDR_DMA->CHNL_PRI_ALT_CLR = 0xFFFFFFFF;     /* Reset to primary data structure */
   MDR_DMA->CHNL_PRIORITY_CLR = 0xFFFFFFFF;    /* Reset to default priority */
   MDR_DMA->ERR_CLR = 0x01;                    /* Clear dma_err status */
+  
+  MDR_DMA->CFG=0x1;
+  MDR_DMA->CHNL_REQ_MASK_SET = 0xFFFFFFFF;
+  MDR_DMA->CHNL_ENABLE_SET = 0xFFFFFFFF; 
+  NVIC_ClearPendingIRQ (DMA_IRQn);
 }
 
 /**

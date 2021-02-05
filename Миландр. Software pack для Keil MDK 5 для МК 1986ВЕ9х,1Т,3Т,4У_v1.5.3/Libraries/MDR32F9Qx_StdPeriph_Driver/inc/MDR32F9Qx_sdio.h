@@ -61,8 +61,8 @@ typedef struct
   * @{
   */
 
-#define SDIO_BusWide_1b                     ((uint32_t)0x00000000)
-#define SDIO_BusWide_4b                     ((uint32_t)0x00020000)
+#define SDIO_BusWide_1b                     ((uint32_t)0x00000001)
+#define SDIO_BusWide_4b                     ((uint32_t)0x00000000)
 
 #define IS_SDIO_BUS_WIDE(WIDE) 				(((WIDE) == SDIO_BusWide_1b) ||\
  	 	 	 	 	 	 	 	 	 	 	 ((WIDE) == SDIO_BusWide_4b))
@@ -73,14 +73,13 @@ typedef struct
   * @{
   */
 
-#define SDIO_CLOCK_DIV_1					((uint32_t)0 << SDIO_CR_BR_Pos)
-#define SDIO_CLOCK_DIV_2					((uint32_t)1 << SDIO_CR_BR_Pos)
-#define SDIO_CLOCK_DIV_4					((uint32_t)2 << SDIO_CR_BR_Pos)
-#define SDIO_CLOCK_DIV_8					((uint32_t)3 << SDIO_CR_BR_Pos)
-#define SDIO_CLOCK_DIV_16					((uint32_t)4 << SDIO_CR_BR_Pos)
-#define SDIO_CLOCK_DIV_32					((uint32_t)5 << SDIO_CR_BR_Pos)
-#define SDIO_CLOCK_DIV_64					((uint32_t)6 << SDIO_CR_BR_Pos)
-#define SDIO_CLOCK_DIV_128					((uint32_t)7 << SDIO_CR_BR_Pos)
+#define SDIO_CLOCK_DIV_4					((uint32_t)1 << SDIO_CR_BR_Pos)
+#define SDIO_CLOCK_DIV_8					((uint32_t)2 << SDIO_CR_BR_Pos)
+#define SDIO_CLOCK_DIV_16					((uint32_t)3 << SDIO_CR_BR_Pos)
+#define SDIO_CLOCK_DIV_32					((uint32_t)4 << SDIO_CR_BR_Pos)
+#define SDIO_CLOCK_DIV_64					((uint32_t)5 << SDIO_CR_BR_Pos)
+#define SDIO_CLOCK_DIV_128					((uint32_t)6 << SDIO_CR_BR_Pos)
+#define SDIO_CLOCK_DIV_256					((uint32_t)7 << SDIO_CR_BR_Pos)
 
 #define IS_SDIO_CLOCK_DIV(DIV)				(((DIV) & ~SDIO_CR_BR_Msk) == 0)
 
