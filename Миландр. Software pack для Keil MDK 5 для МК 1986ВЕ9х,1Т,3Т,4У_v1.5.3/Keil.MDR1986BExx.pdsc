@@ -17,7 +17,7 @@
         <!-- MDR1986BE91 -->
         <device Dname="MDR1986BE91">
           <processor  Dcore="Cortex-M3" DcoreVersion="r2p0" Dfpu="NO_FPU" Dmpu="MPU" Dendian="Little-endian" Dclock="80000000"/>
-          <compile    header="Libraries/CMSIS/CM3/DeviceSupport/MDR32F9Qx/inc/MDR32Fx.h"/>
+          <compile    header="Libraries/CMSIS/CM3/DeviceSupport/MDR32F9Qx/inc/MDR32Fx.h" define="USE_MDR1986VE9x"/>
           <debug      svd="IDE/keil/SVD/MDR1986VE91.svd"/>
           <memory     id="IROM1"                          start="0x08000000"  size="0x20000"    startup="1"   default="1"/>
           <memory     id="IRAM1"                          start="0x20000000"  size="0x8000"     init   ="0"   default="1"/>
@@ -75,7 +75,7 @@
         <!-- MDR1986BE92 -->
         <device Dname="MDR1986BE92">
           <processor  Dcore="Cortex-M3" DcoreVersion="r2p0" Dfpu="NO_FPU" Dmpu="MPU" Dendian="Little-endian" Dclock="80000000"/>
-          <compile    header="Libraries/CMSIS/CM3/DeviceSupport/MDR32F9Qx/inc/MDR32Fx.h"/>
+          <compile    header="Libraries/CMSIS/CM3/DeviceSupport/MDR32F9Qx/inc/MDR32Fx.h" define="USE_MDR1986VE9x"/>
           <debug      svd="IDE/keil/SVD/MDR1986VE92.svd"/>
           <memory     id="IROM1"                          start="0x08000000"  size="0x20000"    startup="1"   default="1"/>
           <memory     id="IRAM1"                          start="0x20000000"  size="0x8000"     init   ="0"   default="1"/>
@@ -133,7 +133,7 @@
         <!-- MDR1986BE93 -->
         <device Dname="MDR1986BE93">
           <processor Dcore="Cortex-M3" DcoreVersion="r2p0" Dfpu="NO_FPU" Dmpu="MPU" Dendian="Little-endian" Dclock="80000000"/>
-          <compile header="Libraries/CMSIS/CM3/DeviceSupport/MDR32F9Qx/inc/MDR32Fx.h"/>
+          <compile header="Libraries/CMSIS/CM3/DeviceSupport/MDR32F9Qx/inc/MDR32Fx.h" define="USE_MDR1986VE9x"/>
           <debug      svd="IDE/keil/SVD/MDR1986VE93.svd"/>
           <memory     id="IROM1"                          start="0x08000000"  size="0x20000"    startup="1"   default="1"/>
           <memory     id="IRAM1"                          start="0x20000000"  size="0x8000"     init   ="0"   default="1"/>
@@ -191,7 +191,7 @@
         <!-- MDR1986BE1T -->
         <device Dname="MDR1986BE1T">
           <processor Dcore="Cortex-M1" DcoreVersion="r1p0" Dfpu="NO_FPU" Dmpu="MPU" Dendian="Little-endian" Dclock="144000000"/>
-          <compile header="Libraries/CMSIS/CM1/DeviceSupport/MDR1986VE1T/inc/MDR1986VE1T.h"/>
+          <compile header="Libraries/CMSIS/CM1/DeviceSupport/MDR1986VE1T/inc/MDR1986VE1T.h" define="USE_MDR1986VE1T"/>
           <debug      svd="IDE/keil/SVD/MDR1986VE1T.svd"/>
           <memory     id="IROM1"                          start="0x00000000"  size="0x20000"    startup="1"   default="1"/>
           <memory     id="IRAM1"                          start="0x20000000"  size="0x8000"     init   ="0"   default="1"/>
@@ -252,7 +252,7 @@
         <!-- MDR1986BE3T -->
         <device Dname="MDR1986BE3T">
           <processor Dcore="Cortex-M1" DcoreVersion="r1p0" Dfpu="NO_FPU" Dmpu="NO_MPU" Dendian="Little-endian" Dclock="80000000"/>
-          <compile header="Libraries/CMSIS/CM1/DeviceSupport/MDR1986VE3/inc/MDR1986VE3.h"/>
+          <compile header="Libraries/CMSIS/CM1/DeviceSupport/MDR1986VE3/inc/MDR1986VE3.h" define="USE_MDR1986VE3"/>
           <debug      svd="IDE/keil/SVD/MDR1986VE3T.svd"/>
           <memory     id="IROM1"                          start="0x00000000"  size="0x20000"    startup="1"   default="1"/>
           <memory     id="IRAM1"                          start="0x20000000"  size="0x8000"     init   ="0"   default="1"/>
@@ -314,7 +314,7 @@
         <!-- MDR1986BE4 -->
         <device Dname="MDR1986BE4">
           <processor  Dcore="Cortex-M0" DcoreVersion="r0p0" Dfpu="NO_FPU" Dmpu="NO_MPU" Dendian="Little-endian" Dclock="36000000"/>
-          <compile    header="Libraries/CMSIS/CM0/DeviceSupport/MDR1986BE4/inc/MDR1986BE4.h"/>
+          <compile    header="Libraries/CMSIS/CM0/DeviceSupport/MDR1986BE4/inc/MDR1986BE4.h" define="USE_MDR1986BE4"/>
           <debug      svd="IDE/keil/SVD/MDR1986VE4.svd"/>
           <memory     id="IROM1"                          start="0x00000000"  size="0x20000"    startup="1"   default="1"/>
           <memory     id="IRAM1"                          start="0x20000000"  size="0x4000"     init   ="0"   default="1"/>
