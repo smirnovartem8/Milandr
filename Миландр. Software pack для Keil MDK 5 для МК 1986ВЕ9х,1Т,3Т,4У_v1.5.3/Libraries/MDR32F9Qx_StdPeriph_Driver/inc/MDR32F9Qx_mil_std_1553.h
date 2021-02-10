@@ -144,7 +144,7 @@ typedef union {
 
 typedef enum {
 	FALSE = 0,
-	TRUE = !DISABLE
+	TRUE = !FALSE
 } Bool;
 
 /** @} */ /* End of group MIL_STD_1553_Exported_Types */

@@ -51,6 +51,8 @@ To launch the example, you must do the following:
   - Edit the MDR32F9Qx_config.h to set appropriate run-time parameter checking level.
   - Compile and link together all .c files and load your image into the target board.
   - Run the example.
+If used FIFO mode, config scatter file to DMA enable.
+
 
  * <h3><center>&copy; COPYRIGHT 2013 Milandr</center></h3>
  */

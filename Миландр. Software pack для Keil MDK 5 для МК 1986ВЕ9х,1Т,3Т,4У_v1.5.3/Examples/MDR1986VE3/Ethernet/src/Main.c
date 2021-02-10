@@ -116,7 +116,7 @@ void main(void)
 	RST_CLK_PCLKcmd(RST_CLK_PCLK_DMA, ENABLE);
 
 	/* Enable HSE2 oscillator */
-	RST_CLK_HSE2config(RST_CLK_HSE2_Bypass);
+	RST_CLK_HSE2config(RST_CLK_HSE2_ON);
 	if(RST_CLK_HSE2status() == ERROR)
 		while(1); /* Infinite loop */
 
