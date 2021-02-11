@@ -173,6 +173,7 @@ void DMA_DeInit(void)
   MDR_DMA->CHNL_REQ_MASK_SET = 0xFFFFFFFF;
   MDR_DMA->CHNL_ENABLE_SET = 0xFFFFFFFF; 
   NVIC_ClearPendingIRQ (DMA_IRQn);
+  
 }
 
 /**

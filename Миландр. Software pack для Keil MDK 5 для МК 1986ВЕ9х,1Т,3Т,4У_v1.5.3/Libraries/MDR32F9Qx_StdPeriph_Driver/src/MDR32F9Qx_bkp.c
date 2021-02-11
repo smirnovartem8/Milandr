@@ -377,6 +377,208 @@ void BKP_RTC_ClearFlagStatus(uint32_t BKP_RTC_FLAG)
   MDR_BKP->RTC_CS = tmpreg;
 }
 
+/**
+  * @brief  BKP_SET_DUCC_MODE - Select the internal voltage regulator mode
+  * @param  DUccMode: specifies the DUcc mode.
+  *   This parameter can be one of the following values:
+  *     @arg BKP_DUcc_upto_10MHz:  system clock is up to 10 MHz
+  *     @arg BKP_DUcc_upto_200kHz: system clock is up to 200 kHz
+  *     @arg BKP_DUcc_upto_500kHz: system clock is up to 500 kHz
+  *     @arg BKP_DUcc_clk_off:   all clocks are switnhed off
+  *     @arg BKP_DUcc_upto_1MHz:   system clock is up to 1 MHz
+  *     @arg BKP_DUcc_upto_40MHz:  system clock is up to 40 MHz
+  *     @arg BKP_DUcc_upto_80MHz:  system clock is up to 80 MHz
+  *     @arg BKP_DUcc_over_80MHz:  system clock is over 80 MHz
+  * @retval None
+  */
+void BKP_DUccMode(uint32_t DUccMode)
+{
+  uint32_t tmpreg;
+  /* Check the parameters */
+  assert_param(IS_BKP_DUCC_MODE(DUccMode));
+  /* Clear BKP_REG0E[5:0] bits */
+  tmpreg  = MDR_BKP -> REG_0E & (uint32_t) (~DUcc_Mask);
+  /* Set BKP_REG0E[5:0] bits according to DUcc mode */
+  tmpreg |= DUcc_Mask & DUccMode;
+ 
+  MDR_BKP -> REG_0E = tmpreg;
+}
+
+/**
+  * @brief  BKP_SET_DUCC_TRIM - Set the internal voltage regulator trim
+  * @param  DUccTrim: specifies the DUcc trim.
+  *   This parameter can be one of the following values:
+  *     @arg BKP_DUcc_plus_100mV:  trim DUcc with + 100mV
+  *     @arg BKP_DUcc_plus_060mV:  trim DUcc with + 060mV
+  *     @arg BKP_DUcc_plus_040mV:  trim DUcc with + 040mV
+  *     @arg BKP_DUcc_plus_010mV:  trim DUcc with + 010mV
+  *     @arg BKP_DUcc_minus_010mV: trim DUcc with - 010mV
+  *     @arg BKP_DUcc_minus_040mV: trim DUcc with - 040mV
+  *     @arg BKP_DUcc_minus_060mV: trim DUcc with - 060mV
+  *     @arg BKP_DUcc_minus_100mV: trim DUcc with - 100mV
+  * @retval None
+  */
+void BKP_DUccTrim(uint32_t DUccTrim)
+{
+  uint32_t tmpreg;
+  /* Check the parameters */
+  assert_param(IS_BKP_DUCC_TRIM(DUccTrim));
+  /* Clear BKP_REG0E[5:0] bits */
+  tmpreg  = MDR_BKP -> REG_0E & (uint32_t) (~DUccTrim_Mask);
+  /* Set BKP_REG0E[5:0] bits according to DUcc mode */
+  tmpreg |= DUccTrim_Mask & DUccTrim;
+  
+    MDR_BKP -> REG_0E = tmpreg;
+}
+
+/**
+  * @brief  BKP_DUccStandby - Enter standby mode.
+  * @param  None
+  * @retval None
+  */
+void BKP_DUccStandby ( void )
+{
+#if defined (USE_MDR1986VE9x) || defined (USE_MDR1901VC1T)
+*(__IO uint32_t *) BKP_STANDBY_BB = (uint32_t) 0x01;
+#elif defined (USE_MDR1986VE3)
+	MDR_BKP->REG_0F |= BKP_REG_0F_STANDBY;
+#endif
+
+}
+
+/**
+  * @brief  BKP_SetFlagPOR - Set power on reset flag (FPOR).
+  * @param  None
+  * @retval None
+  */
+void BKP_SetFlagPOR ( void )
+{
+#if defined (USE_MDR1986VE9x) || defined (USE_MDR1901VC1T)
+	*(__IO uint32_t *) BKP_FPOR_BB = (uint32_t) 0x01;
+#elif defined (USE_MDR1986VE3) || defined (USE_MDR1986VE1T)
+	MDR_BKP->REG_0E |= BKP_REG_0E_FPOR;
+#endif
+}
+
+/**
+  * @brief  BKP_FlagPORstatus - power on reset flag (FPOR) status
+  * @param  None
+  * @retval enum ErrorStatus - SUCCESS if FPOR is zero, else ERROR
+  */
+ErrorStatus BKP_FlagPORstatus(void)
+{
+  ErrorStatus state = ERROR;
+#if defined (USE_MDR1986VE9x) || defined (USE_MDR1901VC1T)
+  if (*(__IO uint32_t *) BKP_FPOR_BB == 0)
+  {
+    state = SUCCESS;
+  }
+#elif defined (USE_MDR1986VE3) || defined (USE_MDR1986VE1T)
+  if (( MDR_BKP->REG_0E & BKP_REG_0E_FPOR ) == BKP_REG_0E_FPOR) {
+	  state = SUCCESS;
+  }
+#endif
+  return state;
+}
+
+#if defined (USE_MDR1986VE9x) || defined (USE_MDR1901VC1T)
+/**
+  * @brief  Enters STOP mode.
+  * @param  BKP_Regulator_state: specifies the regulator state in STOP mode.
+  *   This parameter can be: ENABLE or DISABLE.
+  *     @arg ENABLE: STOP mode with regulator ON
+  *     @arg DISABLE: STOP mode with regulator in low power mode
+  * @param  BKP_STOPentry: specifies if STOP mode in entered with WFI or WFE instruction.
+  *   This parameter can be one of the following values:
+  *     @arg BKP_STOPentry_WFI: enter STOP mode with WFI instruction
+  *     @arg BKP_STOPentry_WFE: enter STOP mode with WFE instruction
+  * @retval None
+  */
+void BKP_EnterSTOPMode(FunctionalState BKP_Regulator_state, uint8_t BKP_STOPentry)
+{
+  /* Check the parameters */
+  assert_param(IS_FUNCTIONAL_STATE(BKP_Regulator_state));
+  assert_param(IS_BKP_STOP_ENTRY(BKP_STOPentry));
+
+  if(BKP_Regulator_state == DISABLE)
+  {
+    MDR_BKP->REG_0F |= BKP_REG_0F_STANDBY;
+  }
+  else
+  {
+    /* Set SLEEPDEEP bit of Cortex System Control Register */
+    SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
+
+    /* Select STOP mode entry --------------------------------------------------*/
+    if(BKP_STOPentry == BKP_STOPentry_WFI)
+    {
+      /* Request Wait For Interrupt */
+      __WFI();
+    }
+    else
+    {
+      /* Request Wait For Event */
+      __WFE();
+    }
+  }
+}
+#elif defined (USE_MDR1986VE1T) || defined (USE_MDR1986VE3)
+
+/**
+  * @brief	Shifting core controller into a low power consumption. In this mode,
+  * 		the clock frequency is applied only to the selected peripheral
+  * 		blocks, which interrupt the supply resumes clock on the core.
+  * @param	None
+  * @retval None
+  */
+void BKP_EnterSLEEPMode(void)
+{
+	/* Enter in SLEEP mode */
+	MDR_RST_CLK->ETH_CLOCK |= 1 << RST_CLK_ETH_CLOCK_SLEEP_Pos;
+}
+
+#endif
+
+/**
+  * @brief  Enters STANDBY mode.
+  * @param  None
+  * @retval None
+  */
+void BKP_EnterSTANDBYMode ( void )
+{
+	/* Select STANDBY mode */
+#if defined (USE_MDR1986VE9x) || defined (USE_MDR1901VC1T)
+	*(__IO uint32_t *) BKP_STANDBY_BB = (uint32_t) 0x01;
+#elif defined (USE_MDR1986VE3) || defined (USE_MDR1986VE1T)
+	MDR_BKP->REG_0F |= BKP_REG_0F_STANDBY;
+#endif
+}
+
+#if defined (USE_MDR1986VE1T) || defined (USE_MDR1986VE3)
+
+/**
+ * @brief	POWER_SetTrim - Adjustment coefficient of the reference voltage
+ * 			integrated voltage regulator DUcc roughly.
+ * @param 	trim: coefficient of the reference voltage.
+ * 			This parameter can be one the following values:
+ * 				@arg BKP_TRIM_1_8_V
+ * 				@arg BKP_TRIM_1_6_V
+ * 				@arg BKP_TRIM_1_4_V
+ * @return	None.
+ */
+void BKP_SetTrim(uint32_t trim)
+{
+	uint32_t tmpreg;
+	/* Check the parameters */
+	assert_param(IS_BKP_TRIM(trim));
+
+	tmpreg = MDR_BKP->REG_0E & (~(3 << BKP_REG_0E_TRIM_34_Pos));
+	tmpreg = tmpreg | trim;
+	MDR_BKP->REG_0E = tmpreg;
+}
+
+#endif
+
 /** @} */ /* End of group BKP_Private_Functions */
 
 /** @} */ /* End of group BKP */
