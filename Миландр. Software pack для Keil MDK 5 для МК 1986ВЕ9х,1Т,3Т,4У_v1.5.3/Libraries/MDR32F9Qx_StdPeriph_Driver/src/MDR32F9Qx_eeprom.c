@@ -55,6 +55,13 @@ __RAMFUNC static void ProgramDelay(uint32_t Loops)
   }
 }
 
+private uint32_t PointerReadData(uint32_t Address, uint32_t Shift){
+  uint32_t Data;
+  Data = *(uint32_t*) (Address & ~0x3);
+  Data >>= Shift;
+  return Data;
+}
+
 
 /**
   * @brief  Sets the code latency value.
@@ -79,8 +86,10 @@ void EEPROM_SetLatency ( uint32_t EEPROM_Latency )
   MDR_EEPROM->CMD = EEPROM_Latency;
 }
 
+
 /**
   * @brief  Reads the 8-bit EEPROM memory value.
+  *         Uses memory reading by pointer to address if EEPROM Main_Bank_Select is selected.
   * @param  Address: The EEPROM memory byte address.
   * @param  BankSelector: Selects EEPROM Bank (Main Bank or Information Bank).
   *         This parameter can be one of the following values:
@@ -93,9 +102,25 @@ __RAMFUNC  uint8_t EEPROM_ReadByte(uint32_t Address, uint32_t BankSelector)
   uint32_t Data;
   uint32_t Command;
   uint32_t Shift;
-
+  
   assert_param(IS_EEPROM_BANK_SELECTOR(BankSelector));
-
+  
+  /* Use memory reading by pointer to address if EEPROM Main_Bank_Select is selected.*/
+  if (BankSelector == EEPROM_Main_Bank_Select){
+    if((MDR_EEPROM->CMD & EEPROM_CMD_CON) == 0){
+      // EEPROM control from the core, working mode.
+      Data = PointerReadData(Address, (Address & 3) * 8);
+    }else{
+      /* Control from registers, programming mode.*/
+      /* Turn off programming mode. */
+      MDR_EEPROM->CMD &= ~EEPROM_CMD_CON;
+      Data = PointerReadData(Address, (Address & 3) * 8);
+      /* Turn on programming mode back. */
+      MDR_EEPROM->CMD |= EEPROM_CMD_CON;
+    }
+    return Data;
+  }
+  
   MDR_EEPROM->KEY = EEPROM_REG_ACCESS_KEY;
   Command = (MDR_EEPROM->CMD & EEPROM_CMD_DELAY_Msk) | EEPROM_CMD_CON;
   Command |= (BankSelector == EEPROM_Info_Bank_Select) ? EEPROM_CMD_IFREN : 0;
@@ -117,6 +142,7 @@ __RAMFUNC  uint8_t EEPROM_ReadByte(uint32_t Address, uint32_t BankSelector)
 
 /**
   * @brief  Reads the 16-bit EEPROM memory value.
+  *         Uses memory reading by pointer to address if EEPROM Main_Bank_Select is selected.
   * @param  Address: The EEPROM memory half word address (two byte aligned).
   * @param  BankSelector: Selects EEPROM Bank (Main Bank or Information Bank).
   *         This parameter can be one of the following values:
@@ -133,6 +159,23 @@ __RAMFUNC uint16_t EEPROM_ReadHalfWord(uint32_t Address, uint32_t BankSelector)
   assert_param(IS_EEPROM_BANK_SELECTOR(BankSelector));
   assert_param(IS_TWO_BYTE_ALLIGNED(Address));
 
+
+  /* Use memory reading by pointer to address if EEPROM Main_Bank_Select is selected.*/
+  if (BankSelector == EEPROM_Main_Bank_Select){
+    if((MDR_EEPROM->CMD & EEPROM_CMD_CON) == 0){
+      // EEPROM control from the core, working mode.
+      Data = PointerReadData(Address, (Address & 2) * 8);
+    }else{
+      /* Control from registers, programming mode.*/
+      /* Turn off programming mode. */
+      MDR_EEPROM->CMD &= ~EEPROM_CMD_CON;
+      Data = PointerReadData(Address, (Address & 2) * 8);
+      /* Turn on programming mode back. */
+      MDR_EEPROM->CMD |= EEPROM_CMD_CON;
+    }
+    return Data;
+  }
+  
   MDR_EEPROM->KEY = EEPROM_REG_ACCESS_KEY;
   Command = (MDR_EEPROM->CMD & EEPROM_CMD_DELAY_Msk) | EEPROM_CMD_CON;
   Command |= (BankSelector == EEPROM_Info_Bank_Select) ? EEPROM_CMD_IFREN : 0;
@@ -154,6 +197,7 @@ __RAMFUNC uint16_t EEPROM_ReadHalfWord(uint32_t Address, uint32_t BankSelector)
 
 /**
   * @brief  Reads the 32-bit EEPROM memory value.
+  *         Uses memory reading by pointer to address if EEPROM Main_Bank_Select is selected.
   * @param  Address: The EEPROM memory word address (four byte aligned).
   * @param  BankSelector: Selects EEPROM Bank (Main Bank or Information Bank).
   *         This parameter can be one of the following values:
@@ -168,6 +212,22 @@ __RAMFUNC uint32_t EEPROM_ReadWord(uint32_t Address, uint32_t BankSelector)
 
   assert_param(IS_EEPROM_BANK_SELECTOR(BankSelector));
   assert_param(IS_FOUR_BYTE_ALLIGNED(Address));
+
+  /* Use memory reading by pointer to address if EEPROM Main_Bank_Select is selected.*/
+  if (BankSelector == EEPROM_Main_Bank_Select){
+    if((MDR_EEPROM->CMD & EEPROM_CMD_CON) == 0){
+      // EEPROM control from the core, working mode.
+      Data = *(uint32_t*) (Address);
+    }else{
+      /* Control from registers, programming mode.*/
+      /* Turn off programming mode. */
+      MDR_EEPROM->CMD &= ~EEPROM_CMD_CON;
+      Data = *(uint32_t*) (Address);
+      /* Turn on programming mode back. */
+      MDR_EEPROM->CMD |= EEPROM_CMD_CON;
+    }
+    return Data;
+  }
 
   MDR_EEPROM->KEY = EEPROM_REG_ACCESS_KEY;
   Command = (MDR_EEPROM->CMD & EEPROM_CMD_DELAY_Msk) | EEPROM_CMD_CON;
