@@ -127,8 +127,8 @@ void SystemInit (void)
   /* Reset HSEON and HSEBYP bits */
   MDR_RST_CLK->HS_CONTROL  &= (uint32_t)0x00000000;
 
-  /* Reset ADC_MCO_CLOCK bits */
-  MDR_RST_CLK->ADC_MCO_CLOCK   &= (uint32_t)0x00000000;
+  /* Reset ADC_CLOCK bits */
+  MDR_RST_CLK->ADC_CLOCK   &= (uint32_t)0x00000000;
 
   SystemCoreClockUpdate();
 }
