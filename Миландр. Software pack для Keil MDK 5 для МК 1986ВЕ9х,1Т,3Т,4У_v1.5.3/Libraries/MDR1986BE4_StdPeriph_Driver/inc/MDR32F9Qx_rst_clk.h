@@ -184,7 +184,7 @@ typedef struct {
 
 /** @} */ /* End of group CPU_CLK_selector */
 
-/** @defgroup ADC_MCO_CLOCK_source ADC clock source
+/** @defgroup ADC_CLOCK_source ADC clock source
   * @{
   */
 
@@ -201,7 +201,7 @@ typedef struct {
                                                ((SRC) == RST_CLK_ADCclkPER1_C1) || \
                                                ((SRC) == RST_CLK_ADCclkPLLCPU)  || \
                                                ((SRC) == RST_CLK_ADCclkHSI_CLK))
-/** @} */ /* End of group ADC_MCO_CLOCK_source */
+/** @} */ /* End of group ADC_CLOCK_source */
 
 /** @defgroup ADC_MCO_CS3_SEL ADC clock divider
   * @{

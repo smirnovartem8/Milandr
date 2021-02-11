@@ -88,10 +88,11 @@ BaudRateStatus UART_Init ( MDR_UART_TypeDef* UARTx,
 						   UART_InitTypeDef* UART_InitStruct )
 {
 	uint32_t tmpreg, cpuclock;
-	uint32_t realspeed, speederror;
+	uint32_t realspeed;
 	uint32_t divider;
 	uint32_t integerdivider;
 	uint32_t fractionaldivider;
+	int32_t speederror;
 	RST_CLK_FreqTypeDef RST_CLK_Clocks;
 
 	/* Check the parameters */
@@ -126,7 +127,7 @@ BaudRateStatus UART_Init ( MDR_UART_TypeDef* UARTx,
 	realspeed = (cpuclock * 4) / ((integerdivider * 64) + fractionaldivider);
 	speederror = ((realspeed - UART_InitStruct->UART_BaudRate) * 128)
 			/ UART_InitStruct->UART_BaudRate;
-	if (speederror > 2) {
+	if ((speederror > 2)||(speederror < -2)) {
 		return BaudRateInvalid;
 	}
 	/* Write UART Baud Rate */
@@ -319,7 +320,7 @@ ITStatus UART_GetITStatusMasked(MDR_UART_TypeDef* UARTx, uint32_t UART_IT)
 }
 
 /**
-  * @brief  Clears the UARTx’s interrupt pending bits.
+  * @brief  Clears the UARTxÂ’s interrupt pending bits.
   * @param  UARTx: Select the UART or the UART peripheral.
   *         This parameter can be one of the following values:
   *         UART1, UART2.
@@ -379,7 +380,7 @@ void UART_DMAConfig(MDR_UART_TypeDef* UARTx, uint32_t UART_IT_RB_LVL, uint32_t U
 }
 
 /**
-  * @brief  Enables or disables the UART’s DMA interface.
+  * @brief  Enables or disables the UARTÂ’s DMA interface.
   * @param  UARTx: Select the UART peripheral.
   *         This parameter can be one of the following values:
   *         UART1, UART2.
@@ -476,7 +477,7 @@ void UART_BreakLine(MDR_UART_TypeDef* UARTx, FunctionalState NewState)
 }
 
 /**
-  * @brief  Configures the UART’s IrDA interface.
+  * @brief  Configures the UARTÂ’s IrDA interface.
   * @param  UARTx: Select the UART peripheral.
   *         This parameter can be one of the following values:
   *         UART1, UART2.
@@ -506,7 +507,7 @@ void UART_IrDAConfig(MDR_UART_TypeDef* UARTx, uint32_t UART_IrDAMode)
 }
 
 /**
-  * @brief  Enables or disables the UART’s IrDA interface.
+  * @brief  Enables or disables the UARTÂ’s IrDA interface.
   * @param  UARTx: Select the UART peripheral.
   *         This parameter can be one of the following values:
   *         UART1, UART2.

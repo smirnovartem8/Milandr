@@ -788,7 +788,7 @@ typedef struct {
 	__IO uint32_t	HS_CONTROL;             /*!<HS Control Register */
 	__IO uint32_t	CPU_CLOCK;              /*!<CPU Clock Register */
 	__IO uint32_t	PER1_CLOCK;             /*!<PER1 Clock Register */
-	__IO uint32_t	ADC_CLOCK;          /*!<ADC Clock Register */
+	__IO uint32_t	ADC_CLOCK;              /*!<ADC Clock Register */
 	__IO uint32_t	RTC_CLOCK;              /*!<RTC Clock Register */
 	__IO uint32_t	PER2_CLOCK;             /*!<Peripheral Clock Enable Register */
 	__I  uint32_t	RESERVED0;

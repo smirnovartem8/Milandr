@@ -100,10 +100,11 @@ BaudRateStatus UART_Init ( MDR_UART_TypeDef* UARTx,
 						   UART_InitTypeDef* UART_InitStruct )
 {
 	uint32_t tmpreg, cpuclock;
-	uint32_t realspeed, speederror;
+	uint32_t realspeed;
 	uint32_t divider;
 	uint32_t integerdivider;
 	uint32_t fractionaldivider;
+	int32_t speederror;
 	RST_CLK_FreqTypeDef RST_CLK_Clocks;
 
 	/* Check the parameters */
@@ -155,7 +156,7 @@ BaudRateStatus UART_Init ( MDR_UART_TypeDef* UARTx,
 	realspeed = (cpuclock * 4) / ((integerdivider * 64) + fractionaldivider);
 	speederror = ((realspeed - UART_InitStruct->UART_BaudRate) * 128)
 			/ UART_InitStruct->UART_BaudRate;
-	if (speederror > 2) {
+	if ((speederror > 2)||(speederror < -2)) {
 		return BaudRateInvalid;
 	}
 	/* Write UART Baud Rate */
