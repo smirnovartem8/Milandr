@@ -1684,7 +1684,7 @@ FlagStatus RST_CLK_GetFlagStatus(uint32_t RST_CLK_FLAG)
   *         @arg RST_CLK_CPU_C1srcHSEdiv2
   * @retval None
   */
-void RST_CLK_CPUclkSelectionC3(uint32_t CPU_CLK)
+void RST_CLK_CPUclkSelectionC1(uint32_t CPU_CLK)
 {
   uint32_t temp;
 

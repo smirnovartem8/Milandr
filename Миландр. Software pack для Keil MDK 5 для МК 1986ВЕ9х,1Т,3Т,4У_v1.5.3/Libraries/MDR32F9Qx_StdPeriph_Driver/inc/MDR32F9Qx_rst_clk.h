@@ -768,7 +768,7 @@ void RST_CLK_RTC_HSIclkEnable(FunctionalState NewState);
 void RST_CLK_HSEclkPrescaler(uint32_t HSEclkDivValue);
 void RST_CLK_RTC_HSEclkEnable(FunctionalState NewState);
 
-void RST_CLK_CPUclkSelectionC3(uint32_t CPU_CLK);
+void RST_CLK_CPUclkSelectionC1(uint32_t CPU_CLK);
 
 void RST_CLK_PCLKcmd(uint32_t RST_CLK_PCLK, FunctionalState NewState);
 #if defined (USE_MDR1986VE3)

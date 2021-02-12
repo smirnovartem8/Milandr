@@ -3,7 +3,6 @@
   */
 
 /* Includes ------------------------------------------------------------------*/
-#include "MDR32F9Qx_config.h"
 #include "MDR32F9Qx_rst_clk.h"
 
 
@@ -1203,6 +1202,31 @@ FlagStatus RST_CLK_GetFlagStatus(uint32_t RST_CLK_FLAG)
 
   /* Return the flag status */
   return bitstatus;
+}
+
+/**
+  * @brief  RST_CLK_CPUclkSelection: select the CPU clock source.
+  * @param  CPU_CLK: specifies the CPU clock source.
+  *         @arg RST_CLK_CPU_C1srcHSIdiv1
+  *         @arg RST_CLK_CPU_C1srcHSIdiv2
+  *         @arg RST_CLK_CPU_C1srcHSEdiv1
+  *         @arg RST_CLK_CPU_C1srcHSEdiv2
+  * @retval None
+  */
+void RST_CLK_CPUclkSelectionC1(uint32_t CPU_CLK)
+{
+  uint32_t temp;
+
+  /* Check the parameters */
+  assert_param(IS_RST_CPU_CLK(CPU_CLK));
+
+  temp = MDR_RST_CLK->CPU_CLOCK;
+  /* Clear CPU_C3_SEL bits */
+  temp &= ~RST_CLK_CPU_CLOCK_CPU_C1_SEL_Msk;;
+  /* Set the CPU_C3_SEL bits */
+  temp |= CPU_CLK;
+  /* Store the new value */
+  MDR_RST_CLK->CPU_CLOCK = temp;
 }
 
 /** @} */ /* End of group RST_CLK_Private_Functions */
