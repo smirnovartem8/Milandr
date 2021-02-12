@@ -50,7 +50,7 @@ void SDIO_StructInit(SDIO_InitTypeDef * SDIO_InitStruct)
 	SDIO_InitStruct->EndBusy 			= DISABLE;
 	SDIO_InitStruct->BusWide 			= SDIO_BusWide_1b;
 	SDIO_InitStruct->ClockOutput 		= DISABLE;
-	SDIO_InitStruct->ClockDiv 			= SDIO_CLOCK_DIV_1;
+	SDIO_InitStruct->ClockDiv 			= SDIO_CLOCK_DIV_4;
 }
 
 /**
@@ -398,6 +398,78 @@ uint16_t SDIO_GetDATATransferNumberBit(void)
 {
 	return (MDR_SDIO->DAT_TRANSFER);
 }
+
+/** 
+ * @brief	Send the command from SDIO interface
+ * @param	cmd: comand.
+ * @param	arg: argument.
+ */
+
+void SDIO_SendCommand(uint32_t cmd, uint32_t arg)
+{
+    MDR_SDIO->CR &= ~(SDIO_CR_DIRCMD | SDIO_CR_SBITCMD); /* Clear transaction bits */
+    
+    do {                                         /* Wait while CmdActive bit is set */
+        MDR_SDIO->CR &= ~SDIO_CR_WORK2;          /* Reset Work2 */
+    } while (MDR_SDIO->CR & SDIO_CR_WORK2);
+    
+    MDR_SDIO->CR |= SDIO_CR_DIRCMD | SDIO_CR_SBITCMD; /* Command TX & wait start bit */
+    
+    //  Write command and arg
+    MDR_SDIO->CMDDR  = ((cmd | SD_TX_BIT) & 0x0000007F) |
+                        (arg >> 16 & 0x0000FF00) |
+                        (arg       & 0x00FF0000) |
+                        (arg << 16 & 0xFF000000) ;
+
+    MDR_SDIO->CMDDR  = arg & 0x000000FF;
+    MDR_SDIO->CMDCRC = 0x00000000;       /* Clear CRC */
+    MDR_SDIO->CMD_TRANSFER = 48;         /* Command length */
+    
+    MDR_SDIO->CR |= SDIO_CR_WORK2;       /* Initiate command transaction */
+
+    while ((MDR_SDIO->CR & SDIO_CR_WORK2) != 0){} // Waiting for transaction to complete       
+}
+
+/**
+ * @brief	Send block data SDIO by SDIO
+ * @param	*buff: pointer to array data.
+ * @param	n_byte: numbers of bytes.
+ */
+
+void SDIO_SendBlock(uint8_t *buff, uint32_t n_byte)
+{
+    uint32_t i = 0;
+    
+    MDR_SDIO->CR &= ~(SDIO_CR_DIRDATA | SDIO_CR_SBITDAT); /* Clear transaction bits */
+    
+    do {                                         /* Wait while DATActive bit is set */
+        MDR_SDIO->CR &= ~SDIO_CR_WORK1;          /* Reset Work1 */
+    } while (MDR_SDIO->CR & SDIO_CR_WORK1);
+    
+    MDR_SDIO->CR |= SDIO_CR_DIRDATA | SDIO_CR_SBITDAT; /* Data TX & start bit */
+    
+    MDR_SDIO->DAT0CRC = 0x00000000;       /* Clear CRC DATA0*/
+    MDR_SDIO->DAT1CRC = 0x00000000;       /* Clear CRC DATA1*/
+    MDR_SDIO->DAT2CRC = 0x00000000;       /* Clear CRC DATA2*/
+    MDR_SDIO->DAT3CRC = 0x00000000;       /* Clear CRC DATA3*/
+    
+    while(i < n_byte)
+    {
+        MDR_SDIO->DATDR = (uint32_t)(buff[i] | buff[i+1] << 8 | buff[i+2] << 16 | buff[i+3] << 24);
+        i = i + 4;
+    }
+    
+    MDR_SDIO->DAT_TRANSFER = n_byte * 8  + (16 + 1);    /* Set length */
+    MDR_SDIO->CR |= SDIO_CR_WORK1;                      /* Initiate data transaction */
+    
+    while( MDR_SDIO->SR & SDIO_SR_FIFODAT_FULL ){}      /* Write dummy word */
+    MDR_SDIO->DATDR = 0x00000000;
+        
+    while ((MDR_SDIO->CR & SDIO_CR_WORK1) != 0) {}  // Waiting for transaction to complete
+}
+
+
+
 
 #endif
 
