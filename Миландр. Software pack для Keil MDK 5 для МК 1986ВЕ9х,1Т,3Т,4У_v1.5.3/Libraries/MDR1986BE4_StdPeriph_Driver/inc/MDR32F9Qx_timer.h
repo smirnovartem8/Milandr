@@ -34,7 +34,7 @@ typedef struct {
 	 	 	 	 	 	 	 	   	 	  This parameter can be a number between 0x0000 and 0xFFFF.
 	 	 	 	 	 	 	 	   	 	  CLK = TIMER_CLK/(TIMER_Prescaler + 1) */
 
-	uint16_t TIMER_Period; 			 /*!< Specifies the period value to be loaded into the
+	uint16_t TIMER_Period; 			 /*!< Specifies the period value = ARR + 1 to be loaded into the
 	 	 	 	 	 	 	 	 	 	  Auto-Reload Register (ARR) at the next update event.
 	 	 	 	 	 	 	 	 	 	  This parameter must be a number between 0x0000 and 0xFFFF.  */
 

@@ -192,7 +192,7 @@
         <device Dname="MDR1986BE1T">
           <processor Dcore="Cortex-M1" DcoreVersion="r1p0" Dfpu="NO_FPU" Dmpu="MPU" Dendian="Little-endian" Dclock="144000000"/>
           <compile header="Libraries/CMSIS/CM1/DeviceSupport/MDR1986VE1T/inc/MDR1986VE1T.h" define="USE_MDR1986VE1T"/>
-          <debug      svd="IDE/keil/SVD/MDR1986VE1T.svd"/>
+          <debug      svd="IDE/keil/SVD/MDR1986VE1.svd"/>
           <memory     id="IROM1"                          start="0x00000000"  size="0x20000"    startup="1"   default="1"/>
           <memory     id="IRAM1"                          start="0x20000000"  size="0x8000"     init   ="0"   default="1"/>
           <memory     id="IRAM2"                          start="0x20100000"  size="0x4000"     init   ="0"   default="1"/>
@@ -253,7 +253,7 @@
         <device Dname="MDR1986BE3T">
           <processor Dcore="Cortex-M1" DcoreVersion="r1p0" Dfpu="NO_FPU" Dmpu="NO_MPU" Dendian="Little-endian" Dclock="80000000"/>
           <compile header="Libraries/CMSIS/CM1/DeviceSupport/MDR1986VE3/inc/MDR1986VE3.h" define="USE_MDR1986VE3"/>
-          <debug      svd="IDE/keil/SVD/MDR1986VE3T.svd"/>
+          <debug      svd="IDE/keil/SVD/MDR1986VE3.svd"/>
           <memory     id="IROM1"                          start="0x00000000"  size="0x20000"    startup="1"   default="1"/>
           <memory     id="IRAM1"                          start="0x20000000"  size="0x8000"     init   ="0"   default="1"/>
           <memory     id="IRAM2"                          start="0x20100000"  size="0x4000"     init   ="0"   default="1"/>
@@ -371,7 +371,7 @@
         <device Dname="MDR1901VC1">
           <processor Dcore="Cortex-M3" DcoreVersion="r2p0" Dfpu="NO_FPU" Dmpu="MPU" Dendian="Little-endian" Dclock="100000000"/>
           <compile    header="Libraries/CMSIS/CM3/DeviceSupport/MDR1901VC1T/inc/MDR1901VC1T.h" define="USE_MDR1901VC1T"/>
-          <debug      svd="IDE/keil/SVD/MDR1901VC1T.svd"/>
+          <debug      svd="IDE/keil/SVD/MDR1901VC1.svd"/>
           <memory     id="IROM1"                          start="0x08000000"  size="0x20000"    startup="1"   default="1"/>
           <memory     id="IRAM1"                          start="0x20000000"  size="0x8000"     init   ="0"   default="1"/>
           <algorithm  name="Flash/1986BE9x.FLM"           start="0x08000000"  size="0x20000" RAMstart="0x20000000" RAMsize="0x8000" default="1"/>
