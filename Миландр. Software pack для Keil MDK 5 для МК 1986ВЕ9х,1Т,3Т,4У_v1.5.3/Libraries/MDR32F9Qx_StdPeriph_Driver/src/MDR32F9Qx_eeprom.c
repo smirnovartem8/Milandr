@@ -41,7 +41,7 @@
   */
 
 __RAMFUNC static void ProgramDelay(uint32_t Loops) __attribute__((section("EXECUTABLE_MEMORY_SECTION")));
-__RAMFUNC static uint32_t PointerReadData(uint32_t Address, uint32_t Shift) __attribute__((section("EXECUTABLE_MEMORY_SECTION")));
+__RAMFUNC static uint32_t _PointerReadData(uint32_t Address, uint32_t Shift) __attribute__((section("EXECUTABLE_MEMORY_SECTION")));
 
 /**
   * @brief  Program delay.
@@ -56,10 +56,16 @@ __RAMFUNC static void ProgramDelay(uint32_t Loops)
   }
 }
 
-__RAMFUNC static uint32_t PointerReadData(uint32_t Address, uint32_t Shift){
+/**
+  * @brief  Reads memory using pointer to address. For internal use only.
+  * @param  Address: memory address.
+  * @param  Shift: additional shift if reads halfword or byte.
+  * @retval Memory value from specific address
+  */
+__RAMFUNC static uint32_t _PointerReadData(uint32_t Address, uint32_t Shift){
   uint32_t Data;
-  Data = *(uint32_t*) (Address & ~0x3);
-  Data >>= Shift;
+  Data = *(uint32_t*) (Address & ~0x3); // Read 4-byte aligned word
+  Data >>= Shift; // Shift data. Unwanted bytes will be removed when converting types outside of this function
   return Data;
 }
 
@@ -110,12 +116,12 @@ __RAMFUNC uint8_t EEPROM_ReadByte(uint32_t Address, uint32_t BankSelector)
   if (BankSelector == EEPROM_Main_Bank_Select){
     if((MDR_EEPROM->CMD & EEPROM_CMD_CON) == 0){
       // EEPROM control from the core, working mode.
-      return (uint8_t)PointerReadData(Address, (Address & 3) * 8);
+      return (uint8_t)_PointerReadData(Address, (Address & 3) * 8);
     }else{
       /* Control from registers, programming mode.*/
       /* Turn off programming mode. */
       MDR_EEPROM->CMD &= ~EEPROM_CMD_CON;
-      Data = PointerReadData(Address, (Address & 3) * 8);
+      Data = _PointerReadData(Address, (Address & 3) * 8);
       /* Turn on programming mode back. */
       MDR_EEPROM->CMD |= EEPROM_CMD_CON;
       return (uint8_t)Data;
@@ -164,12 +170,12 @@ __RAMFUNC uint16_t EEPROM_ReadHalfWord(uint32_t Address, uint32_t BankSelector)
   if (BankSelector == EEPROM_Main_Bank_Select){
     if((MDR_EEPROM->CMD & EEPROM_CMD_CON) == 0){
       // EEPROM control from the core, working mode.
-      return (uint16_t)PointerReadData(Address, (Address & 2) * 8);
+      return (uint16_t)_PointerReadData(Address, (Address & 2) * 8);
     }else{
       /* Control from registers, programming mode.*/
       /* Turn off programming mode. */
       MDR_EEPROM->CMD &= ~EEPROM_CMD_CON;
-      Data = PointerReadData(Address, (Address & 2) * 8);
+      Data = _PointerReadData(Address, (Address & 2) * 8);
       /* Turn on programming mode back. */
       MDR_EEPROM->CMD |= EEPROM_CMD_CON;
       return (uint16_t)Data;
