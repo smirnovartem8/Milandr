@@ -8,7 +8,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "MDR32F9Qx_lib.h"
-
+#include "MDR32F9Qx_config.h"
 /** @addtogroup __MDR32F9Qx_StdPeriph_Driver MDR32F9Qx Standard Peripherial Driver
   * @{
   */
@@ -103,6 +103,22 @@ typedef struct {
                                              ((SRC) == RST_CLK_CPU_PLLsrcHSEdiv2))
 
 /** @} */ /* End of group CPU_PLL_entry_clock_source */
+
+/**
+  * @brief RST_CLK CPU_C1 clock mode and source selection constants
+  */
+
+#define RST_CLK_CPU_C1srcHSIdiv1           ((uint32_t)0x00000000)
+#define RST_CLK_CPU_C1srcHSIdiv2           ((uint32_t)0x00000001)
+#define RST_CLK_CPU_C1srcHSEdiv1           ((uint32_t)0x00000002)
+#define RST_CLK_CPU_C1srcHSEdiv2           ((uint32_t)0x00000003)
+
+#define IS_RST_CLK_CPU_C1_SOURCE(SRC)        (((SRC) == RST_CLK_CPU_C1srcHSIdiv1) || \
+                                             ((SRC) == RST_CLK_CPU_C1srcHSIdiv2) || \
+                                             ((SRC) == RST_CLK_CPU_C1srcHSEdiv1) || \
+                                             ((SRC) == RST_CLK_CPU_C1srcHSEdiv2))
+
+/** @} */ /* End of group CPU_C1_entry_clock_source */
 
 /** @defgroup CPU_PLL_clock_multiplier CPU_PLL clock multiplier
   * @{
@@ -484,6 +500,8 @@ void RST_CLK_CPUclkSelection(uint32_t CPU_CLK);
 
 void RST_CLK_PCLKPer1_C1_CLKSelection(uint32_t CLK_SRC);
 void RST_CLK_PCLKPer1_C2_CLKSelection(uint32_t CLK_SRC);
+
+void RST_CLK_CPUclkSelectionC1(uint32_t CPU_CLK);
 
 void RST_CLK_ADCclkSelection(uint32_t ADC_CLK);
 void RST_CLK_ADCclkPrescaler(uint32_t ADCclkDivValue);

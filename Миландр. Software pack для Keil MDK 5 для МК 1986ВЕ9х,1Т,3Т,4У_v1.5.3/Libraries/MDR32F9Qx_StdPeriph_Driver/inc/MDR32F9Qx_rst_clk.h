@@ -131,6 +131,22 @@ typedef struct {
 
 /** @} */ /* End of group CPU_PLL_entry_clock_source */
 
+/**
+  * @brief RST_CLK CPU_C1 clock mode and source selection constants
+  */
+
+#define RST_CLK_CPU_C1srcHSIdiv1           ((uint32_t)0x00000000)
+#define RST_CLK_CPU_C1srcHSIdiv2           ((uint32_t)0x00000001)
+#define RST_CLK_CPU_C1srcHSEdiv1           ((uint32_t)0x00000002)
+#define RST_CLK_CPU_C1srcHSEdiv2           ((uint32_t)0x00000003)
+
+#define IS_RST_CLK_CPU_C1_SOURCE(SRC)        (((SRC) == RST_CLK_CPU_C1srcHSIdiv1) || \
+                                             ((SRC) == RST_CLK_CPU_C1srcHSIdiv2) || \
+                                             ((SRC) == RST_CLK_CPU_C1srcHSEdiv1) || \
+                                             ((SRC) == RST_CLK_CPU_C1srcHSEdiv2))
+
+/** @} */ /* End of group CPU_C1_entry_clock_source */
+
 /** @defgroup CPU_PLL_clock_multiplier CPU_PLL clock multiplier
   * @{
   */
@@ -751,6 +767,8 @@ void RST_CLK_RTC_HSIclkEnable(FunctionalState NewState);
 
 void RST_CLK_HSEclkPrescaler(uint32_t HSEclkDivValue);
 void RST_CLK_RTC_HSEclkEnable(FunctionalState NewState);
+
+void RST_CLK_CPUclkSelectionC1(uint32_t CPU_CLK);
 
 void RST_CLK_PCLKcmd(uint32_t RST_CLK_PCLK, FunctionalState NewState);
 #if defined (USE_MDR1986VE3)

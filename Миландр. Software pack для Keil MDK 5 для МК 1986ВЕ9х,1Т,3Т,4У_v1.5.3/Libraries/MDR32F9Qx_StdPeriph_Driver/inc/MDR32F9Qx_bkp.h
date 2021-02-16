@@ -145,6 +145,79 @@ extern "C" {
 
 /** @} */ /* End of group BKP_RTC_FLAG */
 
+/** @defgroup BKP_DUcc_Mode BKP DUcc Mode
+  * @{
+  */
+#define BKP_DUCC_MODE(par) ((uint32_t)((par<<3 )|(par)))
+
+#define BKP_DUcc_upto_10MHz  BKP_DUCC_MODE(0)
+#define BKP_DUcc_upto_200kHz BKP_DUCC_MODE(1)
+#define BKP_DUcc_upto_500kHz BKP_DUCC_MODE(2)
+#define BKP_DUcc_upto_1MHz   BKP_DUCC_MODE(3)
+#define BKP_DUcc_clk_off     BKP_DUCC_MODE(4)
+#define BKP_DUcc_upto_40MHz  BKP_DUCC_MODE(5)
+#define BKP_DUcc_upto_80MHz  BKP_DUCC_MODE(6)
+#define BKP_DUcc_over_80MHz  BKP_DUCC_MODE(7)
+
+#define IS_BKP_DUCC_MODE(MODE) (((MODE) == BKP_DUcc_upto_10MHz) || \
+                                ((MODE) == BKP_DUcc_upto_200kHz)|| \
+                                ((MODE) == BKP_DUcc_upto_500kHz)|| \
+                                ((MODE) == BKP_DUcc_clk_off)    || \
+                                ((MODE) == BKP_DUcc_upto_1MHz)  || \
+                                ((MODE) == BKP_DUcc_upto_40MHz) || \
+                                ((MODE) == BKP_DUcc_upto_80MHz) || \
+                                ((MODE) == BKP_DUcc_over_80MHz))
+
+/** @} */ /* End of group BKP_DUcc_Mode */
+
+/** @defgroup BKP_DUcc_Trim BKP DUcc Trim
+  * @{
+  */
+#define BKP_DUcc_plus_100mV  ((uint32_t)(0x0000 << 8))
+#define BKP_DUcc_plus_060mV  ((uint32_t)(0x0001 << 8))
+#define BKP_DUcc_plus_040mV  ((uint32_t)(0x0002 << 8))
+#define BKP_DUcc_plus_010mV  ((uint32_t)(0x0003 << 8))
+#define BKP_DUcc_minus_010mV ((uint32_t)(0x0004 << 8))
+#define BKP_DUcc_minus_040mV ((uint32_t)(0x0005 << 8))
+#define BKP_DUcc_minus_060mV ((uint32_t)(0x0006 << 8))
+#define BKP_DUcc_minus_100mV ((uint32_t)(0x0007 << 8))
+
+#define IS_BKP_DUCC_TRIM(TRIM) (((TRIM) == BKP_DUcc_plus_100mV) || \
+                                  ((TRIM) == BKP_DUcc_plus_060mV) || \
+                                  ((TRIM) == BKP_DUcc_plus_040mV) || \
+                                  ((TRIM) == BKP_DUcc_plus_010mV) || \
+                                  ((TRIM) == BKP_DUcc_minus_010mV)|| \
+                                  ((TRIM) == BKP_DUcc_minus_040mV)|| \
+                                  ((TRIM) == BKP_DUcc_minus_060mV)|| \
+                                  ((TRIM) == BKP_DUcc_minus_100mV))
+
+/** @} */ /* End of group BKP_DUcc_Trim */
+
+/** @defgroup BKP_TRIM POWER TRIM
+  * @{
+  */
+
+#define BKP_TRIM_1_8_V					(0 << BKP_REG_0E_TRIM_34_Pos)
+#define BKP_TRIM_1_6_V					(1 << BKP_REG_0E_TRIM_34_Pos)
+#define BKP_TRIM_1_4_V					(2 << BKP_REG_0E_TRIM_34_Pos)
+
+#define IS_BKP_TRIM(TRIM)					(((TRIM) == BKP_TRIM_1_4_V) ||\
+											 ((TRIM) == BKP_TRIM_1_6_V) ||\
+											 ((TRIM) == BKP_TRIM_1_8_V))
+
+/** @} */ /* End of group BKP_TRIM */
+
+/** @defgroup POWER_Stop_Entry_Mode POWER Stop Entry Mode
+  * @{
+  */
+#define BKP_STOPentry_WFI  ((uint32_t)0x01)
+#define BKP_STOPentry_WFE ((uint32_t)0x00)
+
+#define IS_BKP_STOP_ENTRY(F) (((F) == BKP_STOPentry_WFI) || ((F) == BKP_STOPentry_WFE))
+
+/** @} */ /* End of group POWER_Stop_Entry_Mode */
+
+
 /** @} */ /* End of group BKP_Exported_Constants */
 
 /** @defgroup BKP_Exported_Functions BKP Exported Functions
@@ -168,6 +241,18 @@ void BKP_RTC_SetPrescaler(uint32_t PrescalerValue);
 void BKP_RTC_WaitForUpdate(void);
 FlagStatus BKP_RTC_GetFlagStatus(uint32_t RTC_FLAG);
 void BKP_RTC_ClearFlagStatus(uint32_t BKP_RTC_FLAG);
+void BKP_DUccMode(uint32_t DUccMode);
+void BKP_DUccTrim(uint32_t DUccTrim);
+void BKP_DUccStandby(void);
+void BKP_SetFlagPOR(void);
+ErrorStatus BKP_FlagPORstatus(void);
+#if defined (USE_MDR1986VE9x)
+	void BKP_EnterSTOPMode(FunctionalState BKP_Regulator_state, uint8_t BKP_STOPEntry);
+#elif defined (USE_MDR1986VE1T) || defined (USE_MDR1986VE3)
+	void BKP_EnterSLEEPMode(void);
+    void BKP_SetTrim(uint32_t ducc_trim);
+#endif
+void BKP_EnterSTANDBYMode(void);
 
 /** @} */ /* End of group BKP_Exported_Functions */
 

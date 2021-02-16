@@ -45,11 +45,11 @@ typedef struct {
 	 	 	 	 	 	 	 	   	 	  CLK = TIMER_CLK/(TIMER_Prescaler + 1) */
 
 #if defined(USE_MDR1986VE9x) || defined (USE_MDR1901VC1T) /* For Cortex M3 */
-	uint16_t TIMER_Period; 			 /*!< Specifies the period value to be loaded into the
+	uint16_t TIMER_Period; 			 /*!< Specifies the period = ARR + 1 value to be loaded into the
 	 	 	 	 	 	 	 	 	 	  Auto-Reload Register (ARR) at the next update event.
 	 	 	 	 	 	 	 	 	 	  This parameter must be a number between 0x0000 and 0xFFFF.  */
 #elif ((defined (USE_MDR1986VE3)) || (defined (USE_MDR1986VE1T))) /* For Cortex M1 */
-	uint32_t TIMER_Period;			/*!< Specifies the period value to be loaded into the
+	uint32_t TIMER_Period;			/*!< Specifies the period = ARR + 1 value to be loaded into the
 										 Auto-Reload Register (ARR) at the next update event.
 										 This parameter must be a number between 0x0000 and 0xFFFFFFFF.  */
 #endif // #elif ((defined (USE_MDR1986VE3)) || (defined (USE_MDR1986VE1T))) /* For Cortex M1 */

@@ -167,6 +167,13 @@ typedef struct
 
 /** @} */ /* End of group SDIO_DATA_LINE */
 
+/** @defgroup SDIO_TX_BIT
+  * @{
+  */
+#define SD_TX_BIT   0x40
+
+/** @} */ /* End of group SDIO_TX_BIT */
+
 /** @} */ /* End of group SDIO_Exported_Macros */
 
 /** @defgroup SDIO_Exported_Functions SDIO Exported Functions
@@ -196,6 +203,9 @@ void SDIO_SetCMDTransferNumberBit(uint32_t number_bit);
 void SDIO_SetDATATransferNumberBit(uint32_t number_bit);
 uint16_t SDIO_GetCMDTransferNumberBit(void);
 uint16_t SDIO_GetDATATransferNumberBit(void);
+void SDIO_SendCommand(uint32_t cmd, uint32_t arg);
+void SDIO_SendBlock(uint8_t *buff, uint32_t n_byte);
+
 
 /** @} */ /* End of group SDIO_Exported_Functions */
 

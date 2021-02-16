@@ -103,6 +103,8 @@ void POWER_DeInit(void)
   */
 void POWER_DUccMode(uint32_t DUccMode)
 {
+  #warning "function POWER_DUccMode moved to MDR32F9Qx_bkp.c and will be removed in next update from MDR32F9Qx_power.c"
+    
   uint32_t tmpreg;
   /* Check the parameters */
   assert_param(IS_POWER_DUCC_MODE(DUccMode));
@@ -129,6 +131,7 @@ void POWER_DUccMode(uint32_t DUccMode)
   */
 void POWER_DUccTrim(uint32_t DUccTrim)
 {
+  #warning "function POWER_DUccTrim moved to MDR32F9Qx_bkp.c and will be removed in next update from MDR32F9Qx_power.c"
   uint32_t tmpreg;
   /* Check the parameters */
   assert_param(IS_POWER_DUCC_TRIM(DUccTrim));
@@ -136,7 +139,8 @@ void POWER_DUccTrim(uint32_t DUccTrim)
   tmpreg  = MDR_BKP -> REG_0E & (uint32_t) (~DUccTrim_Mask);
   /* Set POWER_REG0E[5:0] bits according to DUcc mode */
   tmpreg |= DUccTrim_Mask & DUccTrim;
-  MDR_BKP -> REG_0E = tmpreg;
+  
+    MDR_BKP -> REG_0E = tmpreg;
 }
 
 /**
@@ -146,6 +150,8 @@ void POWER_DUccTrim(uint32_t DUccTrim)
   */
 void POWER_DUccStandby ( void )
 {
+  #warning "function POWER_DUccStandby moved to MDR32F9Qx_bkp.c and will be removed in next update from MDR32F9Qx_power.c"  
+    
 #if defined (USE_MDR1986VE9x) || defined (USE_MDR1901VC1T)
 *(__IO uint32_t *) BKP_STANDBY_BB = (uint32_t) 0x01;
 #elif defined (USE_MDR1986VE3)
@@ -215,6 +221,7 @@ void POWER_PVBDlevelConfig(uint32_t POWER_PVBDlevel)
   */
 void POWER_SetFlagPOR ( void )
 {
+    #warning "function POWER_SetFlagPOR moved to MDR32F9Qx_bkp.c and will be removed in next update from MDR32F9Qx_power.c"  
 #if defined (USE_MDR1986VE9x) || defined (USE_MDR1901VC1T)
 	*(__IO uint32_t *) BKP_FPOR_BB = (uint32_t) 0x01;
 #elif defined (USE_MDR1986VE3) || defined (USE_MDR1986VE1T)
@@ -229,6 +236,7 @@ void POWER_SetFlagPOR ( void )
   */
 ErrorStatus POWER_FlagPORstatus(void)
 {
+    #warning "function POWER_FlagPORstatus moved to MDR32F9Qx_bkp.c and will be removed in next update from MDR32F9Qx_power.c"
   ErrorStatus state = ERROR;
 #if defined (USE_MDR1986VE9x) || defined (USE_MDR1901VC1T)
   if (*(__IO uint32_t *) BKP_FPOR_BB == 0)
@@ -375,6 +383,7 @@ void POWER_PVD_INVconfig(uint32_t POWER_INV, FunctionalState NewState)
   */
 void POWER_EnterSTOPMode(FunctionalState POWER_Regulator_state, uint8_t POWER_STOPentry)
 {
+    #warning "function POWER_EnterSTOPMode moved to MDR32F9Qx_bkp.c and will be removed in next update from MDR32F9Qx_power.c"
   /* Check the parameters */
   assert_param(IS_FUNCTIONAL_STATE(POWER_Regulator_state));
   assert_param(IS_POWER_STOP_ENTRY(POWER_STOPentry));
@@ -412,6 +421,7 @@ void POWER_EnterSTOPMode(FunctionalState POWER_Regulator_state, uint8_t POWER_ST
   */
 void POWER_EnterSLEEPMode(void)
 {
+    #warning "function POWER_EnterSLEEPMode moved to MDR32F9Qx_bkp.c and will be removed in next update from MDR32F9Qx_power.c"
 	/* Enter in SLEEP mode */
 	MDR_RST_CLK->ETH_CLOCK |= 1 << RST_CLK_ETH_CLOCK_SLEEP_Pos;
 }
@@ -425,6 +435,7 @@ void POWER_EnterSLEEPMode(void)
   */
 void POWER_EnterSTANDBYMode ( void )
 {
+    #warning "function POWER_EnterSTANDBYMode moved to MDR32F9Qx_bkp.c and will be removed in next update from MDR32F9Qx_power.c"
 	/* Select STANDBY mode */
 #if defined (USE_MDR1986VE9x) || defined (USE_MDR1901VC1T)
 	*(__IO uint32_t *) BKP_STANDBY_BB = (uint32_t) 0x01;
@@ -447,6 +458,7 @@ void POWER_EnterSTANDBYMode ( void )
  */
 void POWER_SetTrim(uint32_t trim)
 {
+    #warning "function POWER_SetTrim moved to MDR32F9Qx_bkp.c and will be removed in next update from MDR32F9Qx_power.c"
 	uint32_t tmpreg;
 	/* Check the parameters */
 	assert_param(IS_POWER_TRIM(trim));
