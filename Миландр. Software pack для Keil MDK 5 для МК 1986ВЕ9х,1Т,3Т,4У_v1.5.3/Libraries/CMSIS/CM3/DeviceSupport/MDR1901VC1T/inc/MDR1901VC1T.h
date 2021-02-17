@@ -1079,8 +1079,6 @@ typedef struct {
 
 /* Bit field positions: */
 #define EEPROM_CMD_CON_Pos                                 0
-#define EEPROM_CMD_WR_Pos                                  1
-#define EEPROM_CMD_RD_Pos                                  2
 #define EEPROM_CMD_DELAY_Pos                               3
 #define EEPROM_CMD_XE_Pos                                  6
 #define EEPROM_CMD_YE_Pos                                  7
@@ -1093,8 +1091,6 @@ typedef struct {
 
 /* Bit field masks: */
 #define EEPROM_CMD_CON                                     ((uint32_t)0x00000001)
-#define EEPROM_CMD_WR                                      ((uint32_t)0x00000002)
-#define EEPROM_CMD_RD                                      ((uint32_t)0x00000004)
 #define EEPROM_CMD_DELAY_Msk                               ((uint32_t)0x00000038)
 #define EEPROM_CMD_XE                                      ((uint32_t)0x00000040)
 #define EEPROM_CMD_YE                                      ((uint32_t)0x00000080)
