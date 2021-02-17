@@ -2861,18 +2861,6 @@
                             <access>read-write</access>
                         </field>
                         <field>
-                            <name>WR</name>
-                            <bitOffset>1</bitOffset>
-                            <bitWidth>1</bitWidth>
-                            <access>read-write</access>
-                        </field>
-                        <field>
-                            <name>RD</name>
-                            <bitOffset>2</bitOffset>
-                            <bitWidth>1</bitWidth>
-                            <access>read-write</access>
-                        </field>
-                        <field>
                             <name>Delay</name>
                             <bitOffset>3</bitOffset>
                             <bitWidth>3</bitWidth>
