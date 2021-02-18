@@ -116,7 +116,7 @@ __RAMFUNC uint8_t EEPROM_ReadByte(uint32_t Address, uint32_t BankSelector)
   if (BankSelector == EEPROM_Main_Bank_Select){
     if((MDR_EEPROM->CMD & EEPROM_CMD_CON) == 0){
       // EEPROM control from the core, working mode.
-      return (uint8_t)_PointerReadData(Address, (Address & 3) * 8);
+      Data = _PointerReadData(Address, (Address & 3) * 8);
     }else{
       /* Control from registers, programming mode.*/
       /* Turn off programming mode. */
@@ -124,8 +124,8 @@ __RAMFUNC uint8_t EEPROM_ReadByte(uint32_t Address, uint32_t BankSelector)
       Data = _PointerReadData(Address, (Address & 3) * 8);
       /* Turn on programming mode back. */
       MDR_EEPROM->CMD |= EEPROM_CMD_CON;
-      return (uint8_t)Data;
     }
+    return (uint8_t)Data;
   }
 
   MDR_EEPROM->KEY = EEPROM_REG_ACCESS_KEY;
@@ -170,7 +170,7 @@ __RAMFUNC uint16_t EEPROM_ReadHalfWord(uint32_t Address, uint32_t BankSelector)
   if (BankSelector == EEPROM_Main_Bank_Select){
     if((MDR_EEPROM->CMD & EEPROM_CMD_CON) == 0){
       // EEPROM control from the core, working mode.
-      return (uint16_t)_PointerReadData(Address, (Address & 2) * 8);
+      Data = _PointerReadData(Address, (Address & 2) * 8);
     }else{
       /* Control from registers, programming mode.*/
       /* Turn off programming mode. */
@@ -178,8 +178,8 @@ __RAMFUNC uint16_t EEPROM_ReadHalfWord(uint32_t Address, uint32_t BankSelector)
       Data = _PointerReadData(Address, (Address & 2) * 8);
       /* Turn on programming mode back. */
       MDR_EEPROM->CMD |= EEPROM_CMD_CON;
-      return (uint16_t)Data;
     }
+    return (uint16_t)Data;
   }
 
   MDR_EEPROM->KEY = EEPROM_REG_ACCESS_KEY;
@@ -224,7 +224,6 @@ __RAMFUNC uint32_t EEPROM_ReadWord(uint32_t Address, uint32_t BankSelector)
     if((MDR_EEPROM->CMD & EEPROM_CMD_CON) == 0){
       // EEPROM control from the core, working mode.
       Data = *(uint32_t*) (Address);
-      return Data;
     }else{
       /* Control from registers, programming mode.*/
       /* Turn off programming mode. */
@@ -232,8 +231,8 @@ __RAMFUNC uint32_t EEPROM_ReadWord(uint32_t Address, uint32_t BankSelector)
       Data = *(uint32_t*) (Address);
       /* Turn on programming mode back. */
       MDR_EEPROM->CMD |= EEPROM_CMD_CON;
-      return Data;
     }
+    return Data;
   }
 
   MDR_EEPROM->KEY = EEPROM_REG_ACCESS_KEY;
