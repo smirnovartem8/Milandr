@@ -67,12 +67,10 @@ extern "C" {
 
 /** @} */ /* End of group EEPROM_Bank */
 
-/** @} */ /* End of group EEPROM_Latency */
-
 
 #ifdef USE_MDR1901VC1T
 
-/** @defgroup  EEPROM_Bank EEPROM Bank Selector
+/** @defgroup  EEPROM_CacheSelection EEPROM Cache Selection
   * @{
   */
 
@@ -86,7 +84,7 @@ extern "C" {
                                          ((SEL) == EEPROM_DataCache        ) || \
                                          ((SEL) == EEPROM_All_Cache        ))
 
-/** @} */ /* End of group EEPROM_Bank */
+/** @} */ /* End of group EEPROM_CacheSelection */
 
 #endif
 
