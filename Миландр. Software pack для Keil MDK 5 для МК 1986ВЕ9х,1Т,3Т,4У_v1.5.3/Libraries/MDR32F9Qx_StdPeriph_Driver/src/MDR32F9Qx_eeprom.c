@@ -113,7 +113,7 @@ void EEPROM_SetCacheState(uint32_t EEPROM_CacheType, FunctionalState NewState)
   */
 uint32_t EEPROM_GetCacheState()
 {
-  return (uint32_t) (MDR_EEPROM->CTRL & EEPROM_CacheType);
+  return (uint32_t) (MDR_EEPROM->CTRL & EEPROM_Cache_Msk);
 }
 
 #endif
@@ -360,6 +360,7 @@ __RAMFUNC void EEPROM_ErasePage(uint32_t Address, uint32_t BankSelector)
   Command &= EEPROM_CMD_DELAY_Msk;
   MDR_EEPROM->CMD = Command;
   MDR_EEPROM->KEY = 0;
+  ProgramDelay(GET_US_LOOPS(4000));               /* Wait for 4 ms */
 }
 
 /**
@@ -403,6 +404,7 @@ __RAMFUNC void EEPROM_EraseAllPages(uint32_t BankSelector)
   Command &= EEPROM_CMD_DELAY_Msk;
   MDR_EEPROM->CMD = Command;
   MDR_EEPROM->KEY = 0;
+  ProgramDelay(GET_US_LOOPS(4000));               /* Wait for 4 ms */
 }
 
 /**
