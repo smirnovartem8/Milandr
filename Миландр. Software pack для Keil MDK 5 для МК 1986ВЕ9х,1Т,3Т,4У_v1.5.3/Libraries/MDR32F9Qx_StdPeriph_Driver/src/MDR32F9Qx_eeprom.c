@@ -40,21 +40,9 @@
   * @{
   */
 
-__RAMFUNC static void ProgramDelay(uint32_t Loops) __attribute__((section("EXECUTABLE_MEMORY_SECTION")));
 __RAMFUNC static uint32_t _PointerReadData(uint32_t Address, uint32_t Shift) __attribute__((section("EXECUTABLE_MEMORY_SECTION")));
+__RAMFUNC static void ProgramDelay(uint32_t Loops) __attribute__((section("EXECUTABLE_MEMORY_SECTION")));
 
-/**
-  * @brief  Program delay.
-  * @param  Loops: Number of the loops.
-  * @retval None.
-  */
-__RAMFUNC static void ProgramDelay(uint32_t Loops)
-{
-  volatile uint32_t i = Loops;
-  for (; i > 0; i--)
-  {
-  }
-}
 
 /**
   * @brief  Reads memory using pointer to address. For internal use only.
@@ -69,6 +57,66 @@ __RAMFUNC static uint32_t _PointerReadData(uint32_t Address, uint32_t Shift){
   return Data;
 }
 
+/**
+  * @brief  Program delay.
+  * @param  Loops: Number of the loops.
+  * @retval None.
+  */
+__RAMFUNC static void ProgramDelay(uint32_t Loops)
+{
+  volatile uint32_t i = Loops;
+  for (; i > 0; i--)
+  {
+  }
+}
+
+#ifdef USE_MDR1901VC1T
+
+/**
+  * @brief  Sets instructions and/or data cache usage.
+  * @param  EEPROM_CacheType: specifies the cache type.
+  *          This parameter can be one of the following values:
+  *            @arg EEPROM_InstructionsCache: Instructions Cache
+  *            @arg EEPROM_DataCache: Data Cache
+  *            @arg EEPROM_All_Cache: Instructions and Data Cache
+  * @param  NewState: specifies the state of cache.
+  *          This parameter can be one of the following values:
+  *            @arg ENABLE: Enable cache usage
+  *            @arg DISABLE: Disable cache usage
+  * @retval None
+  */
+void EEPROM_SetCacheState(uint32_t EEPROM_CacheType, FunctionalState NewState)
+{
+  /* Check the parameters */
+  assert_param(IS_EEPROM_CACHE(EEPROM_CacheType));
+  assert_param(IS_FUNCTIONAL_STATE(NewState));
+  
+  if(NewState == ENABLE)
+  {
+    MDR_EEPROM->CTRL |= EEPROM_CacheType;
+  }
+  else
+  {
+    MDR_EEPROM->CTRL &= ~EEPROM_CacheType;
+  }
+  
+}
+
+/**
+  * @brief  Gets instructions and/or data cache usage.
+  * @param  None
+  * @retval EEPROM_CacheType: enabled cache type.
+  *          This can be one of the following values:
+  *            @arg EEPROM_InstructionsCache: Instructions Cache is used
+  *            @arg EEPROM_DataCache: Data Cache is used
+  *            @arg EEPROM_All_Cache: Instructions and Data Cache are used
+  */
+uint32_t EEPROM_GetCacheState()
+{
+  return (uint32_t) (MDR_EEPROM->CTRL & EEPROM_CacheType);
+}
+
+#endif
 
 /**
   * @brief  Sets the code latency value.
@@ -84,13 +132,33 @@ __RAMFUNC static uint32_t _PointerReadData(uint32_t Address, uint32_t Shift){
   *            @arg EEPROM_Latency_7: EEPROM Seven Latency cycles
   * @retval None
   */
-void EEPROM_SetLatency ( uint32_t EEPROM_Latency )
+void EEPROM_SetLatency(uint32_t EEPROM_Latency)
 {
   /* Check the parameters */
   assert_param(IS_EEPROM_LATENCY(EEPROM_Latency));
 
   /* Set the new latency value */
   MDR_EEPROM->CMD = EEPROM_Latency;
+}
+
+/**
+  * @brief  Gets the code latency value.
+  * @param  None
+  * @retval  FLASH Latency value.
+  *          This can be one of the following values:
+  *            @val EEPROM_Latency_0: EEPROM Zero Latency cycle
+  *            @val EEPROM_Latency_1: EEPROM One Latency cycle
+  *            @val EEPROM_Latency_2: EEPROM Two Latency cycles
+  *            @val EEPROM_Latency_3: EEPROM Three Latency cycles
+  *            @val EEPROM_Latency_4: EEPROM Four Latency cycles
+  *            @val EEPROM_Latency_5: EEPROM Five Latency cycles
+  *            @val EEPROM_Latency_6: EEPROM Six Latency cycles
+  *            @val EEPROM_Latency_7: EEPROM Seven Latency cycles
+  */
+uint32_t EEPROM_GetLatency()
+{
+  /* Get current latency value */
+  return (uint32_t) (MDR_EEPROM->CMD & EEPROM_Latency_MSK) >> EEPROM_CMD_DELAY_Pos;
 }
 
 
