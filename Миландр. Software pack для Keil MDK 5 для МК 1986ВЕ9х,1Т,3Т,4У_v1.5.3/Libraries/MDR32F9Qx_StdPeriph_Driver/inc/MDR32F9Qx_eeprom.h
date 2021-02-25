@@ -82,7 +82,7 @@ extern "C" {
 
 #define IS_EEPROM_CACHE(SEL)            (((SEL) == EEPROM_Cache_Instructions) || \
                                          ((SEL) == EEPROM_Cache_Data        ) || \
-                                         (EEPROM_Cache_All                  ))
+                                         ((SEL) == EEPROM_Cache_All         ))
 
 /** @} */ /* End of group EEPROM_CacheSelection */
 
