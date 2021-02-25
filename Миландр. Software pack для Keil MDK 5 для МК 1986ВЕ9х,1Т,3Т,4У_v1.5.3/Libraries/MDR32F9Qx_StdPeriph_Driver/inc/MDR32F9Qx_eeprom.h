@@ -74,15 +74,15 @@ extern "C" {
   * @{
   */
 
-#define EEPROM_InstructionsCache        ((uint32_t)0x00000001)  /*!< EEPROM Instructions Cache */
-#define EEPROM_DataCache                ((uint32_t)0x00000002)  /*!< EEPROM Data Cache */
-#define EEPROM_All_Cache                ((uint32_t)0x00000003)  /*!< EEPROM All Cache */
+#define EEPROM_Cache_Instructions       ((uint32_t)0x00000001)  /*!< EEPROM Instructions Cache */
+#define EEPROM_Cache_Data               ((uint32_t)0x00000002)  /*!< EEPROM Data Cache */
+#define EEPROM_Cache_All                ((uint32_t)0x00000003)  /*!< EEPROM All Cache */
 
 #define EEPROM_Cache_Msk                ((uint32_t)0x00000003)
 
-#define IS_EEPROM_CACHE(SEL)            (((SEL) == EEPROM_InstructionsCache) || \
-                                         ((SEL) == EEPROM_DataCache        ) || \
-                                         ((SEL) == EEPROM_All_Cache        ))
+#define IS_EEPROM_CACHE(SEL)            (((SEL) == EEPROM_Cache_Instructions) || \
+                                         ((SEL) == EEPROM_Cache_Data        ) || \
+                                         (EEPROM_Cache_All                  ))
 
 /** @} */ /* End of group EEPROM_CacheSelection */
 

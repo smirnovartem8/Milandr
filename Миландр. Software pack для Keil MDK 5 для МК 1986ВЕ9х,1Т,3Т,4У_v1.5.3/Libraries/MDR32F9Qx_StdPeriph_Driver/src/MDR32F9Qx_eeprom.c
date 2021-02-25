@@ -76,9 +76,9 @@ __RAMFUNC static void ProgramDelay(uint32_t Loops)
   * @brief  Sets instructions and/or data cache usage.
   * @param  EEPROM_CacheType: specifies the cache type.
   *          This parameter can be one of the following values:
-  *            @arg EEPROM_InstructionsCache: Instructions Cache
-  *            @arg EEPROM_DataCache: Data Cache
-  *            @arg EEPROM_All_Cache: Instructions and Data Cache
+  *            @arg EEPROM_Cache_Instructions: Instructions Cache
+  *            @arg EEPROM_Cache_Data: Data Cache
+  *            @arg EEPROM_Cache_All: Instructions and Data Cache
   * @param  NewState: specifies the state of cache.
   *          This parameter can be one of the following values:
   *            @arg ENABLE: Enable cache usage
@@ -107,9 +107,9 @@ void EEPROM_SetCacheState(uint32_t EEPROM_CacheType, FunctionalState NewState)
   * @param  None
   * @retval EEPROM_CacheType: enabled cache type.
   *          This can be one of the following values:
-  *            @arg EEPROM_InstructionsCache: Instructions Cache is used
-  *            @arg EEPROM_DataCache: Data Cache is used
-  *            @arg EEPROM_All_Cache: Instructions and Data Cache are used
+  *            @arg EEPROM_Cache_Instructions: Instructions Cache is used
+  *            @arg EEPROM_Cache_Data: Data Cache is used
+  *            @arg EEPROM_Cache_All: Instructions and Data Cache are used
   */
 uint32_t EEPROM_GetCacheState(void)
 {
