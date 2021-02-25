@@ -111,7 +111,7 @@ void EEPROM_SetCacheState(uint32_t EEPROM_CacheType, FunctionalState NewState)
   *            @arg EEPROM_DataCache: Data Cache is used
   *            @arg EEPROM_All_Cache: Instructions and Data Cache are used
   */
-uint32_t EEPROM_GetCacheState()
+uint32_t EEPROM_GetCacheState(void)
 {
   return (uint32_t) (MDR_EEPROM->CTRL & EEPROM_Cache_Msk);
 }
@@ -155,7 +155,7 @@ void EEPROM_SetLatency(uint32_t EEPROM_Latency)
   *            @val EEPROM_Latency_6: EEPROM Six Latency cycles
   *            @val EEPROM_Latency_7: EEPROM Seven Latency cycles
   */
-uint32_t EEPROM_GetLatency()
+uint32_t EEPROM_GetLatency(void)
 {
   /* Get current latency value */
   return (uint32_t) (MDR_EEPROM->CMD & EEPROM_Latency_MSK) >> EEPROM_CMD_DELAY_Pos;

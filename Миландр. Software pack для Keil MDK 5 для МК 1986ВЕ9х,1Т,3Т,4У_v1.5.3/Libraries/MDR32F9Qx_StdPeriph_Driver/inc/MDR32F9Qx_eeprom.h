@@ -123,11 +123,11 @@ extern "C" {
 
 #ifdef USE_MDR1901VC1T
 void EEPROM_SetCacheState(uint32_t EEPROM_CacheType, FunctionalState NewState);
-uint32_t EEPROM_GetCacheState();
+uint32_t EEPROM_GetCacheState(void);
 #endif
 
 void EEPROM_SetLatency(uint32_t EEPROM_Latency);
-uint32_t EEPROM_GetLatency();
+uint32_t EEPROM_GetLatency(void);
 
 __RAMFUNC uint8_t EEPROM_ReadByte(uint32_t Address, uint32_t BankSelector) __attribute__((section("EXECUTABLE_MEMORY_SECTION")));
 __RAMFUNC uint16_t EEPROM_ReadHalfWord(uint32_t Address, uint32_t BankSelector) __attribute__((section("EXECUTABLE_MEMORY_SECTION")));
