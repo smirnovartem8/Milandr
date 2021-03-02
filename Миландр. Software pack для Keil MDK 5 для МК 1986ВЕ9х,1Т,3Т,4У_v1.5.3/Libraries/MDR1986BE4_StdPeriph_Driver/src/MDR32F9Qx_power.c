@@ -362,20 +362,6 @@ void POWER_EnterSTOPMode(FunctionalState POWER_Regulator_state, uint8_t POWER_ST
     }
   }
 }
-
-
-/**
-  * @brief	Shifting core controller into a low power consumption. In this mode,
-  * 		the clock frequency is applied only to the selected peripheral
-  * 		blocks, which interrupt the supply resumes clock on the core.
-  * @param	None
-  * @retval None
-  */
-void POWER_EnterSLEEPMode(void)
-{
-	/* Enter in SLEEP mode */
-	MDR_RST_CLK->ETH_CLOCK |= 1 << RST_CLK_ETH_CLOCK_SLEEP_Pos;
-}
 /**
   * @brief  Enters STANDBY mode.
   * @param  None

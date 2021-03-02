@@ -188,6 +188,7 @@ FlagStatus POWER_GetFlagStatus(uint32_t POWER_FLAG);
 void POWER_ClearFlag(uint32_t POWER_FLAG);
 void POWER_PVD_ITconfig(uint32_t POWER_IT, FunctionalState NewState);
 void POWER_PVD_INVconfig(uint32_t POWER_INV, FunctionalState NewState);
+void POWER_EnterSTOPMode(FunctionalState POWER_Regulator_state, uint8_t POWER_STOPentry);
 void POWER_EnterSTANDBYMode(void);
 
 /** @} */ /* End of group POWER_Exported_Functions */
