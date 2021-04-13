@@ -33,9 +33,7 @@ void INT_UART0_Handler(void)
 
   if (UART_GetITStatusMasked(MDR_UART0, UART_IT_RX) == SET)
   {
-		temp_1 = UART_ReceiveData(MDR_UART0);	
-		
-		UART_ClearITPendingBit(MDR_UART0, UART_IT_RX);
+		temp_1 = UART_ReceiveData(MDR_UART0);
 
 				while (UART_GetFlagStatus (MDR_UART0, UART_FLAG_TXFE)!= SET)
 				{
