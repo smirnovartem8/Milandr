@@ -67,6 +67,28 @@ extern "C" {
 
 /** @} */ /* End of group EEPROM_Bank */
 
+
+#ifdef USE_MDR1901VC1T
+
+/** @defgroup  EEPROM_CacheSelection EEPROM Cache Selection
+  * @{
+  */
+
+#define EEPROM_Cache_Instructions       ((uint32_t)0x00000001)  /*!< EEPROM Instructions Cache */
+#define EEPROM_Cache_Data               ((uint32_t)0x00000002)  /*!< EEPROM Data Cache */
+#define EEPROM_Cache_All                ((uint32_t)0x00000003)  /*!< EEPROM All Cache */
+
+#define EEPROM_Cache_Msk                ((uint32_t)0x00000003)
+
+#define IS_EEPROM_CACHE(SEL)            (((SEL) == EEPROM_Cache_Instructions) || \
+                                         ((SEL) == EEPROM_Cache_Data        ) || \
+                                         ((SEL) == EEPROM_Cache_All         ))
+
+/** @} */ /* End of group EEPROM_CacheSelection */
+
+#endif
+
+
 /** @} */ /* End of group EEPROM_Exported_Constants */
 
 /** @defgroup EEPROM_Exported_Macros EEPROM Exported Macros
@@ -99,9 +121,15 @@ extern "C" {
  #define __RAMFUNC
 #endif
 
-void EEPROM_SetLatency ( uint32_t EEPROM_Latency );
+#ifdef USE_MDR1901VC1T
+void EEPROM_SetCacheState(uint32_t EEPROM_CacheType, FunctionalState NewState);
+uint32_t EEPROM_GetCacheState(void);
+#endif
 
-__RAMFUNC uint8_t EEPROM_ReadByte (uint32_t Address, uint32_t BankSelector) __attribute__((section("EXECUTABLE_MEMORY_SECTION")));
+void EEPROM_SetLatency(uint32_t EEPROM_Latency);
+uint32_t EEPROM_GetLatency(void);
+
+__RAMFUNC uint8_t EEPROM_ReadByte(uint32_t Address, uint32_t BankSelector) __attribute__((section("EXECUTABLE_MEMORY_SECTION")));
 __RAMFUNC uint16_t EEPROM_ReadHalfWord(uint32_t Address, uint32_t BankSelector) __attribute__((section("EXECUTABLE_MEMORY_SECTION")));
 __RAMFUNC uint32_t EEPROM_ReadWord(uint32_t Address, uint32_t BankSelector) __attribute__((section("EXECUTABLE_MEMORY_SECTION")));
 __RAMFUNC void EEPROM_ErasePage(uint32_t Address, uint32_t BankSelector) __attribute__((section("EXECUTABLE_MEMORY_SECTION")));
